@@ -1,0 +1,111 @@
+
+
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+
+/*.limiter {
+  width: 100%;
+  margin: 0 auto;
+}*/
+
+/*.container-table100 {
+  width: 100%;
+  min-height: 100vh;
+  background: #d1d1d1;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 33px 30px;
+}*/
+
+/*.wrap-table100 {
+  width: 1300px;
+}*/
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+table {
+  /*width: 100%;*/
+  background-color: #fff;
+}
+
+th, td {
+  font-weight: unset;
+  padding-right: 1px;
+}
+
+.column100 {
+  /*width: 130px;*/
+  padding-left: 1px;
+}
+
+.column100 .column1 {
+  padding-left: 2px;
+}
+
+.row100.head th {
+  padding-top: 5px;
+  padding-bottom: 2px;
+}
+
+.row100 td {
+    padding-top: 3px;
+    padding-bottom: 2px;
+    border: 1px solid #777;
+}
+
+
+/*==================================================================
+[ Ver1 ]*/
+.table100.ver1 td {
+    font-family: inherit;
+    font-size: 13px;
+    color:#555;
+    font-weight:500;
+    line-height: 1.4;
+}
+
+.table100.ver1 th {
+    font-family: inherit;
+    font-size: 12px;
+    color: #444;
+    line-height: 1.4;
+    text-transform: uppercase;
+    background: #ddd;
+    border: 1px solid #555;
+}
+
+.table100.ver1 .row100:hover {
+  background-color: #f2f2f2;
+}
+
+.table100.ver1 .hov-column-ver1 {
+  background-color: #f2f2f2;
+}
+
+.table100.ver1 .row100 td:hover {
+  background-color: #6c7ae0;
+  color: #fff;
+}
+
+
+
+/*********MIO******/
+.dia-actual {
+    background: #C8E6C9;
+    color:#888;
+    padding:0px;
+}
+
+.widtColum {
+width:297px;
+}

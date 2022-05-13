@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = null;
+    var imagePath = Server.MapPath("~/Content");
+    var cssPath = Server.MapPath("~/Content");
+    var js = Server.MapPath("~/Scripts");
+    String titulo = ViewBag.Title != null ? ViewBag.Title : "REPORTE";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@titulo</title>
+    <link href="@cssPath/css/bootstrap-clearmin.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-clearmin.min.css" rel="stylesheet" />
+    <style>
+        .txtCuerpo {
+            font-family: 'Courier New';
+            font-size: 17px;
+            background: #F1F3F4;
+        }
+
+        .txtCuerpoN {
+            font-family: 'Courier New';
+            font-size: 17px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body style="background:#fff;">
+    <div class="row" style="border: 1px solid #444; padding:4px;">
+        <div class="col-sm-3">
+            @* <img src="~/Content/login/images/ic_ssa_colima.jpg" style="width:100px;" />*@
+        <img src="@imagePath/login/images/ic_ssa_colima.jpg" style="width:100px;" />
+        </div>
+            <div class="col-sm-5" style="text-align: center; font-weight: bold; padding-top: 25px; font-size: 17px; line-height:23px;">
+                SISTEMA INTEGRAL DE INFORMACIÓN DEL ALMACEN CENTRAL DE LOS SERVICIOS DE SALUD DEL ESTADO DE COLIMA
+            </div>
+            <div class="col-sm-4" style="text-align: right; font-weight: bold; padding-top: 25px; font-size: 12px; line-height:13px;">
+                Servicios de salud del estado de colima<br />
+                SSE9610265q2 <br />
+                Almacen central de los servicios de salud del estado de colima<br />
+                Carlos salazar preciado #249<br />
+                Col. Burócratas municipales, C.P. 28040<br />
+                Colima, colima. 3123141443
+
+            </div>
+        </div>

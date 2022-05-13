@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PedidosUnidad.Models.DBPedido.usuarios>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<link href="~/Content/Table/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-8" style="padding:0px;">
+            <h3 style="margin-top:0">Listado de Usuarios</h3>
+        </div>
+        <div class="col-sm-4" style="padding:0px;">
+            <button onclick="go_to_view('/Usuarios/DatosUsuario/0');" type="button" class="btn btn-success pull-right tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar nuevo usuario" style="margin-right: 55px;"><i class="fa fa-plus"></i> Nuevo</button>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <table id="tbl_reg" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Unidad</th>
+                        <th>Rol</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@item.nombre_usuario</td>
+                        <td>@item.user_name</td>
+                        <td>@item.nombre_unidad</td>
+                        <td>@item.nombre_rol</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button onclick="go_to_view('/Usuarios/DatosUsuario/@item.id')" type="button" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"><i class="fa fa-fw fa-pencil"></i></button>
+                                <button type="button" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Eliminar"><i class="fa fa-fw fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

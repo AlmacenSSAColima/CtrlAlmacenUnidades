@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "Reporte";
+}
+<link href="~/Content/date-picker/jquery-ui.css" rel="stylesheet" />
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-8" style="padding:0px;">
+            <h3 style="margin-top:0">Reporte Solicitado VS Entrado</h3>
+        </div>
+        <div class="col-sm-4" style="padding:0px;">
+            @*<button onclick="go_to_view('/Pedido/Pedido');" type="button" class="btn btn-success pull-right tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar nuevo pedido" style="margin-right: 55px;"><i class="fa fa-plus"></i> Hacer Pedido</button>*@
+        </div>
+    </div>
+
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12  col-xl-offset-2 col-lg-offset-2 col-md-offset-2 col-sm-offset-0 ">
+        @using (Html.BeginForm("Reporte", "Report", FormMethod.Post, new { id = "form_datos_consulta", name = "form_datos_consulta" }))
+        {
+            <div class="col-sm-6">
+                <label class="control-label" for="">Fecha Desde:</label>
+                <input id="fe_inicial" name="fe_inicial" value="" type="text" placeholder="dd/mm/aaaa" class="form-control" required="required" />
+            </div>
+            <div class="col-sm-6">
+                <label class="control-label" for="">Fecha Hasta:</label>
+                <input id="fe_final" name="fe_final" value="" type="text" placeholder="dd/mm/aaaa" class="form-control" required="required" />
+            </div>
+            <div class="col-sm-12">
+                <label class="control-label" for="">Tipo Insumo:</label>
+                <select id="tipo_insumo" name="tipo_insumo" class="form-control">
+                    <option value="1">MEDICAMENTO</option>
+                    <option value="2">CURACIÓN</option>
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <label class="control-label" for="">Unidad:</label>
+                @Html.DropDownList("unidad_sol", ViewBag.Unidades as SelectList, "TODAS", new { @class = "form-control" })
+            </div>
+
+            <div class="col-sm-4">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios" value="1" checked>
+                        Unidad por mes
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios" value="2">
+                        General por mes
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios" value="3">
+                        General total
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-sm-12 text-right" style="margin-top:10px;">
+                <input type="submit" id="btnSubmitOculto" hidden />
+                <button type="button" class="btn btn-default b-cr tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Salir"><i class="fa fa-fw fa-close"></i> Cancelar</button>
+                <button onclick="buscarRegistros();" type="button" class="btn btn-default b-cv tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Buscar"><i class="fa fa-fw fa-check"></i> Buscar</button>
+            </div>
+        }
+    </div>
+
+    <div id="dvd_ctn" class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Content/date-picker/jquery-ui.js"></script>
+    <script src="~/Content/date-picker/jquery.ui.datepicker-es.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //Date picker
+            $("#fe_inicial").datepicker();
+            $("#fe_final").datepicker();
+
+            //$("#form_datos_consulta").validate();
+
+
+        });
+
+        function buscarRegistros() {
+
+            //$("#btnSubmitOculto").click();
+            //return false;
+    
+            //Valida reglas de formulario
+            if ($("#form_datos_consulta")[0].checkValidity()) {
+                //--
+                show_loading();
+
+                //Serializar datos de formulario para un POST Ajax
+                var formData = $("#form_datos_consulta").serializeArray();
+                //Url de metodo POST
+                var URL = $("#form_datos_consulta").attr("action");
+
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: URL,// '/Report/Reporte',
+                    data: formData,//_form.serialize(),
+                    dataType: "json",
+                    success: function (data) {
+                        close_loading();
+                        //alert(data);
+                        var response = data;
+                        window.open('/Report/Download?fileGuid=' + response.FileGuid + '&filename=' + response.FileName, '_blank');
+                        //window.location = '/Report/Download?fileGuid=' + response.FileGuid
+                        //    + '&filename=' + response.FileName;
+                    }
+                });
+
+                //Peticion Ajax
+                //$.ajax({
+                //    type: "POST",
+                //    url: URL,
+                //    data: formData,
+                //    dataType: "HTML",
+                //    success: function (data) {
+                //        $("#dvd_ctn").html(data);
+                //        //Success cerrar procesando
+                //        close_loading();
+                //    },
+                //    error: function () {
+                //        //Cerrar Procesando
+                //        close_loading();
+                //        //Mostrar mensaje de excepcion ajax
+                //        show_error('Ocurrio algo al momento de procesar.');
+                //    }
+                //});
+
+            } else {
+        
+                //En caso de cumplir las reglas del formulario hacer un Submit naturar y muestre mensajes requeridos.
+                $("#btnSubmitOculto").click();
+            }
+        }
+    </script>
+}

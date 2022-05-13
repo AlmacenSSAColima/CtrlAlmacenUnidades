@@ -1,0 +1,98 @@
+﻿@model IEnumerable<PedidosUnidad.Models.mesesCls>
+
+@{
+    Layout = null;
+}
+
+
+
+
+<style>
+    .cls-mes {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 14px;
+        text-align: center;
+        font-size: 22px;
+        font-size: 22px;
+        padding-top: 20px;
+        border-radius: 4px;
+    }
+
+    .realizado { 
+        background: #B2EBF2;
+color: #26C6DA;
+border: 1px solid #26C6DA;
+cursor: no-drop;
+    }
+
+    .no-dispo {
+        background: #eee;
+    color: #90A4AE;
+    border: 1px solid #90A4AE;
+    cursor: no-drop;
+    }
+
+
+
+    .dispo {
+        background: #34A853;
+        color: #fff;
+        border: 1px solid #1B5E20;
+        cursor:pointer;
+    }
+
+    .siguiente-mes 
+    {
+        background: #C5E1A5;
+color: #4CAF50;
+border: 1px solid #4CAF50;
+cursor: no-drop;
+    }
+
+    .sub-tms {
+        font-size: 16px;
+    }
+</style>
+
+<div id="ModalMes" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" id="DatosInsumo">
+            <div class="modal-header">
+                <div class="btn-clsin">Selecciona un mes para generar pedido</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <i class="fa fa-circle b-cv"></i>
+                        <i class="fa fa-circle b-ca"></i>
+                        <i class="fa fa-circle b-cr"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body" style="min-height:200px;" id="mdl_body">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            @{string funcion_j = "";}
+                            @if (item.estatus_class == "dispo")
+                            { 
+                                funcion_j = "GoPedido("+item.tipo+","+ item.MesNumber+", '"+item.controlado.ToString()+"');";
+                            }
+                            <div class="cls-mes @item.estatus_class" onclick="@funcion_j">
+                                <div>@item.MesName</div>
+                                <div class="sub-tms"> @item.estatus_desc</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GoPedido(tipo, mes, controlado) {
+        //pedido = 1 es Ordinario
+        window.location.href = '/Pedido/Pedido?tipo='+tipo+'&pedido=1'+'&mes='+mes+'&controlado='+controlado;        
+        }
+</script>

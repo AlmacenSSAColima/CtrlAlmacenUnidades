@@ -1,0 +1,327 @@
+﻿@model PedidosUnidad.Models.CPMpedidosModel
+
+@{
+    ViewBag.Title = "Pedidos";
+}
+
+<style>
+    .btn-action-tbl {
+        width: 25px; height: 25px; border: 1px solid #808080; border-radius: 4px; text-align: center; font-size: 16px; background: #fff;
+        cursor: pointer;
+        float: left;
+margin-right: 4px;
+    }
+        .btn-action-tbl:hover {
+        opacity:0.7;
+        }
+
+    .status-trab {
+        width: 70px;
+height: 16px;
+float: right;
+border: 1px solid #1A237E;
+font-size: 11px;
+text-align: center;
+background: #BBDEFB;
+color: #1A237E;
+border-radius: 3px;
+margin-left: 5px;
+    }
+    .status-env {
+         width: 70px;
+height: 16px;
+float: right;
+border: 1px solid #1B5E20;
+font-size: 11px;
+text-align: center;
+background: #DCEDC8;
+color: #1B5E20;
+border-radius: 3px;
+margin-left: 5px;
+    }
+    .status-proc {
+        width: 70px;
+height: 16px;
+float: right;
+border: 1px solid #E65100;
+font-size: 11px;
+text-align: center;
+background: #FFCCBC;
+color: #E65100;
+border-radius: 3px;
+margin-left: 5px;
+    }
+
+    .status-lis {
+        width: 70px;
+height: 16px;
+float: right;
+border: 1px solid #34A853;
+font-size: 11px;
+text-align: center;
+background: #34A853;
+color: #fff;
+border-radius: 3px;
+margin-left: 5px;
+    }
+
+</style>
+<link href="~/Content/Table/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-8" style="padding:0px;">
+            <h3 style="margin-top:0">Listado de Pedidos</h3>
+        </div>
+        <div class="col-sm-4" style="padding:0px;">
+            <div class="btn-group pull-right" style="margin-right: 55px;">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Nuevo Pedido <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    @if (Model.tipo_pedido == 1)
+                    {
+                        <li><a href="javascript:MesOrdinario('false');">Ordinario Medicamento</a></li>
+                        <li><a href="javascript:MesOrdinario('true');">Ordinario Controlado</a></li>
+                        <li><a href="javascript:MesExtraordinario('false');">Extraordinario Medicamento</a></li>
+                        <li><a href="javascript:MesExtraordinario('true');">Extraordinario Controlado</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="javascript:MesOrdinario('false');">Ordinario</a></li>
+                        <li><a href="javascript:MesExtraordinario('false');">Extraordinario</a></li>
+                    }
+
+                </ul>
+            </div>
+            <!--<button onclick="go_to_view('/Pedido/Pedido?tipo=@Model.tipo_pedido');" type="button" class="btn btn-success pull-right tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar nuevo pedido" style="margin-right: 55px;"><i class="fa fa-plus"></i> Hacer Pedido</button>-->
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <table id="tbl_reg" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th style="width:5%;">Pedido</th>
+                        <th style="width:8%;">Fecha</th>
+                        <th style="width:18%">Unidad</th>
+                        <th style="width:20%">Datos</th>
+                        <th style="width:6%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.pedidos)
+                    {
+                    <tr>
+                        <td>@item.id_pedido</td>
+                        <td>@item.folio</td>
+                        <td style="line-height: 12px;">
+                            @item.pedido @item.mes_des.ToUpper()
+                            <div style="font-size:11px;">(Registro  @item.fecha)</div>
+                        </td>
+                        <td>@item.descrip_unidad</td>
+                        <td>
+                            <div style="width:100%; height:auto;">
+                                <div style="float:left;">@item.descrip_tipo_pedido @(item.controlado ? " Controlado " : "") @item.claves_pedidas claves </div>
+                                @if (item.estatus == 0)
+                                {
+                                    <div class="status-trab">Trabajando</div>
+                                }
+                                @if (item.estatus == 1)
+                                {
+                                    <div class="status-env">Enviado</div>
+                                }
+                                @if (item.estatus == 2)
+                                {
+                                    <div class="status-proc">En Proceso</div>
+                                }
+                                @if (item.estatus == 3)
+                                {
+                                    <div class="status-lis">Listo</div>
+                                }
+
+                            </div>
+
+
+                            @*@if (item.estatus == 0)
+            {
+                <label>Estatus: Trabajando</label>
+            }
+            @if (item.estatus == 1)
+            {
+                <label>Estatus: Enviado</label>
+            }
+            @if (item.estatus == 2)
+            {
+                <label>Estatus: En Proceso</label>
+                <label>Folio: @item.folio_almacen</label>
+            }
+            @if (item.estatus == 3)
+            {
+                <label>Estatus: Listo Por enviar</label>
+                <label>Folio: @item.folio_almacen</label>
+            }*@
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+
+                                @if (item.estatus == 0)
+                                {
+                                    <div onclick="javascript:location.href = '/Pedido/GetPedido?id=@item.id_pedido&unidad=@item.id_unidad'" class="btn-action-tbl tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Continuar">
+                                        <i class="fa fa-fw fa-pencil"></i>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div onclick="reportePedido(@item.id_pedido, @item.id_unidad);" class="btn-action-tbl tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reporte">
+                                        <i class="fa fa-fw fa-print"></i>
+                                    </div>
+                                    <div onclick="verDetallePedido(@item.id_pedido, @item.id_unidad, @item.estatus);" class="btn-action-tbl tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle">
+                                        <i class="fa fa-fw fa-file-text-o"></i>
+                                    </div>
+                                }
+
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div style="display:none">
+    @using (Html.BeginForm("ConfirmarPedido", "Pedido", FormMethod.Post, new { id = "frm_", name = "frm_" }))
+    {
+        <input id="id_pedido" name="id_pedido" type="hidden" />
+        <input id="id_unidad" name="id_unidad" type="hidden" />
+
+    }
+</div>
+<!-- MODAL PARA ELEGIR MES DEL ORDINARIO -->
+<div id="modal_mes"></div>
+
+
+
+
+@section scripts {
+    <!-- DataTables -->
+    <script src="~/Content/Table/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Table/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            console.log('@Model.show_msg');
+            if ('@Model.show_msg' != 'False') {
+
+                if ('@Model.exito' != 'False') {
+                    //show_exito('@Model.msg','');
+                    alert('@Model.msg');
+                }
+                else {
+                    //show_error('@Model.msg');
+                    alert('@Model.msg');
+                }
+            }
+            $('#tbl_reg').DataTable(
+                {
+                    "order": [[0, "desc"]],
+                    "columnDefs": [
+                        { "visible": false, "targets": 0 }
+                      ]
+                  
+                } 
+            );
+
+        });
+
+        function enviarPedido(id, unidad) {
+            $("#id_pedido").val(id);
+            $("#id_unidad").val(unidad);
+            $("#frm_").submit();
+        }
+
+        function confirmarPedido(id, unidad)
+        {
+            showConfirmOverride('Esta seguro de enviar el pedido?','enviarPedido('+id+', '+unidad+')');
+
+            //var r = confirm("Press a button!");
+            //if (r == true) {
+            //    enviarPedido(id, unidad);
+            //} else {
+
+            //}
+        }
+
+    function reportePedido(id, unidad) {
+        show_loading();
+         $.ajax({
+                type: "GET",
+                cache: false,
+                url: '/Pedido/GetReportePedido?id='+id+' &unidad='+unidad,
+                dataType: "json",
+                success: function (data) {
+                    close_loading();
+                    var response = data;
+                    window.open('/Pedido/Download?fileGuid=' + response.FileGuid + '&filename=' + response.FileName, '_blank');
+                }
+            });
+        }
+
+        function verDetallePedido(id, unidad, estatus)
+        {
+             window.location.href = '/Pedido/DetallePedido?id=' + id + '&unidad=' + unidad + '&estatus=' + estatus;
+        }
+
+        function MesOrdinario(controlado) {
+
+           // var tipo = $("#tipo_insumo").val();
+            //URL que mostrara la modal
+            var url = '/Pedido/MesesOrdinario?controlado='+controlado;
+            //Mostrar porcesando
+            show_loading();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {                     
+                    $("#modal_mes").html(data);
+                    $('#ModalMes').modal('show');
+                    close_loading();
+                },
+                error: function (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+
+        function MesExtraordinario(controlado)
+        {
+            // var tipo = $("#tipo_insumo").val();
+            //URL que mostrara la modal
+            var url = '/Pedido/MesesExtraordinario?controlado='+controlado;
+            //Mostrar porcesando
+            show_loading();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: "json",
+                success: function (data) {
+                    
+                    if (data.flag) {
+                        //tipo = 1 MEDICAMENTO, 2 MATERIAL pedido  1 ORDINARIO, 2 EXTRAORDINARIO  mes = 3 no mes,  controlado True/False
+                        window.location.href = '/Pedido/Pedido?tipo=' + data.tipo + '&pedido=' + data.pedido + '&mes=' + data.mes + '&controlado=' + data.controlado;
+                    }
+                    else {
+                        show_info("Antes de un EXTRAORDINARIO debes generar un pedido ordinario del mes en curso. ");
+                        close_loading();
+                    }
+                     
+                    //
+                },
+                error: function (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+    </script>
+}

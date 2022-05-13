@@ -1,0 +1,428 @@
+﻿
+.uploadArea{
+    height:240px; 
+    /*overflow-y:scroll;*/ 
+    border:2px dashed #ccc; 
+    padding:10px; 
+    cursor:move; 
+    margin-bottom:10px; position:relative; 
+    /*padding-left:20px;*/
+
+}
+h1, h5{ padding:0px; margin:0px; }
+h1.title{ font-family:'Boogaloo', cursive; padding:10px; }
+.uploadArea h1{ color:#ccc; width:95%; z-index:-1; text-align:center; vertical-align:middle; position:absolute; top:25px;}
+
+.dfiles{ 
+    clear:both; 
+    height:35px;
+         border:1px solid #ccc; 
+         background-color:#E4E4E4; 
+         padding:3px;  
+         position:relative; 
+         margin:3px; 
+         z-index:1;
+          width:100% !important;
+           /*opacity:0.6;*/ 
+           cursor:default; 
+           
+
+}
+
+h5{ width:95%; line-height:25px;}
+h5, h5 img {  float:left;  }
+.invalid { border:1px solid red !important; }
+.buttonUpload { display:inline-block; padding: 4px 10px 4px; text-align: center; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); background-color: #0074cc; -webkit-border-radius: 4px;-moz-border-radius: 4px; border-radius: 4px; border-color: #e6e6e6 #e6e6e6 #bfbfbf; border: 1px solid #cccccc; color:#fff; }
+.progress img{ margin-top: 0px; margin-left: 3px; } 
+
+.AreaFotos{height:350px; overflow-y:scroll; border:1px dotted #ccc; padding:10px; cursor:move; margin-bottom:10px; position:relative;}
+
+/******************** REFERENCIA SELECCIONADA *****************************************/
+.searchin {
+    width: 100%;
+    height: 40px;
+    margin: 1px;
+    background: #fff;/*#e6e6e6;*/
+    border-radius: 3px;
+    border: 1px solid #777;
+}
+
+    .searchin input {
+        width: 90%;
+        padding: 10px 5px;
+        float: left;
+        color: #555;
+        border: 0;
+        background: transparent;
+        border-radius: 3px 0 0 3px;
+    }
+
+        .searchin input:focus {
+            outline: 0;
+            background: transparent;
+        }
+
+    .searchin button {
+        position: relative;
+        float: right;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        height: 40px;
+        width: 9%;
+        color: #918c8c;
+        background: transparent;
+        /*border-left: 1px solid #fff;*/
+        border-radius: 0 3px 3px 0;
+    }
+
+        .searchin button:hover {
+            /*background: #fff;
+                color: #444;*/
+        }
+
+        .searchin button:active {
+            box-shadow: 0px 0px 12px 0px rgba(225, 225, 225, 1);
+        }
+
+        .searchin button:focus {
+            outline: 0;
+        }
+
+/*******************************/
+
+.notif {
+    width: 100%;
+    height: 60px;
+    margin: 10px auto;
+    color: white;
+    border-radius: 2px;
+    /*box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);*/
+    overflow: hidden;
+}
+
+.notif--success {
+    background: #59C0DF;/*#39cccc;*/
+}
+
+.notif__icon {
+    padding: 10px;
+    font-size: 40px;
+}
+
+.notif__content, .notif__actions {
+    height: 100%;
+    float: left;
+}
+
+.notif__content {
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.notif__title {
+    margin-bottom: 1px;
+    font-size: 2em;
+}
+
+.notif__actions {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+    .notif__actions > * {
+        flex-grow: 1;
+    }
+
+.notif__action {
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+}
+
+    .notif__action:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+        .notif__action:hover:after {
+            display: block;
+        }
+
+    .notif__action:after {
+        content: attr(data-tooltip);
+        display: none;
+        position: absolute;
+        right: 110%;
+        top: 50%;
+        margin-top: -1em;
+        padding: 0.5em 1em;
+        text-align: center;
+        white-space: nowrap;
+        background: #141414;
+        border-radius: 4px;
+    }
+
+    .notif__action > * {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -12px;
+        margin-left: -12px;
+        font-size: 24px;
+    }
+
+.notif a {
+    color: inherit;
+}
+/********************************************************/
+
+.outer {
+    max-width: 99%;
+    margin: auto;
+    text-align: center;
+    margin-top: 0px;
+}
+
+.wrapper {
+    width: 100%;
+    height: 225px;
+    background: #59C0DF;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.progressini {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    width: 100%;
+    text-align: center;
+    z-index: 200;
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 10%;
+    background: #3EABCA;
+    z-index: 100;
+    transition: all 1s ease-out;
+}
+
+.inner {
+    position: absolute;
+    height: 100%;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 50px;
+}
+
+.curve {
+    position: absolute;
+    background: #3EABCA;
+    width: 33.33%;
+    height: 25px;
+    border-radius: 50%;
+    display: block;
+    float: left;
+    margin-right: -1px;
+    z-index: 120;
+    animation: wave 1.5s infinite ease-out;
+    transition: all 0.3s linear;
+}
+
+    .curve:nth-child(2) {
+        animation-delay: 0.3s;
+        box-shadow: none;
+        top: -5px;
+        background: #59C0DF;
+        z-index: 110;
+        left: 33.33%;
+    }
+
+    .curve:nth-child(3) {
+        animation-delay: 0.5s;
+        left: 66.66%;
+    }
+
+.info {
+    background: #FAFAFA;
+    border-radius: 0 0 8px 8px;
+    padding: 10px;
+    box-shadow: 0px 1px 2px #555;
+    text-align: center;
+}
+
+    .info b {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .info span {
+        color: #555;
+    }
+
+.buttonin {
+    background: #3EABCA;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 8px 12px;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+}
+
+.completed.wave {
+    background: #28C993;
+}
+
+.completed .curve {
+    opacity: 0;
+}
+
+.hide {
+    display: none;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+        height: 45px;
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/***********************************************/
+.text-bold {
+    font-weight: 900;
+}
+
+.check-list-wrapper {
+    /*max-height: 240px;
+    overflow-Y: auto;*/
+    padding-top:5px;
+    margin-bottom: 10px;
+}
+
+.check-list {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #7f7f7f; /*#f1f1f1;*/
+}
+
+.matched-file-content {
+    padding:2px 5px;
+    width:100%;
+}
+.check-list li {
+    display: flex;
+    display: -webkit-flex;
+    margin: 0 0 5px 0;
+    padding: 1px 2px 2px 4px;
+    list-style: none;
+    /*border-bottom: 1px solid #c9c9c9;*/
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+    .check-list li:hover {
+        background: #E1F5FE; /*rgba(0,0,0,0.6);*/
+    }
+
+
+        .check-list li:last-child {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+.check-list-content p {
+    margin: 0 0 5px 0;
+    padding: 0;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+.check-list-box {
+    width: 60px;
+    padding: 0 10px;
+}
+
+
+
+.matched-file-main p {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+}
+
+
+.matched-file-subcontent {
+    float:left;
+}
+
+.matched-file-subcontent p {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0;
+}
+
+.check-list-bottom {
+    border-top: 1px solid #c9c9c9;
+    display: flex;
+    display: -webkit-flex;
+}
+
+.check-list-all {
+    width: 50%;
+    font-size: 12px;
+}
+
+.check-list-buttons {
+    padding-top: 10px;
+    text-align: right;
+    width: 50%;
+}
+
+.op-select {
+    float: right;
+    font-size: 25px;
+    color: #4CAF50;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    margin: 4px;
+}
+
+
+

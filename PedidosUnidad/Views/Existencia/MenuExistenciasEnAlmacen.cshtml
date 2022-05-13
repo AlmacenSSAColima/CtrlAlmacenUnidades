@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "MenuExistenciasEnAlmacen";
+}
+<link href="~/Content/css/homeIn.css" rel="stylesheet" />
+<div class="container-fluid bck-home" style="padding:0px;">
+    <div style="width:100%; height:100vh; background:rgba(0,0,0,0.3); text-align:center; padding-top:3%;">
+        <h2 class="outline" style=" margin:0px; font-size:30px;">categorías</h2>
+        <div class="row cm-fix-height" style="margin-left:0px; margin-right:0px; margin-top:2%;">
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="/Existencia/ExistenciasEnALmacenByTipo?tipo_insumo=1" class="panel panel-default thumbnail cm-thumbnail">
+                    <div class="panel-body text-center" style="min-height: 175px;">
+                        <span class="svg-48">
+                            <img src="~/Content/img/sf/monitor.svg" alt="notepad">
+                        </span>
+                        <h4>Medicamento</h4> <small>Cuadro general de medicamento.</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="/Existencia/ExistenciasEnALmacenByTipo?tipo_insumo=2" class="panel panel-default thumbnail cm-thumbnail">
+                    <div class="panel-body text-center" style="min-height: 175px;">
+                        <span class="svg-48">
+                            <img src="~/Content/img/sf/layers.svg" alt="notepad">
+                        </span>
+                        <h4>Material</h4> <small>Cuadro general de material de curación.</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="/Existencia/ExistenciasEnALmacenByTipo?tipo_insumo=3" class="panel panel-default thumbnail cm-thumbnail">
+                    <div class="panel-body text-center" style="min-height: 175px;">
+                        <span class="svg-48">
+                            <img src="~/Content/img/sf/funnel.svg" alt="notepad">
+                        </span>
+                        <h4>Laboratorio</h4> <small>Cuadro general de material de laboratorio.</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="/Existencia/ExistenciasEnALmacenByTipo?tipo_insumo=4" class="panel panel-default thumbnail cm-thumbnail">
+                    <div class="panel-body text-center" style="min-height: 175px;">
+                        <span class="svg-48">
+                            <img src="~/Content/img/sf/device-tablet.svg" alt="notepad">
+                        </span>
+                        <h4>Radiográfico</h4> <small>Cuadro general radiográfico.</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="/Existencia/ExistenciasEnALmacenByTipo?tipo_insumo=7" class="panel panel-default thumbnail cm-thumbnail">
+                    <div class="panel-body text-center" style="min-height: 175px;">
+                        <span class="svg-48">
+                            <img src="~/Content/img/sf/folder.svg" alt="notepad">
+                        </span>
+                        <h4>Oficina</h4> <small>Cuadro general de oficina.</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="/Existencia/ExistenciasEnALmacenByTipo?tipo_insumo=5" class="panel panel-default thumbnail cm-thumbnail">
+                    <div class="panel-body text-center" style="min-height: 175px;">
+                        <span class="svg-48">
+                            <img src="~/Content/img/sf/user-female-alt.svg" alt="notepad">
+                        </span>
+                        <h4>Ropería</h4> <small>Cuadro general de ropería.</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" style="z-index:1;">
+                <a href="/Existencia/ExistenciasEnALmacenByTipo?tipo_insumo=6" class="panel panel-default thumbnail cm-thumbnail">
+                    <div class="panel-body text-center" style="min-height: 175px;">
+                        <span class="svg-48">
+                            <img src="~/Content/img/sf/trashcan-full.svg" alt="notepad">
+                        </span>
+                        <h4>Limpieza</h4> <small>Cuadro general limpieza.</small>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" style="z-index:1;">
+                <a href="/Existencia/ExistenciasEnALmacenByTipo?tipo_insumo=8" class="panel panel-default thumbnail cm-thumbnail">
+                    <div class="panel-body text-center" style="min-height: 175px;">
+                        <span class="svg-48">
+                            <img src="~/Content/img/sf/wrench-screwdriver.svg" alt="notepad">
+                        </span>
+                        <h4>Diversos</h4> <small>Cuadro general diversos.</small>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            show_info('Las existencias son sujetas a cambios sin previo aviso por procesos internos y surtimiento de pedidos en tiempo real.');
+        });
+    </script>
+}

@@ -1,0 +1,210 @@
+﻿@model PedidosUnidad.Models.PedidoModel
+@{
+    ViewBag.Title = "ResultPedido";
+}
+
+<style>
+    .container_s {
+        max-width: 350px;
+        max-height: 630px;
+        overflow: hidden;
+        margin: 30px auto 0;
+        box-shadow: 0 0 40px #a0a0a0;
+        font-family: "Open Sans", sans-serif;
+    }
+
+    .navbar_ {
+        background: #2196F3;
+        color: #fff;
+        padding: 1em 0.5em;
+    }
+
+        .navbar_ a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.3em;
+            float: left;
+        }
+
+        .navbar_ span {
+            font-size: 1.1em;
+            font-weight: 300;
+            display: block;
+            text-align: center;
+        }
+
+    .profile-pic {
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        float: right;
+        position: relative;
+    }
+
+        .profile-pic img {
+            width: 100%;
+            border-radius: 50%;
+        }
+
+    .notification {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        top: 2px;
+        right: 2px;
+        background: #F93B69;
+    }
+
+    .header {
+        background: url('../../Content/img/bg_enviado.jpg');
+        background-size: cover;
+        color: #fff;
+        position: relative;
+    }
+
+    .color-overlay {
+        padding: 3em 2em;
+        box-sizing: border-box;
+        background: rgba(123, 94, 155, 0.5);
+    }
+
+    .actionbutton {
+        position: absolute;
+        background: #4CAF50;
+        width: 50px;
+        height: 50px;
+        font-size: 3em;
+        font-weight: 300;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        bottom: -25px;
+        right: 20px;
+        box-shadow: 0 0 8px #202020;
+    }
+
+    .day-number {
+        font-size: 4em;
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .date-right {
+        display: inline-block;
+    }
+
+    .day-name {
+        font-size: 1.6em;
+    }
+
+    .month {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 0.8em;
+        letter-spacing: 2px;
+        margin-top: 2px;
+    }
+
+    .center {
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    .barcode {
+        height: 10px;
+        width: 0;
+        box-shadow: 1px 0 0 1px #343434, 5px 0 0 1px #343434, 10px 0 0 1px #343434, 11px 0 0 1px #343434, 15px 0 0 1px #343434, 18px 0 0 1px #343434, 22px 0 0 1px #343434, 23px 0 0 1px #343434, 26px 0 0 1px #343434, 30px 0 0 1px #343434, 35px 0 0 1px #343434, 37px 0 0 1px #343434, 41px 0 0 1px #343434, 44px 0 0 1px #343434, 47px 0 0 1px #343434, 51px 0 0 1px #343434, 56px 0 0 1px #343434, 59px 0 0 1px #343434, 64px 0 0 1px #343434, 68px 0 0 1px #343434, 72px 0 0 1px #343434, 74px 0 0 1px #343434, 77px 0 0 1px #343434, 81px 0 0 1px #343434;
+        display: inline-block;
+        margin-right: 85px;
+    }
+
+    .sign {
+        text-align: center;
+    }
+
+    .thankyou {
+        line-height: 14px;
+        font-size: 10px;
+        margin-top: 5px;
+        color: #5B5B5B;
+        width: 100%;
+    }
+</style>
+
+<div class="container-fluid cm-container-white" style="min-height:600px; padding-top:70px;">
+    @*<h2>@Model.descrip_unidad</h2>
+        <h2>Solicitud enviada con folio: @Model.folio</h2>
+        <h2>@Model.fecha</h2>
+        @Model.exito*@
+
+    <div class="container_s">
+        <div class="navbar_">
+            <a href="#">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </a>
+            <div class="profile-pic">
+                <img src="~/Content/img/Portrait_Placeholder.png" style="width:30px; height:30px;"/>
+                <div class="notification"></div>
+            </div>
+            <span>@Model.descrip_unidad</span>
+        </div>
+
+        <div class="header">
+            <div class="color-overlay">
+                <div class="day-number">@Model.dia_no</div>
+                <div class="date-right">
+                    <div class="day-name">@Model.dia_des</div>
+                    <div class="month">@Model.mes_des @Model.anio</div>
+                    <div class="month">@Model.hrs_des hrs</div>
+                </div>
+            </div>
+            <div class="actionbutton"><span class="fa  fa-check"></span></div>
+        </div>
+
+        <div class="timeline">
+            <div class="sign center" style=" margin-top:25px;">
+                <h4>
+                    Solicitud enviada correctamente
+                </h4>
+            </div>
+            <div class="sign center" style="border-top: 1px dashed #ccc; margin-top:25px; margin-bottom:25px;">
+                <div style="width:100%; text-align:center;" >
+                    <button onclick="reportePedido(@Model.tipo_pedido);" type="button" class="btn btn-success tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Descargar Reporte de Pedido" style=""><i class="fa fa-print"></i> Imprimir</button>
+                </div>
+                
+                <br />
+                <div class="barcode"></div>
+                <br />
+                @Model.folio
+                <br />
+                <div class="thankyou">
+                    Folio Generado
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function reportePedido(tipo) {
+        show_loading();
+         $.ajax({
+                    type: "GET",
+                    cache: false,
+                    url: '/Pedido/Reporte?tipo_insumo='+tipo,
+                    dataType: "json",
+                    success: function (data) {
+                        close_loading();
+                        //alert(data);
+                        var response = data;
+                        window.open('/Pedido/Download?fileGuid=' + response.FileGuid + '&filename=' + response.FileName, '_blank');
+                        //window.location = '/Report/Download?fileGuid=' + response.FileGuid
+                        //    + '&filename=' + response.FileName;
+                    }
+                });
+    }
+</script>

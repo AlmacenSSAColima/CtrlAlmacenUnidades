@@ -1,0 +1,1322 @@
+﻿@model PedidosUnidad.Models.CuadroMonitoreoClass
+@{
+    ViewBag.Title = "ExistenciaPFMI";
+}
+<style>
+    #chatbox {
+        width: 100%; /*290px;*/
+        background: #fff;
+        border-radius: 6px;
+        overflow: auto;
+        height: 100vh; /*484px;*/
+        position: relative;
+        top: 20px;
+    }
+
+    #friendslist {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 484px;
+    }
+
+    #topmenu {
+        height: 40px;
+        width: 100%;
+        border-bottom: 1px solid #d8dfe3;
+        padding: 10px 15px;
+    }
+
+    .friend {
+        height: 70px;
+        border-bottom: 1px solid #e7ebee;
+        position: relative;
+    }
+
+        .friend:hover {
+            background: #f1f4f6;
+            cursor: pointer;
+        }
+
+        .friend img {
+            width: 40px;
+            border-radius: 50%;
+            margin: 15px;
+            float: left;
+        }
+
+
+        .friend .cntidad {
+            width: 40px;
+            border-radius: 50%;
+            margin: 5px;
+            float: left;
+            background: #555;
+            height: 40px;
+            color: #f1f1f1;
+            text-align: center;
+            padding-top: 10px;
+            font-weight: 500;
+            line-height: 11px;
+        }
+
+    .floatingImg {
+        width: 40px;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 12px;
+        border: 3px solid #fff;
+    }
+
+    .friend p {
+        padding: 15px 0 0 0;
+        float: left;
+        width: 79%;
+        line-height: 11px;
+    }
+
+        .friend p strong {
+            font-weight: 600;
+            font-size: 15px;
+            color: #597a96;
+        }
+
+        .friend p span {
+            font-size: 13px;
+            font-weight: 400;
+            color: #aab8c2;
+        }
+
+
+
+    #chatview {
+        width: 100%; /*290px;*/
+        height: 95vh; /*484px;*/
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        background: #fff;
+    }
+
+    #profile {
+        height: 153px;
+        overflow: hidden;
+        text-align: center;
+        color: #fff;
+    }
+
+    .p1 #profile {
+        background: #fff url("../Content/img/Mdc_bck.jpg") 0 0 no-repeat;
+        background-size: cover;
+    }
+
+    #profile .avatar {
+        width: 68px;
+        border: 3px solid #fff;
+        margin: 23px 0 0;
+        border-radius: 50%;
+    }
+
+    #profile p {
+        font-weight: 600;
+        font-size: 15px;
+        margin: 118px 0 -1px;
+        opacity: 0;
+        -webkit-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        -moz-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        -ms-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        -o-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+    }
+
+        #profile p.animate {
+            margin-top: 40px;
+            opacity: 1;
+            -webkit-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+            -moz-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+            -ms-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+            -o-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+            transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        }
+
+    #profile span {
+        font-weight: 400;
+        font-size: 11px;
+    }
+
+    #chat-messages {
+        opacity: 0;
+        margin-top: 30px;
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-right: 20px;
+        -webkit-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        -moz-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        -ms-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        -o-transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+        transition: all 200ms cubic-bezier(0.000, 0.995, 0.990, 1.000);
+    }
+
+        #chat-messages.animate {
+            opacity: 1;
+            margin-top: 0;
+        }
+
+        #chat-messages label {
+            color: #aab8c2;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+            margin: 15px 0;
+            width: 290px;
+            display: block;
+        }
+
+        #chat-messages div.message {
+            padding: 0 0 30px 58px;
+            clear: both;
+            margin-bottom: 45px;
+        }
+
+            #chat-messages div.message.right {
+                padding: 0 58px 30px 0;
+                margin-right: -19px;
+                margin-left: 19px;
+            }
+
+        #chat-messages .message img {
+            float: left;
+            margin-left: -38px;
+            border-radius: 50%;
+            width: 30px;
+            margin-top: 12px;
+        }
+
+        #chat-messages div.message.right img {
+            float: right;
+            margin-left: 0;
+            margin-right: -38px;
+        }
+
+        #chat-messages .message .exisIn {
+            float: left;
+            margin-left: -38px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background: #555;
+            color: #f1f1f1;
+            text-align: center;
+            margin-top: 12px;
+            line-height: 8px;
+            padding-top: 8px;
+        }
+
+        #chat-messages div.message.right .exisIn {
+            float: right;
+            margin-left: 0;
+            margin-right: -38px;
+        }
+
+    .message .bubble {
+        background: #f0f4f7;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 7px 5px;
+        border-radius: 5px 5px 5px 0px;
+        color: #8495a3;
+        position: relative;
+        float: left;
+        line-height: 12px;
+        width: 100%;
+    }
+
+    #chat-messages div.message.right .bubble {
+        float: right;
+        border-radius: 5px 5px 0px 5px;
+    }
+
+    .bubble .corner {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/bubble-corner.png") 0 0 no-repeat;
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        left: -5px;
+        bottom: 0;
+    }
+
+    div.message.right .corner {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/bubble-cornerR.png") 0 0 no-repeat;
+        left: auto;
+        right: -5px;
+    }
+
+    .bubble span {
+        color: #aab8c2;
+        font-size: 11px;
+        position: absolute;
+        right: 0;
+        bottom: -22px;
+    }
+
+
+    #close {
+        position: absolute;
+        top: 8px;
+        opacity: 0.8;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+        #close:hover {
+            opacity: 1;
+        }
+
+    .cx, .cy {
+        background: #fff;
+        position: absolute;
+        width: 0px;
+        top: 15px;
+        right: 15px;
+        height: 3px;
+        -webkit-transition: all 250ms ease-in-out;
+        -moz-transition: all 250ms ease-in-out;
+        -ms-transition: all 250ms ease-in-out;
+        -o-transition: all 250ms ease-in-out;
+        transition: all 250ms ease-in-out;
+    }
+
+        .cx.s1, .cy.s1 {
+            right: 0;
+            width: 20px;
+            -webkit-transition: all 100ms ease-out;
+            -moz-transition: all 100ms ease-out;
+            -ms-transition: all 100ms ease-out;
+            -o-transition: all 100ms ease-out;
+            transition: all 100ms ease-out;
+        }
+
+        .cy.s2 {
+            -ms-transform: rotate(50deg);
+            -webkit-transform: rotate(50deg);
+            transform: rotate(50deg);
+            -webkit-transition: all 100ms ease-out;
+            -moz-transition: all 100ms ease-out;
+            -ms-transition: all 100ms ease-out;
+            -o-transition: all 100ms ease-out;
+            transition: all 100ms ease-out;
+        }
+
+        .cy.s3 {
+            -ms-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            -webkit-transition: all 100ms ease-out;
+            -moz-transition: all 100ms ease-out;
+            -ms-transition: all 100ms ease-out;
+            -o-transition: all 100ms ease-out;
+            transition: all 100ms ease-out;
+        }
+
+        .cx.s1 {
+            right: 0;
+            width: 20px;
+            -webkit-transition: all 100ms ease-out;
+            -moz-transition: all 100ms ease-out;
+            -ms-transition: all 100ms ease-out;
+            -o-transition: all 100ms ease-out;
+            transition: all 100ms ease-out;
+        }
+
+        .cx.s2 {
+            -ms-transform: rotate(140deg);
+            -webkit-transform: rotate(140deg);
+            transform: rotate(140deg);
+            -webkit-transition: all 100ms ease-out;
+            -moz-transition: all 100ms ease-out;
+            -ms-transition: all 100ease-out;
+            -o-transition: all 100ms ease-out;
+            transition: all 100ms ease-out;
+        }
+
+        .cx.s3 {
+            -ms-transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+            -webkit-transition: all 100ease-out;
+            -moz-transition: all 100ms ease-out;
+            -ms-transition: all 100ms ease-out;
+            -o-transition: all 100ms ease-out;
+            transition: all 100ms ease-out;
+        }
+
+    #chatview, #sendmessage {
+        overflow: hidden;
+        border-radius: 6px;
+    }
+</style>
+
+<div class="container-fluid ">
+    <div class="row cm-fix-height">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-left: 1px; margin-bottom:10px; position: fixed; width:97%; z-index:1;">
+            <div class="input-group">
+                <input id="buscar_item" type="text" class="form-control" placeholder="Buscar y filtrar..." style="height:35px;">
+                <span class="input-group-btn">
+                    <button style="z-index:2; height:35px; " class="btn btn-primary md-search-white" type="button">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                </span>
+            </div>
+        </div>
+        <div id="ctn_items" class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-left: 1px; margin-top:38px;">
+
+            @foreach (var item in Model.rows)
+            {
+                <div class="itms" onclick="showProgramacion('d_@item.pk_articulo');" style="width: 100%; height:70px; border: 1px solid #ddd; padding: 2px; border-radius: 5px; background: #fff;  box-shadow:0 2px 4px rgba(0,0,0,0.05); margin-top:5px; cursor:pointer;">
+                    <div style="width:100%; clear:both;">
+                        <div style="float:left; height:20px;">@item.cve</div>
+                        @{string color__ = "border: 1px solid #d50000; background: #ffcdd2;";}
+                        @if (item.exist_almacen > 0)
+                        {
+                            color__ = "border: 1px solid #2E7D32; background: #C8E6C9; color: #1B5E20;";
+                        }
+
+                        <div style="width: 55px; height: 15px; @color__ margin: 0px 2px 0px 2px; text-align: center; border-radius: 2px; font-size: 9px; float:right;">EXI: @item.exist_almacen</div>
+
+                        @if (item.cuadro)
+                        {
+                            <div style="width: 15px; height: 15px; border: 1px solid #78909C; background: #F5F5F5; margin: 0px 2px 0px 2px; text-align: center; border-radius: 2px; font-size: 9px; float:right;">C</div>
+                        }
+
+                    </div>
+                    <div style="width:100%; color: #aaa; font-family: verdana; font-size: 11px; text-align:justify; line-height: 11px; clear:both; ">
+                        @{string descrip_rec_ = item.descripcion;}
+                        @if (item.descripcion.Length > 175)
+                        {
+                            descrip_rec_ = item.descripcion.Substring(0, 171) + "...";
+                        }
+                        @descrip_rec_
+                    </div>
+                </div>
+                <div id="d_@item.pk_articulo" style="width:100%; height: 92vh; background:#fff; top: 50px;  bottom: 0;  left: 0;  right: 0; position:fixed; z-index:2; overflow-y:auto; display:none;">
+                    <div class="">
+                        <div style="width: 100%; height: 40px; padding: 5px 3px; background:#555; color: #fff; text-align:left; overflow-y:auto;">
+                            <div onclick="hideProgramacion('d_@item.pk_articulo');" style="width:30px; height:30px; border-radius:2px; background:#757575; text-align: center; float:left; padding-top: 3px;">
+                                <i style="font-size: 22px; color: #fff;" class="fa fa-fw fa-close"></i>
+                            </div>
+                            <div style="font-size:15px; font-weight:600; float:left; margin-top: 5px; margin-left: 20px;">Existencias de insumo</div>
+                        </div>
+                        <div style="width: 100%; height: 40px; padding: 5px 3px;">
+                            <div style="float: left; height: 25px; font-size: 16px; font-weight: 600; color: #263238; margin-top: 5px;">
+                                @item.cve
+                            </div>
+                            @{int total_pfmi = item.exist_pfmi_1 + item.exist_pfmi_2 + item.exist_pfmi_3 + item.exist_pfmi_4 + item.exist_pfmi_5 + item.exist_pfmi_6 + item.exist_pfmi_7 + item.exist_pfmi_8 + item.exist_pfmi_9 + item.exist_pfmi_10 + item.exist_pfmi_11+ item.exist_pfmi_12+ item.exist_pfmi_13+ item.exist_pfmi_14+ item.exist_pfmi_15;}
+                            @{string color = "background: #C8E6C9; color: #1B5E20;";}
+                            @if (item.exist_almacen > 0)
+                            {
+                                color = "background: #ffcdd2; color: #d50000;";
+                            }
+                            <div style="width: 55px; height: 35px; float: right; text-align: right; padding: 3px; border-radius: 3px; margin-top: -2px; font-weight: 600; padding-top: 6px; @color ">
+                                <div style="margin-top:-2px;">@item.exist_almacen</div>
+                                <div style="font-size:12px; margin-top:-5px;">Almacén</div>
+                            </div>
+                            <div style="width: 55px; height: 35px; float: right; background: #EEEEEE; color: #37474F; text-align: right; padding: 3px; border-radius: 3px; margin-top: -2px; margin-right:5px; font-weight: 600; padding-top: 6px;">
+                                <div style="margin-top:-2px;">@total_pfmi</div>
+                                <div style="font-size:12px; margin-top:-5px;">PFMI</div>
+                            </div>
+                        </div>
+                        <div style="width: 100%; min-height: 45px;  max-height: 190px; overflow-y: auto; line-height: 13px; padding: 2px; text-align: justify;">
+                            @item.descripcion
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string hru_ = "background: #BBDEFB; color: #01579B;";
+                                    string hru_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.exist_pfmi_1 < 0)
+                                {
+                                    hru_n2 = "color: #d50000";
+                                }
+                                <div onclick="" style="width: 55px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @hru_">
+                                    PFMI 1
+                                </div>
+                                <div style="width: 235px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        LIBRE COLIMA-GDL (QUESERIA)
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_pfmi1 = "S/C";}
+                                        @if (item.ult_fec_pfmi_1 != null)
+                                        {
+                                            fecha_ul_pfmi1 = String.Format("{0:dd MMMM yyyy}", item.ult_fec_pfmi_1) +" "+ item.ult_hr_pfmi_1;
+                                        }
+                                        @fecha_ul_pfmi1
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 22px;">
+                                    <div style="font-size:14px; font-weight: 600; @hru_n2">@item.exist_pfmi_1</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string hgt_ = "background: #BBDEFB; color: #01579B;";
+                                    string hgt_n1 = "color: #2196F3;";
+                                    string hgt_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_hgt == 0)
+                                {
+                                    hgt_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    hgt_n1 = "color: #a7abc3";
+                                    hgt_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_hgt < item.cpm_hgt)
+                                {
+                                    hgt_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','29,30');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @hgt_">
+                                    HGT
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_hgt = "Sin Captura";}
+                                        @if (item.ult_fec_hgt != null)
+                                        {
+                                            fecha_ul_hgt = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_hgt);
+                                        }
+                                        @if (item.cpm_hgt == 0)
+                                        {
+                                            fecha_ul_hgt = "--";
+                                        }
+                                        @fecha_ul_hgt
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_hgt > 0)
+                                        {
+                                            @item.ult_hr_hgt;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600; @hgt_n2">@item.exist_hgt</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @hgt_n1">@item.cpm_hgt</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string hgm_ = "background: #BBDEFB; color: #01579B;";
+                                    string hgm_n1 = "color: #2196F3;";
+                                    string hgm_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_hgm == 0)
+                                {
+                                    hgm_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    hgm_n1 = "color: #a7abc3";
+                                    hgm_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_hgm < item.cpm_hgm)
+                                {
+                                    hgm_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','52,53');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @hgm_">
+                                    HGM
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_hgm = "Sin Captura";}
+                                        @if (item.ult_fec_hgm != null)
+                                        {
+                                            fecha_ul_hgm = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_hgm);
+                                        }
+                                        @if (item.cpm_hgm == 0)
+                                        {
+                                            fecha_ul_hgm = "--";
+                                        }
+                                        @fecha_ul_hgm
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_hgm > 0)
+                                        {
+                                            @item.ult_hr_hgm;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600;  @hgm_n2">@item.exist_hgm</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @hgm_n1">@item.cpm_hgm</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string hgi_ = "background: #BBDEFB; color: #01579B;";
+                                    string hgi_n1 = "color: #2196F3;";
+                                    string hgi_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_hgi == 0)
+                                {
+                                    hgi_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    hgi_n1 = "color: #a7abc3";
+                                    hgi_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_hgi < item.cpm_hgi)
+                                {
+                                    hgi_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','110000,111000');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @hgi_">
+                                    HGI
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_hgi = "Sin Captura";}
+                                        @if (item.ult_fec_hgi != null)
+                                        {
+                                            fecha_ul_hgi = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_hgi);
+                                        }
+                                        @if (item.cpm_hgi == 0)
+                                        {
+                                            fecha_ul_hgi = "--";
+                                        }
+                                        @fecha_ul_hgi
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_hgi > 0)
+                                        {
+                                            @item.ult_hr_hgi;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600; @hgi_n2">@item.exist_hgi</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @hgi_n1">@item.cpm_hgi</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string hmi_ = "background: #BBDEFB; color: #01579B;";
+                                    string hmi_n1 = "color: #2196F3;";
+                                    string hmi_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_hmi == 0)
+                                {
+                                    hmi_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    hmi_n1 = "color: #a7abc3";
+                                    hmi_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_hmi < item.cpm_hmi)
+                                {
+                                    hmi_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','130000,131000');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @hmi_">
+                                    HMI
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_hmi = "Sin Captura";}
+                                        @if (item.ult_fec_hmi != null)
+                                        {
+                                            fecha_ul_hmi = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_hmi);
+                                        }
+                                        @if (item.cpm_hmi == 0)
+                                        {
+                                            fecha_ul_hmi = "--";
+                                        }
+                                        @fecha_ul_hmi
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_hmi > 0)
+                                        {
+                                            @item.ult_hr_hmi;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600; @hmi_n2">@item.exist_hmi</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @hmi_n1">@item.cpm_hmi</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string iec_ = "background: #BBDEFB; color: #01579B;";
+                                    string iec_n1 = "color: #2196F3;";
+                                    string iec_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_iec == 0)
+                                {
+                                    iec_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    iec_n1 = "color: #a7abc3";
+                                    iec_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_iec < item.cpm_iec)
+                                {
+                                    iec_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','180000,180001');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @iec_">
+                                    IEC
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_iec = "Sin Captura";}
+                                        @if (item.ult_fec_iec != null)
+                                        {
+                                            fecha_ul_iec = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_iec);
+                                        }
+                                        @if (item.cpm_iec == 0)
+                                        {
+                                            fecha_ul_iec = "--";
+                                        }
+                                        @fecha_ul_iec
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_iec > 0)
+                                        {
+                                            @item.ult_hr_iec;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600; @iec_n2">@item.exist_iec</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @iec_n1">@item.cpm_iec</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string ceh_ = "background: #BBDEFB; color: #01579B;";
+                                    string ceh_n1 = "color: #2196F3;";
+                                    string ceh_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_ceh == 0)
+                                {
+                                    ceh_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    ceh_n1 = "color: #a7abc3";
+                                    ceh_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_ceh < item.cpm_ceh)
+                                {
+                                    ceh_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','10051');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @ceh_">
+                                    CEH
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_ceh = "Sin Captura";}
+                                        @if (item.ult_fec_ceh != null)
+                                        {
+                                            fecha_ul_ceh = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_ceh);
+                                        }
+                                        @if (item.cpm_ceh == 0)
+                                        {
+                                            fecha_ul_ceh = "--";
+                                        }
+                                        @fecha_ul_ceh
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_ceh > 0)
+                                        {
+                                            @item.ult_hr_ceh;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600; @ceh_n2">@item.exist_ceh</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @ceh_n1">@item.cpm_ceh</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string j1_ = "background: #BBDEFB; color: #01579B;";
+                                    string j1_n1 = "color: #2196F3;";
+                                    string j1_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_j1 == 0)
+                                {
+                                    j1_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    j1_n1 = "color: #a7abc3";
+                                    j1_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_j1 < item.cpm_j1)
+                                {
+                                    j1_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','80000');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @j1_">
+                                    J 1
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_j1 = "Sin Captura";}
+                                        @if (item.ult_fec_j1 != null)
+                                        {
+                                            fecha_ul_j1 = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_j1);
+                                        }
+                                        @if (item.cpm_j1 == 0)
+                                        {
+                                            fecha_ul_j1 = "--";
+                                        }
+                                        @fecha_ul_j1
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_j1 > 0)
+                                        {
+                                            @item.ult_hr_j1;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600; @j1_n2">@item.exist_j1</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @j1_n1">@item.cpm_j1</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string j2_ = "background: #BBDEFB; color: #01579B;";
+                                    string j2_n1 = "color: #2196F3;";
+                                    string j2_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_j2 == 0)
+                                {
+                                    j2_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    j2_n1 = "color: #a7abc3";
+                                    j2_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_j2 < item.cpm_j2)
+                                {
+                                    j2_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','100000');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @j2_">
+                                    J 2
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_j2 = "Sin Captura";}
+                                        @if (item.ult_fec_j2 != null)
+                                        {
+                                            fecha_ul_j2 = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_j2);
+                                        }
+                                        @if (item.cpm_j2 == 0)
+                                        {
+                                            fecha_ul_j2 = "--";
+                                        }
+                                        @fecha_ul_j2
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_j2 > 0)
+                                        {
+                                            @item.ult_hr_j2;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600; @j2_n2">@item.exist_j2</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @j2_n1">@item.cpm_j2</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="height:40px;">
+                                @{ string j3_ = "background: #BBDEFB; color: #01579B;";
+                                    string j3_n1 = "color: #2196F3;";
+                                    string j3_n2 = "color: #4CAF50;";
+                                }
+                                @if (item.cpm_j3 == 0)
+                                {
+                                    j3_ = "background: #F5F5F5; color: #B0BEC5;";
+                                    j3_n1 = "color: #a7abc3";
+                                    j3_n2 = "color: #a7abc3";
+                                }
+                                @if (item.exist_j3 < item.cpm_j3)
+                                {
+                                    j3_n2 = "color: #d50000";
+                                }
+                                <div onclick="verSolicitudVSsurtido('@item.cve','120000');" style="width: 37px; height: 30px; float: left; text-align: center; padding: 3px; border-radius: 3px; margin-top: -6px; font-weight: 600; padding-top: 6px; @j3_">
+                                    J 3
+                                </div>
+                                <div style="width: 160px; height: 30px; float: left; text-align: left; padding: 3px; font-size: 11px; color:#6c7293; margin-top: -8px; padding-top: 3px;">
+                                    <div>
+                                        <i class="fa fa-fw fa-calendar" style="font-size:11px;"></i>
+                                        @{string fecha_ul_j3 = "Sin Captura";}
+                                        @if (item.ult_fec_j3 != null)
+                                        {
+                                            fecha_ul_j3 = String.Format("{0:dd, MMMM , yyyy}", item.ult_fec_j3);
+                                        }
+                                        @if (item.cpm_j3 == 0)
+                                        {
+                                            fecha_ul_j3 = "--";
+                                        }
+                                        @fecha_ul_j3
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-fw  fa-clock-o" style="font-size:11px;"></i>
+                                        @if (item.cpm_j3 > 0)
+                                        {
+                                            @item.ult_hr_j3;
+                                        }
+                                    </div>
+                                </div>
+                                <div style="float:right; text-align:right; margin-top:-6px; width: 42px;">
+                                    <div style="font-size:14px; font-weight: 600; @j3_n2">@item.exist_j3</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">EXI</div>
+                                </div>
+                                <div style="float:right; text-align:right; border-right:1px solid #ddd; margin-top:-6px;margin-right: 5px; padding-right: 6px;">
+                                    <div style="font-size:14px; font-weight: 600; @j3_n1">@item.cpm_j3</div>
+                                    <div style="font-size:12px; color:#6c7293; margin-top:-4px;">CPM</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="modal_insumo_det"></div>
+
+
+<div class="container-fluid ">
+    <div class="row cm-fix-height">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" style="padding-left: 1px; margin-bottom:10px;">
+            <div id="chatbox">
+                <div id="friendslist">
+                    <div id="topmenu">
+                        <div style="font-weight:600; color:#555;">
+                            Lista Insumos y existencias en PFMI
+                        </div>
+                    </div>
+                    <div id="friends">
+                        @foreach (var item in Model.rows)
+                        {
+                            <div id="@item.pk_articulo" class="friend">
+                                <div class="cntidad">
+                                    @{int total = item.exist_pfmi_1 + item.exist_pfmi_2 + item.exist_pfmi_3 + item.exist_pfmi_4 + item.exist_pfmi_5 + item.exist_pfmi_6 + item.exist_pfmi_7 + item.exist_pfmi_8 + item.exist_pfmi_9 + item.exist_pfmi_10 + item.exist_pfmi_11 + item.exist_pfmi_12 + item.exist_pfmi_13 + item.exist_pfmi_14 + item.exist_pfmi_15;}
+                                    @total <br />
+                                    <sapn style="font-size:10px;">total</sapn>
+                                </div>
+                                <p>
+                                    @{string descrip_rec_ = item.descripcion;}
+                                    @if (item.descripcion.Length > 90)
+                                    {
+                                        descrip_rec_ = item.descripcion.Substring(0, 85) + "...";
+                                    }
+                                    <strong>@item.cve</strong><br />
+                                    <span>@descrip_rec_ </span>
+                                </p>
+                                <input type="hidden" id="desck_@item.pk_articulo" value="@item.descripcion" />
+                                <input type="hidden" id="exis_pfmi1_@item.pk_articulo" value="@item.exist_pfmi_1" />
+                                <input type="hidden" id="fecha_pfmi1_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_1) @item.ult_hr_pfmi_1 hrs" />
+
+                                <input type="hidden" id="exis_pfmi2_@item.pk_articulo" value="@item.exist_pfmi_2" />
+                                <input type="hidden" id="fecha_pfmi2_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_2) @item.ult_hr_pfmi_2 hrs" />
+                                <input type="hidden" id="exis_pfmi3_@item.pk_articulo" value="@item.exist_pfmi_3" />
+                                <input type="hidden" id="fecha_pfmi3_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_3) @item.ult_hr_pfmi_3 hrs" />
+                                <input type="hidden" id="exis_pfmi4_@item.pk_articulo" value="@item.exist_pfmi_4" />
+                                <input type="hidden" id="fecha_pfmi4_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_4) @item.ult_hr_pfmi_4 hrs" />
+                                <input type="hidden" id="exis_pfmi5_@item.pk_articulo" value="@item.exist_pfmi_5" />
+                                <input type="hidden" id="fecha_pfmi5_@item.pk_articulo" value=" @String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_5) @item.ult_hr_pfmi_5 hrs" />
+                                <input type="hidden" id="exis_pfmi6_@item.pk_articulo" value="@item.exist_pfmi_6" />
+                                <input type="hidden" id="fecha_pfmi6_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_6) @item.ult_hr_pfmi_6 hrs" />
+                                <input type="hidden" id="exis_pfmi7_@item.pk_articulo" value="@item.exist_pfmi_7" />
+                                <input type="hidden" id="fecha_pfmi7_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_7) @item.ult_hr_pfmi_7 hrs" />
+                                <input type="hidden" id="exis_pfmi8_@item.pk_articulo" value="@item.exist_pfmi_8" />
+                                <input type="hidden" id="fecha_pfmi8_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_8) @item.ult_hr_pfmi_8 hrs" />
+                                <input type="hidden" id="exis_pfmi9_@item.pk_articulo" value="@item.exist_pfmi_9" />
+                                <input type="hidden" id="fecha_pfmi9_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_9) @item.ult_hr_pfmi_9 hrs" />
+                                <input type="hidden" id="exis_pfmi10_@item.pk_articulo" value="@item.exist_pfmi_10" />
+                                <input type="hidden" id="fecha_pfmi10_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_10) @item.ult_hr_pfmi_10 hrs" />
+                                <input type="hidden" id="exis_pfmi11_@item.pk_articulo" value="@item.exist_pfmi_11" />
+                                <input type="hidden" id="fecha_pfmi11_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_11) @item.ult_hr_pfmi_11 hrs" />
+                                <input type="hidden" id="exis_pfmi12_@item.pk_articulo" value="@item.exist_pfmi_12" />
+                                <input type="hidden" id="fecha_pfmi12_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_12) @item.ult_hr_pfmi_12 hrs" />
+                                <input type="hidden" id="exis_pfmi13_@item.pk_articulo" value="@item.exist_pfmi_13" />
+                                <input type="hidden" id="fecha_pfmi13_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_13) @item.ult_hr_pfmi_13 hrs" />
+                                <input type="hidden" id="exis_pfmi14_@item.pk_articulo" value="@item.exist_pfmi_14" />
+                                <input type="hidden" id="fecha_pfmi14_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_14) @item.ult_hr_pfmi_14 hrs" />
+                                <input type="hidden" id="exis_pfmi15_@item.pk_articulo" value="@item.exist_pfmi_15" />
+                                <input type="hidden" id="fecha_pfmi15_@item.pk_articulo" value="@String.Format("{0:dddd dd MMMM yyyy}", item.ult_fec_pfmi_15) @item.ult_hr_pfmi_15 hrs" />
+
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+                <div id="chatview" class="p1">
+                    <div id="profile">
+                        <div id="close">
+                            <div class="cy"></div>
+                            <div class="cx"></div>
+                        </div>
+                        <p>Miro Badev</p>
+                        <span>miro@badev@gmail.com</span>
+                    </div>
+                    <div id="chat-messages">
+                        <label>Puntos de control</label>
+
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p1">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                LIBRE COLIMA-GDL (QUESERIA)
+                                <div class="corner"></div>
+                                <span id="fec_p1">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p2">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                AUTOPISTA COLIMA-DGL
+                                <div class="corner"></div>
+                                <span id="fec_p2">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p3">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                LIBRE COLIMA-PIHUAMO
+                                <div class="corner"></div>
+                                <span id="fec_p3">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p4">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                ESTAPILLA-MICHOACAN
+                                <div class="corner"></div>
+                                <span id="fec_p4">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p5">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                LA BECERRERA-ZAPOTITLAN
+                                <div class="corner"></div>
+                                <span id="fec_p5">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p6">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                CENTRAL DE AUTOBUSES FORANEA COLIMA
+                                <div class="corner"></div>
+                                <span id="fec_p6">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p7">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                AEROPUERTO NACIONAL MIGUEL DE LA MADRID COLIMA
+                                <div class="corner"></div>
+                                <span id="fec_p7">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p8">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                LIBRE MANZANILLO-CIHUATLAN
+                                <div class="corner"></div>
+                                <span id="fec_p8">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p9">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                LA LOMA-MINATITLAN-JALISCO
+                                <div class="corner"></div>
+                                <span id="fec_p9">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p10">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                EL HIZCOLOTE MZN-JALISCO
+                                <div class="corner"></div>
+                                <span id="fec_p10">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p11">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                CENTRAL DE AUTOBUSES MANZANILLO
+                                <div class="corner"></div>
+                                <span id="fec_p11">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p12">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                AEROPUERTO INTERNACIONAL PLAYA DE ORO MANZANILLO
+                                <div class="corner"></div>
+                                <span id="fec_p12">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p13">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                PUERTO MANZANILLO
+                                <div class="corner"></div>
+                                <span id="fec_p13">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p14">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                LIBRE TECOMAN-CERRO DE ORTEGA
+                                <div class="corner"></div>
+                                <span id="fec_p14">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+                        <div class="message right">
+                            <div class="exisIn">
+                                <span id="exi_p15">000</span> <br />
+                                <sapn style="font-size:10px;">exis</sapn>
+                            </div>
+                            <div class="bubble">
+                                CENTRAL DE AUTOBUSES TECOMA
+                                <div class="corner"></div>
+                                <span id="fec_p15">Lun 00 Abril 00:00</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        //$("#buscar_item").keyup(function (e) {
+        //    _this = this;
+        //    $("#ctn_items .itms").each(function (i, e) {
+        //        if ($(this).text().toLowerCase().indexOf(_this.value.toLowerCase()) === -1)
+        //            $(this).hide();
+        //        else
+        //            $(this).show();
+        //    });
+        //});
+
+        function showProgramacion(id_el) {
+            show_loading();
+            setTimeout(function () {
+                close_loading();
+                $("#" + id_el).show();
+            }, 800);
+        }
+        function hideProgramacion(id_el) {
+            $("#" + id_el).hide();
+        }
+
+                //$(document).ready(function () {
+
+                //    var preloadbg = document.createElement("img");
+                //    preloadbg.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/timeline1.png";
+
+                //    $(".friend").each(function () {
+                //        $(this).click(function () {
+                //            var childOffset = $(this).offset();
+                //            var parentOffset = $(this).parent().parent().offset();
+                //            var childTop = childOffset.top - parentOffset.top;
+                //            var clone = $(this).find('img').eq(0).clone();
+                //            var top = childTop + 12 + "px";
+
+                //            var id_div = $(this).attr('id');
+                //            var descript_in = $("#desck_" + id_div).val();
+
+                //            var exisPfmi1 = $("#exis_pfmi1_"+id_div).val();
+                //            var fechaPfmi1 = $("#fecha_pfmi1_" + id_div).val();
+                //            var exisPfmi2 = $("#exis_pfmi2_"+id_div).val();
+                //            var fechaPfmi2 = $("#fecha_pfmi2_" + id_div).val();
+                //            var exisPfmi3 = $("#exis_pfmi3_"+id_div).val();
+                //            var fechaPfmi3 = $("#fecha_pfmi3_" + id_div).val();
+                //            var exisPfmi4 = $("#exis_pfmi4_"+id_div).val();
+                //            var fechaPfmi4 = $("#fecha_pfmi4_" + id_div).val();
+                //            var exisPfmi5 = $("#exis_pfmi5_"+id_div).val();
+                //            var fechaPfmi5 = $("#fecha_pfmi5_" + id_div).val();
+                //            var exisPfmi6 = $("#exis_pfmi6_"+id_div).val();
+                //            var fechaPfmi6 = $("#fecha_pfmi6_" + id_div).val();
+                //            var exisPfmi7 = $("#exis_pfmi7_"+id_div).val();
+                //            var fechaPfmi7 = $("#fecha_pfmi7_" + id_div).val();
+                //            var exisPfmi8 = $("#exis_pfmi8_"+id_div).val();
+                //            var fechaPfmi8 = $("#fecha_pfmi8_" + id_div).val();
+                //            var exisPfmi9 = $("#exis_pfmi9_"+id_div).val();
+                //            var fechaPfmi9 = $("#fecha_pfmi9_" + id_div).val();
+                //            var exisPfmi10 = $("#exis_pfmi10_"+id_div).val();
+                //            var fechaPfmi10 = $("#fecha_pfmi10_" + id_div).val();
+                //            var exisPfmi11 = $("#exis_pfmi11_"+id_div).val();
+                //            var fechaPfmi11 = $("#fecha_pfmi11_" + id_div).val();
+                //            var exisPfmi12 = $("#exis_pfmi12_"+id_div).val();
+                //            var fechaPfmi12 = $("#fecha_pfmi12_" + id_div).val();
+                //            var exisPfmi13 = $("#exis_pfmi13_"+id_div).val();
+                //            var fechaPfmi13 = $("#fecha_pfmi13_" + id_div).val();
+                //            var exisPfmi14 = $("#exis_pfmi14_"+id_div).val();
+                //            var fechaPfmi14 = $("#fecha_pfmi14_" + id_div).val();
+                //            var exisPfmi15 = $("#exis_pfmi15_"+id_div).val();
+                //            var fechaPfmi15 = $("#fecha_pfmi15_"+id_div).val();
+
+                //            //alert("#desck_" + id_div + fechaPfmi1);
+
+                //            $("#exi_p1").html(exisPfmi1);
+                //            $("#fec_p1").html(fechaPfmi1);
+                //            $("#exi_p2").html(exisPfmi2);
+                //            $("#fec_p2").html(fechaPfmi2);
+                //            $("#exi_p3").html(exisPfmi3);
+                //            $("#fec_p3").html(fechaPfmi3);
+                //            $("#exi_p4").html(exisPfmi4);
+                //            $("#fec_p4").html(fechaPfmi4);
+                //            $("#exi_p5").html(exisPfmi5);
+                //            $("#fec_p5").html(fechaPfmi5);
+                //            $("#exi_p6").html(exisPfmi6);
+                //            $("#fec_p6").html(fechaPfmi6);
+                //            $("#exi_p7").html(exisPfmi7);
+                //            $("#fec_p7").html(fechaPfmi7);
+                //            $("#exi_p8").html(exisPfmi8);
+                //            $("#fec_p8").html(fechaPfmi8);
+                //            $("#exi_p9").html(exisPfmi9);
+                //            $("#fec_p9").html(fechaPfmi9);
+                //            $("#exi_p10").html(exisPfmi10);
+                //            $("#fec_p10").html(fechaPfmi10);
+                //            $("#exi_p11").html(exisPfmi11);
+                //            $("#fec_p11").html(fechaPfmi11);
+                //            $("#exi_p12").html(exisPfmi12);
+                //            $("#fec_p12").html(fechaPfmi12);
+                //            $("#exi_p13").html(exisPfmi13);
+                //            $("#fec_p13").html(fechaPfmi13);
+                //            $("#exi_p14").html(exisPfmi14);
+                //            $("#fec_p14").html(fechaPfmi14);
+                //            $("#exi_p15").html(exisPfmi15);
+                //            $("#fec_p15").html(fechaPfmi15);
+
+                //            $(clone).css({ 'top': top }).addClass("floatingImg").appendTo("#chatbox");
+
+                //            setTimeout(function () { $("#profile p").addClass("animate"); $("#profile").addClass("animate"); }, 100);
+                //            setTimeout(function () {
+                //                $("#chat-messages").addClass("animate");
+                //                $('.cx, .cy').addClass('s1');
+                //                setTimeout(function () { $('.cx, .cy').addClass('s2'); }, 100);
+                //                setTimeout(function () { $('.cx, .cy').addClass('s3'); }, 200);
+                //            }, 150);
+
+                //            $('.floatingImg').animate({
+                //                'width': "68px",
+                //                'left': '108px',
+                //                'top': '20px'
+                //            }, 200);
+
+                //            var name = $(this).find("p strong").html();
+                //            var email = descript_in;//$(this).find("p span").html();
+                //            $("#profile p").html(name);
+                //            $("#profile span").html(email);
+
+                //            $(".message").not(".right").find("img").attr("src", $(clone).attr("src"));
+                //            $('#friendslist').fadeOut();
+                //            $('#chatview').fadeIn();
+
+
+                //            $('#close').unbind("click").click(function () {
+                //                $("#chat-messages, #profile, #profile p").removeClass("animate");
+                //                $('.cx, .cy').removeClass("s1 s2 s3");
+                //                $('.floatingImg').animate({
+                //                    'width': "40px",
+                //                    'top': top,
+                //                    'left': '12px'
+                //                }, 200, function () { $('.floatingImg').remove() });
+
+                //                setTimeout(function () {
+                //                    $('#chatview').fadeOut();
+                //                    $('#friendslist').fadeIn();
+                //                }, 50);
+                //            });
+
+                //        });
+                //    });
+                //});
+    </script>
+}

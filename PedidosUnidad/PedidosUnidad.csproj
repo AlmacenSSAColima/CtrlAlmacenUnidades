@@ -1,0 +1,2466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05769C7B-0D06-4947-A907-B1B3900882A3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PedidosUnidad</RootNamespace>
+    <AssemblyName>PedidosUnidad</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.94.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.94.2\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="HiQPdf, Version=6.0.0.0, Culture=neutral, PublicKeyToken=acd8b62594985b24, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Utils\HiQPdf.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.4.3.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.4.3\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CatalogosController.cs" />
+    <Compile Include="Controllers\CuadrosController.cs" />
+    <Compile Include="Controllers\EntradasController.cs" />
+    <Compile Include="Controllers\ExistenciaController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PDFUtilsController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SalidasController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_CENTROS.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\Ca_FuenteFinanciamiento.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_PARTIDAS.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_PROGRAMAS.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_PROGRAMAS_SALUD.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_PROVEEDORES.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_TIPOSDOC.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_TIPOSENT.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_TIPOSLIC.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_UNIDADESM.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\CA_UNIDADESP.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\cpm_unidades.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\DBAlmacen.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBAlmacen.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\DBAlmacen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\DBAlmacen.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBAlmacen.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\ma_articulos.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\ma_articulos_desc_larga_tabla_corta.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBAlmacen\vwProveedores.cs">
+      <DependentUpon>DBAlmacen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\DBConcentradora.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBConcentradora.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\DBConcentradora.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\DBConcentradora.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBConcentradora.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\DE_CADUCIDAD.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\de_entradas.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\DE_EntradasCAD.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\de_pedidos.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\DE_PedidosCAD.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\ma_entradas.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\ma_pedidos.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\TA_Parametros.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\vwDispCad.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\vwListadoEntradas.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBConcentradora\vwListadoSalidas.cs">
+      <DependentUpon>DBConcentradora.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\configuracion_unidades.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\cuadro_general_medicamento.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\cuadro_nacional_medicamento.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\det_inventario_articulo.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\det_pedido.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\ma_inventario_dia.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\ma_pedido.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\Menu_Settings.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\modules.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\modules_temp.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\parametros_sys.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\PedidoCPM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PedidoCPM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\PedidoCPM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\PedidoCPM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PedidoCPM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\roles.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\roles_modules_privileges.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBPedido\usuarios.cs">
+      <DependentUpon>PedidoCPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelsClass.cs" />
+    <Compile Include="Models\ModelsClassSIAA.cs" />
+    <Compile Include="Models\RepoCuadros.cs" />
+    <Compile Include="Models\RepoEntradas.cs" />
+    <Compile Include="Models\RepoExistencias.cs" />
+    <Compile Include="Models\RepoPedidos.cs" />
+    <Compile Include="Models\RepoReportes.cs" />
+    <Compile Include="Models\RepoSalidas.cs" />
+    <Compile Include="Models\RepoUsuarioPermisos.cs" />
+    <Compile Include="Models\RepoUtilerias.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AccontModelProcess.cs" />
+    <Compile Include="Security\CurrentUser.cs" />
+    <Compile Include="Security\CustomAuthorizeAtribute.cs" />
+    <Compile Include="Security\CustomPrincipal.cs" />
+    <Compile Include="Security\LoginModel.cs" />
+    <Compile Include="Security\SessionPersister.cs" />
+    <Compile Include="Security\XAuthorizeAtribute.cs" />
+    <Compile Include="Utils\ConvertHtmlToString.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\403Denied.css" />
+    <Content Include="Content\Archivos\M00004\18\BackLogin.jpg" />
+    <Content Include="Content\Archivos\M00004\18\BackLogin01.jpg" />
+    <Content Include="Content\Archivos\M00004\18\BackLogin02.jpg" />
+    <Content Include="Content\Archivos\M00004\18\back_screen.jpg" />
+    <Content Include="Content\Archivos\M00004\18\back_screen1.jpg" />
+    <Content Include="Content\Archivos\M00004\18\back_screen2.jpg" />
+    <Content Include="Content\Archivos\M00004\18\back_screen3.jpg" />
+    <Content Include="Content\Archivos\M00004\18\back_screen4.jpg" />
+    <Content Include="Content\Archivos\M00004\18\blank-charts-computer-669619.jpg" />
+    <Content Include="Content\Archivos\M00004\18\charts-computer-data-669615.jpg" />
+    <Content Include="Content\Archivos\M00009\18\BackLogin.jpg" />
+    <Content Include="Content\Archivos\M00009\18\BackLogin01.jpg" />
+    <Content Include="Content\Archivos\M00009\18\BackLogin02.jpg" />
+    <Content Include="Content\Archivos\M00009\18\back_screen1.jpg" />
+    <Content Include="Content\Archivos\M00009\18\back_screen2.jpg" />
+    <Content Include="Content\Archivos\M00009\18\back_screen3.jpg" />
+    <Content Include="Content\Archivos\M00009\18\back_screen4.jpg" />
+    <Content Include="Content\Archivos\M00009\18\blank-charts-computer-669619.jpg" />
+    <Content Include="Content\Archivos\M00009\18\charts-computer-data-669615.jpg" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ColorPicker\colorpicker.css" />
+    <Content Include="Content\ColorPicker\colorpicker.js" />
+    <Content Include="Content\css\bootstrap-clearmin.min.css" />
+    <Content Include="Content\css\c3.min.css" />
+    <Content Include="Content\css\cat_row.css" />
+    <Content Include="Content\css\checkmark.css" />
+    <Content Include="Content\css\explorer-file.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\graph-vale.css" />
+    <Content Include="Content\css\homeIn.css" />
+    <Content Include="Content\css\loading.css" />
+    <Content Include="Content\css\login.css" />
+    <Content Include="Content\css\material-design.css" />
+    <Content Include="Content\css\noCPM.css" />
+    <Content Include="Content\css\PedidoDenied.css" />
+    <Content Include="Content\css\roboto.css" />
+    <Content Include="Content\css\small-n-flat.css" />
+    <Content Include="Content\css\styleTimeLine.css" />
+    <Content Include="Content\css\summernote.css" />
+    <Content Include="Content\date-picker\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\date-picker\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\date-picker\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\date-picker\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\date-picker\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\date-picker\images\ui-icons_fff_256x240.png" />
+    <Content Include="Content\date-picker\jquery-ui.css" />
+    <Content Include="Content\date-picker\jquery-ui.js" />
+    <Content Include="Content\date-picker\jquery.ui.datepicker-es.js" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\almacen\FirmanteAlmacenMCL.png" />
+    <Content Include="Content\img\almacen\SelloAlmacenCentral.png" />
+    <Content Include="Content\img\bg_enviado.jpg" />
+    <Content Include="Content\img\components.png" />
+    <Content Include="Content\img\devices.png" />
+    <Content Include="Content\img\docs\file_empty.png" />
+    <Content Include="Content\img\docs\file_image.png" />
+    <Content Include="Content\img\docs\file_pdf.png" />
+    <Content Include="Content\img\EnviadoPedido.jpg" />
+    <Content Include="Content\img\folder_c_file.svg" />
+    <Content Include="Content\img\folder_s_file.svg" />
+    <Content Include="Content\img\icon.svg" />
+    <Content Include="Content\img\if_power.png" />
+    <Content Include="Content\img\load.gif" />
+    <Content Include="Content\img\loading_cir.gif" />
+    <Content Include="Content\img\logo-big.svg" />
+    <Content Include="Content\img\logo.svg" />
+    <Content Include="Content\img\Mdc_bck.jpg" />
+    <Content Include="Content\img\md\dark\3d-rotation.svg" />
+    <Content Include="Content\img\md\dark\access-alarm.svg" />
+    <Content Include="Content\img\md\dark\access-alarms.svg" />
+    <Content Include="Content\img\md\dark\access-time.svg" />
+    <Content Include="Content\img\md\dark\accessibility.svg" />
+    <Content Include="Content\img\md\dark\account-balance-wallet.svg" />
+    <Content Include="Content\img\md\dark\account-balance.svg" />
+    <Content Include="Content\img\md\dark\account-box.svg" />
+    <Content Include="Content\img\md\dark\account-child.svg" />
+    <Content Include="Content\img\md\dark\account-circle.svg" />
+    <Content Include="Content\img\md\dark\adb.svg" />
+    <Content Include="Content\img\md\dark\add-alarm.svg" />
+    <Content Include="Content\img\md\dark\add-box.svg" />
+    <Content Include="Content\img\md\dark\add-circle-outline.svg" />
+    <Content Include="Content\img\md\dark\add-circle.svg" />
+    <Content Include="Content\img\md\dark\add-shopping-cart.svg" />
+    <Content Include="Content\img\md\dark\add-to-photos.svg" />
+    <Content Include="Content\img\md\dark\add.svg" />
+    <Content Include="Content\img\md\dark\adjust.svg" />
+    <Content Include="Content\img\md\dark\airplanemode-off.svg" />
+    <Content Include="Content\img\md\dark\airplanemode-on.svg" />
+    <Content Include="Content\img\md\dark\alarm-add.svg" />
+    <Content Include="Content\img\md\dark\alarm-off.svg" />
+    <Content Include="Content\img\md\dark\alarm-on.svg" />
+    <Content Include="Content\img\md\dark\alarm.svg" />
+    <Content Include="Content\img\md\dark\album.svg" />
+    <Content Include="Content\img\md\dark\android.svg" />
+    <Content Include="Content\img\md\dark\announcement.svg" />
+    <Content Include="Content\img\md\dark\apps.svg" />
+    <Content Include="Content\img\md\dark\archive.svg" />
+    <Content Include="Content\img\md\dark\arrow-back.svg" />
+    <Content Include="Content\img\md\dark\arrow-drop-down-circle.svg" />
+    <Content Include="Content\img\md\dark\arrow-drop-down.svg" />
+    <Content Include="Content\img\md\dark\arrow-drop-up.svg" />
+    <Content Include="Content\img\md\dark\arrow-forward.svg" />
+    <Content Include="Content\img\md\dark\aspect-ratio.svg" />
+    <Content Include="Content\img\md\dark\assessment.svg" />
+    <Content Include="Content\img\md\dark\assignment-ind.svg" />
+    <Content Include="Content\img\md\dark\assignment-late.svg" />
+    <Content Include="Content\img\md\dark\assignment-return.svg" />
+    <Content Include="Content\img\md\dark\assignment-returned.svg" />
+    <Content Include="Content\img\md\dark\assignment-turned-in.svg" />
+    <Content Include="Content\img\md\dark\assignment.svg" />
+    <Content Include="Content\img\md\dark\assistant-photo.svg" />
+    <Content Include="Content\img\md\dark\attach-file.svg" />
+    <Content Include="Content\img\md\dark\attach-money.svg" />
+    <Content Include="Content\img\md\dark\attachment.svg" />
+    <Content Include="Content\img\md\dark\audiotrack.svg" />
+    <Content Include="Content\img\md\dark\autorenew.svg" />
+    <Content Include="Content\img\md\dark\av-timer.svg" />
+    <Content Include="Content\img\md\dark\backspace.svg" />
+    <Content Include="Content\img\md\dark\backup.svg" />
+    <Content Include="Content\img\md\dark\battery-20.svg" />
+    <Content Include="Content\img\md\dark\battery-30.svg" />
+    <Content Include="Content\img\md\dark\battery-50.svg" />
+    <Content Include="Content\img\md\dark\battery-60.svg" />
+    <Content Include="Content\img\md\dark\battery-80.svg" />
+    <Content Include="Content\img\md\dark\battery-90.svg" />
+    <Content Include="Content\img\md\dark\battery-alert.svg" />
+    <Content Include="Content\img\md\dark\battery-charging-20.svg" />
+    <Content Include="Content\img\md\dark\battery-charging-30.svg" />
+    <Content Include="Content\img\md\dark\battery-charging-50.svg" />
+    <Content Include="Content\img\md\dark\battery-charging-60.svg" />
+    <Content Include="Content\img\md\dark\battery-charging-80.svg" />
+    <Content Include="Content\img\md\dark\battery-charging-90.svg" />
+    <Content Include="Content\img\md\dark\battery-charging-full.svg" />
+    <Content Include="Content\img\md\dark\battery-full.svg" />
+    <Content Include="Content\img\md\dark\battery-std.svg" />
+    <Content Include="Content\img\md\dark\battery-unknown.svg" />
+    <Content Include="Content\img\md\dark\beenhere.svg" />
+    <Content Include="Content\img\md\dark\block.svg" />
+    <Content Include="Content\img\md\dark\bluetooth-audio.svg" />
+    <Content Include="Content\img\md\dark\bluetooth-connected.svg" />
+    <Content Include="Content\img\md\dark\bluetooth-disabled.svg" />
+    <Content Include="Content\img\md\dark\bluetooth-searching.svg" />
+    <Content Include="Content\img\md\dark\bluetooth.svg" />
+    <Content Include="Content\img\md\dark\blur-circular.svg" />
+    <Content Include="Content\img\md\dark\blur-linear.svg" />
+    <Content Include="Content\img\md\dark\blur-off.svg" />
+    <Content Include="Content\img\md\dark\blur-on.svg" />
+    <Content Include="Content\img\md\dark\book.svg" />
+    <Content Include="Content\img\md\dark\bookmark-outline.svg" />
+    <Content Include="Content\img\md\dark\bookmark.svg" />
+    <Content Include="Content\img\md\dark\border-all.svg" />
+    <Content Include="Content\img\md\dark\border-bottom.svg" />
+    <Content Include="Content\img\md\dark\border-clear.svg" />
+    <Content Include="Content\img\md\dark\border-color.svg" />
+    <Content Include="Content\img\md\dark\border-horizontal.svg" />
+    <Content Include="Content\img\md\dark\border-inner.svg" />
+    <Content Include="Content\img\md\dark\border-left.svg" />
+    <Content Include="Content\img\md\dark\border-outer.svg" />
+    <Content Include="Content\img\md\dark\border-right.svg" />
+    <Content Include="Content\img\md\dark\border-style.svg" />
+    <Content Include="Content\img\md\dark\border-top.svg" />
+    <Content Include="Content\img\md\dark\border-vertical.svg" />
+    <Content Include="Content\img\md\dark\brightness-1.svg" />
+    <Content Include="Content\img\md\dark\brightness-2.svg" />
+    <Content Include="Content\img\md\dark\brightness-3.svg" />
+    <Content Include="Content\img\md\dark\brightness-4.svg" />
+    <Content Include="Content\img\md\dark\brightness-5.svg" />
+    <Content Include="Content\img\md\dark\brightness-6.svg" />
+    <Content Include="Content\img\md\dark\brightness-7.svg" />
+    <Content Include="Content\img\md\dark\brightness-auto.svg" />
+    <Content Include="Content\img\md\dark\brightness-high.svg" />
+    <Content Include="Content\img\md\dark\brightness-low.svg" />
+    <Content Include="Content\img\md\dark\brightness-medium.svg" />
+    <Content Include="Content\img\md\dark\brush.svg" />
+    <Content Include="Content\img\md\dark\bug-report.svg" />
+    <Content Include="Content\img\md\dark\business.svg" />
+    <Content Include="Content\img\md\dark\cached.svg" />
+    <Content Include="Content\img\md\dark\cake.svg" />
+    <Content Include="Content\img\md\dark\call-end.svg" />
+    <Content Include="Content\img\md\dark\call-made.svg" />
+    <Content Include="Content\img\md\dark\call-merge.svg" />
+    <Content Include="Content\img\md\dark\call-missed.svg" />
+    <Content Include="Content\img\md\dark\call-received.svg" />
+    <Content Include="Content\img\md\dark\call-split.svg" />
+    <Content Include="Content\img\md\dark\call.svg" />
+    <Content Include="Content\img\md\dark\camera-alt.svg" />
+    <Content Include="Content\img\md\dark\camera-front.svg" />
+    <Content Include="Content\img\md\dark\camera-rear.svg" />
+    <Content Include="Content\img\md\dark\camera-roll.svg" />
+    <Content Include="Content\img\md\dark\camera.svg" />
+    <Content Include="Content\img\md\dark\cancel.svg" />
+    <Content Include="Content\img\md\dark\cast-connected.svg" />
+    <Content Include="Content\img\md\dark\cast.svg" />
+    <Content Include="Content\img\md\dark\center-focus-strong.svg" />
+    <Content Include="Content\img\md\dark\center-focus-weak.svg" />
+    <Content Include="Content\img\md\dark\chat.svg" />
+    <Content Include="Content\img\md\dark\check-box-outline-blank.svg" />
+    <Content Include="Content\img\md\dark\check-box.svg" />
+    <Content Include="Content\img\md\dark\check-circle.svg" />
+    <Content Include="Content\img\md\dark\check.svg" />
+    <Content Include="Content\img\md\dark\chevron-left.svg" />
+    <Content Include="Content\img\md\dark\chevron-right.svg" />
+    <Content Include="Content\img\md\dark\class.svg" />
+    <Content Include="Content\img\md\dark\clear-all.svg" />
+    <Content Include="Content\img\md\dark\clear.svg" />
+    <Content Include="Content\img\md\dark\close.svg" />
+    <Content Include="Content\img\md\dark\closed-caption.svg" />
+    <Content Include="Content\img\md\dark\cloud-circle.svg" />
+    <Content Include="Content\img\md\dark\cloud-done.svg" />
+    <Content Include="Content\img\md\dark\cloud-download.svg" />
+    <Content Include="Content\img\md\dark\cloud-off.svg" />
+    <Content Include="Content\img\md\dark\cloud-queue.svg" />
+    <Content Include="Content\img\md\dark\cloud-upload.svg" />
+    <Content Include="Content\img\md\dark\cloud.svg" />
+    <Content Include="Content\img\md\dark\collections.svg" />
+    <Content Include="Content\img\md\dark\color-lens.svg" />
+    <Content Include="Content\img\md\dark\colorize.svg" />
+    <Content Include="Content\img\md\dark\comment.svg" />
+    <Content Include="Content\img\md\dark\compare.svg" />
+    <Content Include="Content\img\md\dark\computer.svg" />
+    <Content Include="Content\img\md\dark\contacts.svg" />
+    <Content Include="Content\img\md\dark\content-copy.svg" />
+    <Content Include="Content\img\md\dark\content-cut.svg" />
+    <Content Include="Content\img\md\dark\content-paste.svg" />
+    <Content Include="Content\img\md\dark\control-point-duplicate.svg" />
+    <Content Include="Content\img\md\dark\control-point.svg" />
+    <Content Include="Content\img\md\dark\create.svg" />
+    <Content Include="Content\img\md\dark\credit-card.svg" />
+    <Content Include="Content\img\md\dark\crop-16-9.svg" />
+    <Content Include="Content\img\md\dark\crop-3-2.svg" />
+    <Content Include="Content\img\md\dark\crop-5-4.svg" />
+    <Content Include="Content\img\md\dark\crop-7-5.svg" />
+    <Content Include="Content\img\md\dark\crop-din.svg" />
+    <Content Include="Content\img\md\dark\crop-free.svg" />
+    <Content Include="Content\img\md\dark\crop-landscape.svg" />
+    <Content Include="Content\img\md\dark\crop-original.svg" />
+    <Content Include="Content\img\md\dark\crop-portrait.svg" />
+    <Content Include="Content\img\md\dark\crop-square.svg" />
+    <Content Include="Content\img\md\dark\crop.svg" />
+    <Content Include="Content\img\md\dark\dashboard.svg" />
+    <Content Include="Content\img\md\dark\data-usage.svg" />
+    <Content Include="Content\img\md\dark\dehaze.svg" />
+    <Content Include="Content\img\md\dark\delete.svg" />
+    <Content Include="Content\img\md\dark\description.svg" />
+    <Content Include="Content\img\md\dark\desktop-mac.svg" />
+    <Content Include="Content\img\md\dark\desktop-windows.svg" />
+    <Content Include="Content\img\md\dark\details.svg" />
+    <Content Include="Content\img\md\dark\developer-mode.svg" />
+    <Content Include="Content\img\md\dark\devices.svg" />
+    <Content Include="Content\img\md\dark\dialer-sip.svg" />
+    <Content Include="Content\img\md\dark\dialpad.svg" />
+    <Content Include="Content\img\md\dark\directions-bike.svg" />
+    <Content Include="Content\img\md\dark\directions-bus.svg" />
+    <Content Include="Content\img\md\dark\directions-car.svg" />
+    <Content Include="Content\img\md\dark\directions-ferry.svg" />
+    <Content Include="Content\img\md\dark\directions-subway.svg" />
+    <Content Include="Content\img\md\dark\directions-train.svg" />
+    <Content Include="Content\img\md\dark\directions-transit.svg" />
+    <Content Include="Content\img\md\dark\directions-walk.svg" />
+    <Content Include="Content\img\md\dark\directions.svg" />
+    <Content Include="Content\img\md\dark\disc-full.svg" />
+    <Content Include="Content\img\md\dark\dnd-forwardslash.svg" />
+    <Content Include="Content\img\md\dark\dnd-on.svg" />
+    <Content Include="Content\img\md\dark\dns.svg" />
+    <Content Include="Content\img\md\dark\do-not-disturb.svg" />
+    <Content Include="Content\img\md\dark\dock.svg" />
+    <Content Include="Content\img\md\dark\domain.svg" />
+    <Content Include="Content\img\md\dark\done-all.svg" />
+    <Content Include="Content\img\md\dark\done.svg" />
+    <Content Include="Content\img\md\dark\drafts.svg" />
+    <Content Include="Content\img\md\dark\drive-eta.svg" />
+    <Content Include="Content\img\md\dark\dvr.svg" />
+    <Content Include="Content\img\md\dark\edit.svg" />
+    <Content Include="Content\img\md\dark\email.svg" />
+    <Content Include="Content\img\md\dark\equalizer.svg" />
+    <Content Include="Content\img\md\dark\error.svg" />
+    <Content Include="Content\img\md\dark\event-available.svg" />
+    <Content Include="Content\img\md\dark\event-busy.svg" />
+    <Content Include="Content\img\md\dark\event-note.svg" />
+    <Content Include="Content\img\md\dark\event.svg" />
+    <Content Include="Content\img\md\dark\exit-to-app.svg" />
+    <Content Include="Content\img\md\dark\expand-less.svg" />
+    <Content Include="Content\img\md\dark\expand-more.svg" />
+    <Content Include="Content\img\md\dark\explicit.svg" />
+    <Content Include="Content\img\md\dark\explore.svg" />
+    <Content Include="Content\img\md\dark\exposure-minus-1.svg" />
+    <Content Include="Content\img\md\dark\exposure-minus-2.svg" />
+    <Content Include="Content\img\md\dark\exposure-plus-1.svg" />
+    <Content Include="Content\img\md\dark\exposure-plus-2.svg" />
+    <Content Include="Content\img\md\dark\exposure-zero.svg" />
+    <Content Include="Content\img\md\dark\exposure.svg" />
+    <Content Include="Content\img\md\dark\extension.svg" />
+    <Content Include="Content\img\md\dark\face.svg" />
+    <Content Include="Content\img\md\dark\fast-forward.svg" />
+    <Content Include="Content\img\md\dark\fast-rewind.svg" />
+    <Content Include="Content\img\md\dark\favorite-outline.svg" />
+    <Content Include="Content\img\md\dark\favorite.svg" />
+    <Content Include="Content\img\md\dark\file-download.svg" />
+    <Content Include="Content\img\md\dark\file-upload.svg" />
+    <Content Include="Content\img\md\dark\filter-1.svg" />
+    <Content Include="Content\img\md\dark\filter-2.svg" />
+    <Content Include="Content\img\md\dark\filter-3.svg" />
+    <Content Include="Content\img\md\dark\filter-4.svg" />
+    <Content Include="Content\img\md\dark\filter-5.svg" />
+    <Content Include="Content\img\md\dark\filter-6.svg" />
+    <Content Include="Content\img\md\dark\filter-7.svg" />
+    <Content Include="Content\img\md\dark\filter-8.svg" />
+    <Content Include="Content\img\md\dark\filter-9-plus.svg" />
+    <Content Include="Content\img\md\dark\filter-9.svg" />
+    <Content Include="Content\img\md\dark\filter-b-and-w.svg" />
+    <Content Include="Content\img\md\dark\filter-center-focus.svg" />
+    <Content Include="Content\img\md\dark\filter-drama.svg" />
+    <Content Include="Content\img\md\dark\filter-frames.svg" />
+    <Content Include="Content\img\md\dark\filter-hdr.svg" />
+    <Content Include="Content\img\md\dark\filter-list.svg" />
+    <Content Include="Content\img\md\dark\filter-none.svg" />
+    <Content Include="Content\img\md\dark\filter-tilt-shift.svg" />
+    <Content Include="Content\img\md\dark\filter-vintage.svg" />
+    <Content Include="Content\img\md\dark\filter.svg" />
+    <Content Include="Content\img\md\dark\find-in-page.svg" />
+    <Content Include="Content\img\md\dark\find-replace.svg" />
+    <Content Include="Content\img\md\dark\flag.svg" />
+    <Content Include="Content\img\md\dark\flare.svg" />
+    <Content Include="Content\img\md\dark\flash-auto.svg" />
+    <Content Include="Content\img\md\dark\flash-off.svg" />
+    <Content Include="Content\img\md\dark\flash-on.svg" />
+    <Content Include="Content\img\md\dark\flight.svg" />
+    <Content Include="Content\img\md\dark\flip-to-back.svg" />
+    <Content Include="Content\img\md\dark\flip-to-front.svg" />
+    <Content Include="Content\img\md\dark\flip.svg" />
+    <Content Include="Content\img\md\dark\folder-open.svg" />
+    <Content Include="Content\img\md\dark\folder-shared.svg" />
+    <Content Include="Content\img\md\dark\folder-special.svg" />
+    <Content Include="Content\img\md\dark\folder.svg" />
+    <Content Include="Content\img\md\dark\format-align-center.svg" />
+    <Content Include="Content\img\md\dark\format-align-justify.svg" />
+    <Content Include="Content\img\md\dark\format-align-left.svg" />
+    <Content Include="Content\img\md\dark\format-align-right.svg" />
+    <Content Include="Content\img\md\dark\format-bold.svg" />
+    <Content Include="Content\img\md\dark\format-clear.svg" />
+    <Content Include="Content\img\md\dark\format-color-fill.svg" />
+    <Content Include="Content\img\md\dark\format-color-reset.svg" />
+    <Content Include="Content\img\md\dark\format-color-text.svg" />
+    <Content Include="Content\img\md\dark\format-indent-decrease.svg" />
+    <Content Include="Content\img\md\dark\format-indent-increase.svg" />
+    <Content Include="Content\img\md\dark\format-italic.svg" />
+    <Content Include="Content\img\md\dark\format-line-spacing.svg" />
+    <Content Include="Content\img\md\dark\format-list-bulleted.svg" />
+    <Content Include="Content\img\md\dark\format-list-numbered.svg" />
+    <Content Include="Content\img\md\dark\format-paint.svg" />
+    <Content Include="Content\img\md\dark\format-quote.svg" />
+    <Content Include="Content\img\md\dark\format-size.svg" />
+    <Content Include="Content\img\md\dark\format-strikethrough.svg" />
+    <Content Include="Content\img\md\dark\format-textdirection-l-to-r.svg" />
+    <Content Include="Content\img\md\dark\format-textdirection-r-to-l.svg" />
+    <Content Include="Content\img\md\dark\format-underline.svg" />
+    <Content Include="Content\img\md\dark\forum.svg" />
+    <Content Include="Content\img\md\dark\forward.svg" />
+    <Content Include="Content\img\md\dark\fullscreen-exit.svg" />
+    <Content Include="Content\img\md\dark\fullscreen.svg" />
+    <Content Include="Content\img\md\dark\functions.svg" />
+    <Content Include="Content\img\md\dark\gamepad.svg" />
+    <Content Include="Content\img\md\dark\games.svg" />
+    <Content Include="Content\img\md\dark\gesture.svg" />
+    <Content Include="Content\img\md\dark\get-app.svg" />
+    <Content Include="Content\img\md\dark\gps-fixed.svg" />
+    <Content Include="Content\img\md\dark\gps-not-fixed.svg" />
+    <Content Include="Content\img\md\dark\gps-off.svg" />
+    <Content Include="Content\img\md\dark\grade.svg" />
+    <Content Include="Content\img\md\dark\gradient.svg" />
+    <Content Include="Content\img\md\dark\grain.svg" />
+    <Content Include="Content\img\md\dark\grid-off.svg" />
+    <Content Include="Content\img\md\dark\grid-on.svg" />
+    <Content Include="Content\img\md\dark\group-add.svg" />
+    <Content Include="Content\img\md\dark\group-work.svg" />
+    <Content Include="Content\img\md\dark\group.svg" />
+    <Content Include="Content\img\md\dark\hdr-off.svg" />
+    <Content Include="Content\img\md\dark\hdr-on.svg" />
+    <Content Include="Content\img\md\dark\hdr-strong.svg" />
+    <Content Include="Content\img\md\dark\hdr-weak.svg" />
+    <Content Include="Content\img\md\dark\headset-mic.svg" />
+    <Content Include="Content\img\md\dark\headset.svg" />
+    <Content Include="Content\img\md\dark\healing.svg" />
+    <Content Include="Content\img\md\dark\hearing.svg" />
+    <Content Include="Content\img\md\dark\help.svg" />
+    <Content Include="Content\img\md\dark\high-quality.svg" />
+    <Content Include="Content\img\md\dark\highlight-remove.svg" />
+    <Content Include="Content\img\md\dark\history.svg" />
+    <Content Include="Content\img\md\dark\home.svg" />
+    <Content Include="Content\img\md\dark\hotel.svg" />
+    <Content Include="Content\img\md\dark\https.svg" />
+    <Content Include="Content\img\md\dark\image-aspect-ratio.svg" />
+    <Content Include="Content\img\md\dark\image.svg" />
+    <Content Include="Content\img\md\dark\import-export.svg" />
+    <Content Include="Content\img\md\dark\inbox.svg" />
+    <Content Include="Content\img\md\dark\info-outline.svg" />
+    <Content Include="Content\img\md\dark\info.svg" />
+    <Content Include="Content\img\md\dark\input.svg" />
+    <Content Include="Content\img\md\dark\insert-chart.svg" />
+    <Content Include="Content\img\md\dark\insert-comment.svg" />
+    <Content Include="Content\img\md\dark\insert-drive-file.svg" />
+    <Content Include="Content\img\md\dark\insert-emoticon.svg" />
+    <Content Include="Content\img\md\dark\insert-invitation.svg" />
+    <Content Include="Content\img\md\dark\insert-link.svg" />
+    <Content Include="Content\img\md\dark\insert-photo.svg" />
+    <Content Include="Content\img\md\dark\invert-colors-off.svg" />
+    <Content Include="Content\img\md\dark\invert-colors-on.svg" />
+    <Content Include="Content\img\md\dark\invert-colors.svg" />
+    <Content Include="Content\img\md\dark\iso.svg" />
+    <Content Include="Content\img\md\dark\keyboard-alt.svg" />
+    <Content Include="Content\img\md\dark\keyboard-arrow-down.svg" />
+    <Content Include="Content\img\md\dark\keyboard-arrow-left.svg" />
+    <Content Include="Content\img\md\dark\keyboard-arrow-right.svg" />
+    <Content Include="Content\img\md\dark\keyboard-arrow-up.svg" />
+    <Content Include="Content\img\md\dark\keyboard-backspace.svg" />
+    <Content Include="Content\img\md\dark\keyboard-capslock.svg" />
+    <Content Include="Content\img\md\dark\keyboard-control.svg" />
+    <Content Include="Content\img\md\dark\keyboard-hide.svg" />
+    <Content Include="Content\img\md\dark\keyboard-return.svg" />
+    <Content Include="Content\img\md\dark\keyboard-tab.svg" />
+    <Content Include="Content\img\md\dark\keyboard-voice.svg" />
+    <Content Include="Content\img\md\dark\keyboard.svg" />
+    <Content Include="Content\img\md\dark\label-outline.svg" />
+    <Content Include="Content\img\md\dark\label.svg" />
+    <Content Include="Content\img\md\dark\landscape.svg" />
+    <Content Include="Content\img\md\dark\language.svg" />
+    <Content Include="Content\img\md\dark\laptop-chromebook.svg" />
+    <Content Include="Content\img\md\dark\laptop-mac.svg" />
+    <Content Include="Content\img\md\dark\laptop-windows.svg" />
+    <Content Include="Content\img\md\dark\laptop.svg" />
+    <Content Include="Content\img\md\dark\launch.svg" />
+    <Content Include="Content\img\md\dark\layers-clear.svg" />
+    <Content Include="Content\img\md\dark\layers.svg" />
+    <Content Include="Content\img\md\dark\leak-add.svg" />
+    <Content Include="Content\img\md\dark\leak-remove.svg" />
+    <Content Include="Content\img\md\dark\lens.svg" />
+    <Content Include="Content\img\md\dark\link.svg" />
+    <Content Include="Content\img\md\dark\list.svg" />
+    <Content Include="Content\img\md\dark\live-help.svg" />
+    <Content Include="Content\img\md\dark\local-airport.svg" />
+    <Content Include="Content\img\md\dark\local-atm.svg" />
+    <Content Include="Content\img\md\dark\local-attraction.svg" />
+    <Content Include="Content\img\md\dark\local-bar.svg" />
+    <Content Include="Content\img\md\dark\local-cafe.svg" />
+    <Content Include="Content\img\md\dark\local-car-wash.svg" />
+    <Content Include="Content\img\md\dark\local-convenience-store.svg" />
+    <Content Include="Content\img\md\dark\local-drink.svg" />
+    <Content Include="Content\img\md\dark\local-florist.svg" />
+    <Content Include="Content\img\md\dark\local-gas-station.svg" />
+    <Content Include="Content\img\md\dark\local-grocery-store.svg" />
+    <Content Include="Content\img\md\dark\local-hospital.svg" />
+    <Content Include="Content\img\md\dark\local-hotel.svg" />
+    <Content Include="Content\img\md\dark\local-laundry-service.svg" />
+    <Content Include="Content\img\md\dark\local-library.svg" />
+    <Content Include="Content\img\md\dark\local-mall.svg" />
+    <Content Include="Content\img\md\dark\local-movies.svg" />
+    <Content Include="Content\img\md\dark\local-offer.svg" />
+    <Content Include="Content\img\md\dark\local-parking.svg" />
+    <Content Include="Content\img\md\dark\local-pharmacy.svg" />
+    <Content Include="Content\img\md\dark\local-phone.svg" />
+    <Content Include="Content\img\md\dark\local-pizza.svg" />
+    <Content Include="Content\img\md\dark\local-play.svg" />
+    <Content Include="Content\img\md\dark\local-post-office.svg" />
+    <Content Include="Content\img\md\dark\local-print-shop.svg" />
+    <Content Include="Content\img\md\dark\local-restaurant.svg" />
+    <Content Include="Content\img\md\dark\local-see.svg" />
+    <Content Include="Content\img\md\dark\local-shipping.svg" />
+    <Content Include="Content\img\md\dark\local-taxi.svg" />
+    <Content Include="Content\img\md\dark\location-city.svg" />
+    <Content Include="Content\img\md\dark\location-disabled.svg" />
+    <Content Include="Content\img\md\dark\location-history.svg" />
+    <Content Include="Content\img\md\dark\location-off.svg" />
+    <Content Include="Content\img\md\dark\location-on.svg" />
+    <Content Include="Content\img\md\dark\location-searching.svg" />
+    <Content Include="Content\img\md\dark\lock-open.svg" />
+    <Content Include="Content\img\md\dark\lock-outline.svg" />
+    <Content Include="Content\img\md\dark\lock.svg" />
+    <Content Include="Content\img\md\dark\looks-3.svg" />
+    <Content Include="Content\img\md\dark\looks-4.svg" />
+    <Content Include="Content\img\md\dark\looks-5.svg" />
+    <Content Include="Content\img\md\dark\looks-6.svg" />
+    <Content Include="Content\img\md\dark\looks-one.svg" />
+    <Content Include="Content\img\md\dark\looks-two.svg" />
+    <Content Include="Content\img\md\dark\looks.svg" />
+    <Content Include="Content\img\md\dark\loop.svg" />
+    <Content Include="Content\img\md\dark\loupe.svg" />
+    <Content Include="Content\img\md\dark\loyalty.svg" />
+    <Content Include="Content\img\md\dark\mail.svg" />
+    <Content Include="Content\img\md\dark\map.svg" />
+    <Content Include="Content\img\md\dark\markunread-mailbox.svg" />
+    <Content Include="Content\img\md\dark\markunread.svg" />
+    <Content Include="Content\img\md\dark\memory.svg" />
+    <Content Include="Content\img\md\dark\menu.svg" />
+    <Content Include="Content\img\md\dark\merge-type.svg" />
+    <Content Include="Content\img\md\dark\message.svg" />
+    <Content Include="Content\img\md\dark\messenger.svg" />
+    <Content Include="Content\img\md\dark\mic-none.svg" />
+    <Content Include="Content\img\md\dark\mic-off.svg" />
+    <Content Include="Content\img\md\dark\mic.svg" />
+    <Content Include="Content\img\md\dark\mms.svg" />
+    <Content Include="Content\img\md\dark\mode-comment.svg" />
+    <Content Include="Content\img\md\dark\mode-edit.svg" />
+    <Content Include="Content\img\md\dark\mood.svg" />
+    <Content Include="Content\img\md\dark\more-horiz.svg" />
+    <Content Include="Content\img\md\dark\more-vert.svg" />
+    <Content Include="Content\img\md\dark\more.svg" />
+    <Content Include="Content\img\md\dark\mouse.svg" />
+    <Content Include="Content\img\md\dark\movie-creation.svg" />
+    <Content Include="Content\img\md\dark\movie.svg" />
+    <Content Include="Content\img\md\dark\multitrack-audio.svg" />
+    <Content Include="Content\img\md\dark\my-library-add.svg" />
+    <Content Include="Content\img\md\dark\my-library-books.svg" />
+    <Content Include="Content\img\md\dark\my-library-music.svg" />
+    <Content Include="Content\img\md\dark\my-location.svg" />
+    <Content Include="Content\img\md\dark\nature-people.svg" />
+    <Content Include="Content\img\md\dark\nature.svg" />
+    <Content Include="Content\img\md\dark\navigate-before.svg" />
+    <Content Include="Content\img\md\dark\navigate-next.svg" />
+    <Content Include="Content\img\md\dark\navigation.svg" />
+    <Content Include="Content\img\md\dark\network-cell.svg" />
+    <Content Include="Content\img\md\dark\network-locked.svg" />
+    <Content Include="Content\img\md\dark\network-wifi.svg" />
+    <Content Include="Content\img\md\dark\new-releases.svg" />
+    <Content Include="Content\img\md\dark\nfc.svg" />
+    <Content Include="Content\img\md\dark\no-sim.svg" />
+    <Content Include="Content\img\md\dark\not-interested.svg" />
+    <Content Include="Content\img\md\dark\note-add.svg" />
+    <Content Include="Content\img\md\dark\notifications-none.svg" />
+    <Content Include="Content\img\md\dark\notifications-off.svg" />
+    <Content Include="Content\img\md\dark\notifications-on.svg" />
+    <Content Include="Content\img\md\dark\notifications-paused.svg" />
+    <Content Include="Content\img\md\dark\notifications.svg" />
+    <Content Include="Content\img\md\dark\now-wallpaper.svg" />
+    <Content Include="Content\img\md\dark\now-widgets.svg" />
+    <Content Include="Content\img\md\dark\open-in-browser.svg" />
+    <Content Include="Content\img\md\dark\open-in-new.svg" />
+    <Content Include="Content\img\md\dark\open-with.svg" />
+    <Content Include="Content\img\md\dark\pages.svg" />
+    <Content Include="Content\img\md\dark\pageview.svg" />
+    <Content Include="Content\img\md\dark\palette.svg" />
+    <Content Include="Content\img\md\dark\panorama-fisheye.svg" />
+    <Content Include="Content\img\md\dark\panorama-horizontal.svg" />
+    <Content Include="Content\img\md\dark\panorama-vertical.svg" />
+    <Content Include="Content\img\md\dark\panorama-wide-angle.svg" />
+    <Content Include="Content\img\md\dark\panorama.svg" />
+    <Content Include="Content\img\md\dark\party-mode.svg" />
+    <Content Include="Content\img\md\dark\pause-circle-fill.svg" />
+    <Content Include="Content\img\md\dark\pause-circle-outline.svg" />
+    <Content Include="Content\img\md\dark\pause.svg" />
+    <Content Include="Content\img\md\dark\payment.svg" />
+    <Content Include="Content\img\md\dark\people-outline.svg" />
+    <Content Include="Content\img\md\dark\people.svg" />
+    <Content Include="Content\img\md\dark\perm-camera-mic.svg" />
+    <Content Include="Content\img\md\dark\perm-contact-cal.svg" />
+    <Content Include="Content\img\md\dark\perm-data-setting.svg" />
+    <Content Include="Content\img\md\dark\perm-device-info.svg" />
+    <Content Include="Content\img\md\dark\perm-identity.svg" />
+    <Content Include="Content\img\md\dark\perm-media.svg" />
+    <Content Include="Content\img\md\dark\perm-phone-msg.svg" />
+    <Content Include="Content\img\md\dark\perm-scan-wifi.svg" />
+    <Content Include="Content\img\md\dark\person-add.svg" />
+    <Content Include="Content\img\md\dark\person-outline.svg" />
+    <Content Include="Content\img\md\dark\person.svg" />
+    <Content Include="Content\img\md\dark\phone-android.svg" />
+    <Content Include="Content\img\md\dark\phone-bluetooth-speaker.svg" />
+    <Content Include="Content\img\md\dark\phone-forwarded.svg" />
+    <Content Include="Content\img\md\dark\phone-in-talk.svg" />
+    <Content Include="Content\img\md\dark\phone-iphone.svg" />
+    <Content Include="Content\img\md\dark\phone-locked.svg" />
+    <Content Include="Content\img\md\dark\phone-missed.svg" />
+    <Content Include="Content\img\md\dark\phone-paused.svg" />
+    <Content Include="Content\img\md\dark\phone.svg" />
+    <Content Include="Content\img\md\dark\phonelink-off.svg" />
+    <Content Include="Content\img\md\dark\phonelink.svg" />
+    <Content Include="Content\img\md\dark\photo-album.svg" />
+    <Content Include="Content\img\md\dark\photo-camera.svg" />
+    <Content Include="Content\img\md\dark\photo-library.svg" />
+    <Content Include="Content\img\md\dark\photo.svg" />
+    <Content Include="Content\img\md\dark\picture-in-picture.svg" />
+    <Content Include="Content\img\md\dark\pin-drop.svg" />
+    <Content Include="Content\img\md\dark\place.svg" />
+    <Content Include="Content\img\md\dark\play-arrow.svg" />
+    <Content Include="Content\img\md\dark\play-circle-fill.svg" />
+    <Content Include="Content\img\md\dark\play-circle-outline.svg" />
+    <Content Include="Content\img\md\dark\play-download.svg" />
+    <Content Include="Content\img\md\dark\play-install.svg" />
+    <Content Include="Content\img\md\dark\play-shopping-bag.svg" />
+    <Content Include="Content\img\md\dark\playlist-add.svg" />
+    <Content Include="Content\img\md\dark\plus-one.svg" />
+    <Content Include="Content\img\md\dark\poll.svg" />
+    <Content Include="Content\img\md\dark\polymer.svg" />
+    <Content Include="Content\img\md\dark\portable-wifi-off.svg" />
+    <Content Include="Content\img\md\dark\portrait.svg" />
+    <Content Include="Content\img\md\dark\print.svg" />
+    <Content Include="Content\img\md\dark\public.svg" />
+    <Content Include="Content\img\md\dark\publish.svg" />
+    <Content Include="Content\img\md\dark\query-builder.svg" />
+    <Content Include="Content\img\md\dark\question-answer.svg" />
+    <Content Include="Content\img\md\dark\queue-music.svg" />
+    <Content Include="Content\img\md\dark\queue.svg" />
+    <Content Include="Content\img\md\dark\quick-contacts-dialer.svg" />
+    <Content Include="Content\img\md\dark\quick-contacts-mail.svg" />
+    <Content Include="Content\img\md\dark\radio-button-off.svg" />
+    <Content Include="Content\img\md\dark\radio-button-on.svg" />
+    <Content Include="Content\img\md\dark\radio.svg" />
+    <Content Include="Content\img\md\dark\rate-review.svg" />
+    <Content Include="Content\img\md\dark\receipt.svg" />
+    <Content Include="Content\img\md\dark\recent-actors.svg" />
+    <Content Include="Content\img\md\dark\redeem.svg" />
+    <Content Include="Content\img\md\dark\redo.svg" />
+    <Content Include="Content\img\md\dark\refresh.svg" />
+    <Content Include="Content\img\md\dark\remove-circle-outline.svg" />
+    <Content Include="Content\img\md\dark\remove-circle.svg" />
+    <Content Include="Content\img\md\dark\remove-red-eye.svg" />
+    <Content Include="Content\img\md\dark\remove.svg" />
+    <Content Include="Content\img\md\dark\reorder.svg" />
+    <Content Include="Content\img\md\dark\repeat-one.svg" />
+    <Content Include="Content\img\md\dark\repeat.svg" />
+    <Content Include="Content\img\md\dark\replay.svg" />
+    <Content Include="Content\img\md\dark\reply-all.svg" />
+    <Content Include="Content\img\md\dark\reply.svg" />
+    <Content Include="Content\img\md\dark\report-problem.svg" />
+    <Content Include="Content\img\md\dark\report.svg" />
+    <Content Include="Content\img\md\dark\restaurant-menu.svg" />
+    <Content Include="Content\img\md\dark\restore.svg" />
+    <Content Include="Content\img\md\dark\ring-volume.svg" />
+    <Content Include="Content\img\md\dark\room.svg" />
+    <Content Include="Content\img\md\dark\rotate-left.svg" />
+    <Content Include="Content\img\md\dark\rotate-right.svg" />
+    <Content Include="Content\img\md\dark\satellite.svg" />
+    <Content Include="Content\img\md\dark\save.svg" />
+    <Content Include="Content\img\md\dark\schedule.svg" />
+    <Content Include="Content\img\md\dark\school.svg" />
+    <Content Include="Content\img\md\dark\screen-lock-landscape.svg" />
+    <Content Include="Content\img\md\dark\screen-lock-portrait.svg" />
+    <Content Include="Content\img\md\dark\screen-lock-rotation.svg" />
+    <Content Include="Content\img\md\dark\screen-rotation.svg" />
+    <Content Include="Content\img\md\dark\sd-card.svg" />
+    <Content Include="Content\img\md\dark\sd-storage.svg" />
+    <Content Include="Content\img\md\dark\search.svg" />
+    <Content Include="Content\img\md\dark\security.svg" />
+    <Content Include="Content\img\md\dark\select-all.svg" />
+    <Content Include="Content\img\md\dark\send.svg" />
+    <Content Include="Content\img\md\dark\settings-applications.svg" />
+    <Content Include="Content\img\md\dark\settings-backup-restore.svg" />
+    <Content Include="Content\img\md\dark\settings-bluetooth.svg" />
+    <Content Include="Content\img\md\dark\settings-cell.svg" />
+    <Content Include="Content\img\md\dark\settings-display.svg" />
+    <Content Include="Content\img\md\dark\settings-ethernet.svg" />
+    <Content Include="Content\img\md\dark\settings-input-antenna.svg" />
+    <Content Include="Content\img\md\dark\settings-input-component.svg" />
+    <Content Include="Content\img\md\dark\settings-input-composite.svg" />
+    <Content Include="Content\img\md\dark\settings-input-hdmi.svg" />
+    <Content Include="Content\img\md\dark\settings-input-svideo.svg" />
+    <Content Include="Content\img\md\dark\settings-overscan.svg" />
+    <Content Include="Content\img\md\dark\settings-phone.svg" />
+    <Content Include="Content\img\md\dark\settings-power.svg" />
+    <Content Include="Content\img\md\dark\settings-remote.svg" />
+    <Content Include="Content\img\md\dark\settings-system-daydream.svg" />
+    <Content Include="Content\img\md\dark\settings-voice.svg" />
+    <Content Include="Content\img\md\dark\settings.svg" />
+    <Content Include="Content\img\md\dark\share.svg" />
+    <Content Include="Content\img\md\dark\shop-two.svg" />
+    <Content Include="Content\img\md\dark\shop.svg" />
+    <Content Include="Content\img\md\dark\shopping-basket.svg" />
+    <Content Include="Content\img\md\dark\shopping-cart.svg" />
+    <Content Include="Content\img\md\dark\shuffle.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-0-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-1-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-2-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-3-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-4-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-connected-no-internet-0-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-connected-no-internet-1-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-connected-no-internet-2-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-connected-no-internet-3-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-connected-no-internet-4-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-no-sim.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-null.svg" />
+    <Content Include="Content\img\md\dark\signal-cellular-off.svg" />
+    <Content Include="Content\img\md\dark\signal-wifi-0-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-wifi-1-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-wifi-2-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-wifi-3-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-wifi-4-bar.svg" />
+    <Content Include="Content\img\md\dark\signal-wifi-off.svg" />
+    <Content Include="Content\img\md\dark\sim-card-alert.svg" />
+    <Content Include="Content\img\md\dark\sim-card.svg" />
+    <Content Include="Content\img\md\dark\skip-next.svg" />
+    <Content Include="Content\img\md\dark\skip-previous.svg" />
+    <Content Include="Content\img\md\dark\slideshow.svg" />
+    <Content Include="Content\img\md\dark\smartphone.svg" />
+    <Content Include="Content\img\md\dark\sms-failed.svg" />
+    <Content Include="Content\img\md\dark\sms.svg" />
+    <Content Include="Content\img\md\dark\snooze.svg" />
+    <Content Include="Content\img\md\dark\sort.svg" />
+    <Content Include="Content\img\md\dark\speaker-notes.svg" />
+    <Content Include="Content\img\md\dark\speaker.svg" />
+    <Content Include="Content\img\md\dark\spellcheck.svg" />
+    <Content Include="Content\img\md\dark\star-half.svg" />
+    <Content Include="Content\img\md\dark\star-outline.svg" />
+    <Content Include="Content\img\md\dark\star-rate.svg" />
+    <Content Include="Content\img\md\dark\star.svg" />
+    <Content Include="Content\img\md\dark\stars.svg" />
+    <Content Include="Content\img\md\dark\stay-current-landscape.svg" />
+    <Content Include="Content\img\md\dark\stay-current-portrait.svg" />
+    <Content Include="Content\img\md\dark\stay-primary-landscape.svg" />
+    <Content Include="Content\img\md\dark\stay-primary-portrait.svg" />
+    <Content Include="Content\img\md\dark\stop.svg" />
+    <Content Include="Content\img\md\dark\storage.svg" />
+    <Content Include="Content\img\md\dark\store-mall-directory.svg" />
+    <Content Include="Content\img\md\dark\store.svg" />
+    <Content Include="Content\img\md\dark\straighten.svg" />
+    <Content Include="Content\img\md\dark\style.svg" />
+    <Content Include="Content\img\md\dark\subject.svg" />
+    <Content Include="Content\img\md\dark\subtitles.svg" />
+    <Content Include="Content\img\md\dark\supervisor-account.svg" />
+    <Content Include="Content\img\md\dark\surround-sound.svg" />
+    <Content Include="Content\img\md\dark\swap-calls.svg" />
+    <Content Include="Content\img\md\dark\swap-horiz.svg" />
+    <Content Include="Content\img\md\dark\swap-vert-circle.svg" />
+    <Content Include="Content\img\md\dark\swap-vert.svg" />
+    <Content Include="Content\img\md\dark\switch-camera.svg" />
+    <Content Include="Content\img\md\dark\switch-video.svg" />
+    <Content Include="Content\img\md\dark\sync-disabled.svg" />
+    <Content Include="Content\img\md\dark\sync-problem.svg" />
+    <Content Include="Content\img\md\dark\sync.svg" />
+    <Content Include="Content\img\md\dark\system-update-tv.svg" />
+    <Content Include="Content\img\md\dark\system-update.svg" />
+    <Content Include="Content\img\md\dark\tab-unselected.svg" />
+    <Content Include="Content\img\md\dark\tab.svg" />
+    <Content Include="Content\img\md\dark\tablet-android.svg" />
+    <Content Include="Content\img\md\dark\tablet-mac.svg" />
+    <Content Include="Content\img\md\dark\tablet.svg" />
+    <Content Include="Content\img\md\dark\tag-faces.svg" />
+    <Content Include="Content\img\md\dark\tap-and-play.svg" />
+    <Content Include="Content\img\md\dark\terrain.svg" />
+    <Content Include="Content\img\md\dark\text-format.svg" />
+    <Content Include="Content\img\md\dark\textsms.svg" />
+    <Content Include="Content\img\md\dark\texture.svg" />
+    <Content Include="Content\img\md\dark\theaters.svg" />
+    <Content Include="Content\img\md\dark\thumb-down.svg" />
+    <Content Include="Content\img\md\dark\thumb-up.svg" />
+    <Content Include="Content\img\md\dark\thumbs-up-down.svg" />
+    <Content Include="Content\img\md\dark\time-to-leave.svg" />
+    <Content Include="Content\img\md\dark\timelapse.svg" />
+    <Content Include="Content\img\md\dark\timer-10.svg" />
+    <Content Include="Content\img\md\dark\timer-3.svg" />
+    <Content Include="Content\img\md\dark\timer-auto.svg" />
+    <Content Include="Content\img\md\dark\timer-off.svg" />
+    <Content Include="Content\img\md\dark\timer.svg" />
+    <Content Include="Content\img\md\dark\toc.svg" />
+    <Content Include="Content\img\md\dark\today.svg" />
+    <Content Include="Content\img\md\dark\tonality.svg" />
+    <Content Include="Content\img\md\dark\track-changes.svg" />
+    <Content Include="Content\img\md\dark\traffic.svg" />
+    <Content Include="Content\img\md\dark\transform.svg" />
+    <Content Include="Content\img\md\dark\translate.svg" />
+    <Content Include="Content\img\md\dark\trending-down.svg" />
+    <Content Include="Content\img\md\dark\trending-neutral.svg" />
+    <Content Include="Content\img\md\dark\trending-up.svg" />
+    <Content Include="Content\img\md\dark\tune.svg" />
+    <Content Include="Content\img\md\dark\turned-in-not.svg" />
+    <Content Include="Content\img\md\dark\turned-in.svg" />
+    <Content Include="Content\img\md\dark\tv.svg" />
+    <Content Include="Content\img\md\dark\undo.svg" />
+    <Content Include="Content\img\md\dark\unfold-less.svg" />
+    <Content Include="Content\img\md\dark\unfold-more.svg" />
+    <Content Include="Content\img\md\dark\usb.svg" />
+    <Content Include="Content\img\md\dark\verified-user.svg" />
+    <Content Include="Content\img\md\dark\vertical-align-bottom.svg" />
+    <Content Include="Content\img\md\dark\vertical-align-center.svg" />
+    <Content Include="Content\img\md\dark\vertical-align-top.svg" />
+    <Content Include="Content\img\md\dark\vibration.svg" />
+    <Content Include="Content\img\md\dark\video-collection.svg" />
+    <Content Include="Content\img\md\dark\videocam-off.svg" />
+    <Content Include="Content\img\md\dark\videocam.svg" />
+    <Content Include="Content\img\md\dark\view-agenda.svg" />
+    <Content Include="Content\img\md\dark\view-array.svg" />
+    <Content Include="Content\img\md\dark\view-carousel.svg" />
+    <Content Include="Content\img\md\dark\view-column.svg" />
+    <Content Include="Content\img\md\dark\view-day.svg" />
+    <Content Include="Content\img\md\dark\view-headline.svg" />
+    <Content Include="Content\img\md\dark\view-list.svg" />
+    <Content Include="Content\img\md\dark\view-module.svg" />
+    <Content Include="Content\img\md\dark\view-quilt.svg" />
+    <Content Include="Content\img\md\dark\view-stream.svg" />
+    <Content Include="Content\img\md\dark\view-week.svg" />
+    <Content Include="Content\img\md\dark\visibility-off.svg" />
+    <Content Include="Content\img\md\dark\visibility.svg" />
+    <Content Include="Content\img\md\dark\voice-chat.svg" />
+    <Content Include="Content\img\md\dark\voicemail.svg" />
+    <Content Include="Content\img\md\dark\volume-down.svg" />
+    <Content Include="Content\img\md\dark\volume-mute.svg" />
+    <Content Include="Content\img\md\dark\volume-off.svg" />
+    <Content Include="Content\img\md\dark\volume-up.svg" />
+    <Content Include="Content\img\md\dark\vpn-key.svg" />
+    <Content Include="Content\img\md\dark\vpn-lock.svg" />
+    <Content Include="Content\img\md\dark\wallet-giftcard.svg" />
+    <Content Include="Content\img\md\dark\wallet-membership.svg" />
+    <Content Include="Content\img\md\dark\wallet-travel.svg" />
+    <Content Include="Content\img\md\dark\warning.svg" />
+    <Content Include="Content\img\md\dark\watch.svg" />
+    <Content Include="Content\img\md\dark\wb-auto.svg" />
+    <Content Include="Content\img\md\dark\wb-cloudy.svg" />
+    <Content Include="Content\img\md\dark\wb-incandescent.svg" />
+    <Content Include="Content\img\md\dark\wb-irradescent.svg" />
+    <Content Include="Content\img\md\dark\wb-sunny.svg" />
+    <Content Include="Content\img\md\dark\web.svg" />
+    <Content Include="Content\img\md\dark\whatshot.svg" />
+    <Content Include="Content\img\md\dark\wifi-lock.svg" />
+    <Content Include="Content\img\md\dark\wifi-tethering.svg" />
+    <Content Include="Content\img\md\dark\work.svg" />
+    <Content Include="Content\img\md\dark\wrap-text.svg" />
+    <Content Include="Content\img\md\light\3d-rotation.svg" />
+    <Content Include="Content\img\md\light\access-alarm.svg" />
+    <Content Include="Content\img\md\light\access-alarms.svg" />
+    <Content Include="Content\img\md\light\access-time.svg" />
+    <Content Include="Content\img\md\light\accessibility.svg" />
+    <Content Include="Content\img\md\light\account-balance-wallet.svg" />
+    <Content Include="Content\img\md\light\account-balance.svg" />
+    <Content Include="Content\img\md\light\account-box.svg" />
+    <Content Include="Content\img\md\light\account-child.svg" />
+    <Content Include="Content\img\md\light\account-circle.svg" />
+    <Content Include="Content\img\md\light\adb.svg" />
+    <Content Include="Content\img\md\light\add-alarm.svg" />
+    <Content Include="Content\img\md\light\add-box.svg" />
+    <Content Include="Content\img\md\light\add-circle-outline.svg" />
+    <Content Include="Content\img\md\light\add-circle.svg" />
+    <Content Include="Content\img\md\light\add-shopping-cart.svg" />
+    <Content Include="Content\img\md\light\add-to-photos.svg" />
+    <Content Include="Content\img\md\light\add.svg" />
+    <Content Include="Content\img\md\light\adjust.svg" />
+    <Content Include="Content\img\md\light\airplanemode-off.svg" />
+    <Content Include="Content\img\md\light\airplanemode-on.svg" />
+    <Content Include="Content\img\md\light\alarm-add.svg" />
+    <Content Include="Content\img\md\light\alarm-off.svg" />
+    <Content Include="Content\img\md\light\alarm-on.svg" />
+    <Content Include="Content\img\md\light\alarm.svg" />
+    <Content Include="Content\img\md\light\album.svg" />
+    <Content Include="Content\img\md\light\android.svg" />
+    <Content Include="Content\img\md\light\announcement.svg" />
+    <Content Include="Content\img\md\light\apps.svg" />
+    <Content Include="Content\img\md\light\archive.svg" />
+    <Content Include="Content\img\md\light\arrow-back.svg" />
+    <Content Include="Content\img\md\light\arrow-drop-down-circle.svg" />
+    <Content Include="Content\img\md\light\arrow-drop-down.svg" />
+    <Content Include="Content\img\md\light\arrow-drop-up.svg" />
+    <Content Include="Content\img\md\light\arrow-forward.svg" />
+    <Content Include="Content\img\md\light\aspect-ratio.svg" />
+    <Content Include="Content\img\md\light\assessment.svg" />
+    <Content Include="Content\img\md\light\assignment-ind.svg" />
+    <Content Include="Content\img\md\light\assignment-late.svg" />
+    <Content Include="Content\img\md\light\assignment-return.svg" />
+    <Content Include="Content\img\md\light\assignment-returned.svg" />
+    <Content Include="Content\img\md\light\assignment-turned-in.svg" />
+    <Content Include="Content\img\md\light\assignment.svg" />
+    <Content Include="Content\img\md\light\assistant-photo.svg" />
+    <Content Include="Content\img\md\light\attach-file.svg" />
+    <Content Include="Content\img\md\light\attach-money.svg" />
+    <Content Include="Content\img\md\light\attachment.svg" />
+    <Content Include="Content\img\md\light\audiotrack.svg" />
+    <Content Include="Content\img\md\light\autorenew.svg" />
+    <Content Include="Content\img\md\light\av-timer.svg" />
+    <Content Include="Content\img\md\light\backspace.svg" />
+    <Content Include="Content\img\md\light\backup.svg" />
+    <Content Include="Content\img\md\light\battery-20.svg" />
+    <Content Include="Content\img\md\light\battery-30.svg" />
+    <Content Include="Content\img\md\light\battery-50.svg" />
+    <Content Include="Content\img\md\light\battery-60.svg" />
+    <Content Include="Content\img\md\light\battery-80.svg" />
+    <Content Include="Content\img\md\light\battery-90.svg" />
+    <Content Include="Content\img\md\light\battery-alert.svg" />
+    <Content Include="Content\img\md\light\battery-charging-20.svg" />
+    <Content Include="Content\img\md\light\battery-charging-30.svg" />
+    <Content Include="Content\img\md\light\battery-charging-50.svg" />
+    <Content Include="Content\img\md\light\battery-charging-60.svg" />
+    <Content Include="Content\img\md\light\battery-charging-80.svg" />
+    <Content Include="Content\img\md\light\battery-charging-90.svg" />
+    <Content Include="Content\img\md\light\battery-charging-full.svg" />
+    <Content Include="Content\img\md\light\battery-full.svg" />
+    <Content Include="Content\img\md\light\battery-std.svg" />
+    <Content Include="Content\img\md\light\battery-unknown.svg" />
+    <Content Include="Content\img\md\light\beenhere.svg" />
+    <Content Include="Content\img\md\light\block.svg" />
+    <Content Include="Content\img\md\light\bluetooth-audio.svg" />
+    <Content Include="Content\img\md\light\bluetooth-connected.svg" />
+    <Content Include="Content\img\md\light\bluetooth-disabled.svg" />
+    <Content Include="Content\img\md\light\bluetooth-searching.svg" />
+    <Content Include="Content\img\md\light\bluetooth.svg" />
+    <Content Include="Content\img\md\light\blur-circular.svg" />
+    <Content Include="Content\img\md\light\blur-linear.svg" />
+    <Content Include="Content\img\md\light\blur-off.svg" />
+    <Content Include="Content\img\md\light\blur-on.svg" />
+    <Content Include="Content\img\md\light\book.svg" />
+    <Content Include="Content\img\md\light\bookmark-outline.svg" />
+    <Content Include="Content\img\md\light\bookmark.svg" />
+    <Content Include="Content\img\md\light\border-all.svg" />
+    <Content Include="Content\img\md\light\border-bottom.svg" />
+    <Content Include="Content\img\md\light\border-clear.svg" />
+    <Content Include="Content\img\md\light\border-color.svg" />
+    <Content Include="Content\img\md\light\border-horizontal.svg" />
+    <Content Include="Content\img\md\light\border-inner.svg" />
+    <Content Include="Content\img\md\light\border-left.svg" />
+    <Content Include="Content\img\md\light\border-outer.svg" />
+    <Content Include="Content\img\md\light\border-right.svg" />
+    <Content Include="Content\img\md\light\border-style.svg" />
+    <Content Include="Content\img\md\light\border-top.svg" />
+    <Content Include="Content\img\md\light\border-vertical.svg" />
+    <Content Include="Content\img\md\light\brightness-1.svg" />
+    <Content Include="Content\img\md\light\brightness-2.svg" />
+    <Content Include="Content\img\md\light\brightness-3.svg" />
+    <Content Include="Content\img\md\light\brightness-4.svg" />
+    <Content Include="Content\img\md\light\brightness-5.svg" />
+    <Content Include="Content\img\md\light\brightness-6.svg" />
+    <Content Include="Content\img\md\light\brightness-7.svg" />
+    <Content Include="Content\img\md\light\brightness-auto.svg" />
+    <Content Include="Content\img\md\light\brightness-high.svg" />
+    <Content Include="Content\img\md\light\brightness-low.svg" />
+    <Content Include="Content\img\md\light\brightness-medium.svg" />
+    <Content Include="Content\img\md\light\brush.svg" />
+    <Content Include="Content\img\md\light\bug-report.svg" />
+    <Content Include="Content\img\md\light\business.svg" />
+    <Content Include="Content\img\md\light\cached.svg" />
+    <Content Include="Content\img\md\light\cake.svg" />
+    <Content Include="Content\img\md\light\call-end.svg" />
+    <Content Include="Content\img\md\light\call-made.svg" />
+    <Content Include="Content\img\md\light\call-merge.svg" />
+    <Content Include="Content\img\md\light\call-missed.svg" />
+    <Content Include="Content\img\md\light\call-received.svg" />
+    <Content Include="Content\img\md\light\call-split.svg" />
+    <Content Include="Content\img\md\light\call.svg" />
+    <Content Include="Content\img\md\light\camera-alt.svg" />
+    <Content Include="Content\img\md\light\camera-front.svg" />
+    <Content Include="Content\img\md\light\camera-rear.svg" />
+    <Content Include="Content\img\md\light\camera-roll.svg" />
+    <Content Include="Content\img\md\light\camera.svg" />
+    <Content Include="Content\img\md\light\cancel.svg" />
+    <Content Include="Content\img\md\light\cast-connected.svg" />
+    <Content Include="Content\img\md\light\cast.svg" />
+    <Content Include="Content\img\md\light\center-focus-strong.svg" />
+    <Content Include="Content\img\md\light\center-focus-weak.svg" />
+    <Content Include="Content\img\md\light\chat.svg" />
+    <Content Include="Content\img\md\light\check-box-outline-blank.svg" />
+    <Content Include="Content\img\md\light\check-box.svg" />
+    <Content Include="Content\img\md\light\check-circle.svg" />
+    <Content Include="Content\img\md\light\check.svg" />
+    <Content Include="Content\img\md\light\chevron-left.svg" />
+    <Content Include="Content\img\md\light\chevron-right.svg" />
+    <Content Include="Content\img\md\light\class.svg" />
+    <Content Include="Content\img\md\light\clear-all.svg" />
+    <Content Include="Content\img\md\light\clear.svg" />
+    <Content Include="Content\img\md\light\close.svg" />
+    <Content Include="Content\img\md\light\closed-caption.svg" />
+    <Content Include="Content\img\md\light\cloud-circle.svg" />
+    <Content Include="Content\img\md\light\cloud-done.svg" />
+    <Content Include="Content\img\md\light\cloud-download.svg" />
+    <Content Include="Content\img\md\light\cloud-off.svg" />
+    <Content Include="Content\img\md\light\cloud-queue.svg" />
+    <Content Include="Content\img\md\light\cloud-upload.svg" />
+    <Content Include="Content\img\md\light\cloud.svg" />
+    <Content Include="Content\img\md\light\collections.svg" />
+    <Content Include="Content\img\md\light\color-lens.svg" />
+    <Content Include="Content\img\md\light\colorize.svg" />
+    <Content Include="Content\img\md\light\comment.svg" />
+    <Content Include="Content\img\md\light\compare.svg" />
+    <Content Include="Content\img\md\light\computer.svg" />
+    <Content Include="Content\img\md\light\contacts.svg" />
+    <Content Include="Content\img\md\light\content-copy.svg" />
+    <Content Include="Content\img\md\light\content-cut.svg" />
+    <Content Include="Content\img\md\light\content-paste.svg" />
+    <Content Include="Content\img\md\light\control-point-duplicate.svg" />
+    <Content Include="Content\img\md\light\control-point.svg" />
+    <Content Include="Content\img\md\light\create.svg" />
+    <Content Include="Content\img\md\light\credit-card.svg" />
+    <Content Include="Content\img\md\light\crop-16-9.svg" />
+    <Content Include="Content\img\md\light\crop-3-2.svg" />
+    <Content Include="Content\img\md\light\crop-5-4.svg" />
+    <Content Include="Content\img\md\light\crop-7-5.svg" />
+    <Content Include="Content\img\md\light\crop-din.svg" />
+    <Content Include="Content\img\md\light\crop-free.svg" />
+    <Content Include="Content\img\md\light\crop-landscape.svg" />
+    <Content Include="Content\img\md\light\crop-original.svg" />
+    <Content Include="Content\img\md\light\crop-portrait.svg" />
+    <Content Include="Content\img\md\light\crop-square.svg" />
+    <Content Include="Content\img\md\light\crop.svg" />
+    <Content Include="Content\img\md\light\dashboard.svg" />
+    <Content Include="Content\img\md\light\data-usage.svg" />
+    <Content Include="Content\img\md\light\dehaze.svg" />
+    <Content Include="Content\img\md\light\delete.svg" />
+    <Content Include="Content\img\md\light\description.svg" />
+    <Content Include="Content\img\md\light\desktop-mac.svg" />
+    <Content Include="Content\img\md\light\desktop-windows.svg" />
+    <Content Include="Content\img\md\light\details.svg" />
+    <Content Include="Content\img\md\light\developer-mode.svg" />
+    <Content Include="Content\img\md\light\devices.svg" />
+    <Content Include="Content\img\md\light\dialer-sip.svg" />
+    <Content Include="Content\img\md\light\dialpad.svg" />
+    <Content Include="Content\img\md\light\directions-bike.svg" />
+    <Content Include="Content\img\md\light\directions-bus.svg" />
+    <Content Include="Content\img\md\light\directions-car.svg" />
+    <Content Include="Content\img\md\light\directions-ferry.svg" />
+    <Content Include="Content\img\md\light\directions-subway.svg" />
+    <Content Include="Content\img\md\light\directions-train.svg" />
+    <Content Include="Content\img\md\light\directions-transit.svg" />
+    <Content Include="Content\img\md\light\directions-walk.svg" />
+    <Content Include="Content\img\md\light\directions.svg" />
+    <Content Include="Content\img\md\light\disc-full.svg" />
+    <Content Include="Content\img\md\light\dnd-forwardslash.svg" />
+    <Content Include="Content\img\md\light\dnd-on.svg" />
+    <Content Include="Content\img\md\light\dns.svg" />
+    <Content Include="Content\img\md\light\do-not-disturb.svg" />
+    <Content Include="Content\img\md\light\dock.svg" />
+    <Content Include="Content\img\md\light\domain.svg" />
+    <Content Include="Content\img\md\light\done-all.svg" />
+    <Content Include="Content\img\md\light\done.svg" />
+    <Content Include="Content\img\md\light\drafts.svg" />
+    <Content Include="Content\img\md\light\drive-eta.svg" />
+    <Content Include="Content\img\md\light\dvr.svg" />
+    <Content Include="Content\img\md\light\edit.svg" />
+    <Content Include="Content\img\md\light\email.svg" />
+    <Content Include="Content\img\md\light\equalizer.svg" />
+    <Content Include="Content\img\md\light\error.svg" />
+    <Content Include="Content\img\md\light\event-available.svg" />
+    <Content Include="Content\img\md\light\event-busy.svg" />
+    <Content Include="Content\img\md\light\event-note.svg" />
+    <Content Include="Content\img\md\light\event.svg" />
+    <Content Include="Content\img\md\light\exit-to-app.svg" />
+    <Content Include="Content\img\md\light\expand-less.svg" />
+    <Content Include="Content\img\md\light\expand-more.svg" />
+    <Content Include="Content\img\md\light\explicit.svg" />
+    <Content Include="Content\img\md\light\explore.svg" />
+    <Content Include="Content\img\md\light\exposure-minus-1.svg" />
+    <Content Include="Content\img\md\light\exposure-minus-2.svg" />
+    <Content Include="Content\img\md\light\exposure-plus-1.svg" />
+    <Content Include="Content\img\md\light\exposure-plus-2.svg" />
+    <Content Include="Content\img\md\light\exposure-zero.svg" />
+    <Content Include="Content\img\md\light\exposure.svg" />
+    <Content Include="Content\img\md\light\extension.svg" />
+    <Content Include="Content\img\md\light\face.svg" />
+    <Content Include="Content\img\md\light\fast-forward.svg" />
+    <Content Include="Content\img\md\light\fast-rewind.svg" />
+    <Content Include="Content\img\md\light\favorite-outline.svg" />
+    <Content Include="Content\img\md\light\favorite.svg" />
+    <Content Include="Content\img\md\light\file-download.svg" />
+    <Content Include="Content\img\md\light\file-upload.svg" />
+    <Content Include="Content\img\md\light\filter-1.svg" />
+    <Content Include="Content\img\md\light\filter-2.svg" />
+    <Content Include="Content\img\md\light\filter-3.svg" />
+    <Content Include="Content\img\md\light\filter-4.svg" />
+    <Content Include="Content\img\md\light\filter-5.svg" />
+    <Content Include="Content\img\md\light\filter-6.svg" />
+    <Content Include="Content\img\md\light\filter-7.svg" />
+    <Content Include="Content\img\md\light\filter-8.svg" />
+    <Content Include="Content\img\md\light\filter-9-plus.svg" />
+    <Content Include="Content\img\md\light\filter-9.svg" />
+    <Content Include="Content\img\md\light\filter-b-and-w.svg" />
+    <Content Include="Content\img\md\light\filter-center-focus.svg" />
+    <Content Include="Content\img\md\light\filter-drama.svg" />
+    <Content Include="Content\img\md\light\filter-frames.svg" />
+    <Content Include="Content\img\md\light\filter-hdr.svg" />
+    <Content Include="Content\img\md\light\filter-list.svg" />
+    <Content Include="Content\img\md\light\filter-none.svg" />
+    <Content Include="Content\img\md\light\filter-tilt-shift.svg" />
+    <Content Include="Content\img\md\light\filter-vintage.svg" />
+    <Content Include="Content\img\md\light\filter.svg" />
+    <Content Include="Content\img\md\light\find-in-page.svg" />
+    <Content Include="Content\img\md\light\find-replace.svg" />
+    <Content Include="Content\img\md\light\flag.svg" />
+    <Content Include="Content\img\md\light\flare.svg" />
+    <Content Include="Content\img\md\light\flash-auto.svg" />
+    <Content Include="Content\img\md\light\flash-off.svg" />
+    <Content Include="Content\img\md\light\flash-on.svg" />
+    <Content Include="Content\img\md\light\flight.svg" />
+    <Content Include="Content\img\md\light\flip-to-back.svg" />
+    <Content Include="Content\img\md\light\flip-to-front.svg" />
+    <Content Include="Content\img\md\light\flip.svg" />
+    <Content Include="Content\img\md\light\folder-open.svg" />
+    <Content Include="Content\img\md\light\folder-shared.svg" />
+    <Content Include="Content\img\md\light\folder-special.svg" />
+    <Content Include="Content\img\md\light\folder.svg" />
+    <Content Include="Content\img\md\light\format-align-center.svg" />
+    <Content Include="Content\img\md\light\format-align-justify.svg" />
+    <Content Include="Content\img\md\light\format-align-left.svg" />
+    <Content Include="Content\img\md\light\format-align-right.svg" />
+    <Content Include="Content\img\md\light\format-bold.svg" />
+    <Content Include="Content\img\md\light\format-clear.svg" />
+    <Content Include="Content\img\md\light\format-color-fill.svg" />
+    <Content Include="Content\img\md\light\format-color-reset.svg" />
+    <Content Include="Content\img\md\light\format-color-text.svg" />
+    <Content Include="Content\img\md\light\format-indent-decrease.svg" />
+    <Content Include="Content\img\md\light\format-indent-increase.svg" />
+    <Content Include="Content\img\md\light\format-italic.svg" />
+    <Content Include="Content\img\md\light\format-line-spacing.svg" />
+    <Content Include="Content\img\md\light\format-list-bulleted.svg" />
+    <Content Include="Content\img\md\light\format-list-numbered.svg" />
+    <Content Include="Content\img\md\light\format-paint.svg" />
+    <Content Include="Content\img\md\light\format-quote.svg" />
+    <Content Include="Content\img\md\light\format-size.svg" />
+    <Content Include="Content\img\md\light\format-strikethrough.svg" />
+    <Content Include="Content\img\md\light\format-textdirection-l-to-r.svg" />
+    <Content Include="Content\img\md\light\format-textdirection-r-to-l.svg" />
+    <Content Include="Content\img\md\light\format-underline.svg" />
+    <Content Include="Content\img\md\light\forum.svg" />
+    <Content Include="Content\img\md\light\forward.svg" />
+    <Content Include="Content\img\md\light\fullscreen-exit.svg" />
+    <Content Include="Content\img\md\light\fullscreen.svg" />
+    <Content Include="Content\img\md\light\functions.svg" />
+    <Content Include="Content\img\md\light\gamepad.svg" />
+    <Content Include="Content\img\md\light\games.svg" />
+    <Content Include="Content\img\md\light\gesture.svg" />
+    <Content Include="Content\img\md\light\get-app.svg" />
+    <Content Include="Content\img\md\light\gps-fixed.svg" />
+    <Content Include="Content\img\md\light\gps-not-fixed.svg" />
+    <Content Include="Content\img\md\light\gps-off.svg" />
+    <Content Include="Content\img\md\light\grade.svg" />
+    <Content Include="Content\img\md\light\gradient.svg" />
+    <Content Include="Content\img\md\light\grain.svg" />
+    <Content Include="Content\img\md\light\grid-off.svg" />
+    <Content Include="Content\img\md\light\grid-on.svg" />
+    <Content Include="Content\img\md\light\group-add.svg" />
+    <Content Include="Content\img\md\light\group-work.svg" />
+    <Content Include="Content\img\md\light\group.svg" />
+    <Content Include="Content\img\md\light\hdr-off.svg" />
+    <Content Include="Content\img\md\light\hdr-on.svg" />
+    <Content Include="Content\img\md\light\hdr-strong.svg" />
+    <Content Include="Content\img\md\light\hdr-weak.svg" />
+    <Content Include="Content\img\md\light\headset-mic.svg" />
+    <Content Include="Content\img\md\light\headset.svg" />
+    <Content Include="Content\img\md\light\healing.svg" />
+    <Content Include="Content\img\md\light\hearing.svg" />
+    <Content Include="Content\img\md\light\help.svg" />
+    <Content Include="Content\img\md\light\high-quality.svg" />
+    <Content Include="Content\img\md\light\highlight-remove.svg" />
+    <Content Include="Content\img\md\light\history.svg" />
+    <Content Include="Content\img\md\light\home.svg" />
+    <Content Include="Content\img\md\light\hotel.svg" />
+    <Content Include="Content\img\md\light\https.svg" />
+    <Content Include="Content\img\md\light\image-aspect-ratio.svg" />
+    <Content Include="Content\img\md\light\image.svg" />
+    <Content Include="Content\img\md\light\import-export.svg" />
+    <Content Include="Content\img\md\light\inbox.svg" />
+    <Content Include="Content\img\md\light\info-outline.svg" />
+    <Content Include="Content\img\md\light\info.svg" />
+    <Content Include="Content\img\md\light\input.svg" />
+    <Content Include="Content\img\md\light\insert-chart.svg" />
+    <Content Include="Content\img\md\light\insert-comment.svg" />
+    <Content Include="Content\img\md\light\insert-drive-file.svg" />
+    <Content Include="Content\img\md\light\insert-emoticon.svg" />
+    <Content Include="Content\img\md\light\insert-invitation.svg" />
+    <Content Include="Content\img\md\light\insert-link.svg" />
+    <Content Include="Content\img\md\light\insert-photo.svg" />
+    <Content Include="Content\img\md\light\invert-colors-off.svg" />
+    <Content Include="Content\img\md\light\invert-colors-on.svg" />
+    <Content Include="Content\img\md\light\invert-colors.svg" />
+    <Content Include="Content\img\md\light\iso.svg" />
+    <Content Include="Content\img\md\light\keyboard-alt.svg" />
+    <Content Include="Content\img\md\light\keyboard-arrow-down.svg" />
+    <Content Include="Content\img\md\light\keyboard-arrow-left.svg" />
+    <Content Include="Content\img\md\light\keyboard-arrow-right.svg" />
+    <Content Include="Content\img\md\light\keyboard-arrow-up.svg" />
+    <Content Include="Content\img\md\light\keyboard-backspace.svg" />
+    <Content Include="Content\img\md\light\keyboard-capslock.svg" />
+    <Content Include="Content\img\md\light\keyboard-control.svg" />
+    <Content Include="Content\img\md\light\keyboard-hide.svg" />
+    <Content Include="Content\img\md\light\keyboard-return.svg" />
+    <Content Include="Content\img\md\light\keyboard-tab.svg" />
+    <Content Include="Content\img\md\light\keyboard-voice.svg" />
+    <Content Include="Content\img\md\light\keyboard.svg" />
+    <Content Include="Content\img\md\light\label-outline.svg" />
+    <Content Include="Content\img\md\light\label.svg" />
+    <Content Include="Content\img\md\light\landscape.svg" />
+    <Content Include="Content\img\md\light\language.svg" />
+    <Content Include="Content\img\md\light\laptop-chromebook.svg" />
+    <Content Include="Content\img\md\light\laptop-mac.svg" />
+    <Content Include="Content\img\md\light\laptop-windows.svg" />
+    <Content Include="Content\img\md\light\laptop.svg" />
+    <Content Include="Content\img\md\light\launch.svg" />
+    <Content Include="Content\img\md\light\layers-clear.svg" />
+    <Content Include="Content\img\md\light\layers.svg" />
+    <Content Include="Content\img\md\light\leak-add.svg" />
+    <Content Include="Content\img\md\light\leak-remove.svg" />
+    <Content Include="Content\img\md\light\lens.svg" />
+    <Content Include="Content\img\md\light\link.svg" />
+    <Content Include="Content\img\md\light\list.svg" />
+    <Content Include="Content\img\md\light\live-help.svg" />
+    <Content Include="Content\img\md\light\local-airport.svg" />
+    <Content Include="Content\img\md\light\local-atm.svg" />
+    <Content Include="Content\img\md\light\local-attraction.svg" />
+    <Content Include="Content\img\md\light\local-bar.svg" />
+    <Content Include="Content\img\md\light\local-cafe.svg" />
+    <Content Include="Content\img\md\light\local-car-wash.svg" />
+    <Content Include="Content\img\md\light\local-convenience-store.svg" />
+    <Content Include="Content\img\md\light\local-drink.svg" />
+    <Content Include="Content\img\md\light\local-florist.svg" />
+    <Content Include="Content\img\md\light\local-gas-station.svg" />
+    <Content Include="Content\img\md\light\local-grocery-store.svg" />
+    <Content Include="Content\img\md\light\local-hospital.svg" />
+    <Content Include="Content\img\md\light\local-hotel.svg" />
+    <Content Include="Content\img\md\light\local-laundry-service.svg" />
+    <Content Include="Content\img\md\light\local-library.svg" />
+    <Content Include="Content\img\md\light\local-mall.svg" />
+    <Content Include="Content\img\md\light\local-movies.svg" />
+    <Content Include="Content\img\md\light\local-offer.svg" />
+    <Content Include="Content\img\md\light\local-parking.svg" />
+    <Content Include="Content\img\md\light\local-pharmacy.svg" />
+    <Content Include="Content\img\md\light\local-phone.svg" />
+    <Content Include="Content\img\md\light\local-pizza.svg" />
+    <Content Include="Content\img\md\light\local-play.svg" />
+    <Content Include="Content\img\md\light\local-post-office.svg" />
+    <Content Include="Content\img\md\light\local-print-shop.svg" />
+    <Content Include="Content\img\md\light\local-restaurant.svg" />
+    <Content Include="Content\img\md\light\local-see.svg" />
+    <Content Include="Content\img\md\light\local-shipping.svg" />
+    <Content Include="Content\img\md\light\local-taxi.svg" />
+    <Content Include="Content\img\md\light\location-city.svg" />
+    <Content Include="Content\img\md\light\location-disabled.svg" />
+    <Content Include="Content\img\md\light\location-history.svg" />
+    <Content Include="Content\img\md\light\location-off.svg" />
+    <Content Include="Content\img\md\light\location-on.svg" />
+    <Content Include="Content\img\md\light\location-searching.svg" />
+    <Content Include="Content\img\md\light\lock-open.svg" />
+    <Content Include="Content\img\md\light\lock-outline.svg" />
+    <Content Include="Content\img\md\light\lock.svg" />
+    <Content Include="Content\img\md\light\looks-3.svg" />
+    <Content Include="Content\img\md\light\looks-4.svg" />
+    <Content Include="Content\img\md\light\looks-5.svg" />
+    <Content Include="Content\img\md\light\looks-6.svg" />
+    <Content Include="Content\img\md\light\looks-one.svg" />
+    <Content Include="Content\img\md\light\looks-two.svg" />
+    <Content Include="Content\img\md\light\looks.svg" />
+    <Content Include="Content\img\md\light\loop.svg" />
+    <Content Include="Content\img\md\light\loupe.svg" />
+    <Content Include="Content\img\md\light\loyalty.svg" />
+    <Content Include="Content\img\md\light\mail.svg" />
+    <Content Include="Content\img\md\light\map.svg" />
+    <Content Include="Content\img\md\light\markunread-mailbox.svg" />
+    <Content Include="Content\img\md\light\markunread.svg" />
+    <Content Include="Content\img\md\light\memory.svg" />
+    <Content Include="Content\img\md\light\menu.svg" />
+    <Content Include="Content\img\md\light\merge-type.svg" />
+    <Content Include="Content\img\md\light\message.svg" />
+    <Content Include="Content\img\md\light\messenger.svg" />
+    <Content Include="Content\img\md\light\mic-none.svg" />
+    <Content Include="Content\img\md\light\mic-off.svg" />
+    <Content Include="Content\img\md\light\mic.svg" />
+    <Content Include="Content\img\md\light\mms.svg" />
+    <Content Include="Content\img\md\light\mode-comment.svg" />
+    <Content Include="Content\img\md\light\mode-edit.svg" />
+    <Content Include="Content\img\md\light\mood.svg" />
+    <Content Include="Content\img\md\light\more-horiz.svg" />
+    <Content Include="Content\img\md\light\more-vert.svg" />
+    <Content Include="Content\img\md\light\more.svg" />
+    <Content Include="Content\img\md\light\mouse.svg" />
+    <Content Include="Content\img\md\light\movie-creation.svg" />
+    <Content Include="Content\img\md\light\movie.svg" />
+    <Content Include="Content\img\md\light\multitrack-audio.svg" />
+    <Content Include="Content\img\md\light\my-library-add.svg" />
+    <Content Include="Content\img\md\light\my-library-books.svg" />
+    <Content Include="Content\img\md\light\my-library-music.svg" />
+    <Content Include="Content\img\md\light\my-location.svg" />
+    <Content Include="Content\img\md\light\nature-people.svg" />
+    <Content Include="Content\img\md\light\nature.svg" />
+    <Content Include="Content\img\md\light\navigate-before.svg" />
+    <Content Include="Content\img\md\light\navigate-next.svg" />
+    <Content Include="Content\img\md\light\navigation.svg" />
+    <Content Include="Content\img\md\light\network-cell.svg" />
+    <Content Include="Content\img\md\light\network-locked.svg" />
+    <Content Include="Content\img\md\light\network-wifi.svg" />
+    <Content Include="Content\img\md\light\new-releases.svg" />
+    <Content Include="Content\img\md\light\nfc.svg" />
+    <Content Include="Content\img\md\light\no-sim.svg" />
+    <Content Include="Content\img\md\light\not-interested.svg" />
+    <Content Include="Content\img\md\light\note-add.svg" />
+    <Content Include="Content\img\md\light\notifications-none.svg" />
+    <Content Include="Content\img\md\light\notifications-off.svg" />
+    <Content Include="Content\img\md\light\notifications-on.svg" />
+    <Content Include="Content\img\md\light\notifications-paused.svg" />
+    <Content Include="Content\img\md\light\notifications.svg" />
+    <Content Include="Content\img\md\light\now-wallpaper.svg" />
+    <Content Include="Content\img\md\light\now-widgets.svg" />
+    <Content Include="Content\img\md\light\open-in-browser.svg" />
+    <Content Include="Content\img\md\light\open-in-new.svg" />
+    <Content Include="Content\img\md\light\open-with.svg" />
+    <Content Include="Content\img\md\light\pages.svg" />
+    <Content Include="Content\img\md\light\pageview.svg" />
+    <Content Include="Content\img\md\light\palette.svg" />
+    <Content Include="Content\img\md\light\panorama-fisheye.svg" />
+    <Content Include="Content\img\md\light\panorama-horizontal.svg" />
+    <Content Include="Content\img\md\light\panorama-vertical.svg" />
+    <Content Include="Content\img\md\light\panorama-wide-angle.svg" />
+    <Content Include="Content\img\md\light\panorama.svg" />
+    <Content Include="Content\img\md\light\party-mode.svg" />
+    <Content Include="Content\img\md\light\pause-circle-fill.svg" />
+    <Content Include="Content\img\md\light\pause-circle-outline.svg" />
+    <Content Include="Content\img\md\light\pause.svg" />
+    <Content Include="Content\img\md\light\payment.svg" />
+    <Content Include="Content\img\md\light\people-outline.svg" />
+    <Content Include="Content\img\md\light\people.svg" />
+    <Content Include="Content\img\md\light\perm-camera-mic.svg" />
+    <Content Include="Content\img\md\light\perm-contact-cal.svg" />
+    <Content Include="Content\img\md\light\perm-data-setting.svg" />
+    <Content Include="Content\img\md\light\perm-device-info.svg" />
+    <Content Include="Content\img\md\light\perm-identity.svg" />
+    <Content Include="Content\img\md\light\perm-media.svg" />
+    <Content Include="Content\img\md\light\perm-phone-msg.svg" />
+    <Content Include="Content\img\md\light\perm-scan-wifi.svg" />
+    <Content Include="Content\img\md\light\person-add.svg" />
+    <Content Include="Content\img\md\light\person-outline.svg" />
+    <Content Include="Content\img\md\light\person.svg" />
+    <Content Include="Content\img\md\light\phone-android.svg" />
+    <Content Include="Content\img\md\light\phone-bluetooth-speaker.svg" />
+    <Content Include="Content\img\md\light\phone-forwarded.svg" />
+    <Content Include="Content\img\md\light\phone-in-talk.svg" />
+    <Content Include="Content\img\md\light\phone-iphone.svg" />
+    <Content Include="Content\img\md\light\phone-locked.svg" />
+    <Content Include="Content\img\md\light\phone-missed.svg" />
+    <Content Include="Content\img\md\light\phone-paused.svg" />
+    <Content Include="Content\img\md\light\phone.svg" />
+    <Content Include="Content\img\md\light\phonelink-off.svg" />
+    <Content Include="Content\img\md\light\phonelink.svg" />
+    <Content Include="Content\img\md\light\photo-album.svg" />
+    <Content Include="Content\img\md\light\photo-camera.svg" />
+    <Content Include="Content\img\md\light\photo-library.svg" />
+    <Content Include="Content\img\md\light\photo.svg" />
+    <Content Include="Content\img\md\light\picture-in-picture.svg" />
+    <Content Include="Content\img\md\light\pin-drop.svg" />
+    <Content Include="Content\img\md\light\place.svg" />
+    <Content Include="Content\img\md\light\play-arrow.svg" />
+    <Content Include="Content\img\md\light\play-circle-fill.svg" />
+    <Content Include="Content\img\md\light\play-circle-outline.svg" />
+    <Content Include="Content\img\md\light\play-download.svg" />
+    <Content Include="Content\img\md\light\play-install.svg" />
+    <Content Include="Content\img\md\light\play-shopping-bag.svg" />
+    <Content Include="Content\img\md\light\playlist-add.svg" />
+    <Content Include="Content\img\md\light\plus-one.svg" />
+    <Content Include="Content\img\md\light\poll.svg" />
+    <Content Include="Content\img\md\light\polymer.svg" />
+    <Content Include="Content\img\md\light\portable-wifi-off.svg" />
+    <Content Include="Content\img\md\light\portrait.svg" />
+    <Content Include="Content\img\md\light\print.svg" />
+    <Content Include="Content\img\md\light\public.svg" />
+    <Content Include="Content\img\md\light\publish.svg" />
+    <Content Include="Content\img\md\light\query-builder.svg" />
+    <Content Include="Content\img\md\light\question-answer.svg" />
+    <Content Include="Content\img\md\light\queue-music.svg" />
+    <Content Include="Content\img\md\light\queue.svg" />
+    <Content Include="Content\img\md\light\quick-contacts-dialer.svg" />
+    <Content Include="Content\img\md\light\quick-contacts-mail.svg" />
+    <Content Include="Content\img\md\light\radio-button-off.svg" />
+    <Content Include="Content\img\md\light\radio-button-on.svg" />
+    <Content Include="Content\img\md\light\radio.svg" />
+    <Content Include="Content\img\md\light\rate-review.svg" />
+    <Content Include="Content\img\md\light\receipt.svg" />
+    <Content Include="Content\img\md\light\recent-actors.svg" />
+    <Content Include="Content\img\md\light\redeem.svg" />
+    <Content Include="Content\img\md\light\redo.svg" />
+    <Content Include="Content\img\md\light\refresh.svg" />
+    <Content Include="Content\img\md\light\remove-circle-outline.svg" />
+    <Content Include="Content\img\md\light\remove-circle.svg" />
+    <Content Include="Content\img\md\light\remove-red-eye.svg" />
+    <Content Include="Content\img\md\light\remove.svg" />
+    <Content Include="Content\img\md\light\reorder.svg" />
+    <Content Include="Content\img\md\light\repeat-one.svg" />
+    <Content Include="Content\img\md\light\repeat.svg" />
+    <Content Include="Content\img\md\light\replay.svg" />
+    <Content Include="Content\img\md\light\reply-all.svg" />
+    <Content Include="Content\img\md\light\reply.svg" />
+    <Content Include="Content\img\md\light\report-problem.svg" />
+    <Content Include="Content\img\md\light\report.svg" />
+    <Content Include="Content\img\md\light\restaurant-menu.svg" />
+    <Content Include="Content\img\md\light\restore.svg" />
+    <Content Include="Content\img\md\light\ring-volume.svg" />
+    <Content Include="Content\img\md\light\room.svg" />
+    <Content Include="Content\img\md\light\rotate-left.svg" />
+    <Content Include="Content\img\md\light\rotate-right.svg" />
+    <Content Include="Content\img\md\light\satellite.svg" />
+    <Content Include="Content\img\md\light\save.svg" />
+    <Content Include="Content\img\md\light\schedule.svg" />
+    <Content Include="Content\img\md\light\school.svg" />
+    <Content Include="Content\img\md\light\screen-lock-landscape.svg" />
+    <Content Include="Content\img\md\light\screen-lock-portrait.svg" />
+    <Content Include="Content\img\md\light\screen-lock-rotation.svg" />
+    <Content Include="Content\img\md\light\screen-rotation.svg" />
+    <Content Include="Content\img\md\light\sd-card.svg" />
+    <Content Include="Content\img\md\light\sd-storage.svg" />
+    <Content Include="Content\img\md\light\search.svg" />
+    <Content Include="Content\img\md\light\security.svg" />
+    <Content Include="Content\img\md\light\select-all.svg" />
+    <Content Include="Content\img\md\light\send.svg" />
+    <Content Include="Content\img\md\light\settings-applications.svg" />
+    <Content Include="Content\img\md\light\settings-backup-restore.svg" />
+    <Content Include="Content\img\md\light\settings-bluetooth.svg" />
+    <Content Include="Content\img\md\light\settings-cell.svg" />
+    <Content Include="Content\img\md\light\settings-display.svg" />
+    <Content Include="Content\img\md\light\settings-ethernet.svg" />
+    <Content Include="Content\img\md\light\settings-input-antenna.svg" />
+    <Content Include="Content\img\md\light\settings-input-component.svg" />
+    <Content Include="Content\img\md\light\settings-input-composite.svg" />
+    <Content Include="Content\img\md\light\settings-input-hdmi.svg" />
+    <Content Include="Content\img\md\light\settings-input-svideo.svg" />
+    <Content Include="Content\img\md\light\settings-overscan.svg" />
+    <Content Include="Content\img\md\light\settings-phone.svg" />
+    <Content Include="Content\img\md\light\settings-power.svg" />
+    <Content Include="Content\img\md\light\settings-remote.svg" />
+    <Content Include="Content\img\md\light\settings-system-daydream.svg" />
+    <Content Include="Content\img\md\light\settings-voice.svg" />
+    <Content Include="Content\img\md\light\settings.svg" />
+    <Content Include="Content\img\md\light\share.svg" />
+    <Content Include="Content\img\md\light\shop-two.svg" />
+    <Content Include="Content\img\md\light\shop.svg" />
+    <Content Include="Content\img\md\light\shopping-basket.svg" />
+    <Content Include="Content\img\md\light\shopping-cart.svg" />
+    <Content Include="Content\img\md\light\shuffle.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-0-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-1-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-2-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-3-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-4-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-connected-no-internet-0-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-connected-no-internet-1-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-connected-no-internet-2-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-connected-no-internet-3-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-connected-no-internet-4-bar.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-no-sim.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-null.svg" />
+    <Content Include="Content\img\md\light\signal-cellular-off.svg" />
+    <Content Include="Content\img\md\light\signal-wifi-0-bar.svg" />
+    <Content Include="Content\img\md\light\signal-wifi-1-bar.svg" />
+    <Content Include="Content\img\md\light\signal-wifi-2-bar.svg" />
+    <Content Include="Content\img\md\light\signal-wifi-3-bar.svg" />
+    <Content Include="Content\img\md\light\signal-wifi-4-bar.svg" />
+    <Content Include="Content\img\md\light\signal-wifi-off.svg" />
+    <Content Include="Content\img\md\light\sim-card-alert.svg" />
+    <Content Include="Content\img\md\light\sim-card.svg" />
+    <Content Include="Content\img\md\light\skip-next.svg" />
+    <Content Include="Content\img\md\light\skip-previous.svg" />
+    <Content Include="Content\img\md\light\slideshow.svg" />
+    <Content Include="Content\img\md\light\smartphone.svg" />
+    <Content Include="Content\img\md\light\sms-failed.svg" />
+    <Content Include="Content\img\md\light\sms.svg" />
+    <Content Include="Content\img\md\light\snooze.svg" />
+    <Content Include="Content\img\md\light\sort.svg" />
+    <Content Include="Content\img\md\light\speaker-notes.svg" />
+    <Content Include="Content\img\md\light\speaker.svg" />
+    <Content Include="Content\img\md\light\spellcheck.svg" />
+    <Content Include="Content\img\md\light\star-half.svg" />
+    <Content Include="Content\img\md\light\star-outline.svg" />
+    <Content Include="Content\img\md\light\star-rate.svg" />
+    <Content Include="Content\img\md\light\star.svg" />
+    <Content Include="Content\img\md\light\stars.svg" />
+    <Content Include="Content\img\md\light\stay-current-landscape.svg" />
+    <Content Include="Content\img\md\light\stay-current-portrait.svg" />
+    <Content Include="Content\img\md\light\stay-primary-landscape.svg" />
+    <Content Include="Content\img\md\light\stay-primary-portrait.svg" />
+    <Content Include="Content\img\md\light\stop.svg" />
+    <Content Include="Content\img\md\light\storage.svg" />
+    <Content Include="Content\img\md\light\store-mall-directory.svg" />
+    <Content Include="Content\img\md\light\store.svg" />
+    <Content Include="Content\img\md\light\straighten.svg" />
+    <Content Include="Content\img\md\light\style.svg" />
+    <Content Include="Content\img\md\light\subject.svg" />
+    <Content Include="Content\img\md\light\subtitles.svg" />
+    <Content Include="Content\img\md\light\supervisor-account.svg" />
+    <Content Include="Content\img\md\light\surround-sound.svg" />
+    <Content Include="Content\img\md\light\swap-calls.svg" />
+    <Content Include="Content\img\md\light\swap-horiz.svg" />
+    <Content Include="Content\img\md\light\swap-vert-circle.svg" />
+    <Content Include="Content\img\md\light\swap-vert.svg" />
+    <Content Include="Content\img\md\light\switch-camera.svg" />
+    <Content Include="Content\img\md\light\switch-video.svg" />
+    <Content Include="Content\img\md\light\sync-disabled.svg" />
+    <Content Include="Content\img\md\light\sync-problem.svg" />
+    <Content Include="Content\img\md\light\sync.svg" />
+    <Content Include="Content\img\md\light\system-update-tv.svg" />
+    <Content Include="Content\img\md\light\system-update.svg" />
+    <Content Include="Content\img\md\light\tab-unselected.svg" />
+    <Content Include="Content\img\md\light\tab.svg" />
+    <Content Include="Content\img\md\light\tablet-android.svg" />
+    <Content Include="Content\img\md\light\tablet-mac.svg" />
+    <Content Include="Content\img\md\light\tablet.svg" />
+    <Content Include="Content\img\md\light\tag-faces.svg" />
+    <Content Include="Content\img\md\light\tap-and-play.svg" />
+    <Content Include="Content\img\md\light\terrain.svg" />
+    <Content Include="Content\img\md\light\text-format.svg" />
+    <Content Include="Content\img\md\light\textsms.svg" />
+    <Content Include="Content\img\md\light\texture.svg" />
+    <Content Include="Content\img\md\light\theaters.svg" />
+    <Content Include="Content\img\md\light\thumb-down.svg" />
+    <Content Include="Content\img\md\light\thumb-up.svg" />
+    <Content Include="Content\img\md\light\thumbs-up-down.svg" />
+    <Content Include="Content\img\md\light\time-to-leave.svg" />
+    <Content Include="Content\img\md\light\timelapse.svg" />
+    <Content Include="Content\img\md\light\timer-10.svg" />
+    <Content Include="Content\img\md\light\timer-3.svg" />
+    <Content Include="Content\img\md\light\timer-auto.svg" />
+    <Content Include="Content\img\md\light\timer-off.svg" />
+    <Content Include="Content\img\md\light\timer.svg" />
+    <Content Include="Content\img\md\light\toc.svg" />
+    <Content Include="Content\img\md\light\today.svg" />
+    <Content Include="Content\img\md\light\tonality.svg" />
+    <Content Include="Content\img\md\light\track-changes.svg" />
+    <Content Include="Content\img\md\light\traffic.svg" />
+    <Content Include="Content\img\md\light\transform.svg" />
+    <Content Include="Content\img\md\light\translate.svg" />
+    <Content Include="Content\img\md\light\trending-down.svg" />
+    <Content Include="Content\img\md\light\trending-neutral.svg" />
+    <Content Include="Content\img\md\light\trending-up.svg" />
+    <Content Include="Content\img\md\light\tune.svg" />
+    <Content Include="Content\img\md\light\turned-in-not.svg" />
+    <Content Include="Content\img\md\light\turned-in.svg" />
+    <Content Include="Content\img\md\light\tv.svg" />
+    <Content Include="Content\img\md\light\undo.svg" />
+    <Content Include="Content\img\md\light\unfold-less.svg" />
+    <Content Include="Content\img\md\light\unfold-more.svg" />
+    <Content Include="Content\img\md\light\usb.svg" />
+    <Content Include="Content\img\md\light\verified-user.svg" />
+    <Content Include="Content\img\md\light\vertical-align-bottom.svg" />
+    <Content Include="Content\img\md\light\vertical-align-center.svg" />
+    <Content Include="Content\img\md\light\vertical-align-top.svg" />
+    <Content Include="Content\img\md\light\vibration.svg" />
+    <Content Include="Content\img\md\light\video-collection.svg" />
+    <Content Include="Content\img\md\light\videocam-off.svg" />
+    <Content Include="Content\img\md\light\videocam.svg" />
+    <Content Include="Content\img\md\light\view-agenda.svg" />
+    <Content Include="Content\img\md\light\view-array.svg" />
+    <Content Include="Content\img\md\light\view-carousel.svg" />
+    <Content Include="Content\img\md\light\view-column.svg" />
+    <Content Include="Content\img\md\light\view-day.svg" />
+    <Content Include="Content\img\md\light\view-headline.svg" />
+    <Content Include="Content\img\md\light\view-list.svg" />
+    <Content Include="Content\img\md\light\view-module.svg" />
+    <Content Include="Content\img\md\light\view-quilt.svg" />
+    <Content Include="Content\img\md\light\view-stream.svg" />
+    <Content Include="Content\img\md\light\view-week.svg" />
+    <Content Include="Content\img\md\light\visibility-off.svg" />
+    <Content Include="Content\img\md\light\visibility.svg" />
+    <Content Include="Content\img\md\light\voice-chat.svg" />
+    <Content Include="Content\img\md\light\voicemail.svg" />
+    <Content Include="Content\img\md\light\volume-down.svg" />
+    <Content Include="Content\img\md\light\volume-mute.svg" />
+    <Content Include="Content\img\md\light\volume-off.svg" />
+    <Content Include="Content\img\md\light\volume-up.svg" />
+    <Content Include="Content\img\md\light\vpn-key.svg" />
+    <Content Include="Content\img\md\light\vpn-lock.svg" />
+    <Content Include="Content\img\md\light\wallet-giftcard.svg" />
+    <Content Include="Content\img\md\light\wallet-membership.svg" />
+    <Content Include="Content\img\md\light\wallet-travel.svg" />
+    <Content Include="Content\img\md\light\warning.svg" />
+    <Content Include="Content\img\md\light\watch.svg" />
+    <Content Include="Content\img\md\light\wb-auto.svg" />
+    <Content Include="Content\img\md\light\wb-cloudy.svg" />
+    <Content Include="Content\img\md\light\wb-incandescent.svg" />
+    <Content Include="Content\img\md\light\wb-irradescent.svg" />
+    <Content Include="Content\img\md\light\wb-sunny.svg" />
+    <Content Include="Content\img\md\light\web.svg" />
+    <Content Include="Content\img\md\light\whatshot.svg" />
+    <Content Include="Content\img\md\light\wifi-lock.svg" />
+    <Content Include="Content\img\md\light\wifi-tethering.svg" />
+    <Content Include="Content\img\md\light\work.svg" />
+    <Content Include="Content\img\md\light\wrap-text.svg" />
+    <Content Include="Content\img\Medicina_CPM.jpg" />
+    <Content Include="Content\img\Portrait_Placeholder.png" />
+    <Content Include="Content\img\sass-less.png" />
+    <Content Include="Content\img\sf\address-book-alt.svg" />
+    <Content Include="Content\img\sf\address-book.svg" />
+    <Content Include="Content\img\sf\bag.svg" />
+    <Content Include="Content\img\sf\basket.svg" />
+    <Content Include="Content\img\sf\beer.svg" />
+    <Content Include="Content\img\sf\bell.svg" />
+    <Content Include="Content\img\sf\bitcoin.svg" />
+    <Content Include="Content\img\sf\book-bookmark.svg" />
+    <Content Include="Content\img\sf\book.svg" />
+    <Content Include="Content\img\sf\box-full.svg" />
+    <Content Include="Content\img\sf\box-in.svg" />
+    <Content Include="Content\img\sf\box-out.svg" />
+    <Content Include="Content\img\sf\box.svg" />
+    <Content Include="Content\img\sf\brick-alt.svg" />
+    <Content Include="Content\img\sf\brick.svg" />
+    <Content Include="Content\img\sf\bubble.svg" />
+    <Content Include="Content\img\sf\bubbles-alt.svg" />
+    <Content Include="Content\img\sf\bubbles.svg" />
+    <Content Include="Content\img\sf\building.svg" />
+    <Content Include="Content\img\sf\bullhorn.svg" />
+    <Content Include="Content\img\sf\calculator.svg" />
+    <Content Include="Content\img\sf\calendar-clock.svg" />
+    <Content Include="Content\img\sf\calendar.svg" />
+    <Content Include="Content\img\sf\carton.svg" />
+    <Content Include="Content\img\sf\cat.svg" />
+    <Content Include="Content\img\sf\clock.svg" />
+    <Content Include="Content\img\sf\cloud-down.svg" />
+    <Content Include="Content\img\sf\cloud-sync.svg" />
+    <Content Include="Content\img\sf\cloud-up.svg" />
+    <Content Include="Content\img\sf\cloud.svg" />
+    <Content Include="Content\img\sf\cog.svg" />
+    <Content Include="Content\img\sf\cogs.svg" />
+    <Content Include="Content\img\sf\compass.svg" />
+    <Content Include="Content\img\sf\cone.svg" />
+    <Content Include="Content\img\sf\dashboard-alt.svg" />
+    <Content Include="Content\img\sf\dashboard.svg" />
+    <Content Include="Content\img\sf\database.svg" />
+    <Content Include="Content\img\sf\device-camera.svg" />
+    <Content Include="Content\img\sf\device-computer.svg" />
+    <Content Include="Content\img\sf\device-drive.svg" />
+    <Content Include="Content\img\sf\device-laptop.svg" />
+    <Content Include="Content\img\sf\device-mobile-phone.svg" />
+    <Content Include="Content\img\sf\device-tablet.svg" />
+    <Content Include="Content\img\sf\device-tv.svg" />
+    <Content Include="Content\img\sf\disc-vinyl.svg" />
+    <Content Include="Content\img\sf\disc.svg" />
+    <Content Include="Content\img\sf\drop.svg" />
+    <Content Include="Content\img\sf\envelope-letter.svg" />
+    <Content Include="Content\img\sf\envelope.svg" />
+    <Content Include="Content\img\sf\file-bookmark.svg" />
+    <Content Include="Content\img\sf\file-code.svg" />
+    <Content Include="Content\img\sf\file-empty.svg" />
+    <Content Include="Content\img\sf\file-excel.svg" />
+    <Content Include="Content\img\sf\file-exe.svg" />
+    <Content Include="Content\img\sf\file-font.svg" />
+    <Content Include="Content\img\sf\file-illustrator.svg" />
+    <Content Include="Content\img\sf\file-indesign.svg" />
+    <Content Include="Content\img\sf\file-link.svg" />
+    <Content Include="Content\img\sf\file-note.svg" />
+    <Content Include="Content\img\sf\file-pdf.svg" />
+    <Content Include="Content\img\sf\file-photoshop.svg" />
+    <Content Include="Content\img\sf\file-picture.svg" />
+    <Content Include="Content\img\sf\file-powerpoint.svg" />
+    <Content Include="Content\img\sf\file-premiere.svg" />
+    <Content Include="Content\img\sf\file-sound.svg" />
+    <Content Include="Content\img\sf\file-text.svg" />
+    <Content Include="Content\img\sf\file-video.svg" />
+    <Content Include="Content\img\sf\file-word.svg" />
+    <Content Include="Content\img\sf\file-zip.svg" />
+    <Content Include="Content\img\sf\flag-alt.svg" />
+    <Content Include="Content\img\sf\flag.svg" />
+    <Content Include="Content\img\sf\flask.svg" />
+    <Content Include="Content\img\sf\floppy.svg" />
+    <Content Include="Content\img\sf\flower.svg" />
+    <Content Include="Content\img\sf\folder-document.svg" />
+    <Content Include="Content\img\sf\folder-house.svg" />
+    <Content Include="Content\img\sf\folder-music.svg" />
+    <Content Include="Content\img\sf\folder-picture.svg" />
+    <Content Include="Content\img\sf\folder-video.svg" />
+    <Content Include="Content\img\sf\folder.svg" />
+    <Content Include="Content\img\sf\funnel.svg" />
+    <Content Include="Content\img\sf\gamepad.svg" />
+    <Content Include="Content\img\sf\gift.svg" />
+    <Content Include="Content\img\sf\globe.svg" />
+    <Content Include="Content\img\sf\handshake.svg" />
+    <Content Include="Content\img\sf\headphone.svg" />
+    <Content Include="Content\img\sf\heart.svg" />
+    <Content Include="Content\img\sf\house.svg" />
+    <Content Include="Content\img\sf\institution.svg" />
+    <Content Include="Content\img\sf\key.svg" />
+    <Content Include="Content\img\sf\keyring.svg" />
+    <Content Include="Content\img\sf\layers.svg" />
+    <Content Include="Content\img\sf\life-buoy.svg" />
+    <Content Include="Content\img\sf\light-bulb.svg" />
+    <Content Include="Content\img\sf\lightning.svg" />
+    <Content Include="Content\img\sf\lock-open.svg" />
+    <Content Include="Content\img\sf\lock.svg" />
+    <Content Include="Content\img\sf\magnify-less.svg" />
+    <Content Include="Content\img\sf\magnify.svg" />
+    <Content Include="Content\img\sf\map-map-marker.svg" />
+    <Content Include="Content\img\sf\map-marker.svg" />
+    <Content Include="Content\img\sf\map.svg" />
+    <Content Include="Content\img\sf\microphone.svg" />
+    <Content Include="Content\img\sf\mixer.svg" />
+    <Content Include="Content\img\sf\money.svg" />
+    <Content Include="Content\img\sf\monitor.svg" />
+    <Content Include="Content\img\sf\news.svg" />
+    <Content Include="Content\img\sf\notepad.svg" />
+    <Content Include="Content\img\sf\paper-plane.svg" />
+    <Content Include="Content\img\sf\paperclip.svg" />
+    <Content Include="Content\img\sf\pencil.svg" />
+    <Content Include="Content\img\sf\phone.svg" />
+    <Content Include="Content\img\sf\pin.svg" />
+    <Content Include="Content\img\sf\post-it.svg" />
+    <Content Include="Content\img\sf\profile-group.svg" />
+    <Content Include="Content\img\sf\profile.svg" />
+    <Content Include="Content\img\sf\puzzle.svg" />
+    <Content Include="Content\img\sf\radio.svg" />
+    <Content Include="Content\img\sf\rss.svg" />
+    <Content Include="Content\img\sf\safe.svg" />
+    <Content Include="Content\img\sf\search.svg" />
+    <Content Include="Content\img\sf\shield-error.svg" />
+    <Content Include="Content\img\sf\shield-ok.svg" />
+    <Content Include="Content\img\sf\shield-warning.svg" />
+    <Content Include="Content\img\sf\shield.svg" />
+    <Content Include="Content\img\sf\shop.svg" />
+    <Content Include="Content\img\sf\sign-add.svg" />
+    <Content Include="Content\img\sf\sign-ban.svg" />
+    <Content Include="Content\img\sf\sign-check.svg" />
+    <Content Include="Content\img\sf\sign-delete.svg" />
+    <Content Include="Content\img\sf\sign-down.svg" />
+    <Content Include="Content\img\sf\sign-error.svg" />
+    <Content Include="Content\img\sf\sign-info.svg" />
+    <Content Include="Content\img\sf\sign-left.svg" />
+    <Content Include="Content\img\sf\sign-question.svg" />
+    <Content Include="Content\img\sf\sign-right.svg" />
+    <Content Include="Content\img\sf\sign-sync.svg" />
+    <Content Include="Content\img\sf\sign-up.svg" />
+    <Content Include="Content\img\sf\sign-warning.svg" />
+    <Content Include="Content\img\sf\skull.svg" />
+    <Content Include="Content\img\sf\snow-flake.svg" />
+    <Content Include="Content\img\sf\social-facebook.svg" />
+    <Content Include="Content\img\sf\social-google-plus.svg" />
+    <Content Include="Content\img\sf\social-twitter.svg" />
+    <Content Include="Content\img\sf\social-youtube.svg" />
+    <Content Include="Content\img\sf\stamp.svg" />
+    <Content Include="Content\img\sf\star-alt.svg" />
+    <Content Include="Content\img\sf\star.svg" />
+    <Content Include="Content\img\sf\sun.svg" />
+    <Content Include="Content\img\sf\switch-off.svg" />
+    <Content Include="Content\img\sf\switch-on.svg" />
+    <Content Include="Content\img\sf\tag-alt.svg" />
+    <Content Include="Content\img\sf\tag.svg" />
+    <Content Include="Content\img\sf\terminal.svg" />
+    <Content Include="Content\img\sf\thumb-up.svg" />
+    <Content Include="Content\img\sf\trashcan-full.svg" />
+    <Content Include="Content\img\sf\trashcan.svg" />
+    <Content Include="Content\img\sf\user-female-alt.svg" />
+    <Content Include="Content\img\sf\user-female.svg" />
+    <Content Include="Content\img\sf\user-id.svg" />
+    <Content Include="Content\img\sf\user-male-alt.svg" />
+    <Content Include="Content\img\sf\user-male.svg" />
+    <Content Include="Content\img\sf\webcam.svg" />
+    <Content Include="Content\img\sf\window-layout.svg" />
+    <Content Include="Content\img\sf\window-system.svg" />
+    <Content Include="Content\img\sf\window.svg" />
+    <Content Include="Content\img\sf\wine.svg" />
+    <Content Include="Content\img\sf\wrench-screwdriver.svg" />
+    <Content Include="Content\img\sf\wrench.svg" />
+    <Content Include="Content\img\sin_imagen.jpg" />
+    <Content Include="Content\img\SSAIcon.png" />
+    <Content Include="Content\img\SSAIcons.png" />
+    <Content Include="Content\img\SSA_.png" />
+    <Content Include="Content\img\UserH.jpg" />
+    <Content Include="Content\img\_question.png" />
+    <Content Include="Content\jquery-slimscroll\examples\libs\prettify\prettify.css" />
+    <Content Include="Content\jquery-slimscroll\examples\libs\prettify\prettify.js" />
+    <Content Include="Content\jquery-slimscroll\examples\style.css" />
+    <Content Include="Content\jquery-slimscroll\jquery.slimscroll.js" />
+    <Content Include="Content\jquery-slimscroll\jquery.slimscroll.min.js" />
+    <Content Include="Content\js\filters-table-ar.js" />
+    <Content Include="Content\js\nicEdit.js" />
+    <Content Include="Content\js\nicEditorIcons.gif" />
+    <Content Include="Content\login\css\main.css" />
+    <Content Include="Content\login\css\util.css" />
+    <Content Include="Content\login\fonts\montserrat\OFL.txt" />
+    <Content Include="Content\login\images\bg-01.jpg" />
+    <Content Include="Content\login\images\cpm_day.jpg" />
+    <Content Include="Content\login\images\cpm_day_1.jpg" />
+    <Content Include="Content\login\images\cpm_day_2.jpg" />
+    <Content Include="Content\login\images\ic_ssa_colima.jpg" />
+    <Content Include="Content\login\js\main.js" />
+    <Content Include="Content\MultiUploader\img\ajax-loader.gif" />
+    <Content Include="Content\MultiUploader\img\image.png" />
+    <Content Include="Content\MultiUploader\img\unknown.png" />
+    <Content Include="Content\MultiUploader\upLoadDocument.css" />
+    <Content Include="Content\MultiUploader\upLoadDocument.js" />
+    <Content Include="Content\TableExistencia\main.css" />
+    <Content Include="Content\TableExistencia\main.js" />
+    <Content Include="Content\TableExistencia\util.css" />
+    <Content Include="Content\Table\datatables.net-bs\css\dataTables.bootstrap.css" />
+    <Content Include="Content\Table\datatables.net-bs\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\Table\datatables.net-bs\js\dataTables.bootstrap.js" />
+    <Content Include="Content\Table\datatables.net-bs\js\dataTables.bootstrap.min.js" />
+    <Content Include="Content\Table\datatables.net\js\jquery.dataTables.js" />
+    <Content Include="Content\Table\datatables.net\js\jquery.dataTables.min.js" />
+    <Content Include="Content\validetta-1.0.1\localization\validettaLang-es-ES.js" />
+    <Content Include="Content\validetta-1.0.1\localization\validettaLang-fa-IR.js" />
+    <Content Include="Content\validetta-1.0.1\localization\validettaLang-fr-FR.js" />
+    <Content Include="Content\validetta-1.0.1\localization\validettaLang-nl-NL.js" />
+    <Content Include="Content\validetta-1.0.1\localization\validettaLang-pt-BR.js" />
+    <Content Include="Content\validetta-1.0.1\localization\validettaLang-tr-TR.js" />
+    <Content Include="Content\validetta-1.0.1\validetta\validetta.css" />
+    <Content Include="Content\validetta-1.0.1\validetta\validetta.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Models\DBAlmacen\DBAlmacen.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DBAlmacen.Context.cs</LastGenOutput>
+      <DependentUpon>DBAlmacen.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\DBAlmacen\DBAlmacen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBAlmacen.edmx</DependentUpon>
+      <LastGenOutput>DBAlmacen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DBConcentradora\DBConcentradora.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBConcentradora.edmx</DependentUpon>
+      <LastGenOutput>DBConcentradora.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DBConcentradora\DBConcentradora.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBConcentradora.edmx</DependentUpon>
+      <LastGenOutput>DBConcentradora.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DBPedido\PedidoCPM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PedidoCPM.edmx</DependentUpon>
+      <LastGenOutput>PedidoCPM.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DBPedido\PedidoCPM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PedidoCPM.edmx</DependentUpon>
+      <LastGenOutput>PedidoCPM.cs</LastGenOutput>
+    </Content>
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\DBAlmacen\DBAlmacen.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DBAlmacen.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DBAlmacen\DBAlmacen.edmx.diagram">
+      <DependentUpon>DBAlmacen.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\DBPedido\PedidoCPM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PedidoCPM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DBPedido\PedidoCPM.edmx.diagram">
+      <DependentUpon>PedidoCPM.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\roboto-italic.woff" />
+    <Content Include="Content\fonts\roboto-italic.woff2" />
+    <Content Include="Content\fonts\roboto-light.woff" />
+    <Content Include="Content\fonts\roboto-light.woff2" />
+    <Content Include="Content\fonts\roboto-medium.woff" />
+    <Content Include="Content\fonts\roboto-medium.woff2" />
+    <Content Include="Content\fonts\roboto-mediumitalic.woff" />
+    <Content Include="Content\fonts\roboto-mediumitalic.woff2" />
+    <Content Include="Content\fonts\roboto-regular.woff" />
+    <Content Include="Content\fonts\roboto-regular.woff2" />
+    <Content Include="Content\jquery-slimscroll\.bower.json" />
+    <Content Include="Content\jquery-slimscroll\bower.json" />
+    <Content Include="Content\jquery-slimscroll\package.json" />
+    <Content Include="Content\jquery-slimscroll\README.md" />
+    <Content Include="Content\validetta-1.0.1\validetta.jquery.json" />
+    <Content Include="Content\validetta-1.0.1\validetta\validetta.scss" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Content\login\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="Content\login\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-Black.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-Light.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="Content\login\fonts\montserrat\Montserrat-ThinItalic.ttf" />
+    <EntityDeploy Include="Models\DBConcentradora\DBConcentradora.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DBConcentradora.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DBConcentradora\DBConcentradora.edmx.diagram">
+      <DependentUpon>DBConcentradora.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\bootstrap.min.js" />
+    <Content Include="Scripts\js\clearmin.min.js" />
+    <Content Include="Scripts\js\demo\dashboard.js" />
+    <Content Include="Scripts\js\demo\home.js" />
+    <Content Include="Scripts\js\demo\notepad.js" />
+    <Content Include="Scripts\js\demo\popovers-tooltips.js" />
+    <Content Include="Scripts\js\fastclick.min.js" />
+    <Content Include="Scripts\js\HomeIn.js" />
+    <Content Include="Scripts\js\jquery.cookie.min.js" />
+    <Content Include="Scripts\js\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\js\lib\c3.min.js" />
+    <Content Include="Scripts\js\lib\d3.min.js" />
+    <Content Include="Scripts\js\lib\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\js\loading.js" />
+    <Content Include="Scripts\js\ModalFull.js" />
+    <Content Include="Scripts\js\notification\notifications.js" />
+    <Content Include="Scripts\js\summernote.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Utils\HiQPdf.dll" />
+    <Content Include="Utils\HiQPdf.xml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Pedido\Pedido.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Pedido\Index.cshtml" />
+    <Content Include="Views\Home\Denied.cshtml" />
+    <Content Include="Views\Home\PedidoDenied.cshtml" />
+    <Content Include="Views\Existencia\ExistenciaDia.cshtml" />
+    <Content Include="Views\Pedido\ResultPedido.cshtml" />
+    <Content Include="Views\Pedido\ExistePedido.cshtml" />
+    <Content Include="Views\Shared\SinCPM.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\PDFViewer.cshtml" />
+    <Content Include="Views\Existencia\Report.cshtml" />
+    <Content Include="Views\Cuadros\CMedicamento.cshtml" />
+    <Content Include="Views\Cuadros\getInsumo.cshtml" />
+    <Content Include="Views\Home\Iconos.cshtml" />
+    <Content Include="Views\Home\Componentes.cshtml" />
+    <Content Include="Views\Home\LoadMenu.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\DatosUsuario.cshtml" />
+    <Content Include="Views\Usuarios\Perfiles.cshtml" />
+    <Content Include="Views\Usuarios\Permisos.cshtml" />
+    <Content Include="Views\Cuadros\CMaterialCuracion.cshtml" />
+    <Content Include="Views\Cuadros\reportPedido.cshtml" />
+    <Content Include="Views\Usuarios\ChangePassword.cshtml" />
+    <Content Include="Views\Existencia\ReporteExistencias.cshtml" />
+    <Content Include="Views\Existencia\MonitorMovil.cshtml" />
+    <Content Include="Views\Home\MonitoreoUnidades.cshtml" />
+    <Content Include="Views\Entradas\Entrada.cshtml" />
+    <Content Include="Views\Entradas\Index.cshtml" />
+    <Content Include="Views\Entradas\AddInsumoEntrada.cshtml" />
+    <Content Include="Views\Entradas\DetalleEntrada.cshtml" />
+    <Content Include="Views\Salidas\Index.cshtml" />
+    <Content Include="Views\Existencia\ExistenciasByUnidad.cshtml" />
+    <Content Include="Views\Home\Index_i.cshtml" />
+    <Content Include="Views\Salidas\Salida.cshtml" />
+    <Content Include="Views\Salidas\AddInsumoSalida.cshtml" />
+    <Content Include="Views\Salidas\DetalleSalida.cshtml" />
+    <Content Include="Views\Existencia\GetSolicitadoVsSurtido.cshtml" />
+    <Content Include="Views\Existencia\ExistenciaPFMI.cshtml" />
+    <Content Include="Views\Catalogos\Index.cshtml" />
+    <Content Include="Views\Catalogos\Catalogo.cshtml" />
+    <Content Include="Views\Home\Index_ix.cshtml" />
+    <Content Include="Views\Report\Reporte.cshtml" />
+    <Content Include="Views\Report\ReporteGrid.cshtml" />
+    <Content Include="Views\Existencia\ExistenciasEnALmacenByTipo.cshtml" />
+    <Content Include="Views\Existencia\MenuExistenciasEnAlmacen.cshtml" />
+    <Content Include="Views\Existencia\GetLotesByPkInsumo.cshtml" />
+    <Content Include="Views\Pedido\AddInsumo.cshtml" />
+    <Content Include="Views\Home\Indesx_des.cshtml" />
+    <Content Include="Utils\HiQPdf.dep" />
+    <Content Include="Views\Pedido\ReportePedido.cshtml" />
+    <Content Include="Views\Shared\ReportHeader.cshtml" />
+    <Content Include="Views\Shared\ReportFooter.cshtml" />
+    <Content Include="Views\Pedido\MesesOrdinario.cshtml" />
+    <Content Include="Views\Pedido\DetallePedido.cshtml" />
+    <Content Include="Views\Pedido\DetallePedidoAlmacen.cshtml" />
+    <Content Include="Views\Pedido\ReporteVale.cshtml" />
+    <Content Include="Views\Pedido\NegativaPedido.cshtml" />
+    <Content Include="Views\Pedido\ReporteNegativa.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\PDFUtils\" />
+    <Folder Include="Views\Privileges\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>48931</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48931/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

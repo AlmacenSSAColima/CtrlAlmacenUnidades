@@ -1,0 +1,49 @@
+﻿@model PedidosUnidad.Models.SalidasClassSIAA
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-8" style="padding:0px;">
+            <h3 style="margin-top:0">Listado de Salidas</h3>
+        </div>
+        <div class="col-sm-4" style="padding:0px;">
+            <button onclick="go_to_view('/Salidas/salida');" type="button" class="btn btn-success pull-right tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar nueva salida" style="margin-right: 55px;"><i class="fa fa-plus"></i> Hacer Salida</button>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <table id="tbl_reg" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Tipo de salida</th>
+                        <th>Fecha</th>
+                        <th>Unidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listadoSalidas)
+                    {
+                        <tr>
+                            <td>@item.FOLIO / @item.ANIO</td>
+                            <td>@item.TIPO_VALE</td>
+                            <td>@item.FECHA</td>
+                            <td>@item.CENTRO_SOL</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onclick="go_to_view('/Salidas/salida?folio=@item.FOLIO&anio=@item.ANIO');" type="button" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver Salida"><i class="fa fa-fw fa-folder-open-o"></i></button>
+                                    <button type="button" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Imprimir Salida"><i class="fa fa-fw fa-print"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,610 @@
+﻿@model PedidosUnidad.Models.ExistenciaDiaria
+@using PedidosUnidad.Security 
+
+@{
+    ViewBag.Title = "ExistenciaDia";
+}
+<link href="~/Content/TableExistencia/util.css" rel="stylesheet" />
+<link href="~/Content/TableExistencia/main.css" rel="stylesheet" />
+
+<style>
+    #header-fixed {
+        position: fixed;
+        top: 50px;
+        display: none;
+        background-color: white;
+        z-index: 3;
+    }
+
+        #header-fixed thead {
+            border: 1px solid #ddd;
+        }
+
+            #header-fixed thead th {
+                border-left: 1px solid #ddd;
+            }
+</style>
+
+@using (Html.BeginForm("ExistenciaDia", "Existencia", FormMethod.Post, new { id = "frm_datos_", name = "frm_datos_" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid cm-container-white">
+        <div class="tit-head">
+            <div class="col-sm-9" style="padding:10px;">
+                <h5 style="margin-top:0; margin-bottom:2px;">
+                    Existencias al día <b>@Model.dia_en_curso</b>, semana del <b>@Model.f_desde</b> al <b>@Model.f_hasta</b>
+
+                </h5>
+                <h5 style="margin-top:0">
+                    @if (SessionPersister.CurrentUser.tipo == 1)
+                    {
+                    <label>Medicamento:</label><span class="badge badge-info">@Model.claves_medicamento</span>
+                    }
+                    else
+                    {
+                    <label>Material Curación:</label> <span class="badge badge-info">@Model.claves_curacion</span>
+                    }
+                    
+                    
+                <span style="font-size:10px;"> (Ultima captura: @Model.ultimo_dia_captura)</span>
+                </h5>
+            </div>
+            <div class="col-sm-3" style="padding:0px;">
+                <button onclick="SaveExistencias();" type="button" class="btn btn-success pull-right tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Guardar cambios" style="margin-right: 55px;"><i class="fa fa-floppy-o"></i> Guardar</button>
+                <button onclick="AddExistenciasArchivo();" type="button" class="btn btn-success pull-right tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Subir archivo de existencias" style="margin-right: 5px;"><i class="fa fa-paperclip"></i></button>
+
+                <div class="btn-group pull-right" style="margin-right: 5px;">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <i class="fa fa-print"></i>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        @if (SessionPersister.CurrentUser.tipo == 1)
+                        {
+                            <li><a target="_blank" href="/Existencia/Report?tipo=1">Formato Captura</a></li>
+                        }
+                        else
+                        {
+                            <li><a target="_blank" href="/Existencia/Report?tipo=2">Formato Captura</a></li>
+                        }  
+                         @if (SessionPersister.CurrentUser.tipo == 1)
+                        {
+                            <li><a target="_blank" href="/Existencia/ReporteExistencias?tipo=1">Reporte Existencia</a></li>
+                        }
+                        else
+                        {
+                            <li><a target="_blank" href="/Existencia/ReporteExistencias?tipo=2">Reporte Existencia</a></li>
+                        } 
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+
+            <div class="table100 ver1 m-b-110">
+                <table id="table-1" data-vertable="ver1">
+                    <thead>
+                        <tr class="row100 head">
+                            <th id="clm-search" class="column100 column1" data-column="column1" style="width:65%;">
+                                <div class="input-group" style="width:100%;">
+                                    <input id="filter-input-refs" type="text" class="form-control filteres" placeholder="Buscar por...">
+                                    <span class="input-group-btn">
+                                        <button style="z-index:2; height:26px;" class="btn btn-primary md-search-white" type="button">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                    </span>
+                                </div>
+                            </th>
+
+                            <th class="column100 column2" data-column="column2" style=" width:38px; text-align:center;">Dom<br /><span style="font-size:10px;">(@Model.d_1)</span> </th>
+                            <th class="column100 column3" data-column="column3" style=" width:38px; text-align:center;">Lun<br /><span style="font-size:10px;">(@Model.d_2)</span></th>
+                            <th class="column100 column4" data-column="column4" style=" width:38px; text-align:center;">Mar<br /><span style="font-size:10px;">(@Model.d_3)</span></th>
+                            <th class="column100 column5" data-column="column5" style=" width:38px; text-align:center;">Mie<br /><span style="font-size:10px;">(@Model.d_4)</span></th>
+                            <th class="column100 column6" data-column="column6" style=" width:38px; text-align:center;">Jue<br /><span style="font-size:10px;">(@Model.d_5)</span></th>
+                            <th class="column100 column7" data-column="column7" style=" width:38px; text-align:center;">Vie<br /><span style="font-size:10px;">(@Model.d_6)</span></th>
+                            <th class="column100 column8" data-column="column8" style=" width:38px; text-align:center;">Sab<br /><span style="font-size:10px;">(@Model.d_7)</span></th>
+                            <th class="column100 column9" data-column="column9" style=" width:38px; text-align:center;">Dom<br /><span style="font-size:10px;">(@Model.d_8)</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{string pkas = "";}
+                        @{string cls_desi = "";}
+                        @{string ocultar = "";}
+                        @foreach (var item in Model.Rows)
+                        {
+                            cls_desi = "";
+                            ocultar = "";
+                            if (string.IsNullOrEmpty(pkas))
+                            { pkas += item.pk; }
+                            else
+                            { pkas += "," + item.pk; }
+
+                            if (item.desierta)
+                            {
+                                cls_desi = "cve-dsierta";
+                                //ocultar = "hidden";
+                            }
+
+
+                            <tr class="row100 @cls_desi">
+                                <td class="column100 column1" data-column="column1">
+                                    <div style="width:100%;">
+                                        <div style="float:left; margin-right:3px; font-size: 11px; font-weight: 600; color: #000;">CVE:</div> <div style="float:left; margin-right:3px; font-size: 11px; color: #000;">@item.clave</div>
+                                        <div style="float:left; margin-right:3px; font-size: 10px; color: #000;">
+                                            @{string TipoInsumo = (item.tipo == 1) ? "Medicamento" : "Material de curación";}
+                                            (@TipoInsumo)
+                                        </div>
+                                        <div style="float:right; margin-right:3px; font-size: 10px;">
+                                            @if (item.consolidada)
+                                            {
+                                                <code>CONSOLIDADA: @item.maximo</code>
+                                            }
+                                            @if (item.dimesa)
+                                            {
+                                                <code>DIMESA: @item.max_dimesa</code>
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(item.programa))
+                                            {
+                                                <code>@item.programa</code>
+                                            }
+                                            <code style="    font-weight: 600; font-size: 11px;">CPM:@item.cpm</code>
+                                        </div>
+                                    </div><br />
+                                    <p style="width:100%; line-height:13px; font-size:11px;">@item.descripcion (@item.presentacion)</p>
+                                </td>
+                                @{string cls = (item.A1 == true) ? "dia-actual" : "";}
+                                <td class="column100 column2 @cls" data-column="column2" style="text-align:right;">
+                                    @if (item.A1)
+                                    {
+                                        <input ondblclick="AddComplemento('@item.pk');" class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.D1" data-pk="@item.pk" required="required" @ocultar />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="mov_@item.pk" name="mov_@item.pk" value="@item.tipo_mov_1" hidden />
+                                        <input type="text" id="desMov_@item.pk" name="desMov_@item.pk" value="@item.des_mov_1" hidden />
+                                        @*if (item.desierta){ @item.D1 }*@
+                                    }
+                                    else
+                                    {
+                                        @item.D1
+                                    }
+
+                                </td>
+
+                                @{cls = (item.A2 == true) ? "dia-actual" : "";}
+                                <td class="column100 column3 @cls" data-column="column3" style="text-align:right;">
+                                    @if (item.A2)
+                                    {
+                                        <input ondblclick="AddComplemento('@item.pk');" class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.D2" data-pk="@item.pk" required="required" @ocultar />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="mov_@item.pk" name="mov_@item.pk" value="@item.tipo_mov_2" hidden />
+                                        <input type="text" id="desMov_@item.pk" name="desMov_@item.pk" value="@item.des_mov_2" hidden />
+                                        @*if (item.desierta){ @item.D2 }*@
+                                    }
+                                    else
+                                    {
+                                        @item.D2
+                                    }
+                                </td>
+                                @{cls = (item.A3 == true) ? "dia-actual" : "";}
+                                <td class="column100 column4 @cls" data-column="column4" style="text-align:right;">
+                                    @if (item.A3)
+                                    {
+                                        <input ondblclick="AddComplemento('@item.pk');" class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.D3" data-pk="@item.pk" required="required" @ocultar />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="mov_@item.pk" name="mov_@item.pk" value="@item.tipo_mov_3" hidden />
+                                        <input type="text" id="desMov_@item.pk" name="desMov_@item.pk" value="@item.des_mov_3" hidden />
+                                        @*if (item.desierta){@item.D3}*@
+                                    }
+                                    else
+                                    {
+                                        @item.D3
+                                    }
+                                </td>
+                                @{cls = (item.A4 == true) ? "dia-actual" : "";}
+                                <td class="column100 column5 @cls" data-column="column5" style="text-align:right;">
+                                    @if (item.A4)
+                                    {
+                                        <input ondblclick="AddComplemento('@item.pk');" class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.D4" data-pk="@item.pk" required="required" @ocultar />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="mov_@item.pk" name="mov_@item.pk" value="@item.tipo_mov_4" hidden />
+                                        <input type="text" id="desMov_@item.pk" name="desMov_@item.pk" value="@item.des_mov_4" hidden />
+                                        @*if (item.desierta) {@item.D4}*@
+                                    }
+                                    else
+                                    {
+                                        @item.D4
+                                    }
+                                </td>
+                                @{cls = (item.A5 == true) ? "dia-actual" : "";}
+                                <td class="column100 column6 @cls" data-column="column6" style="text-align:right;">
+                                    @if (item.A5)
+                                    {
+                                        <input ondblclick="AddComplemento('@item.pk');" class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.D5" data-pk="@item.pk" required="required" @ocultar />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="mov_@item.pk" name="mov_@item.pk" value="@item.tipo_mov_5" hidden />
+                                        <input type="text" id="desMov_@item.pk" name="desMov_@item.pk" value="@item.des_mov_5" hidden />
+                                        @*if (item.desierta){@item.D5}*@
+                                    }
+                                    else
+                                    {
+                                        @item.D5
+                                    }
+                                </td>
+                                @{cls = (item.A6 == true) ? "dia-actual" : "";}
+                                <td class="column100 column7 @cls" data-column="column7" style="text-align:right;">
+                                    @if (item.A6)
+                                    {
+                                        <input ondblclick="AddComplemento('@item.pk');" class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.D6" data-pk="@item.pk" required="required" @ocultar />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="mov_@item.pk" name="mov_@item.pk" value="@item.tipo_mov_6" hidden />
+                                        <input type="text" id="desMov_@item.pk" name="desMov_@item.pk" value="@item.des_mov_6" hidden />
+                                        @*if (item.desierta){@item.D6}*@
+                                    }
+                                    else
+                                    {
+                                        @item.D6
+                                    }
+                                </td>
+                                @{cls = (item.A7 == true) ? "dia-actual" : "";}
+                                <td class="column100 column8 @cls" data-column="column8" style="text-align:right;">
+                                    @if (item.A7)
+                                    {
+                                        <input ondblclick="AddComplemento('@item.pk');" class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.D7" data-pk="@item.pk" required="required" @ocultar />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="mov_@item.pk" name="mov_@item.pk" value="@item.tipo_mov_7" hidden />
+                                        <input type="text" id="desMov_@item.pk" name="desMov_@item.pk" value="@item.des_mov_7" hidden />
+                                        @*if (item.desierta){@item.D7}*@
+                                    }
+                                    else
+                                    {
+                                        @item.D7
+                                    }
+                                </td>
+                                @{cls = (item.A8 == true) ? "dia-actual" : "";}
+                                <td class="column100 column9 @cls" data-column="column9" style="text-align:right;">
+                                    @if (item.A8)
+                                    {
+                                        <input ondblclick="AddComplemento('@item.pk');" class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.D8" data-pk="@item.pk" required="required" @ocultar />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="mov_@item.pk" name="mov_@item.pk" value="@item.tipo_mov_8" hidden />
+                                        <input type="text" id="desMov_@item.pk" name="desMov_@item.pk" value="@item.des_mov_8" hidden />
+                                        @*if (item.desierta){@item.D8}*@
+                                    }
+                                    else
+                                    {
+                                        @item.D8
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <table id="header-fixed">
+                    <thead>
+                        <tr class="row100 head">
+                            <th id="clm-search" class="column100 column1" data-column="column1" style="width:65%;">
+                                <div class="input-group" style="width:100%;">
+                                    <input id="filter-input-refs_" type="text" class="form-control filteres" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button style="z-index:2; height:26px;" class="btn btn-primary md-search-white" type="button">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                    </span>
+                                </div>
+                            </th>
+                            <th class="column100 column2" data-column="column2" style=" width:38px; text-align:center;">Dom<br /><span style="font-size:10px;">(@Model.d_1)</span> </th>
+                            <th class="column100 column3" data-column="column3" style=" width:38px; text-align:center;">Lun<br /><span style="font-size:10px;">(@Model.d_2)</span></th>
+                            <th class="column100 column4" data-column="column4" style=" width:38px; text-align:center;">Mar<br /><span style="font-size:10px;">(@Model.d_3)</span></th>
+                            <th class="column100 column5" data-column="column5" style=" width:38px; text-align:center;">Mie<br /><span style="font-size:10px;">(@Model.d_4)</span></th>
+                            <th class="column100 column6" data-column="column6" style=" width:38px; text-align:center;">Jue<br /><span style="font-size:10px;">(@Model.d_5)</span></th>
+                            <th class="column100 column7" data-column="column7" style=" width:38px; text-align:center;">Vie<br /><span style="font-size:10px;">(@Model.d_6)</span></th>
+                            <th class="column100 column8" data-column="column8" style=" width:38px; text-align:center;">Sab<br /><span style="font-size:10px;">(@Model.d_7)</span></th>
+                            <th class="column100 column9" data-column="column9" style=" width:38px; text-align:center;">Dom<br /><span style="font-size:10px;">(@Model.d_8)</span></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <input type="text" id="valores_pks" name="valores_pks" value="@pkas" hidden />
+    <input type="text" id="flag_edit" name="flag_edit" value="@Model.editando.ToString()" hidden />
+    <input type="text" id="id_pedido" name="id_pedido" value="@Model.id_" hidden />
+    <input type="text" id="id_unidad" name="id_unidad" value="@Model.id_unidad" hidden />
+    <input type="text" id="fecha_afectar" name="fecha_afectar" value="@Model.fecha_afectar" hidden />
+
+    <input type="submit" id="btnSubmitOculto" hidden />
+    <button id="btn-flotante" type="button" onclick="SaveExistencias();" class="btn btn-success btn-circle tooltip-test" style="position:fixed; bottom: 10px; right: 10px; z-index: 3; border-radius: 50%; display: block; width: 60px; height: 60px; font-size: 26px; display:none;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Guardar">
+        <i class="fa fa-floppy-o"></i>
+    </button>
+
+    <!-- MODAL PARA CARGAR EXISTENCIAS DESDE ARCHIVO -->
+    <div id="ModalArchivoExistencias" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="btn-clsin">Información</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <i class="fa fa-circle b-cv"></i>
+                            <i class="fa fa-circle b-ca"></i>
+                            <i class="fa fa-circle b-cr"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body" style="min-height:200px;">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tlt-seccion">Subir Archivo:</div>
+                                    <div class="input-group input-group-sm">
+                                        <input id="existenciasDoc" name="existenciasDoc" type="file" class="" style="display:none;" />
+                                        <input id="txtDocExistencias" type="text" value="" class="form-control" placeholder="Adjuntar archivo..." readonly="readonly" />
+                                        <span class="input-group-btn">
+                                            <button id="btn_existencias_doc" type="button" class="btn btn-default btn-flat"><i class="fa fa-paperclip" style="font-size: 15px;"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default b-cr tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Salir" data-dismiss="modal"><i class="fa fa-fw fa-close"></i></button>
+                        <button onclick="SaveExistenciasArchivo();" type="button" class="btn btn-default b-cv tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Guardar"><i class="fa fa-fw fa-check"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- MODAL PARA ANEXO DE EXISTENCIA -->
+    <div id="ModalAnexo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="btn-clsin">Información</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <i class="fa fa-circle b-cv"></i>
+                            <i class="fa fa-circle b-ca"></i>
+                            <i class="fa fa-circle b-cr"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body" style="min-height:200px;">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tlt-seccion">Movimiento:</div>
+                                    @Html.DropDownList("tip_movimiento", ViewBag.SelectListMovimietos as SelectList, new { @class = "form-control", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tlt-seccion">Descripción del movimiento:</div>
+                                    <textarea id="descrip_movimiento" name="descrip_movimiento" class="form-control" style="height:120px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group" role="group">
+                        <input id="pk_insumo_" name="pk_insumo_" type="text" hidden />
+                        <button type="button" class="btn btn-default b-cr tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Salir" data-dismiss="modal"><i class="fa fa-fw fa-close"></i></button>
+                        <button onclick="SaveComplemento();" type="button" class="btn btn-default b-cv tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Guardar"><i class="fa fa-fw fa-check"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+}
+@section scripts {
+    @*<script src="~/Content/TableExistencia/main.js"></script>*@
+    <script src="~/Content/js/filters-table-ar.js"></script>
+    <script type="text/javascript">
+
+        //PREVENIR EL SUBMIT NATURAL POR LA TECLA ENTER.
+        $("#frm_datos_").submit(function (event) {
+            event.preventDefault();
+        });
+
+        //------------TABLE HEADER FIXED------------
+        var $tableOffset = $("#table-1").offset().top,
+            //$header = $("#table-1 > thead").clone(),
+            //$fixedHeader = $("#header-fixed").append($header);
+            $fixedHeader = $("#header-fixed");
+
+        $(window).bind("resize", function () {
+            $fixedHeader.width($("table").width());
+        });
+
+        $(window).bind("scroll", function () {
+            var offset = $(this).scrollTop();
+
+            if (offset >= $tableOffset && $fixedHeader.is(":hidden")) {
+                $fixedHeader.show().width($("table").width());
+                $("#table-1").css("margin-top", "55px");
+
+                //mostrat boton flotante
+                $("#btn-flotante").css("display", "block");
+            }
+            else if (offset < $tableOffset) {
+                $fixedHeader.hide();
+                $("#table-1").css("margin-top", "0px");
+                //mostrat boton flotante
+                $("#btn-flotante").css("display", "none");
+            }
+        });
+        //------------END TABLE HEADER FIXED------------
+
+        //READY
+        $(document).ready(function () {
+            justNumber("exs");
+            filterTable_exis('filter-input-refs', 'filter-input-refs_', 'table-1');
+
+            $("#btn_existencias_doc").on("click", function () {
+                $("#existenciasDoc").click();
+            });
+            $("#existenciasDoc").change(function (e) {
+                var file_ = this.files[0].name;
+                var extension = file_.substr((file_.lastIndexOf('.') + 1));
+                if (!/(txt|TXT)$/ig.test(extension)) {
+                    show_info("Archivo incorrecto.");
+                    $("#txtDocExistencias").val("");
+                    return false;
+                }
+                $("#txtDocExistencias").val(this.files[0].name);
+            });
+
+        });
+
+        //FUNCION GUARDAR EXISTENCIAS
+        function SaveExistencias() {
+            //Valida reglas de formulario
+            if ($("#frm_datos_")[0].checkValidity()) {
+
+                //Mostrar procesando
+                show_loading();
+
+                //Serializar datos de formulario para un POST Ajax
+                var formData = $("#frm_datos_").serializeArray();
+                //Url de metodo POST
+                var URL = $("#frm_datos_").attr("action");
+                //Peticion Ajax
+                $.ajax({
+                    type: "POST",
+                    url: URL,
+                    data: formData,
+                    dataType: "json",
+                    success: function (data) {
+                        //Success cerrar procesando
+                        close_loading();
+                        //En caso de exito
+                        if (data.exito) {
+
+                            //Mostrar mensaje de exito
+                            show_exito(data.msg, '');
+                            $("#id_pedido").val(data.id_);
+                            $("#flag_edit").val(data.editando);
+
+                        }
+                        else {
+                            //En caso de error mostrar mensaje
+                            show_error(data.msg);
+                        }
+                    },
+                    error: function () {
+                        //Cerrar Procesando
+                        close_loading();
+                        //Mostrar mensaje de excepcion ajax
+                        show_error('Ocurrio algo al momento de procesar.');
+                    }
+                });
+            } else {
+                //En caso de cumplir las reglas del formulario hacer un Submit naturar y muestre mensajes requeridos.
+                $("#btnSubmitOculto").click();
+            }
+        }
+
+
+        //UTILERIAS
+        //Funcion para hacer un input solo numeros sin decimal
+        function justNumber(elemento) {
+
+            $("." + elemento).keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+                    // Allow: Ctrl+A, Command+A
+                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+                //justNumberDecimal(e);
+            });
+        }
+
+        function filterTable_exis(filter_1, filter_2, table) {
+            $("#" + filter_1).keyup(function (e) {
+                _this = this;
+                $("#" + filter_2).val(_this.value);
+                $("#" + table + " tbody tr").each(function (i, e) {
+                    if ($(this).text().toLowerCase().indexOf(_this.value.toLowerCase()) === -1)
+                        $(this).hide();
+                    else
+                        $(this).show();
+                });
+            });
+
+            $("#" + filter_2).keyup(function (e) {
+                _this = this;
+                $("#" + filter_1).val(_this.value);
+                $("#" + table + " tbody tr").each(function (i, e) {
+                    if ($(this).text().toLowerCase().indexOf(_this.value.toLowerCase()) === -1)
+                        $(this).hide();
+                    else
+                        $(this).show();
+                });
+            });
+        }
+
+        //MOSTRAR MODAL PARA CARGAR EXISTENCIAS DESDE ARCHIVO
+        function AddExistenciasArchivo() {
+            $('#ModalArchivoExistencias').modal('show');
+        }
+
+        //MOSTRAR MODAL PARA AGREGAR COMPLEMENTO DE EXISTENCIA
+        function AddComplemento(PK) {
+            $("#pk_insumo_").val(PK);
+            var mov = $("#mov_" + PK).val();
+            var des = $("#desMov_" + PK).val();
+
+            if (!mov || mov == undefined || mov == "") {
+                console.log("1.- Mov: " + mov + ", Des: " + des);
+                $("#tip_movimiento").val("1");
+                $("#descrip_movimiento").val("");
+            }
+            else {
+                console.log("2.- Mov: " + mov + ", Des: " + des);
+                $("#tip_movimiento").val(mov);
+                $("#descrip_movimiento").val(des);
+            }
+
+            $('#ModalAnexo').modal('show');
+        }
+
+        //GUARDAR EN CAMPOS TIPO MOVIMIENTO Y DESCRIPCION DE MOVIMIENTO (COMPLEMENTO A CAPTURA DE EXISTENCIA)
+        function SaveComplemento() {
+            var PK = $("#pk_insumo_").val();
+            var mov = $("#tip_movimiento").val();
+            var des = $("#descrip_movimiento").val();
+
+            $("#mov_" + PK).val(mov);
+            $("#desMov_" + PK).val(des);
+
+            $('#ModalAnexo').modal('hide');
+        }
+    </script>
+}

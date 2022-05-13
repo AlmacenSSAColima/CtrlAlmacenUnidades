@@ -1,0 +1,230 @@
+﻿@model PedidosUnidad.Models.ExistenciaDiaria
+@using PedidosUnidad.Security
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <style>
+        /*** Table Styles **/
+
+        .table-fill {
+            background: white;
+            /*border-radius: 3px;*/
+            border-collapse: collapse;
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+            /*box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);*/
+            font-family:Arial;
+        }
+
+        th {
+            color: #f1f1f1;
+            background: #555;
+            border-bottom: 4px solid #9ea7af;
+            border-right: 1px solid #343a45;
+            font-size: 14px;
+            font-weight: 100;
+            padding: 5px;
+            text-align: left;
+            /*text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);*/
+            vertical-align: middle;
+        }
+
+        tr, td {
+            page-break-inside: avoid !important;
+        }
+
+
+        tr {
+            border-top: 1px solid #555;
+            border-bottom-: 1px solid #555;
+            border-left: 1px solid #555;
+            border-right: 1px solid #555;
+            /*color: #666B85;*/
+            color: #555;
+            font-size: 16px;
+            font-weight: normal;
+            /*text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);*/
+        }
+            tr:first-child {
+                border-top: none;
+            }
+
+            tr:last-child {
+                /*border-bottom: none;*/
+            }
+
+            tr:nth-child(odd) td {
+                /*background: #EBEBEB;*/
+            }
+
+            tr:last-child td:first-child {
+                border-bottom-left-radius: 3px;
+            }
+
+            tr:last-child td:last-child {
+                border-bottom-right-radius: 3px;
+            }
+
+        td {
+            /*background: #FFFFFF;*/
+            padding: 3px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 18px;
+            /*text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);*/
+            border-right: 1px solid #555;
+        }
+
+            td:last-child {
+                border-right: 0px;
+            }
+
+        th.text-left {
+            text-align: left;
+        }
+
+        th.text-center {
+            text-align: center;
+        }
+
+        th.text-right {
+            text-align: right;
+        }
+
+        td.text-left {
+            text-align: left;
+        }
+
+        td.text-center {
+            text-align: center;
+        }
+
+        td.text-right {
+            text-align: right;
+        }
+        .cve-dsierta {
+            /*background: repeating-linear-gradient( 40deg, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 7px, #ef9a9a 3px, #ef9a9a 8px );*/
+            background: #ECEFF1;
+        }
+    </style>
+
+    <div style=" width:100%; text-align:center;">
+        <h3>
+            @SessionPersister.CurrentUser.nom_unidad  @Model.tipo_listado
+        </h3>
+        <h3 style="margin-top:-20px;">
+            Control de captura de existencia diaria de los insumos semana del <b>@Model.f_desde</b> al <b>@Model.f_hasta</b>            
+        </h3>
+        <h4 style="margin-top:-20px;">
+            Cantidad de claves
+            @if (SessionPersister.CurrentUser.tipo == 1)
+            {
+                    @Model.claves_medicamento;
+            }
+            else
+            {
+                    @Model.claves_curacion
+            }
+
+        </h4>
+    </div>
+
+    <table class="table-fill" style="margin-top:40px;">
+
+            <tr>
+                <th class="text-left" style="width:65%;">Descripcion Insumo</th>
+                <th class="" style=" width:38px; text-align:center;">Dom<br /><span style="font-size:10px;">(@Model.d_1)</span> </th>
+                <th class=" " style=" width:38px; text-align:center;">Lun<br /><span style="font-size:10px;">(@Model.d_2)</span></th>
+                <th class=" " style=" width:38px; text-align:center;">Mar<br /><span style="font-size:10px;">(@Model.d_3)</span></th>
+                <th class=" " style=" width:38px; text-align:center;">Mie<br /><span style="font-size:10px;">(@Model.d_4)</span></th>
+                <th class=" " style=" width:38px; text-align:center;">Jue<br /><span style="font-size:10px;">(@Model.d_5)</span></th>
+                <th class=" " style=" width:38px; text-align:center;">Vie<br /><span style="font-size:10px;">(@Model.d_6)</span></th>
+                <th class=" " style=" width:38px; text-align:center;">Sab<br /><span style="font-size:10px;">(@Model.d_7)</span></th>
+                <th class=" " style=" width:38px; text-align:center;">Dom<br /><span style="font-size:10px;">(@Model.d_8)</span></th>
+            </tr>
+                
+
+        <tbody class="table-hover">
+            @{string pkas = "";}
+            @{string cls_desi = "";}
+            @foreach (var item in Model.Rows)
+    {
+        cls_desi = "";
+        if (string.IsNullOrEmpty(pkas))
+        { pkas += item.pk; }
+        else
+        { pkas += "," + item.pk; }
+
+        if (item.desierta)
+        {
+            cls_desi = "cve-dsierta";
+
+        }
+
+
+        <tr class="@cls_desi">
+            <td class="column100 column1" data-column="column1">
+                <div style="width:100%;">
+                    <div style="float:left; margin-right:3px; font-size: 11px; font-weight: 600; color: #000;">CVE:</div> <div style="float:left; margin-right:3px; font-size: 11px; color: #000;">@item.clave</div>
+                    <div style="float:left; margin-right:3px; font-size: 10px; color: #000;">
+                        @{string TipoInsumo = (item.tipo == 1) ? "Medicamento" : "Material de curación";}
+                        (@TipoInsumo)
+                    </div>
+                    <div style="float:right; margin-right:3px; font-size: 10px;">
+                        @if (item.consolidada)
+                        {
+                            <label style="font-size:10px; color:#808080;">CONSOLIDADA: @item.maximo,</label>
+                        }
+                            @if (item.dimesa)
+                        {
+                            <label style="font-size:10px; color:#808080;">DIMESA: @item.max_dimesa,</label>
+                        }
+
+                        @if (!string.IsNullOrEmpty(item.programa))
+                {
+                    <label style="font-size:10px; color:#808080;">@item.programa</label>
+        }
+                        <label style="font-size:11px; color:#000; letter-spacing: 2pt;">CPM:@item.cpm</label>
+                    </div>
+                </div><br />
+                <p style="width:100%; line-height:13px; font-size:11px; margin-top:-5px; color:#000; letter-spacing: 1pt;">@item.descripcion (@item.presentacion)</p>
+            </td>
+            <td class="column100 column2" data-column="column2" style="text-align:right;"></td>
+
+            <td class="column100 column3 " data-column="column3" style="text-align:right;"></td>
+            <td class="column100 column4" data-column="column4" style="text-align:right;"></td>
+            <td class="column100 column5" data-column="column5" style="text-align:right;"></td>
+            <td class="column100 column6 " data-column="column6" style="text-align:right;"></td>
+            <td class="column100 column7" data-column="column7" style="text-align:right;"></td>
+            <td class="column100 column8 " data-column="column8" style="text-align:right;"></td>
+            <td class="column100 column9" data-column="column9" style="text-align:right;"></td>
+        </tr>
+}
+        </tbody>
+    </table>
+
+
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+
+</body>
+</html>
+

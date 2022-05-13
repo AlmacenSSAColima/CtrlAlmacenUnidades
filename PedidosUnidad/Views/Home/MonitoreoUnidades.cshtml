@@ -1,0 +1,398 @@
+﻿@model PedidosUnidad.Models.UnidadesMonitoreoConsultaClass
+@{
+    ViewBag.Title = "MonitoreoUnidades";
+}
+
+<link href="~/Content/css/homeIn.css" rel="stylesheet" />
+<div class="container-fluid bck-home" style="padding:0px;">
+    <div style="width:100%; height:100vh; background:rgba(0,0,0,0.3); padding-top:5%; padding-left:11px; padding-right:11px; overflow-y:auto;">
+        <h2 class="outline" style=" margin:0px auto; font-size:25px; text-align:center; margin-bottom:10px;">Fechas de ultima Captura</h2>
+        <div class="row">
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                HRU
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> HOSPITAL REGIONAL UNIVERSITARIO
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=90000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hru_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hru_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=90000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hru_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hru_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                HGT
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> HOSPITAL GENERAL TECOMAN
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=29';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hgt_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hgt_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=29';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hgt_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hgt_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                HGM
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> HOSPITAL GENERAL MANZANILLO
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=52';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hgm_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hgm_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=52';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hgm_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hgm_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                HGI
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> HOSPITAL GENERAL IXTLAHUACAN
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=110000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hgi_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hgi_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=110000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hgi_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hgi_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                HMI
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> HOSPITAL MATERNO INFANTIL
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=130000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hmi_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hmi_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=130000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_hmi_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_hmi_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                J 1
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> JURISDICCION 1
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=80000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_j1_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_j1_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=80000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_j1_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_j1_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                J 2
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> JURISDICCION 2
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=100000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_j2_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_j2_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=100000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_j2_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_j2_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                J 3
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> JURISDICCION 3
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=120000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_j3_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_j3_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=120000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_j3_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_j3_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                IEC
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> INSTITUTO ESTATAL DE CANCEROLOGIA
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=180000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_iec_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_iec_me</span>
+                                    </div>
+                                </div>
+
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=180000';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_iec_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_iec_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body pboy">
+                        <div style="float:left; width:20%; height:80px;">
+                            <div class="uni_cu" style="width: 100%; height: 80px; float: left; text-align: center; padding: 3px; padding-top: 3px; border-radius: 3px; margin-top: 0px; font-weight: 600; padding-top: 17px; background:#BBDEFB; color: #01579B; ">
+                                CEH
+                            </div>
+                        </div>
+                        <div style="float:left; width:80%; height:80px; padding-left:5px;">
+                            <div class="uni_des" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                <i class="fa fa-fw fa-medkit"></i> CENTRO ESTATAL DE HEMODIALISIS
+                            </div>
+                            <div style="width:100%; height:60px; margin-top:7px;">
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=1&unidad_=10051';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Medicamento
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_ceh_me</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_ceh_me</span>
+                                    </div>
+                                </div>
+                                <div style="width:50%; height:60px; float:left;" onclick="javascript: location.href = '/Existencia/ExistenciasByUnidad?tipo=2&unidad_=10051';">
+                                    <div class="tip_in" style="width:100%; height:20px; color:#777; font-weight: 600;">
+                                        Material de curación
+                                    </div>
+                                    <div style="width:100%; height:20px; margin-top:0px; color:#777; font-size:11px;">
+                                        <i class="fa fa-fw fa-calendar"></i> <span style="color:#5578eb; ">@Model.ult_fec_ceh_ma</span> <br />
+                                        <i class="fa fa-fw fa-clock-o"></i> <span style="color:#5578eb; ">@Model.ult_hr_ceh_ma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PedidosUnidad.Models.ReporteSolicitadoVSEntregado>
+
+@{
+    Layout = null;
+}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.pk_centro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.centro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pk_articulos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.anio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.clave_t)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.solicitado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.surtido)
+            </th>
+
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.pk_centro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.centro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pk_articulos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.anio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.clave_t)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.solicitado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.surtido)
+            </td>
+
+        </tr>
+    }
+    
+    </table>

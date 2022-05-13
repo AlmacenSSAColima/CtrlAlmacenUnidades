@@ -1,0 +1,92 @@
+﻿﻿@model IEnumerable<PedidosUnidad.Models.ReportInsumos>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Index_i</title>
+
+</head>
+
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+
+    </p>
+    <table class="table">
+
+        <tr>
+
+            <th>pk</th>
+
+            <th>mes</th>
+
+            <th>clave</th>
+
+            <th>descrip</th>
+
+            <th>solicitado</th>
+
+            <th>surtido</th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            foreach (var rws in item.rows)
+            {
+
+                <tr>
+
+                    <td>
+                        @rws.pk
+
+                    </td>
+
+                    <td>
+                        @rws.mes
+
+                    </td>
+
+                    <td>
+                        @rws.clave
+
+                    </td>
+
+                    <td>
+                        @rws.descripcion
+
+                    </td>
+
+                    <td>
+                        @rws.solicitado
+
+                    </td>
+
+                    <td>
+                        @rws.surtido
+
+                    </td>
+
+                </tr>
+            }
+
+
+        }
+
+
+    </table>
+
+</body>
+
+</html>

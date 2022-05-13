@@ -1,0 +1,926 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PedidosCPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="configuracion_unidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_unidad" Type="int" />
+          <Property Name="descripcion_unidad" Type="varchar" MaxLength="50" />
+          <Property Name="director" Type="varchar" MaxLength="50" />
+          <Property Name="administrador" Type="varchar" MaxLength="50" />
+          <Property Name="encargado_medicamentos" Type="varchar" MaxLength="50" />
+          <Property Name="encargado_curacion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="cuadro_general_medicamento">
+          <Key>
+            <PropertyRef Name="anio" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="anio" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="cve" Type="varchar" MaxLength="15" />
+          <Property Name="descripcion" Type="nvarchar(max)" />
+          <Property Name="quitar" Type="bit" />
+          <Property Name="controlado" Type="bit" />
+          <Property Name="origen_desc" Type="nvarchar" MaxLength="255" />
+          <Property Name="origen_desierta" Type="bit" />
+          <Property Name="origen_consolidada" Type="bit" />
+          <Property Name="origen_dimesa" Type="bit" />
+          <Property Name="origen_otro" Type="bit" />
+          <Property Name="origen_otro_desc" Type="nvarchar" MaxLength="255" />
+          <Property Name="programa" Type="bit" />
+          <Property Name="programa_desc" Type="nvarchar" MaxLength="350" />
+          <Property Name="hru" Type="int" />
+          <Property Name="hgt" Type="int" />
+          <Property Name="hmi" Type="int" />
+          <Property Name="hgm" Type="int" />
+          <Property Name="hgi" Type="int" />
+          <Property Name="iec" Type="int" />
+          <Property Name="ceh" Type="int" />
+          <Property Name="j1" Type="int" />
+          <Property Name="j2" Type="int" />
+          <Property Name="j3" Type="int" />
+          <Property Name="uneme_colima" Type="int" />
+          <Property Name="uneme_tecoman" Type="int" />
+          <Property Name="uneme_manzanillo" Type="int" />
+          <Property Name="cara_varonil" Type="int" />
+          <Property Name="cara_femenil" Type="int" />
+          <Property Name="capasits_colima" Type="int" />
+          <Property Name="capasits_tecoman" Type="int" />
+          <Property Name="capasits_manzanillo" Type="int" />
+          <Property Name="fam" Type="int" />
+          <Property Name="total_mensual" Type="int" />
+          <Property Name="total_anual" Type="int" />
+          <Property Name="max_consolidada" Type="int" />
+          <Property Name="min_consolidada" Type="int" />
+          <Property Name="max_dimesa" Type="int" />
+          <Property Name="min_dimesa" Type="int" />
+          <Property Name="nivel_1" Type="bit" />
+          <Property Name="nivel_2" Type="bit" />
+          <Property Name="tipo_consumo" Type="varchar" MaxLength="150" />
+          <Property Name="prospecta_baja" Type="bit" />
+        </EntityType>
+        <EntityType Name="cuadro_nacional_medicamento">
+          <Key>
+            <PropertyRef Name="anio" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="anio" Type="int" Nullable="false" />
+          <Property Name="id" Type="float" Nullable="false" />
+          <Property Name="PROVEEDOR" Type="nvarchar" MaxLength="255" />
+          <Property Name="CuCOP" Type="nvarchar" MaxLength="50" />
+          <Property Name="GPO" Type="nvarchar" MaxLength="5" />
+          <Property Name="GEN" Type="nvarchar" MaxLength="5" />
+          <Property Name="ESP" Type="nvarchar" MaxLength="5" />
+          <Property Name="DIF" Type="nvarchar" MaxLength="5" />
+          <Property Name="VAR_" Type="nvarchar" MaxLength="5" />
+          <Property Name="CVE" Type="nvarchar" MaxLength="15" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" />
+          <Property Name="UNIDAD" Type="nvarchar" MaxLength="255" />
+          <Property Name="CANT" Type="float" />
+          <Property Name="TIPO" Type="nvarchar" MaxLength="55" />
+          <Property Name="PRECIO" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CANTIDAD_MAXIMA" Type="float" />
+          <Property Name="CANTIDAD_MINIMA" Type="float" />
+          <Property Name="IMPORTE_MAXIMO" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IMPORTE_MINIMO" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="LICITACION" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="det_inventario_articulo">
+          <Key>
+            <PropertyRef Name="id_inv" />
+            <PropertyRef Name="id_unidad" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_inv" Type="int" Nullable="false" />
+          <Property Name="id_unidad" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="pk_articulo" Type="varchar" MaxLength="30" />
+          <Property Name="cve" Type="varchar" MaxLength="20" />
+          <Property Name="cpm" Type="int" />
+          <Property Name="existencias" Type="int" />
+          <Property Name="entradas" Type="int" />
+          <Property Name="observaciones" Type="varchar" MaxLength="450" />
+          <Property Name="tipo" Type="int" />
+          <Property Name="tipo_mov" Type="int" />
+        </EntityType>
+        <EntityType Name="det_pedido">
+          <Key>
+            <PropertyRef Name="id_pedido" />
+            <PropertyRef Name="id_unidad" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_pedido" Type="int" Nullable="false" />
+          <Property Name="id_unidad" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="PK" Type="varchar" MaxLength="30" />
+          <Property Name="cve" Type="varchar" MaxLength="150" />
+          <Property Name="descripcion" Type="varchar" MaxLength="350" />
+          <Property Name="cpm" Type="int" />
+          <Property Name="existencias" Type="int" />
+          <Property Name="solicitadas" Type="int" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="origen" Type="varchar" MaxLength="150" />
+          <Property Name="tipo" Type="int" />
+          <Property Name="presentacion" Type="varchar" MaxLength="50" />
+          <Property Name="subtipo_insumo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ma_inventario_dia">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_unidad" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_unidad" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="mes" Type="int" />
+          <Property Name="anio" Type="int" />
+          <Property Name="tipo" Type="int" />
+          <Property Name="hora" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ma_pedido">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_unidad" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_unidad" Type="int" Nullable="false" />
+          <Property Name="anio" Type="int" />
+          <Property Name="mes" Type="int" />
+          <Property Name="folio" Type="varchar" MaxLength="16" />
+          <Property Name="tipo_pedido" Type="int" />
+          <Property Name="descrip_unidad" Type="varchar" MaxLength="250" />
+          <Property Name="claves_total" Type="int" />
+          <Property Name="claves_solicitadas" Type="int" />
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="nombre_usuario" Type="varchar" MaxLength="250" />
+          <Property Name="fecha_registro" Type="datetime" />
+          <Property Name="fecha_actualiza" Type="datetime" />
+          <Property Name="fecha_confirmado" Type="datetime" />
+          <Property Name="pedido_confirmado" Type="bit" />
+          <Property Name="fecha_envio" Type="datetime" />
+          <Property Name="folio_almacen" Type="varchar" MaxLength="50" />
+          <Property Name="estatus" Type="int" />
+          <Property Name="pedido" Type="varchar" MaxLength="50" />
+          <Property Name="controlado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Menu_Settings">
+          <Key>
+            <PropertyRef Name="idmodules" />
+            <PropertyRef Name="idusers" />
+          </Key>
+          <Property Name="idmodules" Type="int" Nullable="false" />
+          <Property Name="idusers" Type="int" Nullable="false" />
+          <Property Name="namemodules" Type="varchar" MaxLength="50" />
+          <Property Name="agregar" Type="bit" />
+          <Property Name="ver" Type="bit" />
+          <Property Name="actualizar" Type="bit" />
+          <Property Name="eliminar" Type="bit" />
+          <Property Name="parentmenuid" Type="int" />
+        </EntityType>
+        <EntityType Name="modules">
+          <Key>
+            <PropertyRef Name="idmodules" />
+          </Key>
+          <Property Name="idmodules" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codemodules" Type="varchar" MaxLength="50" />
+          <Property Name="namemodules" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="parentmenuid" Type="int" Nullable="false" />
+          <Property Name="ordernumber" Type="int" Nullable="false" />
+          <Property Name="menuurl" Type="varchar" MaxLength="100" />
+          <Property Name="menuicon" Type="varchar" MaxLength="50" />
+          <Property Name="menuaction" Type="varchar" MaxLength="50" />
+          <Property Name="menucontrolador" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="modules_temp">
+          <Key>
+            <PropertyRef Name="id_modules_temp" />
+          </Key>
+          <Property Name="id_modules_temp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idmodules" Type="int" Nullable="false" />
+          <Property Name="codemodules" Type="varchar" MaxLength="50" />
+          <Property Name="namemodules" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="parentmenuid" Type="int" Nullable="false" />
+          <Property Name="ordernumber" Type="int" Nullable="false" />
+          <Property Name="menuurl" Type="varchar" MaxLength="100" />
+          <Property Name="menuicon" Type="varchar" MaxLength="25" />
+          <Property Name="menuaction" Type="varchar" MaxLength="50" />
+          <Property Name="menucontrolador" Type="varchar" MaxLength="50" />
+          <Property Name="users_idusers" Type="int" />
+          <Property Name="create_permission" Type="bit" />
+          <Property Name="read_permission" Type="bit" />
+          <Property Name="update_permission" Type="bit" />
+          <Property Name="delete_permission" Type="bit" />
+          <Property Name="hijos" Type="int" />
+        </EntityType>
+        <EntityType Name="parametros_sys">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="descripcion" Type="varchar" MaxLength="150" />
+          <Property Name="valor" Type="varchar" MaxLength="50" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="fecha_registro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre_rol" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="roles_modules_privileges">
+          <Key>
+            <PropertyRef Name="idroles_module_privileges" />
+          </Key>
+          <Property Name="idroles_module_privileges" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roles_id" Type="int" />
+          <Property Name="modules_idmodules" Type="int" />
+          <Property Name="create_privilege" Type="bit" />
+          <Property Name="read_privilege" Type="bit" />
+          <Property Name="update_privilege" Type="bit" />
+          <Property Name="delete_privilege" Type="bit" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="nombre_usuario" Type="varchar" MaxLength="250" />
+          <Property Name="unidad" Type="int" />
+          <Property Name="nombre_unidad" Type="varchar" MaxLength="250" />
+          <Property Name="rol" Type="int" />
+          <Property Name="nombre_rol" Type="varchar" MaxLength="250" />
+          <Property Name="fecha_registro" Type="datetime" />
+          <Property Name="tipo_usuario" Type="int" />
+          <Property Name="activo" Type="bit" />
+        </EntityType>
+        <Association Name="FK_roles_modules_privileges_modules">
+          <End Role="modules" Type="Self.modules" Multiplicity="0..1" />
+          <End Role="roles_modules_privileges" Type="Self.roles_modules_privileges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modules">
+              <PropertyRef Name="idmodules" />
+            </Principal>
+            <Dependent Role="roles_modules_privileges">
+              <PropertyRef Name="modules_idmodules" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_roles_modules_privileges_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+          <End Role="roles_modules_privileges" Type="Self.roles_modules_privileges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="roles_modules_privileges">
+              <PropertyRef Name="roles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PedidosCPMModelStoreContainer">
+          <EntitySet Name="configuracion_unidades" EntityType="Self.configuracion_unidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cuadro_general_medicamento" EntityType="Self.cuadro_general_medicamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cuadro_nacional_medicamento" EntityType="Self.cuadro_nacional_medicamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="det_inventario_articulo" EntityType="Self.det_inventario_articulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="det_pedido" EntityType="Self.det_pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ma_inventario_dia" EntityType="Self.ma_inventario_dia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ma_pedido" EntityType="Self.ma_pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu_Settings" EntityType="Self.Menu_Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="modules" EntityType="Self.modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="modules_temp" EntityType="Self.modules_temp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parametros_sys" EntityType="Self.parametros_sys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles_modules_privileges" EntityType="Self.roles_modules_privileges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_roles_modules_privileges_modules" Association="Self.FK_roles_modules_privileges_modules">
+            <End Role="modules" EntitySet="modules" />
+            <End Role="roles_modules_privileges" EntitySet="roles_modules_privileges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_roles_modules_privileges_roles" Association="Self.FK_roles_modules_privileges_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="roles_modules_privileges" EntitySet="roles_modules_privileges" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PedidosCPMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PedidoEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="roles" EntityType="PedidosCPMModel.roles" />
+          <EntitySet Name="parametros_sys" EntityType="PedidosCPMModel.parametros_sys" />
+          <EntitySet Name="det_inventario_articulo" EntityType="PedidosCPMModel.det_inventario_articulo" />
+          <EntitySet Name="cuadro_nacional_medicamento" EntityType="PedidosCPMModel.cuadro_nacional_medicamento" />
+          <EntitySet Name="cuadro_general_medicamento" EntityType="PedidosCPMModel.cuadro_general_medicamento" />
+          <EntitySet Name="Menu_Settings" EntityType="PedidosCPMModel.Menu_Settings" />
+          <EntitySet Name="modules" EntityType="PedidosCPMModel.modules" />
+          <EntitySet Name="modules_temp" EntityType="PedidosCPMModel.modules_temp" />
+          <EntitySet Name="roles_modules_privileges" EntityType="PedidosCPMModel.roles_modules_privileges" />
+          <AssociationSet Name="FK_roles_modules_privileges_modules" Association="PedidosCPMModel.FK_roles_modules_privileges_modules">
+            <End Role="modules" EntitySet="modules" />
+            <End Role="roles_modules_privileges" EntitySet="roles_modules_privileges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_roles_modules_privileges_roles" Association="PedidosCPMModel.FK_roles_modules_privileges_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="roles_modules_privileges" EntitySet="roles_modules_privileges" />
+          </AssociationSet>
+          <EntitySet Name="usuarios" EntityType="PedidosCPMModel.usuarios" />
+          <EntitySet Name="ma_inventario_dia" EntityType="PedidosCPMModel.ma_inventario_dia" />
+          <EntitySet Name="det_pedido" EntityType="PedidosCPMModel.det_pedido" />
+          <EntitySet Name="configuracion_unidades" EntityType="PedidosCPMModel.configuracion_unidades" />
+          <EntitySet Name="ma_pedido" EntityType="PedidosCPMModel.ma_pedido" />
+          </EntityContainer>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre_rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="roles_modules_privileges" Relationship="PedidosCPMModel.FK_roles_modules_privileges_roles" FromRole="roles" ToRole="roles_modules_privileges" />
+        </EntityType>
+        <EntityType Name="parametros_sys">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="valor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="det_inventario_articulo">
+          <Key>
+            <PropertyRef Name="id_inv" />
+            <PropertyRef Name="id_unidad" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_inv" Type="Int32" Nullable="false" />
+          <Property Name="id_unidad" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="pk_articulo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cve" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cpm" Type="Int32" />
+          <Property Name="existencias" Type="Int32" />
+          <Property Name="entradas" Type="Int32" />
+          <Property Name="observaciones" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="Int32" />
+          <Property Name="tipo_mov" Type="Int32" />
+        </EntityType>
+        <EntityType Name="cuadro_nacional_medicamento">
+          <Key>
+            <PropertyRef Name="anio" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="anio" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Double" Nullable="false" />
+          <Property Name="PROVEEDOR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CuCOP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GPO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="GEN" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ESP" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DIF" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="VAR_" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CVE" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UNIDAD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CANT" Type="Double" />
+          <Property Name="TIPO" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+          <Property Name="PRECIO" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CANTIDAD_MAXIMA" Type="Double" />
+          <Property Name="CANTIDAD_MINIMA" Type="Double" />
+          <Property Name="IMPORTE_MAXIMO" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IMPORTE_MINIMO" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LICITACION" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="cuadro_general_medicamento">
+          <Key>
+            <PropertyRef Name="anio" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="anio" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="cve" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="quitar" Type="Boolean" />
+          <Property Name="controlado" Type="Boolean" />
+          <Property Name="origen_desc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="origen_desierta" Type="Boolean" />
+          <Property Name="origen_consolidada" Type="Boolean" />
+          <Property Name="origen_dimesa" Type="Boolean" />
+          <Property Name="origen_otro" Type="Boolean" />
+          <Property Name="origen_otro_desc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="programa" Type="Boolean" />
+          <Property Name="programa_desc" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="hru" Type="Int32" />
+          <Property Name="hgt" Type="Int32" />
+          <Property Name="hmi" Type="Int32" />
+          <Property Name="hgm" Type="Int32" />
+          <Property Name="hgi" Type="Int32" />
+          <Property Name="iec" Type="Int32" />
+          <Property Name="ceh" Type="Int32" />
+          <Property Name="j1" Type="Int32" />
+          <Property Name="j2" Type="Int32" />
+          <Property Name="j3" Type="Int32" />
+          <Property Name="uneme_colima" Type="Int32" />
+          <Property Name="uneme_tecoman" Type="Int32" />
+          <Property Name="uneme_manzanillo" Type="Int32" />
+          <Property Name="cara_varonil" Type="Int32" />
+          <Property Name="cara_femenil" Type="Int32" />
+          <Property Name="capasits_colima" Type="Int32" />
+          <Property Name="capasits_tecoman" Type="Int32" />
+          <Property Name="capasits_manzanillo" Type="Int32" />
+          <Property Name="fam" Type="Int32" />
+          <Property Name="total_mensual" Type="Int32" />
+          <Property Name="total_anual" Type="Int32" />
+          <Property Name="max_consolidada" Type="Int32" />
+          <Property Name="min_consolidada" Type="Int32" />
+          <Property Name="max_dimesa" Type="Int32" />
+          <Property Name="min_dimesa" Type="Int32" />
+          <Property Name="nivel_1" Type="Boolean" />
+          <Property Name="nivel_2" Type="Boolean" />
+          <Property Name="tipo_consumo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="prospecta_baja" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Menu_Settings">
+          <Key>
+            <PropertyRef Name="idmodules" />
+            <PropertyRef Name="idusers" />
+          </Key>
+          <Property Name="idmodules" Type="Int32" Nullable="false" />
+          <Property Name="idusers" Type="Int32" Nullable="false" />
+          <Property Name="namemodules" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="agregar" Type="Boolean" />
+          <Property Name="ver" Type="Boolean" />
+          <Property Name="actualizar" Type="Boolean" />
+          <Property Name="eliminar" Type="Boolean" />
+          <Property Name="parentmenuid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="modules">
+          <Key>
+            <PropertyRef Name="idmodules" />
+          </Key>
+          <Property Name="idmodules" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codemodules" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="namemodules" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="parentmenuid" Type="Int32" Nullable="false" />
+          <Property Name="ordernumber" Type="Int32" Nullable="false" />
+          <Property Name="menuurl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="menuicon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="menuaction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="menucontrolador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="roles_modules_privileges" Relationship="PedidosCPMModel.FK_roles_modules_privileges_modules" FromRole="modules" ToRole="roles_modules_privileges" />
+        </EntityType>
+        <EntityType Name="modules_temp">
+          <Key>
+            <PropertyRef Name="id_modules_temp" />
+          </Key>
+          <Property Name="id_modules_temp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idmodules" Type="Int32" Nullable="false" />
+          <Property Name="codemodules" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="namemodules" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="parentmenuid" Type="Int32" Nullable="false" />
+          <Property Name="ordernumber" Type="Int32" Nullable="false" />
+          <Property Name="menuurl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="menuicon" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="menuaction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="menucontrolador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="users_idusers" Type="Int32" />
+          <Property Name="create_permission" Type="Boolean" />
+          <Property Name="read_permission" Type="Boolean" />
+          <Property Name="update_permission" Type="Boolean" />
+          <Property Name="delete_permission" Type="Boolean" />
+          <Property Name="hijos" Type="Int32" />
+        </EntityType>
+        <EntityType Name="roles_modules_privileges">
+          <Key>
+            <PropertyRef Name="idroles_module_privileges" />
+          </Key>
+          <Property Name="idroles_module_privileges" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roles_id" Type="Int32" />
+          <Property Name="modules_idmodules" Type="Int32" />
+          <Property Name="create_privilege" Type="Boolean" />
+          <Property Name="read_privilege" Type="Boolean" />
+          <Property Name="update_privilege" Type="Boolean" />
+          <Property Name="delete_privilege" Type="Boolean" />
+          <NavigationProperty Name="modules" Relationship="PedidosCPMModel.FK_roles_modules_privileges_modules" FromRole="roles_modules_privileges" ToRole="modules" />
+          <NavigationProperty Name="roles" Relationship="PedidosCPMModel.FK_roles_modules_privileges_roles" FromRole="roles_modules_privileges" ToRole="roles" />
+        </EntityType>
+        <Association Name="FK_roles_modules_privileges_modules">
+          <End Type="PedidosCPMModel.modules" Role="modules" Multiplicity="0..1" />
+          <End Type="PedidosCPMModel.roles_modules_privileges" Role="roles_modules_privileges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modules">
+              <PropertyRef Name="idmodules" />
+            </Principal>
+            <Dependent Role="roles_modules_privileges">
+              <PropertyRef Name="modules_idmodules" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_roles_modules_privileges_roles">
+          <End Type="PedidosCPMModel.roles" Role="roles" Multiplicity="0..1" />
+          <End Type="PedidosCPMModel.roles_modules_privileges" Role="roles_modules_privileges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="roles_modules_privileges">
+              <PropertyRef Name="roles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_usuario" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="unidad" Type="Int32" />
+          <Property Name="nombre_unidad" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="rol" Type="Int32" />
+          <Property Name="nombre_rol" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="3" />
+          <Property Name="tipo_usuario" Type="Int32" />
+          <Property Name="activo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ma_inventario_dia">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_unidad" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_unidad" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="mes" Type="Int32" />
+          <Property Name="anio" Type="Int32" />
+          <Property Name="tipo" Type="Int32" />
+          <Property Name="hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="det_pedido">
+          <Key>
+            <PropertyRef Name="id_pedido" />
+            <PropertyRef Name="id_unidad" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_pedido" Type="Int32" Nullable="false" />
+          <Property Name="id_unidad" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="PK" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cve" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="cpm" Type="Int32" />
+          <Property Name="existencias" Type="Int32" />
+          <Property Name="solicitadas" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="origen" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="Int32" />
+          <Property Name="presentacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subtipo_insumo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="configuracion_unidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_unidad" Type="Int32" />
+          <Property Name="descripcion_unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="director" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="administrador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="encargado_medicamentos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="encargado_curacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ma_pedido">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_unidad" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_unidad" Type="Int32" Nullable="false" />
+          <Property Name="anio" Type="Int32" />
+          <Property Name="mes" Type="Int32" />
+          <Property Name="folio" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_pedido" Type="Int32" />
+          <Property Name="descrip_unidad" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="claves_total" Type="Int32" />
+          <Property Name="claves_solicitadas" Type="Int32" />
+          <Property Name="id_usuario" Type="Int32" />
+          <Property Name="nombre_usuario" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="3" />
+          <Property Name="fecha_actualiza" Type="DateTime" Precision="3" />
+          <Property Name="fecha_confirmado" Type="DateTime" Precision="3" />
+          <Property Name="pedido_confirmado" Type="Boolean" />
+          <Property Name="fecha_envio" Type="DateTime" Precision="3" />
+          <Property Name="folio_almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estatus" Type="Int32" />
+          <Property Name="pedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="controlado" Type="Boolean" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PedidosCPMModelStoreContainer" CdmEntityContainer="PedidoEntity">
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="PedidosCPMModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="nombre_rol" ColumnName="nombre_rol" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parametros_sys">
+            <EntityTypeMapping TypeName="PedidosCPMModel.parametros_sys">
+              <MappingFragment StoreEntitySet="parametros_sys">
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="det_inventario_articulo">
+            <EntityTypeMapping TypeName="PedidosCPMModel.det_inventario_articulo">
+              <MappingFragment StoreEntitySet="det_inventario_articulo">
+                <ScalarProperty Name="tipo_mov" ColumnName="tipo_mov" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="entradas" ColumnName="entradas" />
+                <ScalarProperty Name="existencias" ColumnName="existencias" />
+                <ScalarProperty Name="cpm" ColumnName="cpm" />
+                <ScalarProperty Name="cve" ColumnName="cve" />
+                <ScalarProperty Name="pk_articulo" ColumnName="pk_articulo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_unidad" ColumnName="id_unidad" />
+                <ScalarProperty Name="id_inv" ColumnName="id_inv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cuadro_nacional_medicamento">
+            <EntityTypeMapping TypeName="PedidosCPMModel.cuadro_nacional_medicamento">
+              <MappingFragment StoreEntitySet="cuadro_nacional_medicamento">
+                <ScalarProperty Name="LICITACION" ColumnName="LICITACION" />
+                <ScalarProperty Name="IMPORTE_MINIMO" ColumnName="IMPORTE_MINIMO" />
+                <ScalarProperty Name="IMPORTE_MAXIMO" ColumnName="IMPORTE_MAXIMO" />
+                <ScalarProperty Name="CANTIDAD_MINIMA" ColumnName="CANTIDAD_MINIMA" />
+                <ScalarProperty Name="CANTIDAD_MAXIMA" ColumnName="CANTIDAD_MAXIMA" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="CANT" ColumnName="CANT" />
+                <ScalarProperty Name="UNIDAD" ColumnName="UNIDAD" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CVE" ColumnName="CVE" />
+                <ScalarProperty Name="VAR_" ColumnName="VAR_" />
+                <ScalarProperty Name="DIF" ColumnName="DIF" />
+                <ScalarProperty Name="ESP" ColumnName="ESP" />
+                <ScalarProperty Name="GEN" ColumnName="GEN" />
+                <ScalarProperty Name="GPO" ColumnName="GPO" />
+                <ScalarProperty Name="CuCOP" ColumnName="CuCOP" />
+                <ScalarProperty Name="PROVEEDOR" ColumnName="PROVEEDOR" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="anio" ColumnName="anio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cuadro_general_medicamento">
+            <EntityTypeMapping TypeName="PedidosCPMModel.cuadro_general_medicamento">
+              <MappingFragment StoreEntitySet="cuadro_general_medicamento">
+                <ScalarProperty Name="prospecta_baja" ColumnName="prospecta_baja" />
+                <ScalarProperty Name="tipo_consumo" ColumnName="tipo_consumo" />
+                <ScalarProperty Name="nivel_2" ColumnName="nivel_2" />
+                <ScalarProperty Name="nivel_1" ColumnName="nivel_1" />
+                <ScalarProperty Name="min_dimesa" ColumnName="min_dimesa" />
+                <ScalarProperty Name="max_dimesa" ColumnName="max_dimesa" />
+                <ScalarProperty Name="min_consolidada" ColumnName="min_consolidada" />
+                <ScalarProperty Name="max_consolidada" ColumnName="max_consolidada" />
+                <ScalarProperty Name="total_anual" ColumnName="total_anual" />
+                <ScalarProperty Name="total_mensual" ColumnName="total_mensual" />
+                <ScalarProperty Name="fam" ColumnName="fam" />
+                <ScalarProperty Name="capasits_manzanillo" ColumnName="capasits_manzanillo" />
+                <ScalarProperty Name="capasits_tecoman" ColumnName="capasits_tecoman" />
+                <ScalarProperty Name="capasits_colima" ColumnName="capasits_colima" />
+                <ScalarProperty Name="cara_femenil" ColumnName="cara_femenil" />
+                <ScalarProperty Name="cara_varonil" ColumnName="cara_varonil" />
+                <ScalarProperty Name="uneme_manzanillo" ColumnName="uneme_manzanillo" />
+                <ScalarProperty Name="uneme_tecoman" ColumnName="uneme_tecoman" />
+                <ScalarProperty Name="uneme_colima" ColumnName="uneme_colima" />
+                <ScalarProperty Name="j3" ColumnName="j3" />
+                <ScalarProperty Name="j2" ColumnName="j2" />
+                <ScalarProperty Name="j1" ColumnName="j1" />
+                <ScalarProperty Name="ceh" ColumnName="ceh" />
+                <ScalarProperty Name="iec" ColumnName="iec" />
+                <ScalarProperty Name="hgi" ColumnName="hgi" />
+                <ScalarProperty Name="hgm" ColumnName="hgm" />
+                <ScalarProperty Name="hmi" ColumnName="hmi" />
+                <ScalarProperty Name="hgt" ColumnName="hgt" />
+                <ScalarProperty Name="hru" ColumnName="hru" />
+                <ScalarProperty Name="programa_desc" ColumnName="programa_desc" />
+                <ScalarProperty Name="programa" ColumnName="programa" />
+                <ScalarProperty Name="origen_otro_desc" ColumnName="origen_otro_desc" />
+                <ScalarProperty Name="origen_otro" ColumnName="origen_otro" />
+                <ScalarProperty Name="origen_dimesa" ColumnName="origen_dimesa" />
+                <ScalarProperty Name="origen_consolidada" ColumnName="origen_consolidada" />
+                <ScalarProperty Name="origen_desierta" ColumnName="origen_desierta" />
+                <ScalarProperty Name="origen_desc" ColumnName="origen_desc" />
+                <ScalarProperty Name="controlado" ColumnName="controlado" />
+                <ScalarProperty Name="quitar" ColumnName="quitar" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cve" ColumnName="cve" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="anio" ColumnName="anio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu_Settings">
+            <EntityTypeMapping TypeName="PedidosCPMModel.Menu_Settings">
+              <MappingFragment StoreEntitySet="Menu_Settings">
+                <ScalarProperty Name="parentmenuid" ColumnName="parentmenuid" />
+                <ScalarProperty Name="eliminar" ColumnName="eliminar" />
+                <ScalarProperty Name="actualizar" ColumnName="actualizar" />
+                <ScalarProperty Name="ver" ColumnName="ver" />
+                <ScalarProperty Name="agregar" ColumnName="agregar" />
+                <ScalarProperty Name="namemodules" ColumnName="namemodules" />
+                <ScalarProperty Name="idusers" ColumnName="idusers" />
+                <ScalarProperty Name="idmodules" ColumnName="idmodules" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="modules">
+            <EntityTypeMapping TypeName="PedidosCPMModel.modules">
+              <MappingFragment StoreEntitySet="modules">
+                <ScalarProperty Name="menucontrolador" ColumnName="menucontrolador" />
+                <ScalarProperty Name="menuaction" ColumnName="menuaction" />
+                <ScalarProperty Name="menuicon" ColumnName="menuicon" />
+                <ScalarProperty Name="menuurl" ColumnName="menuurl" />
+                <ScalarProperty Name="ordernumber" ColumnName="ordernumber" />
+                <ScalarProperty Name="parentmenuid" ColumnName="parentmenuid" />
+                <ScalarProperty Name="namemodules" ColumnName="namemodules" />
+                <ScalarProperty Name="codemodules" ColumnName="codemodules" />
+                <ScalarProperty Name="idmodules" ColumnName="idmodules" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="modules_temp">
+            <EntityTypeMapping TypeName="PedidosCPMModel.modules_temp">
+              <MappingFragment StoreEntitySet="modules_temp">
+                <ScalarProperty Name="hijos" ColumnName="hijos" />
+                <ScalarProperty Name="delete_permission" ColumnName="delete_permission" />
+                <ScalarProperty Name="update_permission" ColumnName="update_permission" />
+                <ScalarProperty Name="read_permission" ColumnName="read_permission" />
+                <ScalarProperty Name="create_permission" ColumnName="create_permission" />
+                <ScalarProperty Name="users_idusers" ColumnName="users_idusers" />
+                <ScalarProperty Name="menucontrolador" ColumnName="menucontrolador" />
+                <ScalarProperty Name="menuaction" ColumnName="menuaction" />
+                <ScalarProperty Name="menuicon" ColumnName="menuicon" />
+                <ScalarProperty Name="menuurl" ColumnName="menuurl" />
+                <ScalarProperty Name="ordernumber" ColumnName="ordernumber" />
+                <ScalarProperty Name="parentmenuid" ColumnName="parentmenuid" />
+                <ScalarProperty Name="namemodules" ColumnName="namemodules" />
+                <ScalarProperty Name="codemodules" ColumnName="codemodules" />
+                <ScalarProperty Name="idmodules" ColumnName="idmodules" />
+                <ScalarProperty Name="id_modules_temp" ColumnName="id_modules_temp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles_modules_privileges">
+            <EntityTypeMapping TypeName="PedidosCPMModel.roles_modules_privileges">
+              <MappingFragment StoreEntitySet="roles_modules_privileges">
+                <ScalarProperty Name="delete_privilege" ColumnName="delete_privilege" />
+                <ScalarProperty Name="update_privilege" ColumnName="update_privilege" />
+                <ScalarProperty Name="read_privilege" ColumnName="read_privilege" />
+                <ScalarProperty Name="create_privilege" ColumnName="create_privilege" />
+                <ScalarProperty Name="modules_idmodules" ColumnName="modules_idmodules" />
+                <ScalarProperty Name="roles_id" ColumnName="roles_id" />
+                <ScalarProperty Name="idroles_module_privileges" ColumnName="idroles_module_privileges" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="PedidosCPMModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="tipo_usuario" ColumnName="tipo_usuario" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="nombre_rol" ColumnName="nombre_rol" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="nombre_unidad" ColumnName="nombre_unidad" />
+                <ScalarProperty Name="unidad" ColumnName="unidad" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ma_inventario_dia">
+            <EntityTypeMapping TypeName="PedidosCPMModel.ma_inventario_dia">
+              <MappingFragment StoreEntitySet="ma_inventario_dia">
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="anio" ColumnName="anio" />
+                <ScalarProperty Name="mes" ColumnName="mes" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id_unidad" ColumnName="id_unidad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="det_pedido">
+            <EntityTypeMapping TypeName="PedidosCPMModel.det_pedido">
+              <MappingFragment StoreEntitySet="det_pedido">
+                <ScalarProperty Name="subtipo_insumo" ColumnName="subtipo_insumo" />
+                <ScalarProperty Name="presentacion" ColumnName="presentacion" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="solicitadas" ColumnName="solicitadas" />
+                <ScalarProperty Name="existencias" ColumnName="existencias" />
+                <ScalarProperty Name="cpm" ColumnName="cpm" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cve" ColumnName="cve" />
+                <ScalarProperty Name="PK" ColumnName="PK" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_unidad" ColumnName="id_unidad" />
+                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configuracion_unidades">
+            <EntityTypeMapping TypeName="PedidosCPMModel.configuracion_unidades">
+              <MappingFragment StoreEntitySet="configuracion_unidades">
+                <ScalarProperty Name="encargado_curacion" ColumnName="encargado_curacion" />
+                <ScalarProperty Name="encargado_medicamentos" ColumnName="encargado_medicamentos" />
+                <ScalarProperty Name="administrador" ColumnName="administrador" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="descripcion_unidad" ColumnName="descripcion_unidad" />
+                <ScalarProperty Name="id_unidad" ColumnName="id_unidad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ma_pedido">
+            <EntityTypeMapping TypeName="PedidosCPMModel.ma_pedido">
+              <MappingFragment StoreEntitySet="ma_pedido">
+                <ScalarProperty Name="controlado" ColumnName="controlado" />
+                <ScalarProperty Name="pedido" ColumnName="pedido" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="folio_almacen" ColumnName="folio_almacen" />
+                <ScalarProperty Name="fecha_envio" ColumnName="fecha_envio" />
+                <ScalarProperty Name="pedido_confirmado" ColumnName="pedido_confirmado" />
+                <ScalarProperty Name="fecha_confirmado" ColumnName="fecha_confirmado" />
+                <ScalarProperty Name="fecha_actualiza" ColumnName="fecha_actualiza" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="claves_solicitadas" ColumnName="claves_solicitadas" />
+                <ScalarProperty Name="claves_total" ColumnName="claves_total" />
+                <ScalarProperty Name="descrip_unidad" ColumnName="descrip_unidad" />
+                <ScalarProperty Name="tipo_pedido" ColumnName="tipo_pedido" />
+                <ScalarProperty Name="folio" ColumnName="folio" />
+                <ScalarProperty Name="mes" ColumnName="mes" />
+                <ScalarProperty Name="anio" ColumnName="anio" />
+                <ScalarProperty Name="id_unidad" ColumnName="id_unidad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,156 @@
+@model PedidosUnidad.Models.ExistenciaDiaria
+@using PedidosUnidad.Security
+
+@{
+    ViewBag.Title = "ExistenciasByUnidad";
+}
+
+<!-- LOAD MIESNTRAS CARGA LAS CLAVES-->
+<div id="loader_movil_">
+    <div class="ctn-loading">
+        <span class="spanin-l"> Procesando</span>
+        <span class="spanin-li l-1"></span>
+        <span class="spanin-li l-2"></span>
+        <span class="spanin-li l-3"></span>
+        <span class="spanin-li l-4"></span>
+        <span class="spanin-li l-5"></span>
+        <span class="spanin-li l-6"></span>
+    </div>
+</div>
+<div class="container-fluid ">
+    <div class="row cm-fix-height">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-left: 1px; margin-bottom:10px; position: fixed; width:97%; z-index:1;">
+            <div class="input-group" style="background:#eee; height:35px; width:100%; margin-top: -5px; padding-top:4px;">
+                @if (Model.tipo == 1)
+                {
+                    <label>@Model.nom_unidad MEDICAMENTO: </label>@Model.claves_medicamento
+                }
+                else
+                {
+                    <label>@Model.nom_unidad MAT CURACIÓN: </label>@Model.claves_curacion
+                }
+                <label style="float:right; margin-top: 4px;">CON EXISTENCIA: <span id="c_e">0</span></label>
+
+                <span style="font-size:10px; font-size: 10px; float: left; margin-top: 2px;"> (Ultima captura: @Model.ultimo_dia_captura)</span>
+            </div>
+            <div class="input-group">
+                <input id="buscar_item" type="text" class="form-control" placeholder="Buscar y filtrar..." style="height:35px;">
+                <span class="input-group-btn">
+                    <button style="z-index:2; height:35px; " class="btn btn-primary md-search-white" type="button">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                </span>
+            </div>
+        </div>
+        <div id="ctn_items" class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-left: 1px; margin-top:70px;">
+            @{int cvs_existencia = 0; }
+            @foreach (var item in Model.Rows)
+            {
+                <div class="itms" onclick="" style="width: 100%; height:auto; border: 1px solid #ddd; padding: 2px; border-radius: 5px; background: #fff;  box-shadow:0 2px 4px rgba(0,0,0,0.05); margin-top:5px; cursor:pointer;">
+                    <div style="width:100%; clear:both;">
+                        <div style="float:left; height:20px;">@item.clave</div>
+
+                        <div style="width: auto; height: 15px; border: 1px solid #78909C; background: #CE93D8; color:#673AB7; margin: 0px 2px 0px 2px; text-align: center; border-radius: 2px; font-size: 10px; float:right; padding-left:2px; padding-right:2px; font-weight: 600;">
+                            @{string Existencia = "";}
+                            @if (item.A1)
+                            {
+                                Existencia = item.D1.ToString(); ;
+                            }
+                            @if (item.A2)
+                            {
+                                Existencia = item.D2.ToString(); ;
+                            }
+                            @if (item.A3)
+                            {
+                                Existencia = item.D3.ToString(); ;
+                            }
+                            @if (item.A4)
+                            {
+                                Existencia = item.D4.ToString(); ;
+                            }
+                            @if (item.A5)
+                            {
+                                Existencia = item.D5.ToString(); ;
+                            }
+                            @if (item.A6)
+                            {
+                                Existencia = item.D6.ToString(); ;
+                            }
+                            @if (item.A7)
+                            {
+                                Existencia = item.D7.ToString(); ;
+                            }
+                            @if (item.A8)
+                            {
+                                Existencia = item.D8.ToString(); ;
+                            }
+
+                            EXIS: @Existencia
+                            @if (Convert.ToInt32(Existencia) > 0)
+                            {
+                                cvs_existencia = cvs_existencia + 1;
+                            }
+                        </div>
+                        <div style="width: auto; height: 15px; border: 1px solid #78909C; background: #B2EBF2; color:#01579B; margin: 0px 2px 0px 2px; text-align: center; border-radius: 2px; font-size: 9px; float:right; padding-left:2px; padding-right:2px;">CPM: @item.cpm</div>
+
+                        @if (item.dimesa)
+                        {
+                            <div style="width: 45px; height: 15px; border: 1px solid #78909C; background: #F5F5F5; margin: 0px 2px 0px 2px; text-align: center; border-radius: 2px; font-size: 9px; float:right;">DIMESA</div>
+                        }
+                        @if (item.consolidada)
+                        {
+                            <div style="width: 65px; height: 15px; border: 1px solid #78909C; background: #F5F5F5; margin: 0px 2px 0px 2px; text-align: center; border-radius: 2px; font-size: 9px; float:right;">CONSOLIDADA</div>
+                        }
+                        @if (item.desierta)
+                        {
+                            <div style="width: 50px; height: 15px; border: 1px solid #d50000; background: #ffcdd2; margin: 0px 2px 0px 2px; text-align: center; border-radius: 2px; font-size: 9px; float:right;">DESIERTA</div>
+                        }
+
+
+                    </div>
+                    <div style="width:100%; color: #aaa; font-family: verdana; font-size: 11px; text-align:justify; line-height: 11px; clear:both; ">
+                        @item.descripcion
+                        (@item.presentacion)
+                    </div>
+                </div>
+            }
+            <input id="cvs_con_existencia" type="hidden" value="@cvs_existencia" />
+
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+        $(window).on('load', function () {
+            setTimeout(function () {
+                //close_loading();
+                $("#loader_movil_").css({ visibility: "hidden", opacity: "0" })
+            }, 1200);
+        });
+
+        $("#buscar_item").keyup(function (e) {
+            _this = this;
+            $("#ctn_items .itms").each(function (i, e) {
+                if ($(this).text().toLowerCase().indexOf(_this.value.toLowerCase()) === -1)
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#c_e").html($("#cvs_con_existencia").val());
+        });
+
+        function showProgramacion(id_el) {
+            show_loading();
+            setTimeout(function () {
+                close_loading();
+                $("#" + id_el).show();
+            }, 1200);
+        }
+        function hideProgramacion(id_el) {
+            $("#" + id_el).hide();
+        }
+    </script>
+}

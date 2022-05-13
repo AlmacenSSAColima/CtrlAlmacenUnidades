@@ -1,0 +1,111 @@
+﻿@model PedidosUnidad.Models.ExistenciaDiaria
+@using PedidosUnidad.Security
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @using (Html.BeginForm("Export", "Report", FormMethod.Post))
+    {
+        <input type="hidden" name="GridHtml" />
+        <input type="submit" id="btnSubmit" value="Export" />
+    }
+
+    <div id="Grid">
+        <h3 style="margin-top:0; margin-bottom:2px; width:612px; text-align:center;">@SessionPersister.CurrentUser.nom_unidad</h3>
+        <h3 style="margin-top:0; margin-bottom:2px; width:612px; text-align:center;">CLAVES DE MEDICAMENTO</h3>
+        <h5 style="margin-top:0; margin-bottom:20px; width:612px; text-align:center;">
+            Existencias semana del <b>@Model.f_desde</b> al <b>@Model.f_hasta</b>
+        </h5>
+
+        <table id="table-1" style="font-family:Arial;">
+            <thead>
+                <tr class="row100 head">
+                    <th id="clm-search" class="column100 column1" data-column="column1" style="width:400px; border-top:1px solid #000; border-bottom:1px solid #000; border-left:1px solid #000;">
+                    </th>
+                    <th class="column100 column2" data-column="column2" style=" width:38px; text-align:center; font-size: 10px; font-weight: 300; border-top:1px solid #000; border-bottom:1px solid #000;">Dom<span style="font-size:9px; display:block;">(@Model.d_1)</span> </th>
+                    <th class="column100 column3" data-column="column3" style=" width:38px; text-align:center; font-size: 10px; font-weight: 300; border-top:1px solid #000; border-bottom:1px solid #000;">Lun<span style="font-size:9px; display:block;">(@Model.d_2)</span></th>
+                    <th class="column100 column4" data-column="column4" style=" width:38px; text-align:center; font-size: 10px; font-weight: 300; border-top:1px solid #000; border-bottom:1px solid #000;">Mar<span style="font-size:9px; display:block;">(@Model.d_3)</span></th>
+                    <th class="column100 column5" data-column="column5" style=" width:38px; text-align:center; font-size: 10px; font-weight: 300; border-top:1px solid #000; border-bottom:1px solid #000;">Mie<span style="font-size:9px; display:block;">(@Model.d_4)</span></th>
+                    <th class="column100 column6" data-column="column6" style=" width:38px; text-align:center; font-size: 10px; font-weight: 300; border-top:1px solid #000; border-bottom:1px solid #000;">Jue<span style="font-size:9px; display:block;">(@Model.d_5)</span></th>
+                    <th class="column100 column7" data-column="column7" style=" width:38px; text-align:center; font-size: 10px; font-weight: 300; border-top:1px solid #000; border-bottom:1px solid #000;">Vie<span style="font-size:9px; display:block;">(@Model.d_6)</span></th>
+                    <th class="column100 column8" data-column="column8" style=" width:38px; text-align:center; font-size: 10px; font-weight: 300; border-top:1px solid #000; border-bottom:1px solid #000;">Sab<span style="font-size:9px; display:block;">(@Model.d_7)</span></th>
+                    <th class="column100 column9" data-column="column9" style=" width:38px; text-align:center; font-size: 10px; font-weight: 300; border-top:1px solid #000; border-bottom:1px solid #000; border-right:1px solid #000;">Dom<span style="font-size:9px; display:block;">(@Model.d_8)</span></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @{string pkas = "";}
+                @{string cls_desi = "";}
+                @{string ocultar = "";}
+                @foreach (var item in Model.Rows)
+                {
+                    cls_desi = "";
+                    ocultar = "";
+                    if (string.IsNullOrEmpty(pkas))
+                    { pkas += item.pk; }
+                    else
+                    { pkas += "," + item.pk; }
+
+                    if (item.desierta)
+                    {
+                        cls_desi = "cve-dsierta";
+                        ocultar = "hidden";
+                    }
+
+
+                    <tr class="row100 @cls_desi">
+                        <td class="column100 column1" data-column="column1" style="width:400px; border-bottom:1px solid #000; border-left:1px solid #000; padding-top:4px; padding-bottom:4px;">
+                            <div style="width:100%; margin-bottom:5px;">
+                                <div style="float:left; margin-right:3px; font-size: 10px; font-weight: 600; color: #000;">@item.clave</div>
+                                <div style="float:right; margin-right:3px; font-size: 9px;">
+                                    <code>CPM:@item.cpm</code>
+                                </div>
+                            </div>
+                            <div style="width:100%; line-height:11px; font-size:10px; margin-top:20px;">@item.descripcion</div>
+                        </td>
+                        @{string cls = (item.A1 == true) ? "dia-actual" : "";}
+                        <td style="text-align:right; border-bottom:1px solid #000; border-left:1px solid #000; width:26px;"></td>
+
+                        @{cls = (item.A2 == true) ? "dia-actual" : "";}
+                        <td style="text-align:right; border-bottom:1px solid #000; border-left:1px solid #000; width:26px;"></td>
+                        @{cls = (item.A3 == true) ? "dia-actual" : "";}
+                        <td style="text-align:right; border-bottom:1px solid #000; border-left:1px solid #000; width:26px;"></td>
+                        @{cls = (item.A4 == true) ? "dia-actual" : "";}
+                        <td style="text-align:right; border-bottom:1px solid #000; border-left:1px solid #000; width:26px;"></td>
+                        @{cls = (item.A5 == true) ? "dia-actual" : "";}
+                        <td style="text-align:right; border-bottom:1px solid #000; border-left:1px solid #000; width:26px;"></td>
+                        @{cls = (item.A6 == true) ? "dia-actual" : "";}
+                        <td style="text-align:right; border-bottom:1px solid #000; border-left:1px solid #000; width:26px;"></td>
+                        @{cls = (item.A7 == true) ? "dia-actual" : "";}
+                        <td style="text-align:right; border-bottom:1px solid #000; border-left:1px solid #000; width:26px;"></td>
+                        @{cls = (item.A8 == true) ? "dia-actual" : "";}
+                        <td style="text-align:right; border-bottom:1px solid #000; border-left:1px solid #000; width:26px; border-right:1px solid #000;"></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml']").val($("#Grid").html());
+            });
+        });
+    </script>
+
+</body>
+</html>
+

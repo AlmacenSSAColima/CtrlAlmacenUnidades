@@ -1,0 +1,143 @@
+﻿@model PedidosUnidad.Models.PedidoModel
+@{
+    ViewBag.Title = "Pedido";
+}
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-8" style="padding:0px;">
+            <h3 style="margin-top:0">Detalle de pedido</h3>
+        </div>
+        <div class="col-sm-4" style="padding:0px;">
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:5px;">
+        <div class="col-sm-8">
+            <div class="row" style="margin-top: 6px; margin-bottom: 5px;">
+                <div class="col-sm-12">
+                    <label style="color:#777; padding-left: 10px;">Unidad solicitante:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        @Model.descrip_unidad
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 6px; margin-bottom: 1px;">
+                <div class="col-sm-6">
+                    <label style="color:#777; padding-left: 10px;">Pedio:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        REQUISICIÓN @Model.descrip_tipo_pedido
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label style="color:#777; padding-left: 10px;">Tipo:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        @Model.pedido
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 6px; margin-bottom: 15px;">
+                <div class="col-sm-6">
+                    <label style="color:#777; padding-left: 10px;">Fecha:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        @Model.fecha
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label style="color:#777; padding-left: 10px;">Mes:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        @Model.mes
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row" style="margin-top: 6px; margin-bottom: 15px;">
+                <div class="col-sm-6">
+                    <div class="row" style=" margin-bottom: 5px;">
+                        <div class="col-sm-12">
+                            <label style="color:#777; padding-left: 10px; font-weight: 600;">Folio:</label>
+                            <div style="width:100%; height:40px; border: 1px dashed #444; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px; font-weight: 600;">
+                                @Model.folio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 6px; margin-bottom: 5px;">
+                        <div class="col-sm-12">
+                            <label style="color:#777; padding-left: 10px;">Cantidad Claves:</label>
+                            <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                                @Model.articulos.Count()
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 6px; margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label style="color:#777; padding-left: 10px;">Año:</label>
+                            <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                                @Model.anio
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div style="width:100%; height:137px; border: 1px dashed #444; text-align:center;">
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.QR))" style="height:135px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:5px;">
+        <div class="col-sm-12">
+            <div style="width: 100%; height: 25px; background: #eee; color: #444; padding-top: 3px; font-size: 15px; padding-left: 10px; margin-bottom: 3px; border-bottom: 1px dashed #777;">
+                DETALLE DE LOS INSUMOS SOLICITADOS
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @{ int i = 0;}
+            @foreach (var item in Model.articulos)
+            {
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div style="width:35px; height:35px; background:#eee; color:#444; font-size: 14px; text-align:center; padding-top: 6px; font-weight: 500; border-radius: 6px; margin-top: -1px;">
+                            @{ i++;}
+                            @i.ToString()
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <label style="color:#777; padding-left: 10px;">(@item.presentacion)</label>
+                        <div style="width:100%; height:40px; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                            @item.clave
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <label style="color:#777; padding-left: 1px;">Descripción insumo:</label>
+                        <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -15px; font-size: 14px; padding-left: 1px; line-height: 13px; padding-bottom: 2px;">
+                            @item.descripcion
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <label style="color:#777; padding-left: 1px;">Cantidad solicitada:</label>
+                        <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -10px; font-size: 22px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                            @item.solicita
+                        </div>
+
+                    </div>
+                </div>
+                <div style="width:100%; height:5px; border-top: 1px dashed #777;"></div>
+            }
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-sm-12" style="width: 100%; height: 25px; background: #eee; color: #444; padding-top: 3px; font-size: 13px; padding-left: 10px; margin-bottom: 3px; font-style:italic;">
+            <div style="float:left;">* Todos los pedidos vía web tendrán que ser avalados y firmados físicamente por las personas responsables a los procesos involucrados. </div>
+            <div style="float:right; color: #111; font-size: 13px;"> COLIMA, COL, @String.Format("{0:ddd dd MMM yyyy HH:mm}", Model.fecha_envio).ToUpper() HRS</div>
+        </div>
+    </div>
+
+</div>
+

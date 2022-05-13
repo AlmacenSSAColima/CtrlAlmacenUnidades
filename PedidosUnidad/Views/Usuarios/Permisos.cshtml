@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PedidosUnidad.Models.PermisosClass>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<form id="modulosReg" name="modulosReg" method="post">
+
+
+    <input id="form_rol_select" name="form_rol_select" type="hidden"/>
+    
+
+    @foreach (var item in Model)
+    {
+
+        <div class="checkbox">
+            <label>
+                @if (item.permiso)
+                {<input type="checkbox" name="ids_modulos" id="ids_modulos" style="margin-top: -1px;" value="@item.id_modulo" checked="checked">}
+                else
+                {<input type="checkbox" name="ids_modulos" id="ids_modulos"  style="margin-top: -1px;" value="@item.id_modulo">}
+
+
+                @item.nombre
+            </label>
+        </div>
+
+    }
+
+    <button onclick="GuardarPermisos();" type="button" class="btn btn-success">Guardar</button>
+    
+</form>
+
+

@@ -1,0 +1,414 @@
+﻿@model PedidosUnidad.Models.PedidoModel
+@{
+    ViewBag.Title = "Pedido";
+}
+
+<link href="~/Content/css/graph-vale.css" rel="stylesheet" />
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-4" style="padding:0px; padding-top:10px;">
+            <h3 style="margin-top:0">Vale de pedido</h3>
+            
+        </div>
+        <div class="col-sm-8" style="padding:0px; padding-right:40px; text-align:right;">
+            <button type="button" onclick="valeNegativa(@Model.id_pedido, @Model.id_unidad);" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Negativa" style="height: 46px; font-size: 25px; padding: 5px;">
+                <i class="fa fa-fw  fa-thumbs-down "></i> Ver Negativa @*fa-frown-o*@
+            </button>
+            <button type="button" onclick="valePrint();" class="btn btn-turquoise tooltip-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Imprimir" style="height: 46px; font-size: 25px; padding: 5px;">
+                <i class="fa fa-fw fa-print"></i> Imprimir Vale Almacén
+            </button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:5px;">
+        <div class="col-sm-8">
+            <div class="row" style="margin-top: 6px; margin-bottom: 5px;">
+                <div class="col-sm-12">
+                    <label style="color:#777; padding-left: 10px;">Unidad solicitante:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        @Model.descrip_unidad
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 6px; margin-bottom: 1px;">
+                <div class="col-sm-6">
+                    <label style="color:#777; padding-left: 10px;">Pedio:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        VALE DE @Model.descrip_tipo_pedido
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label style="color:#777; padding-left: 10px;">Tipo:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        @Model.pedido | <b>VALE @Model.descrip_tipo_vale</b>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 6px; margin-bottom: 15px;">
+                <div class="col-sm-6">
+                    <label style="color:#777; padding-left: 10px;">Fecha Vale:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        @Model.fecha
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label style="color:#777; padding-left: 10px;">Mes/Año:</label>
+                    <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                        @Model.mes/@Model.anio
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row" style="margin-top: 6px; margin-bottom: 15px;">
+                <div class="col-sm-6">
+                    <div class="row" style=" margin-bottom: 5px;">
+                        <div class="col-sm-12">
+                            <label style="color:#777; padding-left: 10px; font-weight: 600;">Folio:</label>
+                            <div style="width:100%; height:40px; border: 1px dashed #444; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px; font-weight: 600;">
+                                @Model.folio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 6px; margin-bottom: 5px;">
+                        <div class="col-sm-12">
+                            <label style="color:#777; padding-left: 10px;">Cantidad Claves:</label>
+                            <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                                @Model.articulos.Count()
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 6px; margin-bottom: 15px;">
+                        <div class="col-sm-12">
+                            <label style="color:#777; padding-left: 10px;">Folio Almacen:</label>
+                            <div style="width:100%; height:40px; background:#eee; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                                @Model.folio_almacen
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div style="width:100%; height:137px; border: 1px dashed #444; text-align:center;">
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.QR))" style="height:135px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:5px;">
+        <div class="col-sm-12">
+            <div style="width: 100%; height: 25px; background: #eee; color: #444; padding-top: 3px; font-size: 15px; padding-left: 10px; margin-bottom: 3px; border-bottom: 1px dashed #777;">
+                DETALLE DE LOS INSUMOS SOLICITADOS
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @{ int i = 0;}
+            @foreach (var item in Model.articulos)
+            {
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div style="width:35px; height:35px; background:#eee; color:#444; font-size: 14px; text-align:center; padding-top: 6px; font-weight: 500; border-radius: 6px; margin-top: -1px;">
+                            @{ i++;}
+                            @i.ToString()
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <label style="color:#777; padding-left: 10px;">(@item.presentacion)</label>
+                        <div style="width:100%; height:40px; color:#444; padding-top: 15px; margin-top: -18px; font-size: 17px; padding-left: 10px;">
+                            @item.clave
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <label style="color:#777; padding-left: 1px;">Descripción insumo:</label>
+                        <label style="color:#777; float:right; margin-top: 5px;">(Costo Prom $@item.costo_promedio)</label>
+                        <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -15px; font-size: 14px; padding-left: 1px; line-height: 13px; padding-bottom: 2px; text-align: justify;">
+                            @item.descripcion
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <div style="float:left; width:50%; padding-right: 10px; border-right: 1px dashed #777;">
+                            <label style="color:#777; padding-left: 1px;">Cant Sol:</label>
+                            <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -10px; font-size: 22px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                                @item.solicita
+                            </div>
+                        </div>
+                        <div style="float:left; width:49%;">
+                            <label style="color:#777; padding-left: 1px;">Cant Surt:</label>
+                            <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -10px; font-size: 22px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                                @item.surtida
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- DETALLE LOTES -->
+                foreach (var lot_ in item.lotes)
+                {
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-7" style="border-top: 1px #ccc dashed;">
+                            <div style="width:100%; height: 35px;">
+                                <div style="float:left; padding:3px; width:4%; padding-top: 9px;">
+                                    ◉
+                                </div>
+                                <div style="float:left; padding:3px; width:15%;">
+                                    <label style="color:#777; padding-left: 1px;">Lote:</label>
+                                    <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                                        @lot_.lote
+                                    </div>
+                                </div>
+                                <div style="float:left; padding:3px; width:13%;">
+                                    <label style="color:#777; padding-left: 1px;">Caducidad:</label>
+                                    <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                                        @lot_.f_caducidad
+                                    </div>
+                                </div>
+                                <div style="float:left; padding:3px; width:25%;">
+                                    <label style="color:#777; padding-left: 1px;">Programa:</label>
+                                    <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                                        @lot_.programa
+                                    </div>
+                                </div>
+                                <div style="float:left; padding:3px; width:17%;">
+                                    @*<label style="color:#777; padding-left: 1px;">Centro Req:</label>
+                                <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                                    NOMBRE CENTRO REQUIRIO
+                                </div>*@
+                                </div>
+                                <div style="float:left; padding:3px; width:13%; text-align: right;">
+                                    <label style="color:#777; padding-left: 1px;">Costo:</label>
+                                    <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                                        $@lot_.costo
+                                    </div>
+                                </div>
+                                <div style="float:left; padding:3px; width:13%; text-align: right;">
+                                    <label style="color:#777; padding-left: 1px;">Importe:</label>
+                                    <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                                        $@lot_.importe
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-2 text-right" style="border-top: 1px #ccc dashed;">
+                            <div style="float:right; width:49%;">
+                                <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -3px; font-size: 15px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                                    @lot_.cantidad_lote
+                                </div>
+                            </div>
+                            <div style="float:right; width: 40%; line-height: 11px; padding-top: 7px;">
+                                <label style="color:#777; padding-left: 1px; line-height: 10px;">Cantidad insumo:</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!-- <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-7" style="border-top: 1px #ccc dashed;">
+                <div style="width:100%; height: 35px; margin-top: -5px;">
+                    <div style="float:left; padding:3px; width:4%; padding-top: 9px;">
+                        ◉
+                    </div>
+                    <div style="float:left; padding:3px; width:15%;">
+                        <label style="color:#777; padding-left: 1px;">Lote:</label>
+                        <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                            20200809
+                        </div>
+                    </div>
+                    <div style="float:left; padding:3px; width:13%;">
+                        <label style="color:#777; padding-left: 1px;">Caducidad:</label>
+                        <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                            00/00/0000
+                        </div>
+                    </div>
+                    <div style="float:left; padding:3px; width:25%;">
+                        <label style="color:#777; padding-left: 1px;">Programa:</label>
+                        <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                            UNOPS INSABI
+                        </div>
+                    </div>
+                    <div style="float:left; padding:3px; width:17%;">
+                        @*<label style="color:#777; padding-left: 1px;">Centro Req:</label>
+                    <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                        NOMBRE CENTRO REQUIRIO
+                    </div>*@
+                    </div>
+                    <div style="float:left; padding:3px; width:13%; text-align: right;">
+                        <label style="color:#777; padding-left: 1px;">Costo:</label>
+                        <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                            $00,000.00
+                        </div>
+                    </div>
+                    <div style="float:left; padding:3px; width:13%; text-align: right;">
+                        <label style="color:#777; padding-left: 1px;">Importe:</label>
+                        <div style="width:100%; height:auto; color:#444;  font-size: 12px; line-height: 12px; margin-top: -3px;">
+                            $00,000.00
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-2 text-right" style="border-top: 1px #ccc dashed;">
+                <div style="float:right; width:49%; margin-top: -5px;">
+                    <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -3px; font-size: 15px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                        @item.solicita
+                    </div>
+                </div>
+                <div style="float:right; width: 40%; line-height: 11px; padding-top: 7px;">
+                    <label style="color:#777; padding-left: 1px; line-height: 10px;">Cantidad insumo:</label>
+                </div>
+            </div>
+        </div> -->
+                <div style="width:100%; height:5px; border-top: 1px dashed #777;"></div>
+            }
+
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-5"></div>
+                <div class="col-sm-4 text-right" style="">
+                    <div style="float:right; width:49%;">
+                        <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -3px; font-size: 15px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                            @{decimal importe_v = Convert.ToDecimal(Model.resumen_suma.importe_v);}
+                            $@String.Format("{0:0,0.0#}", importe_v)
+                        </div>
+                        <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -3px; font-size: 15px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                            @{decimal iva_v = Convert.ToDecimal(Model.resumen_suma.iva_v);}
+                            $@String.Format("{0:0,0.0#}", iva_v)
+                        </div>
+                        <div style="width:100%; height:5px;padding-left:5px;">
+                            <div style="width:100%; height:5px; border-bottom:dashed 1px #777;"></div>
+                        </div>
+                        <div style="width:100%; height:auto; color:#111; padding-top: 15px; margin-top: -3px; font-size: 18px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                            @{decimal total_v = Convert.ToDecimal(Model.resumen_suma.total_v);}
+                            $@String.Format("{0:0,0.0#}", total_v)
+                        </div>
+                    </div>
+                    <div style="float:right; width: 40%; line-height: 11px; padding-top: 7px;">
+                        <label style="color:#777; padding-left: 1px; line-height: 10px; width:100%; margin-top:5px;">Sub Total:</label>
+                        <label style="color:#777; padding-left: 1px; line-height: 10px; width:100%; margin-top:15px;">IVA:</label>
+                        <label style="color:#777; padding-left: 1px; line-height: 10px; width:100%; margin-top:17px;">Total:</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @*<div class="row" style="margin-top: 60px;">
+        <div class="col-sm-12" style="width: 100%; height: 25px; background: #eee; color: #444; padding-top: 3px; font-size: 13px; padding-left: 10px; margin-bottom: 3px; font-style:italic;">
+            <div style="float:left;">* Todos los pedidos vía web tendrán que ser avalados y firmados físicamente por las personas responsables a los procesos involucrados. </div>
+            <div style="float:right; color: #111; font-size: 13px;"> COLIMA, COL, @String.Format("{0:ddd dd MMM yyyy HH:mm}", Model.fecha_envio).ToUpper() HRS</div>
+        </div>
+    </div>*@
+
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-sm-4">
+            <div style="width:100%; border:1px solid #ccc; height:300px; background: #fff; border-radius:2px;">
+                <div style="width:100%; color:#777; height:80px; border-bottom: 1px dashed  #ccc; background: #fcfcfc">
+                    <div style="float:left; width:39%; font-size:70px; text-align:center; margin-top: -12px;">
+
+                        @*<div class="wrapper">
+            <div class="pie start-0 end-25"></div>
+            <div class="pie big start-25 end-75"></div>
+            <div class="pie over"><span>25%</span></div>
+        </div>*@
+                        <div class="fa fa-fw  fa-cube "> </div>
+                    </div>
+                    <div style="float:left;  width:60%; padding-right: 10px;">
+                        <div style="font-size:42px; font-weight:500; width:100%; text-align:right; padding-top: 5px;"> @Model.resumen_vale.claves </div>
+                        <div style="font-size:18px; width:100%; text-align:right; margin-top: -10px;">Claves solicitadas</div>
+                    </div>
+                </div>
+
+                <div class='notify-boxin'>
+                    @{decimal porcentaje_surtimiento = Convert.ToDecimal(Model.resumen_vale.p_surt);}
+                    <span>@String.Format("{0:0.00}", porcentaje_surtimiento)% | @Model.resumen_vale.surtidas CLAVES</span>
+                    <span style='float: right;'>CLAVES SURTIDAS</span>
+                    <div class='fluff-grey'>
+                        <div class='fluff-blue' style="height:25px;width:@Decimal.Round(porcentaje_surtimiento)%">
+                        </div>
+                    </div>
+
+                    @{decimal porcentaje_no_surtimiento = Convert.ToDecimal(Model.resumen_vale.p_no_surt);}
+                    <span>@String.Format("{0:0.00}", porcentaje_no_surtimiento)% | @Model.resumen_vale.no_surtidas CLAVES</span>
+                    <span style='float: right;'>CLAVES NO SURTIDAS</span>
+                    <div class='fluff-grey'>
+                        <div class='fluff-blue' style="height:25px;width:@Decimal.Round(porcentaje_no_surtimiento)%">
+                        </div>
+                    </div>
+
+                    @{decimal porcentaje_parcial = Convert.ToDecimal(Model.resumen_vale.p_par);}
+                    <span>@String.Format("{0:0.00}", porcentaje_parcial)% | @Model.resumen_vale.parcialmente CLAVES</span>
+                    <span style='float: right;'>SURTIDAS PARCIALMENTE</span>
+                    <div class='fluff-grey'>
+                        <div class='fluff-blue' style="height:25px;width:@Decimal.Round(porcentaje_parcial)%">
+                        </div>
+                    </div>
+
+                    @{decimal porcentaje_completas = Convert.ToDecimal(Model.resumen_vale.p_com);}
+                    <span>@String.Format("{0:0.00}", porcentaje_completas)% | @Model.resumen_vale.completo CLAVES</span>
+                    <span style='float: right;'>SURTIDAS COMPLETAMENTE</span>
+                    <div class='fluff-grey'>
+                        <div class='fluff-blue' style="height:25px;width:@Decimal.Round(porcentaje_completas)%">
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row" style="margin-top:100px;">
+                <div class="col-sm-4 text-center">
+                    <div style="width:100%; height:100px; padding-top: 50px;">
+                        <div style="color: #444; font-weight: bold; font-size: 17px; margin-top: 0px; width:100%; border-bottom:solid 1px #444;"></div>
+                        <div style="color: #777; margin-top: 0px;">NOMBRE Y FIRMA</div>
+                        <div style="color: #111; font-weight: 600;">ENTREGA</div>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center">
+
+                </div>
+                <div class="col-sm-4 text-center">
+                    <div style="width:100%; height:100px; padding-top: 50px;">
+                        <div style="color: #444; font-weight: bold; font-size: 17px; margin-top: 0px; width:100%; border-bottom:solid 1px #444;"></div>
+                        <div style="color: #777; margin-top: 0px;">NOMBRE Y FIRMA</div>
+                        <div style="color: #111; font-weight: 600;">Vo.Bo.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function valePrint() {
+        show_loading();
+         $.ajax({
+                type: "GET",
+                cache: false,
+                url: '/Pedido/ReporteVale',
+                dataType: "json",
+                success: function (data) {
+                    close_loading();
+                    var response = data;
+                    window.open('/Pedido/Download?fileGuid=' + response.FileGuid + '&filename=' + response.FileName, '_blank');
+                }
+            });
+    }
+
+    function valeNegativa(id, unidad) {
+       window.location.href='/Pedido/NegativaPedido?id='+id+'&unidad='+unidad;
+    }
+</script>
+
+
+

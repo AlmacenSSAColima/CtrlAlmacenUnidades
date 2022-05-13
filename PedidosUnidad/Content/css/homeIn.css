@@ -1,0 +1,92 @@
+﻿
+
+.outline {
+    color: #fff;
+    font-family: 'Arbutus', sans-serif;
+    text-shadow: #000 .02em 0 0, #000 0 .02em 0, #000 -.02em 0 0, #000 0 -.02em 0;
+    font-size:40px;
+}
+
+.bck-home {
+    background-image: url('../../Content/img/Medicina_CPM.jpg');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pboy {
+height:120px;
+}
+
+.uni_cu {
+    font-size: 30px;
+}
+/*****************/
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .uni_cu {
+        font-size: 25px;
+    }
+
+    .uni_des {
+        font-size: 12px;
+    }
+
+    .tip_in {
+        font-size: 12px;
+    }
+
+    .pboy {
+        padding: 5px;
+        height: 100px;
+    }
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+    .uni_cu {
+        font-size: 25px;
+    }
+
+    .uni_des {
+        font-size: 12px;
+    }
+
+    .tip_in {
+        font-size: 12px;
+    }
+
+    .pboy {
+        padding: 5px;
+        height: 120px;
+    }
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .uni_cu {
+        font-size: 25px;
+    }
+
+    .uni_des {
+        font-size: 12px;
+    }
+
+    .tip_in {
+        font-size: 12px;
+    }
+
+    .pboy {
+        padding: 5px;
+        height: 100px;
+    }
+}

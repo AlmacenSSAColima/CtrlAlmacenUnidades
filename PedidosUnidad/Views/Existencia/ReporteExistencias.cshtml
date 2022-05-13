@@ -1,0 +1,201 @@
+﻿@model PedidosUnidad.Models.ReporteExistenciaClass
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <style>
+        /*** Table Styles **/
+
+        .table-fill {
+            background: white;
+            /*border-radius: 3px;*/
+            border-collapse: collapse;
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+            /*box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);*/
+            font-family: Arial;
+        }
+
+        th {
+            color: #f1f1f1;
+            background: #555;
+            border-bottom: 4px solid #9ea7af;
+            border-right: 1px solid #343a45;
+            font-size: 14px;
+            font-weight: 100;
+            padding: 5px;
+            text-align: left;
+            /*text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);*/
+            vertical-align: middle;
+        }
+
+        tr, td {
+            page-break-inside: avoid !important;
+        }
+
+
+        tr {
+            border-top: 1px solid #555;
+            border-bottom-: 1px solid #555;
+            border-left: 1px solid #555;
+            border-right: 1px solid #555;
+            /*color: #666B85;*/
+            color: #555;
+            font-size: 16px;
+            font-weight: normal;
+            /*text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);*/
+        }
+
+            tr:first-child {
+                border-top: none;
+            }
+
+            tr:last-child {
+                /*border-bottom: none;*/
+            }
+
+            tr:nth-child(odd) td {
+                /*background: #EBEBEB;*/
+            }
+
+            tr:last-child td:first-child {
+                border-bottom-left-radius: 3px;
+            }
+
+            tr:last-child td:last-child {
+                border-bottom-right-radius: 3px;
+            }
+
+        td {
+            /*background: #FFFFFF;*/
+            padding: 3px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 18px;
+            /*text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);*/
+            border-right: 1px solid #555;
+        }
+
+            td:last-child {
+                border-right: 0px;
+            }
+
+        th.text-left {
+            text-align: left;
+        }
+
+        th.text-center {
+            text-align: center;
+        }
+
+        th.text-right {
+            text-align: right;
+        }
+
+        td.text-left {
+            text-align: left;
+        }
+
+        td.text-center {
+            text-align: center;
+        }
+
+        td.text-right {
+            text-align: right;
+        }
+
+        .cve-dsierta {
+            /*background: repeating-linear-gradient( 40deg, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 7px, #ef9a9a 3px, #ef9a9a 8px );*/
+            background: #ECEFF1;
+        }
+    </style>
+
+    <div style=" width:100%; text-align:center;">
+        <h3>
+            @Model.unidad
+        </h3>
+        <h3 style="margin-top:-20px;">
+            Reporte de control de existencias al día <b>@Model.ultima_captura</b>
+        </h3>
+        <h4 style="margin-top:-20px;">
+            @{string InsumoTipo = (Model.tipo_insumo == 1) ? "Medicamento" : "Material de curación";}
+            (@InsumoTipo)
+        </h4>
+    </div>
+
+    <table class="table-fill" style="margin-top:40px;">
+
+        <tr>
+            <th class="text-left" style="width:90%;">Descripcion Insumo</th>
+            <th class="" style=" width:20px; text-align:center;">CPM<br /><span style="font-size:10px;"></span> </th>
+            <th class=" " style=" width:20px; text-align:center;">Existencia<br /><span style="font-size:10px;"></span></th>
+        </tr>
+
+
+        <tbody class="table-hover">
+            @{string pkas = "";}
+            @{string cls_desi = "";}
+            @foreach (var item in Model.rowsInsumos)
+            {
+                cls_desi = "";
+                if (string.IsNullOrEmpty(pkas))
+                { pkas += item.pk; }
+                else
+                { pkas += "," + item.pk; }
+
+                if (item.desierta)
+                {
+                    cls_desi = "cve-dsierta";
+
+                }
+
+
+                <tr class="@cls_desi">
+                    <td class="column100 column1" data-column="column1">
+                        <div style="width:100%;">
+                            <div style="float:left; margin-right:3px; font-size: 11px; font-weight: 600; color: #000;">CVE:</div> <div style="float:left; margin-right:3px; font-size: 11px; color: #000;">@item.clave</div>
+                            <div style="float:left; margin-right:3px; font-size: 10px; color: #000;">
+                                @{string TipoInsumo = (Model.tipo_insumo == 1) ? "Medicamento" : "Material de curación";}
+                                (@TipoInsumo)
+                            </div>
+                            <div style="float:right; margin-right:3px; font-size: 10px;">
+                                @if (item.consolidada)
+                                {
+                                    <label style="font-size:10px; color:#808080;">CONSOLIDADA: @item.maximo,</label>
+                                }
+                                @if (item.dimesa)
+                                {
+                                    <label style="font-size:10px; color:#808080;">DIMESA: @item.max_dimesa,</label>
+                                }
+
+                                @if (!string.IsNullOrEmpty(item.programa))
+                                {
+                                    <label style="font-size:10px; color:#808080;">@item.programa</label>
+                                }
+                            </div>
+                        </div><br />
+                        <p style="width:100%; line-height:13px; font-size:11px; margin-top:-5px; color:#000; letter-spacing: 1pt;">@item.descripcion (@item.presentacion)</p>
+                    </td>
+                    <td class="column100 column2" data-column="column2" style="text-align:right;">@item.cpm</td>
+                    <td class="column100 column3 " data-column="column3" style="text-align:right;">@item.existencias</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</body>
+</html>
+
+

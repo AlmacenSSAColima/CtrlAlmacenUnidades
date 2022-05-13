@@ -1,0 +1,495 @@
+﻿@model PedidosUnidad.Models.MaDeEntradasClassSIAA
+@{
+    ViewBag.Title = "Entrada";
+}
+<link href="~/Content/date-picker/jquery-ui.css" rel="stylesheet" />
+<div class="container-fluid cm-container-white">
+    <div class="row">
+        <div class="col-sm-12 col-md-5 col-lg-5">
+            @using (Html.BeginForm("Entrada", "Entradas", FormMethod.Post, new { id = "form_datos_entrada", name = "form_datos_entrada" }))
+            {
+                <ul id="myTab" class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#tab_1" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Datos Generales</a></li>
+                    <li role="presentation" class=""><a href="#tab_2" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Más Datos</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.maEntradas.FOLIO)
+                    @Html.HiddenFor(model => model.maEntradas.ANIO)
+                    @Html.HiddenFor(model => model.maEntradas.id_centro)
+                    @Html.HiddenFor(model => model.maEntradas.TIPO_INSUMOS)
+                    @Html.HiddenFor(model => model.tipo_insumo)
+
+                    @Html.HiddenFor(model => model.maEntradas.SUBTOTAL)
+                    @Html.HiddenFor(model => model.maEntradas.IVA)
+                    @Html.HiddenFor(model => model.maEntradas.TOTAL)
+
+                    <input type="submit" id="btnSubmitOcultoFormEntrada" hidden />
+
+                    <div role="tabpanel" class="tab-pane fade active in" id="tab_1" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <label>Folio:</label>
+                                <div style="width:75px; height:25px; background:#E0E0E0; border-radius:2px; padding:3px;">
+                                    @Model.maEntradas.FOLIO.ToString("000")/@Model.maEntradas.ANIO
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <label style="width:100%; text-align:right;">Fecha Ingreso:</label>
+                                <div style="width:145px; height:25px; background:#E0E0E0; border-radius:2px; padding:3px; float:right;">
+                                    @String.Format("{0:dd MMMM yyyy}", Model.maEntradas.FECHA)
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label class="control-label" for="">Tipo de Entrada:</label>
+                                @Html.DropDownListFor(model => model.maEntradas.TIPO_ENTRADA, ViewBag.TipoEntrada as SelectList, new { @class = "form-control" })
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label class="control-label req" for="">* No. Requisición:</label>
+                                @Html.TextBoxFor(model => model.maEntradas.FOLIO_PEDIDO, new { @class = "form-control", required = "required" })
+
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label req" for="">* Año pedido:</label>
+                                @Html.TextBoxFor(model => model.maEntradas.ANIO_PEDIDO, new { @class = "form-control", required = "required" })
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label class="control-label" for="">Tipo de Documento:</label>
+                                @Html.DropDownListFor(model => model.maEntradas.TIPO_DOCTO, ViewBag.TipoDocumento as SelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label req" for="">* No. de Documento:</label>
+                                @Html.TextBoxFor(model => model.maEntradas.FOLIO_DOCTO, new { @class = "form-control" })
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label class="control-label" for="">Proveedor:</label>
+                                @Html.DropDownListFor(model => model.cvproveedor, ViewBag.Proveedor as SelectList, new { @class = "form-control" })
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label class="control-label" for="">Observaciones:</label>
+                                @Html.TextAreaFor(model => model.maEntradas.OBSERVA, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="tab_2" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="control-label" for="">Tipo de Licitación:</label>
+                                @Html.DropDownListFor(model => model.maEntradas.TIPO_LICITACION, ViewBag.TipoLicitacion as SelectList, "-- SELECCIONA UN TIPO --", new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="control-label" for="">Centro que Requisitó:</label>
+                                @Html.DropDownListFor(model => model.maEntradas.CENTRO_REQ, ViewBag.CentroRequisito as SelectList, "-- SELECCIONA UN CENTRO --", new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="control-label" for="">Programa:</label>
+                                @Html.DropDownListFor(model => model.maEntradas.no_prog, ViewBag.Programa as SelectList, "-- SELECCIONA UN PROGRAMA --", new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="control-label" for="">Fuente de Financiamiento:</label>
+                                @Html.DropDownListFor(model => model.maEntradas.Id_FuenteFinanciamiento, ViewBag.Fuente as SelectList, "-- SELECCIONA UN TIPO --", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-sm-12 col-md-7 col-lg-7">
+            <div style="width:100%; height:26px; margin-top: 10px;">
+                Detalle insumos (partidas)
+                <div class="btn-group pull-right">
+                    <button onclick="formInsumo();" type="button" class="btn btn-info btn-xs">Insumos</button>
+                    @*<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Insumos <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a onclick="formInsumo('1');" href="#">Medicamento</a></li>
+                            <li><a onclick="formInsumo('2');" href="#">Material Curacion</a></li>
+                            <li><a onclick="formInsumo('3');" href="#">Material Laboratorio</a></li>
+                            <li><a href="#">Radio Grafico</a></li>
+                            <li><a href="#">Roperia</a></li>
+                            <li><a href="#">Limpieza</a></li>
+                            <li><a href="#">Oficina</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Diversos</a></li>
+                        </ul>*@
+                </div>
+            </div>
+            <!-- DETALLE DE INSUMOS (PARTIDAS)-->
+
+            <div id="ctdr_log_referencias" style="width:100%; height:205px; background:#F5F5F5; border-radius: 5px; padding-right:10px;">
+                <nav class="archive-links">
+                    <ol>
+                        @foreach (var item in Model.deEntradas)
+                        {
+                            <li>
+                                @{string cve_insumo = item.deentradas.TIPO.ToString("000") + "." + item.deentradas.GRUPO.ToString("000") + "." + item.deentradas.CLAVE.ToString("0000") + "." + (item.deentradas.PRESENTACION ?? 0).ToString("00");}
+                                <div onclick="InsumoDelete('@item.deentradas.PK_ARTICULOS','@cve_insumo')" style="float:left; width:25px; text-align:center; padding-top:9px; cursor: pointer;">
+                                    <i class="fa fa-trash-o" style="font-size:18px; color:#ff0000;"></i>
+                                </div>
+                                <div onclick="show_descrip('@item.deentradas.PK_ARTICULOS');" style="float:left; width:75%; cursor: pointer;">
+                                    <div style="width:100%; height:20px;">
+
+                                        <span style="font-size:12px; float:left; margin-right:2px;">@cve_insumo</span>
+                                        <span style="font-size:11px; float:left;">(@item.pres)</span>
+
+                                    </div>
+                                    <div style="width:100%; height:15px; font-size: 12px; line-height: 11px; color:#818181; margin-top:-2px;">
+                                        @{ string insumo;
+                                            if (item.insumo.Length > 60)
+                                            {
+                                                insumo = item.insumo.Substring(0, 60) + "...";
+                                            }
+                                            else
+                                            {
+                                                insumo = item.insumo;
+                                            }
+
+                                        }
+                                        @insumo
+                                    </div>
+                                    <div id="dvd_@item.deentradas.PK_ARTICULOS" style=" display:none;">
+                                        @item.descLarga
+                                    </div>
+                                </div>
+                                <div style="float: right; width: 55px; text-align: right; padding-right: 2px; color:#555;">
+                                    <span style="font-weight:500; font-size:16px; margin-top:-4px;">@item.deentradas.CANTIDAD</span>
+                                    <span style="font-size:10px; color:#818181; margin-top:-5px;">Cantidad</span>
+                                </div>
+                                <div style="float: right; width: 50px; text-align: right; padding-right: 2px; color:#555;">
+                                    <span style="font-size:11px; color:#B0BEC5;">$@String.Format("{0:0.00}", item.deentradas.COSTO)</span>
+                                    @{ decimal importe = Convert.ToDecimal(item.deentradas.COSTO * item.deentradas.CANTIDAD);}
+                                    <span style="font-size:11px; color:#B0BEC5; margin-top:-2px;">$@String.Format("{0:0.00}", importe) </span>
+                                </div>
+
+                            </li>
+                        }
+                    </ol>
+                </nav>
+            </div>
+            <div class="row" style="margin-top:5px;">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div id="descrip_larga" style="width:100%; height:100px; border:1px solid #777; border-radius:5px; color:#818181; font-size:11px; padding:2px; line-height:12px;">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div id="dvd_detalle_lotes" style="width:100%; height:100px; border:1px solid #777; border-radius:5px; color:#818181; font-size:11px; padding:2px; line-height:12px;">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div class="row">
+                        <div class="form-group" style="height:33px;">
+                            <label class="col-md-4 control-label" style="margin-top:12px; padding:0px; text-align:right;">Subtotal: </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="subtotal_" name="subtotal_" placeholder="$@String.Format("{0:0.00}", Model.maEntradas.SUBTOTAL)" style="text-align:right;" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="form-group" style="height:33px;">
+                            <label class="col-md-4 control-label" style="margin-top:12px; padding:0px; text-align:right;">IVA: </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="iva_" name="iva_" placeholder="$@String.Format("{0:0.00}", Model.maEntradas.IVA)" style="text-align:right;" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="form-group" style="height:33px;">
+                            <label class="col-md-4 control-label" style="margin-top:12px; padding:0px; text-align:right;">Importe: </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="Importe" name="Importe" placeholder="$@String.Format("{0:0.00}", Model.maEntradas.TOTAL)" style="text-align:right;" readonly="readonly">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <button type="button" class="btn btn-success pull-right" onclick="saveFormEntrada();"> <i class="fa fa-check"></i> Guardar Entrada</button>
+            <button type="button" class="btn btn-danger pull-right" style="margin-right:5px;"> <i class="fa fa-close"></i> Cancelar</button>
+        </div>
+    </div>
+
+
+</div>
+
+<div id="modal_insumo"></div>
+@section scripts {
+    <script src="~/Content/date-picker/jquery-ui.js"></script>
+    <script src="~/Content/date-picker/jquery.ui.datepicker-es.js"></script>
+
+    <script src="~/Content/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('#descrip_larga').slimscroll({
+                height: '99px'
+            });
+
+            $('#ctdr_log_referencias').slimscroll({
+                height: '205px'
+            });
+        });
+
+        function saveFormEntrada() {
+
+
+            //Valida reglas de formulario
+            if ($("#form_datos_entrada")[0].checkValidity()) {
+
+
+                //alert("pausa");
+                setTimeout(function () {
+
+                    //Serializar datos de formulario para un POST Ajax
+                    var formData = $("#form_datos_entrada").serializeArray();
+                    //Url de metodo POST
+                    var URL = $("#form_datos_entrada").attr("action");
+
+                    //Mostrar Procesando
+                    show_loading();
+
+                    //Peticion Ajax
+                    $.ajax({
+                        type: "POST",
+                        url: URL,
+                        data: formData,
+                        dataType: "json",
+                        success: function (data) {
+                            //Success cerrar procesando
+                            //close_loading();
+
+                            //En caso de exito
+                            if (data.exito) {
+                                //Mostrar mensaje de exito
+                                show_exito(data.msg, '');
+                                setTimeout(function () {
+                                    //RELOAD LA PAGINA Y CARGAR EL REGISTRO CON LOS NUEVOS DATOS EDITADOS
+                                    window.location = "/Entradas/entrada?folio=@Model.maEntradas.FOLIO&anio=@Model.maEntradas.ANIO&tipoInsumo=@Model.maEntradas.TIPO_INSUMOS";
+                                }, 3000);
+
+
+                            }
+                            else {
+                                close_loading();
+                                //En caso de error mostrar mensaje
+                                show_error(data.msg);
+                            }
+                        },
+                        error: function () {
+                            //Cerrar Procesando
+                            close_loading();
+                            //Mostrar mensaje de excepcion ajax
+                            show_error('Ocurrio algo al momento de procesar.');
+                        }
+                    });
+
+                }, 800);
+
+            } else {
+                //En caso de no cumplir las reglas del formulario hacer un Submit naturar y muestre mensajes requeridos.
+                $("#form_datos_entrada").click();
+                show_info('Existen campos que son requeridos, favor de revisar(*)');
+                $(".req").css('color', '#d50000');
+            }
+        }
+
+        function formInsumo(tipo) {
+
+            tipo = $("#tipo_insumo").val();
+            //URL que mostrara la modal
+            var url = '/Entradas/AddInsumoEntrada?tipo_insumo=' + tipo;
+            //Mostrar porcesando
+            show_loading();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    $("#modal_insumo").html(data);
+                    $('#ModalInsumo').modal('show');
+                    close_loading();
+                },
+                error: function (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+
+        //Mostrar confirmación de eliminar
+        function InsumoDelete(pk, cve) {
+            showConfirmOverride("Esta seguro de eliminar la clave " + cve, "EliminarInsumo('" + pk + "')");
+            return false;
+        }
+
+        //Eliminar insumo
+        function EliminarInsumo(pk) {
+
+            $("#descrip_larga").html('');
+
+            //procesando
+            show_loading();
+
+            //Peticion Ajax
+            $.ajax({
+                type: "GET",
+                url: "/Entradas/EliminarCVE?pk=" + pk,
+                dataType: "json",
+                success: function (data) {
+                    //Success cerrar procesando
+                    closedWind();
+                    setTimeout(function () { close_loading(); }, 1000);
+
+                    //En caso de exito
+                    if (data.exito) {
+                        //Mostrar mensaje de exito
+                        show_exito(data.msg, '');
+                        //Cargar seccion detalle con la vista de listado
+                        $("#ctdr_log_referencias").load("/Entradas/DetalleEntrada");
+
+                        //Este div se elmina en caso de existir cuando esta abierta la modal de agregar insmo y desde ahi le dan eliminar
+                        $("#cve_add_insumo_" + pk).remove();
+
+                    }
+                    else {
+                        //En caso de error mostrar mensaje
+                        show_error(data.msg);
+                    }
+                },
+                error: function () {
+                    //Cerrar Procesando
+                    close_loading();
+                    //Mostrar mensaje de excepcion ajax
+                    show_error('Ocurrio algo al momento de procesar.');
+                }
+            });
+
+
+        }
+
+        //Editar insumo
+        function EditarInsumo(pk) {
+            $("#ins_editando_insumo").val('1');
+            $("#descrip_larga").html('');
+
+            //procesando
+            show_loading();
+
+            //Peticion Ajax
+            $.ajax({
+                type: "GET",
+                url: "/Entradas/EditarCVE?pk=" + pk,
+                dataType: "json",
+                success: function (data) {
+
+                    selectInsumoAdd(data.deentradas.PK_ARTICULOS, 1);
+                    $("#ins_pk").val(data.deentradas.PK_ARTICULOS);
+                    $("#ins_cantidad_cap").val(data.deentradas.CANTIDAD);
+                    $("#ins_costo_cap").val(data.deentradas.COSTO);
+
+                    var html_code_ = '';
+                    var id_f = 0;
+
+                    $.each(data.deEntradasCad,function(index, element){
+
+                        //AGREGAR A ARRAY
+                        if (jsonLotes.length != 0)
+                            id_f = Math.max.apply(Math, jsonLotes.map(function (o) { return o.id_a; }));
+
+                        id_f = id_f + 1;
+                        var item = {}
+                        item["id_a"] = id_f;
+                        item["lote"] = element.Lote;
+                        item["fecha"] = element.pk_caducidades; // element.Caducidad;
+                        item["cantidad"] = element.Cantidad;
+                        jsonLotes.push(item);
+
+                        //FORMAR HTML DE LOTES
+                        html_code_ += '    <div id=f_' + id_f + ' class="cve-addada" style="font-size:11px;">';
+                        html_code_ += '        <div onclick="DeleteLote(\'' + id_f + '\');"  class="cve-dlting-btn" style="padding-top: 1px;">';
+                        html_code_ += '            <i class="fa fa-trash-o"></i>';
+                        html_code_ += '        </div>';
+                        html_code_ += '        <div style="  float:left;margin-right: 5px;">' + element.Lote + '</div>';
+                        html_code_ += '        <div style=" float:left;"> '+element.pk_caducidades+' </div>';
+                        html_code_ += '        <div style="float:right; text-align:right;">' + element.Cantidad + '</div>';
+                        html_code_ += '    </div>';
+
+
+
+                    });
+
+                    setTimeout(function () {
+                        $("#detalle_lotes").html(html_code_);
+                         //cerrar procesando
+                        close_loading();
+                    }, 800);
+
+                },
+                error: function () {
+                    //Cerrar Procesando
+                    close_loading();
+                    //Mostrar mensaje de excepcion ajax
+                    show_error('Ocurrio algo al momento de procesar.');
+                }
+            });
+
+
+        }
+
+        function show_descrip(pk) {
+
+            //MOSTRAR DESCRIPCION LARGA
+            var desc = $("#dvd_" + pk).html();
+            $("#descrip_larga").html(desc);
+
+
+
+            //Peticion Ajax Para traer los lotes del insumo agregado
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/Entradas/EditarCVE?pk=" + pk,
+                dataType: "json",
+                beforeSend: function() {
+                  //poner load en div de lotes
+                    $("#dvd_detalle_lotes").html(
+                        '<div style="width:61px; height:61px; text-align:center; margin:10% auto;">    <img src="../Content/img/load.gif" width="60" height="60"></div>'
+                    );
+                },
+                success: function (data) {
+
+                    var html_code_ = '';
+
+                    $.each(data.deEntradasCad,function(index, element){
+
+                        //FORMAR HTML DE LOTES
+                        html_code_ += '    <div id=f_' + element.PK_ARTICULOS + ' class="cve-addada" style="font-size:9px;">';
+                        html_code_ += '        <div style="  float:left;margin-right: 5px;">' + element.Lote + '</div>';
+                        html_code_ += '        <div style=" float:left;"> '+element.pk_caducidades+' </div>';
+                        html_code_ += '        <div style="float:right; text-align:right; color:#000;">' + element.Cantidad + '</div>';
+                        html_code_ += '    </div>';
+
+                    });
+
+                    setTimeout(function () {
+                        $("#dvd_detalle_lotes").html(html_code_);
+                    }, 600);
+
+                },
+                error: function () {
+                    //Cerrar Procesando
+                    close_loading();
+                    //Mostrar mensaje de excepcion ajax
+                    show_error('Ocurrio algo al momento de procesar.');
+                }
+            });
+        }
+    </script>
+}
+
+

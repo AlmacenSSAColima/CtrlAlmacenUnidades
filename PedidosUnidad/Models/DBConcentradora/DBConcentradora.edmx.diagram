@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6265bc54618542bebe5c0472e3118728" Name="Diagram1" ZoomLevel="69">
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_CADUCIDAD" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.de_entradas" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_EntradasCAD" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.de_pedidos" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_PedidosCAD" Width="1.5" PointX="9.375" PointY="5.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.ma_pedidos" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwListadoSalidas" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.TA_Parametros" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.ma_entradas" Width="1.5" PointX="4.875" PointY="0.875" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwListadoEntradas" Width="1.5" PointX="7.375" PointY="11.75" />
+        <EntityTypeShape EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwDispCad" Width="1.5" PointX="9.125" PointY="11.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

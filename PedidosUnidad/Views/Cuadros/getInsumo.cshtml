@@ -1,0 +1,537 @@
+﻿@model PedidosUnidad.Models.RowsCuadroGeneralModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+
+  .survey-completes
+ {
+    margin: 0 10px;
+  }
+
+  .survey-completes {
+    vertical-align: middle;
+  }
+
+
+
+  .survey-progress {
+    display: block;
+    position: relative;
+    float:right;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 270px;
+    padding: 2px;
+    font-size: 12px;
+  }
+
+  .survey-progress-bg {
+    width: 40%;
+    display: block;
+
+    
+  }
+
+  .survey-progress-labels {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    line-height: 12px;
+
+  }
+
+  .survey-progress-label {
+    line-height: 21px;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .survey-completes {
+    line-height: 21px;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+
+
+
+
+    .survey-progress-label {
+        vertical-align: middle;
+        margin: 0 10px;
+        color: #4CAF50;
+    }
+
+    .survey-progress-bg {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        width: 120px;
+        height: 15px;
+        border-radius: 5px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #ccc;
+    }
+
+.survey-progress-fg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  background: #8DC63F;
+}
+</style>
+
+<form role="form" class="form-horizontal">
+    <div class="row">
+        <div class="col-sm-5">
+            <label>Descripcion Nacional @Model.cve:</label>
+            <p class="descripcve_mdl">
+                @Model.descrip_nacional
+                @*BENCILPENICILINA PROCAÍNICA -BENCILPENICILINA CRISTALINA SUSPENSIÓN INYECTABLE . CADA FRASCO ÁMPULA CON POLVO CONTIENE: BENCILPENICILINA PROCAÍNICA EQUIVALENTE A 600 000 UI DE BENCILPENICILINA BENCILPENICILINA CRISTALINA EQUIVALENTE A 200 000 UI DE BENCILPENICILINA. ENVASE CON UN FRASCO AMPULA Y 2 ML DE DILUYENTE.*@
+            </p>
+            @{string cve_sist = String.IsNullOrEmpty(Model.cve_sist) ? Model.cve : Model.cve_sist;}
+            <label>Descripcion Almacen @cve_sist:</label>
+            <p class="descripcve_mdl">
+                @Model.descrip_almacen
+                @*BENCILPENICILINA PROCAÍNICA -BENCILPENICILINA CRISTALINA SUSPENSIÓN INYECTABLE . CADA FRASCO ÁMPULA CON POLVO CONTIENE: BENCILPENICILINA PROCAÍNICA EQUIVALENTE A 600 000 UI DE BENCILPENICILINA BENCILPENICILINA CRISTALINA EQUIVALENTE A 200 000 UI DE BENCILPENICILINA. ENVASE CON UN FRASCO AMPULA Y 2 ML DE DILUYENTE.*@
+            </p>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="col-sm-3" for="">Clave:</label>
+                <label class="col-sm-9 dto-c" for="">@Model.cve</label>
+                <input id="pk_cve" value="@Model.pk" hidden />
+            </div>
+            <div class="form-group">
+                @{string ODes = Model.origen_desierta ? "SI" : "NO";}
+                <label class="col-sm-3" for="">Desierta:</label>
+                <label class="col-sm-9 dto-c" for="">@ODes</label>
+            </div>
+            <div class="form-group">
+                @{string ONaci = Model.origen_consolidada ? "SI" : "NO";}
+                <label class="col-sm-3" for="">Nacional:</label>
+                <label class="col-sm-9 dto-c" for="">@ONaci</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3" for="">Max:</label>
+                <label class="col-sm-9 dto-c" for="">@Model.max_consolidada</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3" for="">Min:</label>
+                <label class="col-sm-9 dto-c" for="">@Model.min_consolidada</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3" for="">Costo:</label>
+                <label class="col-sm-9 dto-c" for="">$@Model.costo_nacional</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3" for="">Proveedor:</label>
+                <label class="col-sm-9 dto-c" for="" style="font-size:10px;">@Model.proveedor</label>
+            </div>
+            <div class="form-group">
+                @{string ODim = Model.origen_dimesa ? "SI" : "NO";}
+                <label class="col-sm-3" for="">DIMESA:</label>
+                <label class="col-sm-9 dto-c" for="">@ODim</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3" for="">Max:</label>
+                <label class="col-sm-9 dto-c" for="">@Model.max_dimesa</label>
+            </div>
+            <div class="form-group">
+                @{string prog = string.IsNullOrEmpty(Model.programa_desc) ? "NO" : Model.programa_desc.ToString();}
+                <label class="col-sm-3" for="">Programa:</label>
+                <label class="col-sm-9 dto-c" for="">@prog</label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM HRU:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.hru</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM HGT:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.hgt</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM HGM:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.hgm</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM HGI:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.hgi</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM HMI:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.hmi</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM IEC:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.iec</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM CEH:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.ceh</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM J1</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.j1</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM J2:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.j2</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-7" for="">CPM J3:</label>
+                <label class="col-sm-5 dto-c text-right" for="">@Model.j3</label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="dv_total_men">
+                @{int Tmen = Model.hru + Model.hgt + Model.hgm + Model.hgi + Model.hmi + Model.iec + Model.ceh + Model.j1 + Model.j2 + Model.j3;}
+                <div>Programado Mensual</div>
+                <div style="font-size:18px; font-weight:600; width:100%; margin-top:5px;">@Tmen</div>
+            </div>
+            @{string cssCls = Tmen > Model.existencia_almacen ? "dv_ex_negativo" : "dv_ex_positivo"; }
+            <div class="@cssCls">
+                <div>Existencia Almacen</div>
+                <div style="font-size:18px; font-weight:600; width:100%; margin-top:5px;">@Model.existencia_almacen</div>
+            </div>
+            @{int pedir = (Tmen - Model.existencia_almacen);}
+            @{pedir = pedir < 0 ? 0 : pedir;}
+            <div class="dv_proyeccion">
+                <div>Proyección Solicitud</div>
+                <div style="font-size:18px; font-weight:600; width:100%; margin-top:5px;">@pedir</div>
+            </div>
+
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4" style="height:250px;">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="tlt-seccion">Pedidos Adquisiciones</div>
+                </div>
+            </div>
+            <div class="row">
+                @*<div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="" style="border-bottom:1px dashed #9E9E9E; font-size:12px; height:35px;">
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                Folio: 00002/2019 dd/mm/aaaa <br /><i class="fa fa-check"></i> <span style="font-size:10px;">Entregado</span>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 text-right">
+                                00000
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="" style="border-bottom:1px dashed #9E9E9E; font-size:12px; height:35px;">
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                Folio: 00002/2019 dd/mm/aaaa <br /><i class="fa fa-close"></i> <span style="font-size:10px;">No Entregado</span>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3 text-right">
+                                00000
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-4" style="height:250px;">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="tlt-seccion">
+                        Entradas
+                        <span class="survey-progress">
+                            <span class="survey-progress-bg">
+                                <span id="porcentaje_barr" class="survey-progress-fg" style="width: 0%;"></span>
+                            </span>
+
+                            <span class="survey-progress-labels">
+                                <span id="porcentaje_numero" class="survey-progress-label">                                    
+                                    0%
+                                </span>
+
+                                <span id="numero_max" class="survey-completes">
+                                    0/0
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div id="dvd_entradas" class="col-md-12 col-sm-12 col-xs-12" style="height: 230px; overflow-y: auto;">
+                    <div class="" style="border-bottom:1px dashed #9E9E9E; font-size:12px; height:35px;">
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            Entrada: 00001/2019 dd/mm/aaaa <br /><span style="font-size:10px;">Pedido 00000</span>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 text-right">
+                            00000
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-4">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="tlt-seccion">
+                        Salidas
+                        <div id="" style="float: right; text-align: right; padding: 0px 2px; text-align: center; margin: 1px 2px; border-radius: 3px; font-size: 12px; width: 85%;">(<span id="ultimo_sol">Pedido Agosto: 00000</span>, <span id="ultimo_sur">Surtido: 00000</span>, <span id="promedio_sol">PM: 00000</span>)</div>
+                        @*<div id="ultimo_sur" style="float: right; border: 1px solid #555; padding: 0px 2px; text-align: center; margin: 1px 2px; border-radius: 3px; font-size: 12px; width: 135px;">Surtido: 0000</div>
+        <div id="ultimo_sol" style="float: right; border: 1px solid #555; padding: 0px 2px; text-align: center; margin: 1px 2px; border-radius: 3px; font-size: 12px; width: 135px;">Pedido: 0000</div>
+        <div id="promedio_sol" style="float: right; border: 1px solid #555; padding: 0px 2px; text-align: center; margin: 1px 2px; border-radius: 3px; font-size: 12px; width: 135px;">Promedio: 0000</div>*@ 
+                    </div>
+                </div>
+            </div>
+
+            <div id="ctdr_operaciones" class="form-group">
+                <ul id="dvd_salidas" class="mini-timeline" style="height: 230px; overflow-y: auto;">
+                    <li class="mini-timeline-highlight mini-timeline-warning" style="height:auto;">
+                        <div class="mini-timeline-panel" style="position:relative;">
+                            <div style="width:99%; height:20px;">
+                                <div style="float:left; font-weight:600; font-size: 10px;">Unidad HRU</div>
+                                @*<div style="float:right; font-size:11px; margin-right:4px; padding: 3px; border: 1px solid #ddd; width:50px; text-align:right;">Entrega</div>
+                                    <div style="float:right; font-size:11px; margin-right:4px; padding: 3px; border: 1px solid #ddd; width:50px; text-align:right;">Solicitud</div>*@
+                            </div>
+                            <div style="width:98%; height:27px;">
+                                <div style="float:left; font-size:11px; text-align:left;">Fecha</div>
+                                <div style="float:right; font-size:11px; margin-right:4px; padding: 3px; border: 1px solid #ddd; width:50px; text-align:right;">Entrega</div>
+                                <div style="float:right; font-size:11px; margin-right:4px; padding: 3px; border: 1px solid #ddd; width:50px; text-align:right;">Solicitud</div>
+                            </div>
+
+                            <div style="width:99%; height:25px;">
+                                <div style="width:30%; float:left;"><h5 class="time" style="margin:auto"><i class="fa fa-calendar"></i> dd/mm/aaaa</h5></div>
+                                <div class="entrega_pos">0000</div>
+                                <div class="sol_can">0000</div>
+                            </div>
+                            <div style="width:99%; height:25px;">
+                                <div style="width:30%; float:left;"><h5 class="time" style="margin:auto"><i class="fa fa-calendar"></i> dd/mm/aaaa</h5></div>
+                                <div class="entrega_pos">0000</div>
+                                <div class="sol_can">0000</div>
+                            </div>
+                            <div style="width:99%; height:25px;">
+                                <div style="width:30%; float:left;"><h5 class="time" style="margin:auto"><i class="fa fa-calendar"></i> dd/mm/aaaa</h5></div>
+                                <div class="entrega_neg">0000</div>
+                                <div class="sol_can">0000</div>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+</form>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var pk_ = $("#pk_cve").val();
+        GetSalidas(pk_);
+        GetEntradas(pk_);
+        GetUltimoConsumo(pk_);
+        GetUltimoTotalEntrada(pk_);
+    });
+
+
+
+    function GetSalidas(pk_cve) {
+        $.ajax({
+            type: 'GET',
+            url: '/Cuadros/getSalidas/',
+            beforeSend: function () {
+                $("#dvd_salidas").html(show_load_seccion());
+            },
+            dataType: 'Json',
+            data: { pk_: pk_cve },
+            success: function (data) {
+                var rows = data.length;
+                var i = 0;
+                var html = "";
+                var unidad_des = "rvos";
+                var cls_pos_neg = "entrega_pos";
+                var total = 0;
+                var total_gral = 0;
+                // Recorrer entidades encontradas en la fuente.
+                $.each(data, function (key, modelo) {
+                    i = i + 1;
+                    // Crear codigo HTML para vista
+                    if (modelo.unidad != unidad_des && unidad_des != "rvos")
+                    {                        
+                        //PROMEDIO DIVIDIR EN 12 PORQUE SE ESTA OBTENIENDO SALIDAS DE LA FECHA ACTUAL 12 MESES A TRAS.
+                        var promedio = parseFloat(Number((parseInt(total) / 12)).toFixed(2)) || 0; //parseInt(total) / 12;  
+                        total_gral = total_gral + parseFloat(Number(promedio).toFixed(2)) || 0;
+                        html += '<div style="width:98%; height:22px;  padding: 5px 2px; border-radius: 3px; margin-top: -3px;">';
+                        html += '        <div style="width:99%; float:left;"><h5 class="time" style="margin:auto; font-weight: 600;  color: #4f4f4f; font-size: 10px;">TOTAL EN 12 MESES REQUERIDO: ' + total + ' (PROMEDIO MENSUAL: ' + promedio + ')</h5></div>';                        
+                        html += '</div>';
+
+                        html += '</li>';
+                        html += '    </div>';
+                    }
+                    if (modelo.unidad != unidad_des) {
+
+                        total = 0;
+                        unidad_des = modelo.unidad;
+                        html += '<li class="mini-timeline-highlight mini-timeline-info" style="height:auto;">';
+                        html += '    <div class="mini-timeline-panel" style="position:relative;">';
+
+                        html += '<div style="width:98%; height:20px;">';
+                        html += '    <div style="float:left; font-weight:600; font-size: 10px;">' + modelo.unidad + '</div>';
+                        html += '</div>';
+
+                        html += '<div style="width:98%; height:27px;">';
+                        html += '    <div style="float:left; font-size:11px; text-align:left;">Fecha</div>';
+                        html += '    <div style="float:right; font-size:11px; margin-right:4px; padding: 3px; border: 1px solid #ddd; width:50px; text-align:right;">Entrega</div>';
+                        html += '    <div style="float:right; font-size:11px; margin-right:4px; padding: 3px; border: 1px solid #ddd; width:50px; text-align:right;">Solicitud</div>';
+                        html += '</div>';
+                    }
+
+                    cls_pos_neg = "entrega_pos";
+                    if (modelo.surtido < modelo.solicitado) {
+                        cls_pos_neg = "entrega_neg";
+                    }
+
+                    html += '<div style="width:98%; height:22px;">';
+                    html += '        <div style="width:30%; float:left;"><h5 class="time" style="margin:auto"><i class="fa fa-calendar"></i> ' + modelo.fecha + '</h5></div>';
+                    html += '        <div class="' + cls_pos_neg + '">' + modelo.surtido + '</div>';
+                    html += '        <div class="sol_can">' + modelo.solicitado + '</div>';
+                    html += '</div>';
+
+                    total = parseInt(total) + parseInt(modelo.solicitado);
+
+                    if (rows == i) {
+                        //PROMEDIO DIVIDIR EN 12 PORQUE SE ESTA OBTENIENDO SALIDAS DE LA FECHA ACTUAL 12 MESES A TRAS.
+                        var promedio = parseFloat(Number((parseInt(total) / 12)).toFixed(2)) || 0; //parseInt(total) / 12;  
+                        total_gral = total_gral + parseFloat(Number(promedio).toFixed(2)) || 0;
+                        html += '<div style="width:98%; height:22px;  padding: 5px 2px; border-radius: 3px; margin-top: -3px;">';
+                        html += '        <div style="width:99%; float:left;"><h5 class="time" style="margin:auto; font-weight: 600;  color: #4f4f4f; font-size: 10px;">TOTAL EN 12 MESES REQUERIDO: ' + total + ' (PROMEDIO MENSUAL: ' + promedio + ')</h5></div>';
+                        html += '</div>';
+
+                        html += '</li>';
+                        html += '    </div>';
+                    }
+                });
+                $("#dvd_salidas").html(html);
+                $("#promedio_sol").html("PM: " + parseFloat(Number(total_gral).toFixed(2)) || 0);
+                //alert("Total gral: " + total_gral + " Promedio: " + parseFloat(Number((parseInt(total_gral) / 12)).toFixed(2)) || 0);
+            },
+            async: true,
+            error: function (ex) {
+                //$("#datos_fuente").html("<h4>Ocurrio un error</h4>");
+            }
+        });
+    }
+
+    function GetEntradas(pk_cve) {
+        $("#dvd_entradas").html('');
+        $.ajax({
+            type: 'GET',
+            url: '/Cuadros/getEntradas/',
+            beforeSend: function () {
+                $("#dvd_entradas").html(show_load_seccion());
+            },
+            dataType: 'Json',
+            data: { pk_: pk_cve },
+            success: function (data) {
+                console.log(data);
+                var html = "";
+                // Recorrer entidades encontradas en la fuente.
+                $.each(data, function (key, modelo) {
+
+                    html += '<div class="" style="border-bottom:1px dashed #9E9E9E; font-size:12px; height:35px;">';
+                    html += '    <div class="col-md-9 col-sm-9 col-xs-9">';
+                    html += '        Entrada: #' + modelo.folio + ' <br /><span class="timin" style="margin:auto; color: #757575; font-size:11px;"><i class="fa fa-calendar"></i> ' + modelo.fecha + ' (' + modelo.tipo_entrada_desc + ')</span>';
+                    html += '    </div>';
+                    html += '    <div class="col-md-3 col-sm-3 col-xs-3 text-right">';
+                    html += '    ' + modelo.cantidad;
+                    html += '    </div>';
+                    html += '</div>';
+
+                });
+                $("#dvd_entradas").html(html);
+            },
+            async: true,
+            error: function (ex) {
+                $("dvd_entradas").html("<h4>Ocurrio un error</h4>");
+            }
+        });
+    }
+
+    function GetUltimoConsumo(pk_cve) {
+        $("#dvd_entradas").html('');
+        $.ajax({
+            type: 'GET',
+            url: '/Cuadros/getConsumoUltimoMes/',
+            beforeSend: function () {
+
+            },
+            dataType: 'Json',
+            data: { pk_: pk_cve },
+            success: function (data) {
+                console.log(data);
+                $("#ultimo_sur").html("Surtido: " + data.surtido);
+                $("#ultimo_sol").html("Pedido " + data.mes + ": " + data.solicitado);                
+            },
+            async: true,
+            error: function (ex) {
+                alert("Ocurrio un error ex");
+            }
+        });
+    }
+
+    function GetUltimoTotalEntrada(pk_cve) {
+        //$("#dvd_entradas").html('');
+        $.ajax({
+            type: 'GET',
+            url: '/Cuadros/getEntradasByAnioCve/',
+            beforeSend: function () {
+
+            },
+            dataType: 'Json',
+            data: { pk_: pk_cve },
+            success: function (data) {
+                var a = parseInt(data);
+                var b = parseInt(@Model.max_consolidada);
+                var porc = parseFloat(Number((a / b) * 100).toFixed(2)) || 0;
+                $("#numero_max").html(a + "/" + b);
+                $("#porcentaje_numero").html(porc + "%");
+                $("#porcentaje_barr").css("width", porc +"%");
+            },
+            async: true,
+            error: function (ex) {
+                $("#numero_max").html("0/0");
+                $("#porcentaje_numero").html("0%");
+                $("#porcentaje_barr").css("width","0%");
+                alert("Ocurrio un error ex");
+
+            }
+        });
+    }
+
+    
+
+</script>
+
+
+

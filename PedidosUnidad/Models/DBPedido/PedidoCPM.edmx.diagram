@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="07790c4806284e6991499ec0317af5dd" Name="Diagram1">
+        <EntityTypeShape EntityType="PedidosCPMModel.roles" Width="1.5" PointX="6.75" PointY="6.375" />
+        <EntityTypeShape EntityType="PedidosCPMModel.parametros_sys" Width="1.5" PointX="2.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PedidosCPMModel.det_inventario_articulo" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PedidosCPMModel.cuadro_nacional_medicamento" Width="1.875" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PedidosCPMModel.cuadro_general_medicamento" Width="2.625" PointX="9.875" PointY="0.625" />
+        <EntityTypeShape EntityType="PedidosCPMModel.Menu_Settings" Width="1.5" PointX="5.125" PointY="9.375" />
+        <EntityTypeShape EntityType="PedidosCPMModel.modules" Width="1.5" PointX="3.25" PointY="8.125" />
+        <EntityTypeShape EntityType="PedidosCPMModel.modules_temp" Width="1.5" PointX="6.75" PointY="9.375" />
+        <EntityTypeShape EntityType="PedidosCPMModel.roles_modules_privileges" Width="1.5" PointX="5" PointY="6.375" />
+        <AssociationConnector Association="PedidosCPMModel.FK_roles_modules_privileges_modules" />
+        <AssociationConnector Association="PedidosCPMModel.FK_roles_modules_privileges_roles" />
+        <EntityTypeShape EntityType="PedidosCPMModel.usuarios" Width="1.5" PointX="2.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PedidosCPMModel.ma_inventario_dia" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="PedidosCPMModel.det_pedido" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="PedidosCPMModel.configuracion_unidades" Width="1.5" PointX="9.375" PointY="10.75" />
+        <EntityTypeShape EntityType="PedidosCPMModel.ma_pedido" Width="1.5" PointX="0.75" PointY="11.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<PedidosUnidad.Models.DBPedido.roles>
+
+@{
+    ViewBag.Title = "Perfiles";
+}
+
+
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-8" style="padding:0px;">
+            <h3 style="margin-top:0">Perfil de Rol y Permisos</h3>
+        </div>
+        <div class="col-sm-4" style="padding:0px;">
+            @*<button onclick="go_to_view('');" type="button" class="btn btn-success pull-right tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar nuevo usuario" style="margin-right: 55px;"><i class="fa fa-plus"></i> Nuevo</button>*@
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Roles</div>
+                <div class="panel-body" style="min-height: 222px;">
+                    <table class="table table-hover" style="margin-bottom:0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre de Rol</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr onclick="VerPermisos('@item.id');">
+                                    <td>@item.id</td>
+                                    <td>@item.nombre_rol</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">Permisos</div>
+                <div class="panel-body" style="min-height: 222px;" id="ctn_modulos_permiso">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function VerPermisos(rol)
+        {            
+            //URL que mostrara la modal
+            var url = '/Usuarios/Permisos/' + rol;
+            //Mostrar porcesando
+            show_loading();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    $("#ctn_modulos_permiso").html(data);
+                    $('#form_rol_select').val(rol);
+                    close_loading();
+                },
+                error: function (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+
+        function GuardarPermisos() {
+            //Mostrar procesando
+            show_loading();
+
+            //Serializar datos de formulario para un POST Ajax
+            var formData = $("#modulosReg").serializeArray();
+            //Url de metodo POST
+            var URL = '/Usuarios/SavePermisos'
+            //Peticion Ajax
+            $.ajax({
+                type: "POST",
+                url: URL,
+                data: formData,
+                dataType: "json",
+                success: function (data) {
+                    //Success cerrar procesando
+                    close_loading();
+                    //En caso de exito
+                    if (data.exito) {
+
+                        //Mostrar mensaje de exito
+                        show_exito(data.msg, '');
+                    }
+                    else {
+                        //En caso de error mostrar mensaje
+                        show_error(data.msg);
+                    }
+                },
+                error: function () {
+                    //Cerrar Procesando
+                    close_loading();
+                    //Mostrar mensaje de excepcion ajax
+                    show_error('Ocurrio algo al momento de procesar.');
+                }
+            });
+        }
+    </script>
+}
+

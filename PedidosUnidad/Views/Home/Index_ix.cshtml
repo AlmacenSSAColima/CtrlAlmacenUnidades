@@ -1,0 +1,118 @@
+﻿@model PedidosUnidad.Models.CuadroGeneralModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index_ix</title>
+</head>
+<body>
+    <table class="table">
+
+        <tr>
+
+            <th>cve</th>
+
+            <th>descripcion</th>
+
+            <th>hru</th>
+
+            <th>hgt</th>
+
+            <th>hgm</th>
+
+            <th>hgi</th>
+            <th>
+                hmi
+            </th>
+            <th>
+                c.iec,
+            </th>
+            <th>
+                c.ceh,
+            </th>
+            <th>
+                c.j1,
+            </th>
+            <th>
+                c.j2,
+            </th>
+            <th> c.j3</th>
+            <th> Existencia Almacen</th>
+
+        </tr>
+
+        @foreach (var c in Model.rowsCuadro)
+        {
+
+
+    <tr>
+
+        <td>
+            @c.cve
+        </td>
+
+        <td>
+            @c.descripcion
+
+        </td>
+
+        <td>
+            @c.hru
+
+        </td>
+
+        <td>
+            @c.hgt
+
+        </td>
+
+        <td>
+            @c.hgm
+
+        </td>
+
+        <td>
+            @c.hgi
+
+        </td>
+        <td>
+            @c.hmi
+        </td>
+        <td>
+            @c.iec
+        </td>
+        <td>
+            @c.ceh
+        </td>
+        <td>
+            @c.j1
+        </td>
+        <td>
+            @c.j2
+        </td>
+        <td>
+            @c.j3
+        </td>
+
+        <td>
+            @c.existencia_almacen
+        </td>
+        
+
+
+    </tr>
+        
+
+
+        }
+
+
+    </table>
+</body>
+</html>

@@ -1,0 +1,127 @@
+﻿@model PedidosUnidad.Security.LoginModel
+@{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <title>Login CPM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="~/Content/img/SSAIconWeb.png">
+    <link rel="shortcut icon" href="~/Content/img/SSAIconWeb.png">
+
+    <link href="~/Content/login/css/util.css" rel="stylesheet" />
+    <link href="~/Content/login/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/loading.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form id="login-form" class="login100-form validate-form" action="/Login" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="navegador" id="navegador">
+                    <div style="width:180px; height:180px; border-radius:50%; border:2px solid #607D8B; margin: 1px auto; text-align:center; background-color:white; padding-top:25px;">
+                        <img src="~/Content/login/images/ic_ssa_colima.jpg" style="width:120px; height:120px; "/>
+                    </div>
+                    <span class="login100-form-title p-b-43">
+                        Login
+                    </span>
+                    <div class="wrap-input100 validate-input" data-validate="Usuario es requerido">
+                        <input class="input100" type="text" name="loginusers" id="loginusers">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Usuario</span>
+                    </div>
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Password es requerido">
+                        <input class="input100" type="password" name="passusers" id="passusers">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Password</span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-t-3 p-b-32">
+                        <div class="contact100-form-checkbox">
+                        </div>
+
+                        <div>
+                            <a href="/Catalogos/Index" class="txt1">
+                                Ver Catálogo de insumos.
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Iniciar Sesión
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-46 p-b-20">
+                        <span class="txt2" style="text-align:center; color:#e74c3c;">
+                            @ViewBag.Error
+                        </span>
+                    </div>
+                </form>
+
+                <div class="login100-more" style="background-image: url('../Content/login/images/cpm_day_2.jpg');">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/js/lib/jquery-2.1.3.min.js"></script>
+    <script src="~/Content/login/js/main.js"></script>
+    <script src="~/Scripts/js/loading.js"></script>
+
+    <script type="text/javascript">
+  
+        var mobile = {
+          Android: function() {
+            return navigator.userAgent.match(/Android/i); //Android
+          },
+          BlackBerry: function() {
+            return navigator.userAgent.match(/BlackBerry/i); //BlackBerry
+          },
+          iOS: function() {
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i); //iPhone|iPad|iPod
+          },
+          Opera: function() {
+            return navigator.userAgent.match(/Opera Mini/i); //Opera Mini
+          },
+          Windows: function() {
+            return navigator.userAgent.match(/IEMobile/i); //IEMobile
+          },
+          any: function() {
+            return (mobile.Android() || mobile.BlackBerry() || mobile.iOS() || mobile.Opera() || mobile.Windows());
+          }
+        };
+
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            var navegador = mobile.any()
+            if (navegador == null) {
+                navegador = 'PC';
+            }
+            else {
+                navegador = 'Movil';
+            }
+            //alert(navegador);
+            $("#navegador").val(navegador);
+        });
+        
+
+        
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+

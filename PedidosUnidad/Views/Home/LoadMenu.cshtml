@@ -1,0 +1,51 @@
+﻿@model List<PedidosUnidad.Models.DBPedido.modules_temp>
+
+@{var li_class = "";}
+@{ var ul_class = "";}
+@{ var funcio_go = "";}
+
+
+@foreach (var menu in Model)
+ {
+    if (menu.parentmenuid == 0)
+    {
+        funcio_go = "";
+        if (menu.hijos > 0)
+        {
+            li_class = "cm-submenu";
+        }
+        else
+        {
+            funcio_go = "go_to_view('" + menu.menuurl + "');";
+        }
+        
+        <li class="@li_class">
+       @if (menu.hijos > 0)
+        { 
+            <a class="@menu.menuicon">@menu.namemodules <span class="caret"></span></a>
+        }
+        else
+        {
+           <a onclick="@funcio_go" class="@menu.menuicon">@menu.namemodules </a>
+        }
+       
+       @if (menu.hijos > 0)
+        {
+           <ul class="">
+               @foreach (var child in Model)
+               {
+                   if (child.parentmenuid == menu.idmodules)
+                   {
+                       <li>
+                           <a onclick="go_to_view('/@child.menucontrolador/@child.menuaction');"><i class="fa fa-circle" style="margin-right:8px;"></i>@child.namemodules
+                       </a>
+                   </li>
+               }
+           }
+           </ul>
+        }
+        </li>
+    }
+ }
+
+

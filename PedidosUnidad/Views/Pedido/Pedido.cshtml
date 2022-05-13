@@ -1,0 +1,695 @@
+﻿@model PedidosUnidad.Models.PedidoModel
+
+@{
+    ViewBag.Title = "Pedido";
+}
+
+<style>
+    .btn-trashi {
+        width: 40px;
+        height: 40px;
+        border: solid 1px #ff0000;
+        color: #ff0000;
+        text-align: center;
+        background: white;
+        font-size: 22px;
+        border-radius: 5px;
+        padding-top: 3px;
+        cursor: pointer;
+    }
+
+        .btn-trashi:hover {
+            background: #EB0A1E;
+            color: #fff;
+        }
+
+    .inputSol {
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: center;
+    font-size: 18px;
+    }
+    .red-css {
+    background: #4FC3F7;
+    border: 1px solid #1E88E5;
+    }
+</style>
+
+@using (Html.BeginForm("Pedido", "Pedido", FormMethod.Post, new { id = "frm_datos_", name = "frm_datos_" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid cm-container-white">
+        <div class="col-sm-12">
+            <div class="form-group">
+                @*<b>@Model.claves_pedidas</b>*@
+                <div class="col-md-12 mail-right-header" style="height:55px; position: fixed;width: 76%; z-index:1; background:#fff; padding-top: 5px; margin-top: -5px;">
+                    <div class="col-md-9 col-sm-9 padding-0">
+                        <div class="input-group searchbox-v1" style="">
+                            <span class="input-group-addon  border-none box-shadow-none" id="basic-addon1">
+                                <span class="fa fa-search"></span>
+                            </span>
+                            <input id="filter-input-refs" type="text" class="txtsearch border-none box-shadow-none" placeholder="Buscar..." aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 padding-0" style="padding-left:2px; text-align:right;">
+                        <button type="button" onclick="formInsumo();" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Agregar Insumo" style="height: 46px; font-size: 25px; padding: 5px;">
+                            <i class="fa fa-fw fa-plus"></i>
+                        </button>
+                        <button type="button" onclick="savePedido();" class="btn btn-turquoise tooltip-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Guardar Pedido" style="height: 46px; font-size: 25px; padding: 5px;">
+                            <i class="fa fa-fw fa-save"></i>
+                        </button>
+                        <button type="button" onclick="borrador();" class="btn btn-gray tooltip-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Imprimir Borrador" style="height: 46px; font-size: 25px; padding: 5px;">
+                            <i class="fa fa-fw fa-print"></i>
+                        </button>
+                        <button type="button" onclick="confirmarEnvio();" class="btn btn-success tooltip-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Enviar Pedido" style="height: 46px; font-size: 25px; padding: 5px;">
+                            <i class="fa fa-fw fa-send-o"></i>
+                        </button>
+                        <button type="submit" id="btn-sub" hidden>.</button>
+                    </div>
+                    
+                </div>
+
+                <div class="col-md-12 mail-right-content TodasReferencias" style="margin-top:52px;">
+                    <table id="table-refs" class="table table-hover">
+                        <tbody>
+                            @{string pkas = "";
+                                string cls_desi = "";}
+                            @foreach (var item in Model.articulos)
+                            {
+                                cls_desi = "";
+
+                                if (string.IsNullOrEmpty(pkas))
+                                { pkas += item.pk; }
+                                else
+                                { pkas += "," + item.pk; }
+
+                                if (item.desierta)
+                                {
+                                    cls_desi = "cve-dsierta";
+                                }
+
+                                <tr class="@cls_desi" id="row_@item.pk">
+
+                                    <td class="" style="width:60%;">
+                                        <input type="text" id="pk_@item.pk" name="pk_@item.pk" value="@item.pk" hidden />
+                                        <input type="text" id="cve_@item.pk" name="cve_@item.pk" value="@item.clave" hidden />
+                                        <input type="text" id="origen_@item.pk" name="origen_@item.pk" value="@item.origen" hidden />
+                                        <input type="text" id="desc_@item.pk" name="desc_@item.pk" value="@item.descripcion" hidden />
+                                        <input type="text" id="cpm_@item.pk" name="cpm_@item.pk" value="@item.cpm" hidden />
+                                        <input type="text" id="pre_insumo_@item.pk" name="pre_insumo_@item.pk" value="@item.presentacion" hidden />
+                                        <input type="text" id="presentacion_insumo_@item.pk" name="presentacion_insumo_@item.pk" value="@item.presentacion" hidden />
+                                        <input type="text" id="subtipo_insumo_@item.pk" name="subtipo_insumo_@item.pk" value="@item.subtipo_insumo" hidden />
+                                        <input class="exs inpt-t" type="text" id="exist_@item.pk" name="exist_@item.pk" value="@item.existencia" data-pk="@item.pk" required="required" hidden />
+
+                                        <span style="color: #34a1e7; font-weight: 600;">
+                                            @item.clave
+                                        </span>
+                                        <span style="color: #B0BEC5; font-weight: 500; font-size:12px;">
+                                            <code>(@item.presentacion)</code>
+                                            <code class="red-css">@item.subtipo_insumo</code>
+                                            @*@if (item.consolidada){<code>CONSOLIDADA: @item.maximo</code>} @if (item.dimesa){ <code>DIMESA: @item.max_dimesa</code>}*@
+                                        </span>
+                                        <br />
+                                        <span style="float:left;font-size:11px; margin-top:3px;">
+                                            <i class="fa  fa-folder-open-o"></i>
+                                            @item.descripcion
+                                        </span>
+                                    </td>
+                                    <td class="aare-name" style="width:16%;">
+                                        <span style="font-size:11px;">
+                                            <i class="fa fa-calendar"></i> Última solicitud: <span style="float:right; font-size:13px;">@item.cpm</span>
+                                        </span>
+                                        <br />
+                                        <span style="font-size:11px;">
+                                            <i class="fa  fa-pencil"></i> Existencia almacén:<span style="float:right; font-size:13px;">@item.existencia</span>
+                                        </span>
+                                    </td>
+                                    <td class="aare-name" style="width:8%;">
+                                        @{string cls = "";}
+                                        @if (item.solicita > 0)
+                                        {
+                                            cls = "solix";
+                                        }
+
+                                        <div class="ctn-solicita @cls">
+                                            <span style="font-size:10px; display:inherit;">PEDIDO</span>
+                                            <input class="inputSol" type="text" id="pedi_@item.pk" name="pedi_@item.pk" value="@item.solicita" required />
+                                            @*<span id="d_pedi_@item.pk" style="font-size:15px;">@item.solicita</span>*@
+                                        </div>
+                                    </td>
+                                    <td style="width:5%;">
+                                        <div class="btn-trashi" onclick="confirmDeletePk(@item.pk);">
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <input type="text" id="valores_pks" name="valores_pks" value="@pkas" hidden />
+                    <input type="text" id="flag_edit" name="flag_edit" value="@Model.editando.ToString()" hidden />
+                    <input type="text" id="id_pedido" name="id_pedido" value="@Model.id_pedido" hidden />
+                    <input type="text" id="id_unidad" name="id_unidad" value="@Model.id_unidad" hidden />
+                    <input type="text" id="tipo_pedido" name="tipo_pedido" value="@Model.tipo_pedido" hidden />
+                    <input type="text" id="pedido" name="pedido" value="@Model.pedido" hidden />
+                    <input type="text" id="mes_ordinario" name="mes_ordinario" value="@Model.mes_ordinario" hidden />
+                    <input type="text" id="controlado" name="controlado" value="@Model.controlado.ToString()" hidden />
+                    <input type="text" id="tipo_guardado" name="tipo_guardado" value="" hidden />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+<style>
+    .modal-window {
+	 position: fixed;
+	 background-color: rgba(255, 255, 255, 0.25);
+	 top: 0;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 opacity: 1;
+     display:none;
+	 transition: all 0.3s;
+}
+
+ .modal-window > div {
+	 width: 400px;
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 transform: translate(-50%, -50%);
+	 padding: 2em;
+	 background: white;
+     border: 1px solid #444;
+}
+ .modal-window header {
+	 font-weight: bold;
+}
+ .modal-window h1 {
+	 font-size: 150%;
+	 margin: 0 0 15px;
+}
+ .modal-close {
+	 color: #aaa;
+	 line-height: 50px;
+	 font-size: 80%;
+	 position: absolute;
+	 right: 0;
+	 text-align: center;
+	 top: 0;
+	 width: 70px;
+	 text-decoration: none;
+}
+ .modal-close:hover {
+	 color: black;
+}
+
+ .modal-window > div {
+	 border-radius: 1rem;
+}
+ .modal-window div:not(:last-of-type) {
+	 margin-bottom: 15px;
+}
+</style>
+
+<div id="modal_insumo"></div>
+
+@section scripts {
+    <script src="~/Content/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Content/js/filters-table-ar.js"></script>
+    <script>
+
+        let pks = [];
+
+        $("#frm_datos_").submit(function (event) {
+            show_loading();
+        });
+
+        $(document).ready(function () {
+            justNumber("inputSol");
+            filterTable('filter-input-refs', 'table-refs');
+            var pks_ = document.getElementById("valores_pks").value;
+
+            //SI EXISTEN PK CARGADOS INCIALMENTE METERLOS AL ARRAY
+            if (pks_.length > 0) {
+                console.log('Si hay pkas');
+                const myArr = pks_.split(",");
+                pks = myArr; 
+            }
+
+            //console.log('array ' + pks.length + " :" + pks);
+
+
+            //console.log('length: ' + pks.length)
+            //let tercero = pks[2];
+            //console.log('valor Tercero: ' + tercero)
+
+            //Añadir un elemento al final de un Array
+            //frutas.push('Naranja')
+
+            //Encontrar el índice de un elemento del Array
+            //const  numei = new String(100);
+            //let pos = pks.indexOf(numei.toString()) // (pos) es la posición para abreviar
+            //console.log('100 se encontro en la posicion: ' + pos);
+
+            //Eliminar un único elemento mediante su posición
+            //let elementoEliminado = frutas.splice(pos, 1)
+        });
+
+        // cuando pierde el foco, este valida si lo que esta en el campo de texto si es un correo o no y muestra una respuesta
+        //$('.exs').blur(function () {
+        //    //console.log("ID: " + $(this).attr('id') + ", VALUE: " + $(this).val() + ", PK: " + $(this).attr('data-pk'));
+        //    calculoPedido($(this).val(), $(this).attr('data-pk'));
+        //});
+
+        function confirmarEnvio() {
+            if (pks.length > 0) {
+                showConfirmOverride("Esta seguro de enviar el pedido?", "sendPedido();");
+            }
+            else {
+                show_info("Para generar un pedido debes agregar insumos a tu solicitud");
+            }
+            
+        }
+
+        //Funcion para hacer un submit y enviar pedido
+        function sendPedido() {
+            if (pks.length > 0) {
+                //Asignar 1 que es estatus pedido enviado
+                $('#tipo_guardado').val('1');
+                procesarPedido();
+            }
+            else {
+                show_info("Para generar un pedido debes agregar insumos a tu solicitud");
+            }
+            
+
+            //Enviar todas las claves del pedido
+            //$("#btn-sub").click();
+        }
+
+        //Guardar pedido sin enviar
+        function savePedido() {
+            if (pks.length > 0) {
+                //Asignar 0 que es estatus pedido solo guardado
+                $('#tipo_guardado').val('0');
+                procesarPedido();
+            }
+            else {
+                show_info("Para generar un pedido debes agregar insumos a tu solicitud");
+            }
+            
+        }
+
+        //funcion para guardar datos insumos de pedido
+        function procesarPedido() {
+
+            //Asignar todos los pk de insumos seleccionado al input para llevarnos los articulos
+            $("#valores_pks").val(pks.toString());
+
+            if ($("#frm_datos_")[0].checkValidity()) {
+                
+                //Serializar datos de formulario para un POST Ajax
+                var formData = $("#frm_datos_").serializeArray();
+                //Url de metodo POST
+                var URL = $("#frm_datos_").attr("action");
+                //Mostrar Procesando
+                show_loading();
+                //Peticion Ajax
+                $.ajax({
+                    type: "POST",
+                    url: URL,
+                    data: formData,
+                    dataType: "json",
+                    success: function (data) {
+                        //Success cerrar procesando
+                        close_loading();
+
+                        //En caso de exito
+                        if (data.exito) {
+
+                            if (data.tipo_guardado == 1) {
+                                //mostrar pantalla de pedido enviado etc.
+                                window.location = "/Pedido/ResultPedido";
+                            }
+                            else {
+                                //Mostrar mensaje de exito
+                                show_exito(data.msg, 'Pedido guardado correctamente Folio: ' + data.folio);
+
+                                //time out para mostrar el mensaje de exito
+                                setTimeout(function () {
+                                    //Despues de cualquier guardado se encuentra en un estatus de edicion el pedido
+                                    window.location = "/Pedido/GetPedido?id=" + data.id_pedido + "&unidad=" + data.id_unidad;
+                                }, 5000);
+
+                                
+
+                                //Despues de cualquier guardado se encuentra en un estatus de edicion el pedido
+                                //$('#flag_edit').val('true');
+                                //$('#id_pedido').val(data.id_pedido); 
+                                //$('#id_unidad').val(data.id_unidad);
+                            }                            
+                        }
+                        else {
+                            //En caso de error mostrar mensaje
+                            show_error(data.msg);
+                        }
+                    },
+                    error: function () {
+                        //Cerrar Procesando
+                        close_loading();
+                        //Mostrar mensaje de excepcion ajax
+                        show_error('Ocurrio algo al momento de procesar.');
+                    }
+                });
+            } else {
+                //En caso de no cumplir las reglas del formulario hacer un Submit naturar y muestre mensajes requeridos.
+                $("#btn-sub").click();
+                show_info('La cantidad a solicitar es requerida, favor de revisar(*)');
+                $(".req").css('color', '#d50000');
+            }
+        }
+
+        function confirmDeletePk(pkInsumo) {
+            showConfirmOverride("Esta seguro de eliminar este insumo?", "deletePk(" + pkInsumo + ");");
+        }
+
+        function deletePk(pkInsumo) {
+            //alert("Eliminar: " + pkInsumo);
+            var row = document.getElementById("row_" + pkInsumo);
+            row.parentNode.removeChild(row);
+
+            //Encontrar el índice de un elemento del Array
+            let pos = pks.indexOf(pkInsumo.toString()) // (pos) es la posición para abreviar
+            console.log('pk: ' + pkInsumo + ', se encontro en la posicion: ' + pos);
+
+            //Eliminar un único elemento mediante su posición
+            let elementoEliminado = pks.splice(pos, 1);
+            console.log('elemento eliminado: ' + elementoEliminado);
+            console.log('array: ' + pks);
+            closedWind();
+        }
+
+        function addInsumo(pkInsumo)
+        {
+            //console.log('pk seleccionado: ' + pkInsumo);
+
+             //Encontrar el índice de un elemento del Array
+            let pos = pks.indexOf(pkInsumo.toString()) // (pos) es la posición para abreviar
+            //console.log('pk: ' + pkInsumo + ', esta: ' + pos);
+
+            //IF POSICION EN -1 NO SE ENCUENTRA EN ARRAY
+            if (pos == -1) {
+                //console.log('No existe en la lista');
+                getDatosInsumo(pkInsumo);
+            }
+            else {
+                //console.log('Ya existe en la lista');
+                show_info('Este insumo ya existe en tu lista de pedido');
+            }
+
+        }
+
+        function formInsumo() {
+
+            var tipo = $("#tipo_insumo").val();
+            var controlado = $("#controlado").val();
+            //URL que mostrara la modal
+            var url = '/Pedido/AddInsumo?controlado='+controlado;
+            //Mostrar porcesando
+            show_loading();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    $("#modal_insumo").html(data);
+                    $('#ModalInsumo').modal('show');
+                    close_loading();
+                },
+                error: function (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+
+        function calculoPedido(exis, pk) {
+            if (estaVacio("exist_" + pk) == false) {
+                var cpm = $('#cpm_' + pk).val();
+                var pedido = parseInt(cpm) - parseInt(exis);
+                console.log(cpm + "-" + exis + "=" + pedido);
+                $('#d_pedi_' + pk).html(pedido);
+                $('#pedi_' + pk).val(pedido);
+                $('#pedi_' + pk).parent().removeClass("solix");
+
+                if (pedido > 0) {
+                    $('#pedi_' + pk).parent().addClass("solix");
+                }
+                else {
+                    //$('#d_pedi_' + pk).html('0');
+                    //$('#pedi_' + pk).val('0');
+                    //show_info('Capture un valor valido.');
+                }
+
+            }
+            else {
+                $('#d_pedi_' + pk).html('0');
+                $('#pedi_' + pk).val('0');
+                show_info('Capture un valor de existencia.');
+                $('#exist_' + pk).focus();
+            }
+
+
+        }
+
+        //Funcion para hacer un input solo numeros sin decimal
+        function justNumber(elemento) {
+            $("." + elemento).keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+                    // Allow: Ctrl+A, Command+A
+                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+                //justNumberDecimal(e);
+            });
+        }
+
+        //Funcion para hacer un input solo numeros con decimal
+        function justNumberDecimal(elemento) {
+
+            $("." + elemento).keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                    // Allow: Ctrl+A, Command+A
+                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+                //justNumberDecimal(e);
+            });
+
+        }
+
+        //Funcion para validar un campo vacio
+        function estaVacio(elemento) {
+            var value = $("#" + elemento).val();
+            if (!value || value == undefined || value == "" || value.length == 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        //Get insumo y crear HTML de insumo seleccionado
+        function getDatosInsumo(pk)
+        {
+            $.ajax({
+                async: false,
+                cache: false,
+                type: 'GET',
+                url: '/Pedido/GetDatosInsumo?pk=' +pk,
+                dataType: 'JSON',
+                beforeSend: function () {
+                    $("#loader_outx_d").fadeIn("slow");
+                },
+                success: function (data) {
+                    //close_load_full();
+                    console.log(data);
+                    //Datos a modal confirm y cantidad
+                    $("#cve_insumo_confirm").html(data.cve);
+                    $("#pk_insumo_confirm").val(data.pk);
+                    $("#presentacion_insumo_confirm").html(data.presentacion);
+                    $("#subtipo_insumo_confirm").html(data.descrip_tipo_insumo);
+                    $("#descripcion_insumo_confirm").html(data.descripcion);
+                    $("#existencia_insumo_confirm").html(data.existencia_almacen);
+
+                    $("#cantidad_solicitar").val('');
+
+                    showModalCantidad();
+                    $("#loader_outx_d").fadeOut("slow");
+
+                },
+                error: function (jqXHR, exception) {
+                    show_error('Ha ocurrido un error en el envio');
+                },
+                complete: function () {
+                }
+            });
+
+        }
+
+        function addConfirmInsumo()
+        {
+
+            var pk = $("#pk_insumo_confirm").val();
+            const pk_arr = pk.toString()
+
+            var cve_ = $("#cve_insumo_confirm").html();
+            var presentacion_ = $("#presentacion_insumo_confirm").html();
+            var descrip_tipo_insumo_ = $("#subtipo_insumo_confirm").html();
+            var descripcion_ = $("#descripcion_insumo_confirm").html();
+            var existencia_almacen_ = $("#existencia_insumo_confirm").html();
+            var cantidad_solicitar_ = $("#cantidad_solicitar").val();
+
+            if (cantidad_solicitar_ === undefined || cantidad_solicitar_ == null || cantidad_solicitar_.length <= 0)
+            {
+                show_info('Captura una cantida a solicitar');
+                $("#cantidad_solicitar").val('0');
+                document.getElementById("cantidad_solicitar").focus();
+                return false;
+            }
+            if (cantidad_solicitar_ <= 0) {
+                show_info('Captura una cantida a solicitar valida');
+                $("#cantidad_solicitar").val('0');
+                document.getElementById("cantidad_solicitar").focus();
+                return false;
+            }
+
+            //$('#myTable > tbody:last-child').append('<tr>...</tr><tr>...</tr>');
+
+            //SI ARRAY ES VACIO INICIALIZARLO CON EL PRIMER VALOR
+            if (pks.length == 0) {
+                pks = [pk_arr];
+            }
+            else {
+                //DE LO CONTRARIO AGREGAR VALOR AL FINAL DEL ARRAY
+                pks.push(pk_arr);
+            }
+
+            //console.log('array: ' + pks);
+
+            var html = '';
+            html += '<tr class="" id="row_' + pk + '">';
+
+           
+
+            html += '    <td class="" style="width:60%;">';
+
+            html += '<input type="text" id="pk_'+pk+'" name="pk_'+pk+'" value="'+pk+'" hidden />';
+            html += '<input type="text" id="cve_'+pk+'" name="cve_'+pk+'" value="'+cve_+'" hidden />';
+            html += '<input type="text" id="origen_'+pk+'" name="origen_'+pk+'" value="" hidden />';
+            html += '<input type="text" id="desc_'+pk+'" name="desc_'+pk+'" value="'+descripcion_+'" hidden />';
+            html += '<input type="text" id="cpm_' + pk + '" name="cpm_' + pk + '" value="0" hidden />'; 
+            html += '<input type="text" id="presentacion_insumo_' + pk + '" name="presentacion_insumo_' + pk + '" value="' + presentacion_ + '" hidden />';
+            html += '<input type="text" id="subtipo_insumo_' + pk + '" name="subtipo_insumo_' + pk + '" value="'+descrip_tipo_insumo_+'" hidden />';
+            html += '<input class="exs inpt-t" type="text" id="exist_' + pk + '" name="exist_' + pk + '" value="0" data-pk="' + pk + '" required="required" hidden />';
+
+            html += '        <span style="color: #34a1e7; font-weight: 600;">';
+            html +=             cve_;
+            html += '       </span>';
+            html += '        <span style="color: #B0BEC5; font-weight: 500; font-size:12px;">';
+            html += '            <code>('+presentacion_+')</code>';
+            html += '            <code class="red-css">'+descrip_tipo_insumo_+'</code>';
+            html += '        </span>';
+            html += '        <br>';
+            html += '        <span style="float:left;font-size:11px; margin-top:3px;">';
+            html += '            <i class="fa  fa-folder-open-o"></i>';
+            html +=               descripcion_;
+            html += '        </span>';
+            html += '    </td>';
+            html += '    <td class="aare-name" style="width:16%;">';
+            html += '        <span style="font-size:11px;">';
+            html += '            <i class="fa fa-calendar"></i> Última solicitud: <span style="float:right; font-size:13px;">150</span>';
+            html += '        </span>';
+            html += '        <br>';
+            html += '        <span style="font-size:11px;">';
+            html += '            <i class="fa  fa-pencil"></i> Existencia almacén:<span style="float:right; font-size:13px;">'+existencia_almacen_+'</span>';
+            html += '        </span>';
+            html += '    </td>';
+            html += '    <td class="aare-name" style="width:8%;">';
+            html += '        <div class="ctn-solicita ">';
+            html += '            <span style="font-size:10px; display:inherit;">PEDIDO</span>';
+            html += '            <input class="inputSol" type="text" id="pedi_'+pk+'" name="pedi_'+pk+'" value="'+cantidad_solicitar_+'">';
+            html += '        </div>';
+            html += '    </td>';
+            html += '    <td style="width:5%;">';
+            html += '        <div class="btn-trashi" onclick="confirmDeletePk('+pk+');">';
+            html += '            <i class="fa fa-trash"></i>';
+            html += '        </div>';
+            html += '    </td>';
+            html += '</tr>';
+
+            //$('#table-refs tr:last').after(html);
+            $('#table-refs > tbody:last-child').append(html);
+            show_exito('Insumo '+cve_+' agregado correctamente');
+            closeModalCantidad();
+
+        }
+
+        function showModalCantidad()
+        {
+            $(".modal-window").css('display', 'block');
+            //$("#cantidad_solicitar").focus();
+            document.getElementById("cantidad_solicitar").focus();
+        }
+        function closeModalCantidad()
+        {
+            $(".modal-window").css('display','none');
+        }
+
+        function borrador() {
+              
+        var id = $("#id_pedido").val();
+            var unidad = $("#id_unidad").val();
+            console.log('id pedido > ' + id);
+            if (id == 0) {
+                show_info('Guarda tus cambios para poder imprimir el reporte borrador');
+            }
+            else {
+                show_loading();
+                 $.ajax({
+                        type: "GET",
+                        cache: false,
+                        url: '/Pedido/GetReportePedido?id='+id+' &unidad='+unidad,
+                        dataType: "json",
+                        success: function (data) {
+                            close_loading();
+                            var response = data;
+                            window.open('/Pedido/Download?fileGuid=' + response.FileGuid + '&filename=' + response.FileName, '_blank');
+                        }
+                    });
+            }
+        
+    
+        }
+    </script>
+}

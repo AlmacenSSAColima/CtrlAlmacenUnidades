@@ -1,0 +1,412 @@
+﻿@model IEnumerable<PedidosUnidad.Models.InsumoClassSIAA>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+    .linsumo {
+        cursor: pointer;
+    }
+
+        .linsumo:hover {
+            background: #eee;
+        }
+</style>
+
+<div id="ModalInsumo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="DatosInsumo">
+            <div class="modal-header">
+                <div class="btn-clsin">Agregar nuevo articulo</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <i class="fa fa-circle b-cv"></i>
+                        <i class="fa fa-circle b-ca"></i>
+                        <i class="fa fa-circle b-cr"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body" style="min-height:200px;" id="mdl_body">
+                <div class="row">
+                    <!--LISTADO Y SELECCION DE ARTICULO-->
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="input-group" style="margin-bottom:5px;">
+                            <input id="filtrar_insumo" type="text" class="form-control filteres" placeholder="Buscar...">
+                            <span class="input-group-btn">
+                                <button style="z-index:2; height:26px;" class="btn btn-primary md-search-white" type="button">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                            </span>
+                        </div>
+                        <div id="dvd_claves_select" style="width:100%; height:345px; background:#F5F5F5; border-radius: 5px; border-bottom:1px solid #ccc;">
+                            <nav class="archive-links">
+                                <ol id="lista_insumos_">
+                                    @foreach (var item in Model)
+                                    {
+                                        <li onclick="selectInsumoAdd('@item.pk');" class="linsumo">
+                                            <div style="float:left; width:90%;">
+                                                <div style="width:100%; height:20px;">
+                                                    <span id="cveS_@item.pk" style="font-size:12px; float:left; margin-right:2px;">@item.clave_txt</span>
+                                                    <span id="presS_@item.pk" style="font-size:11px; float:left;">(@item.presentacion_txt)</span>
+                                                </div>
+                                                <div style="width:100%; height:15px; font-size: 12px; line-height: 11px; color:#818181; margin-top:-2px;">
+                                                    @{ string insumo;
+                                                        if (item.descripcion.Length > 70)
+                                                        {
+                                                            insumo = item.descripcion.Substring(0, 69) + "...";
+                                                        }
+                                                        else
+                                                        {
+                                                            insumo = item.descripcion;
+                                                        }
+                                                    }
+                                                    @insumo
+                                                </div>
+                                                <div id="descLaS_@item.pk" style="display:none;">@item.descLarga</div>
+                                                <input type="hidden" name="item_des_@item.pk" id="item_des_@item.pk" value="@item.descripcion" />
+                                                <input type="hidden" name="item_ins_pk_@item.pk" id="item_ins_pk_@item.pk" value="@item.pk" />
+                                                <input type="hidden" name="item_ins_tipo_@item.pk" id="item_ins_tipo_@item.pk" value="@item.tipo" />
+                                                <input type="hidden" name="item_ins_grupo_@item.pk" id="item_ins_grupo_@item.pk" value="@item.grupo" />
+                                                <input type="hidden" name="item_ins_clave_@item.pk" id="item_ins_clave_@item.pk" value="@item.clave" />
+                                                <input type="hidden" name="item_ins_presentacion_@item.pk" id="item_ins_presentacion_@item.pk" value="@item.presentacion" />
+
+                                            </div>
+                                            <div id="s_@item.pk" class="seleccionate" style="float:right; width:25px; text-align:center; padding-top:9px; display:none;">
+                                                <i class="fa fa-check" style="font-size:18px; color:#4CAF50;"></i>
+                                            </div>
+                                        </li>
+                                    }
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- SECCION DE CAPTURA -->
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        @using (Html.BeginForm("AddInsumoSalida", "Salidas", FormMethod.Post, new { id = "frm_datos_articulo", name = "frm_datos_articulo" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input name="ins_pk" id="ins_pk" type="hidden" />
+                            <input name="ins_tipo" id="ins_tipo" type="hidden" />
+                            <input name="ins_grupo" id="ins_grupo" type="hidden" />
+                            <input name="ins_clave" id="ins_clave" type="hidden" />
+                            <input name="ins_presentacion" id="ins_presentacion" type="hidden" />
+                            <input name="ins_des" id="ins_des" type="hidden" />
+                            <input name="ins_des_la" id="ins_des_la" type="hidden" />
+
+                            <input type="submit" id="btnSubmitOculto" hidden />
+
+                            <div class="row" style="margin-bottom:5px;">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div style="background:#eee; height:30px; width:100%; border-radius:5px; padding:5px; text-align:center; color:#3F51B5; font-weight:600;">
+                                        Datos de insumo seleccionado
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div id="cveSeleccionado" style="background:#eee; height:25px; width:115px; border-radius:5px; padding:2px;">
+                                        000.000.0000.00
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div id="presSeleccionado" style="background:#eee; height:25px; width:110px; float:right; border-radius:5px; padding: 4px; font-size: 12px; text-align:right;">
+                                        (ENV 00 TAB)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:5px;">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div id="descripLSeleccionado" style="background:#eee; width:100%; height:100px; border-radius:5px; color:#818181; font-size:11px; padding:2px; line-height:12px;">
+                                        DESCRIPCION COMPLETA DEL INSUMO SELECCIONADO
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:5px;">
+                                <div class="col-md-4">
+                                    <label style="margin-top:12px;">Cantidad Solicitada:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input name="ins_solicitado_cap" id="ins_solicitado_cap" type="text" class="form-control" required="required" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="float:right; margin-top:12px;">Cantidad Surtida:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input name="ins_surtida_cap" id="ins_surtida_cap" type="text" class="form-control" required="required" />
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select id="Lotes" class="form-control">
+                                        $("#Lotes").append('
+                                        <option value="">Selecciona Lote</option>');
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:25px;">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div style="background:#eee; height:30px; width:100%; border-radius:5px; padding:5px; text-align:center; color:#3F51B5; font-weight:600;">
+                                        Asignación de lotes
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:5px;">
+                                <div class="col-md-5">
+                                    <input name="cad_pk" id="cad_pk" type="hidden" />
+
+                                    <div class="row" style="margin:0px;">
+                                        <div class="col-md-4 padding-0">
+                                            <label style="margin-top:10px;">Lote:</label>
+                                        </div>
+                                        <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
+                                            <input id="lote_cap" type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-md-4 padding-0">
+                                            <label style="margin-top:10px;">Caducidad:</label>
+                                        </div>
+                                        <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
+                                            <input id="caducidad_cap" type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-md-4 padding-0">
+                                            <label style="margin-top:10px;">Cantidad:</label>
+                                        </div>
+                                        <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
+                                            <input id="cantidad_cap" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin:0px;">
+                                        <button onclick="addCaducidad();" type="button" class="btn btn-primary btn-sm" style="float:right;">Agregar Caducidad</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <!-- DETALLE DE LOTES-->
+                                    <div style="width:100%; height:115px; border: 1px solid #ccc; border-radius:5px;">
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <!-- CLAVES AGREGADAS -->
+                    <div class="col-sm-12 col-md-2 col-lg-2">
+                        <div class="row" style="margin-bottom:5px;">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div style="background:#eee; height:30px; width:100%; border-radius:5px; padding:5px; text-align:center; color:#3F51B5; font-weight:600; margin-bottom:5px;">
+                                    Claves Agregadas
+                                </div>
+                                <div id="cve_agregadas" style="background:#eee; width:100%; height:340px; border-radius:5px; color:#818181; font-size:11px; padding:2px 3px; line-height:12px;">
+                                    @*@foreach (var item in Model.clavesAgregadas)
+                                    {
+                                        <div id="cve_add_insumo_@item.deentradas.PK_ARTICULOS" class="cve-addada">
+                                            @{string cve_insumo_ = item.deentradas.TIPO.ToString("000") + "." + item.deentradas.GRUPO.ToString("000") + "." + item.deentradas.CLAVE.ToString("0000") + "." + (item.deentradas.PRESENTACION ?? 0).ToString("00");}
+                                            <div class="cve-dlting-btn" onclick="InsumoDelete('@item.deentradas.PK_ARTICULOS','@cve_insumo_')">
+                                                <i class="fa fa-trash-o"></i>
+                                            </div>
+                                            <div class="prw_insumo" onclick="EditarInsumo('@item.deentradas.PK_ARTICULOS', '@cve_insumo_');">
+                                                @cve_insumo_
+                                            </div>
+                                            <div style="float:right; text-align:right;">
+                                                @item.deentradas.CANTIDAD
+                                            </div>
+                                        </div>
+                                    }*@
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <br />
+            <div class="modal-footer">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default b-cr tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Salir" data-dismiss="modal"><i class="fa fa-fw fa-close"></i></button>
+                    <button onclick="addInsumo();" type="button" class="btn btn-default b-cv tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Guardar"><i class="fa fa-fw fa-check"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+
+    var arrayLotes = [];
+
+    $(document).ready(function () {
+        $('#dvd_claves_select').slimscroll({
+            height: '345px'
+        });
+
+        $("#filtrar_insumo").keyup(function (e) {
+            _this = this;
+            $("#lista_insumos_ li").each(function (i, e) {
+                if ($(this).text().toLowerCase().indexOf(_this.value.toLowerCase()) === -1)
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
+        });
+
+        $("#Lotes").change(function () {
+            var vLote = "";
+            var valoresLote = "";
+            var vNumLote = "";
+            var vCadLote = "";
+            var vpkCad = "";
+
+            vpkCad = $(this).children("option:selected").val();
+            vLote = $(this).children("option:selected").text();
+            valoresLote = vLote.split("|");
+            vNumLote = valoresLote[0].split(":")
+            vCadLote = valoresLote[1].split(":")
+
+            $("#cad_pk").val("");
+
+            $("#lote_cap").val("");
+            $("#caducidad_cap").val("");
+
+            $("#cad_pk").val(vpkCad);
+            $("#lote_cap").val(vNumLote[1]);
+            $("#caducidad_cap").val(vCadLote[1]);
+        });
+
+
+        });
+
+    function selectInsumoAdd(id) {
+
+        //MOSTRAR CHECK DE SELECCIONADO
+        $(".seleccionate").css('display', 'none');
+        $("#s_" + id).css('display', 'block');
+
+        //OBTENER VALORES PARA PASAR A FORMA DE CAPTURA
+        var cveS = $("#cveS_"+id).html();
+        var presS = $("#presS_"+id).html();
+        var descLaS = $("#descLaS_" + id).html();
+
+        var pk_ = $("#item_ins_pk_"+id).val();
+        var tipo_ = $("#item_ins_tipo_"+id).val();
+        var cgrupo_veS = $("#item_ins_grupo_"+id).val();
+        var clave_ = $("#item_ins_clave_"+id).val();
+        var presentacion_ = $("#item_ins_presentacion_" + id).val();
+        var descripcion = $("#item_des_" + id).val();
+
+        //ASGINAR VALORES A CAMPOS DE FORMULARIO
+        $("#cveSeleccionado").html(cveS);
+        $("#presSeleccionado").html(presS);
+        $("#descripLSeleccionado").html(descLaS);
+
+        $("#ins_pk").val(pk_);
+        $("#ins_tipo").val(tipo_);
+        $("#ins_grupo").val(cgrupo_veS);
+        $("#ins_clave").val(clave_);
+        $("#ins_presentacion").val(presentacion_);
+        $("#ins_des").val(descripcion);
+        $("#ins_des_la").val(descLaS);
+
+        $("#ins_solicitado_cap").val("");
+        $("#ins_surtida_cap").val("");
+
+        arrayLotes = "";
+
+        $("#Lotes").empty();
+        $("#Lotes").append('<option value="">Selecciona Lote</option>');
+
+        getLotes(pk_);
+
+    }
+
+
+    function getLotes(pk) {
+
+        $.ajax({
+            type: "GET",
+            url: "/Salidas/GetLotes?pk=" + pk,
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (key, registro) {
+                    $("#Lotes").append('<option value=' + registro.pk_CADUCIDADES + '> Lote: ' + registro.LOTE + ' | Caducidad: ' + registro.CADUCIDAD + ' | Disponible: ' + registro.disponible + '</option>');
+                });
+            },
+            error: function (data) {
+                alert('error');
+            }
+        });
+    }
+
+    function addInsumo() {
+        //AddInsumoEntrada
+
+        //Valida reglas de formulario
+        if ($("#frm_datos_articulo")[0].checkValidity()) {
+
+            //Validar que seleccione una clave
+            //Validar que cantidad y costo engan un valor numerico
+            //Validar que cantidad y costo sea mayor a cero
+
+            //Serializar datos de formulario para un POST Ajax
+            var formData = $("#frm_datos_articulo").serializeArray();
+            //Url de metodo POST
+            var URL = $("#frm_datos_articulo").attr("action");
+            //Peticion Ajax
+            $.ajax({
+                type: "POST",
+                url: URL,
+                data: formData,
+                dataType: "json",
+                success: function (data) {
+                    //Success cerrar procesando
+                    close_loading();
+                    //En caso de exito
+                    if (data.exito) {
+                        //Mostrar mensaje de exito
+                        show_exito(data.msg, '');
+                        //Cargar seccion detalle con la vista de listado
+                        $("#ctdr_log_referencias").load( "/Salidas/DetalleSalida" );
+
+                    }
+                    else {
+                        //En caso de error mostrar mensaje
+                        show_error(data.msg);
+                    }
+                },
+                error: function () {
+                    //Cerrar Procesando
+                    close_loading();
+                    //Mostrar mensaje de excepcion ajax
+                    show_error('Ocurrio algo al momento de procesar.');
+                }
+            });
+
+
+        } else {
+            //En caso de cumplir las reglas del formulario hacer un Submit naturar y muestre mensajes requeridos.
+            $("#btnSubmitOculto").click();
+        }
+
+    }
+
+    function addCaducidad() {
+        var arrayLote = {};
+
+        arrayLote["cad_pk"] = $("#lote_cap").val();
+        arrayLote["lote"] = $("#lote_cap").val();
+        arrayLote["cad"] = $("#caducidad_cap").val();
+        arrayLote["cant"] = $("#cantidad_cap").val();
+
+        console.log(arrayLote);
+
+        arrayLotes.push(arrayLote);
+
+        console.log(arrayLotes);
+    };
+
+</script>

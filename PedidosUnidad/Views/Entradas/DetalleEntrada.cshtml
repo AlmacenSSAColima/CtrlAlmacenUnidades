@@ -1,0 +1,79 @@
+﻿@model PedidosUnidad.Models.AddInsumoForm
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<input id="sub_total_temp" name="sub_total_temp" type="hidden" />
+<nav class="archive-links">
+    <ol>
+        @{ decimal subTotal = 0;}
+        @foreach (var item in Model.clavesAgregadas)
+        {
+            <li>
+                @{string cve_insumo = item.deentradas.TIPO.ToString("000") + "." + item.deentradas.GRUPO.ToString("000") + "." + item.deentradas.CLAVE.ToString("0000") + "." + (item.deentradas.PRESENTACION ?? 0).ToString("00");}
+                <div onclick="InsumoDelete('@item.deentradas.PK_ARTICULOS','@cve_insumo')" style="float:left; width:25px; text-align:center; padding-top:9px; cursor: pointer;">
+                    <i class="fa fa-trash-o" style="font-size:18px; color:#ff0000;"></i>
+                </div>
+                <div onclick="show_descrip('@item.deentradas.PK_ARTICULOS');" style="float:left; width:75%; cursor:pointer;">
+                    <div style="width:100%; height:20px;">
+                        <span style="font-size:12px; float:left; margin-right:2px;">@cve_insumo</span>
+                        <span style="font-size:11px; float:left;">(@item.pres)</span>
+
+                    </div>
+                    <div style="width:100%; height:15px; font-size: 12px; line-height: 11px; color:#818181; margin-top:-2px;">
+                        @{ string insumo;
+                            if (item.insumo.Length > 60)
+                            {
+                                insumo = item.insumo.Substring(0, 60) + "...";
+                            }
+                            else
+                            {
+                                insumo = item.insumo;
+                            }
+                        }
+                        @insumo
+                    </div>
+                    <div id="dvd_@item.deentradas.PK_ARTICULOS" style=" display:none;">
+                        @item.descLarga
+                    </div>
+                </div>
+                <div style="float: right; width: 55px; text-align: right; padding-right: 2px; color:#555;">
+                    <span style="font-weight:500; font-size:16px; margin-top:-4px;">@item.deentradas.CANTIDAD</span>
+                    <span style="font-size:10px; color:#818181; margin-top:-5px;">Cantidad</span>
+                </div>
+                <div style="float: right; width: 50px; text-align: right; padding-right: 2px; color:#555;">
+                    <span style="font-size:11px; color:#B0BEC5;">$@String.Format("{0:0.00}", item.deentradas.COSTO)</span>
+                    @{ decimal importe = Convert.ToDecimal(item.deentradas.COSTO * item.deentradas.CANTIDAD);}
+                    <span style="font-size:11px; color:#B0BEC5; margin-top:-2px;">$@String.Format("{0:0.00}", importe) </span>
+                    @{subTotal = subTotal + importe;}
+                </div>
+
+            </li>
+        }
+    </ol>
+</nav>
+@*<input id="sub_total_temp" name="sub_total_temp" value="@String.Format("{0:0.00}", subTotal)" type="text" style="display:none;" />*@
+<input id="sub_total_temp" name="sub_total_temp" value="@Model.total_sin_iva" type="text" style="display:none;" />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#subtotal_").val('$@Model.total_sin_iva');
+        $("#Importe").val('$@Model.total_con_iva');
+        $("#iva_").val('$@Model.iva_');
+
+        $("#maEntradas_SUBTOTAL").val('@Model.d_total_sin_iva');
+        $("#maEntradas_TOTAL").val('@Model.d_total_con_iva');
+        $("#maEntradas_IVA").val('@Model.d_iva_');
+
+
+
+        @*setTimeout(function () {
+            var sub_TotalImporte = $("#sub_total_temp").val();
+            alert("Total: "+'@Model.total_sin_iva'+ sub_TotalImporte +"   "+document.getElementById("sub_total_temp").value);
+            //$("#subtotal_").val(subTotalImporte);
+        }, 20000);*@
+    });
+</script>

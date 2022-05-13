@@ -1,0 +1,768 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AlmacenCentralModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CA_CENTROS">
+          <Key>
+            <PropertyRef Name="CENTRO" />
+          </Key>
+          <Property Name="CENTRO" Type="int" Nullable="false" />
+          <Property Name="DESCRIP" Type="varchar" MaxLength="200" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="CLAVE_PROG" Type="varchar" MaxLength="5" />
+          <Property Name="NIVEL_ATENCION" Type="smallint" />
+          <Property Name="Tipo_Unidad" Type="int" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="100" />
+          <Property Name="entidad_id" Type="int" />
+          <Property Name="id_municipio" Type="int" />
+          <Property Name="pk_cp" Type="int" />
+          <Property Name="tel" Type="varchar" MaxLength="15" />
+          <Property Name="rfc" Type="varchar" MaxLength="12" />
+          <Property Name="replica" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ALMACEN_CENTRAL_NVO.dbo.Ca_FuenteFinanciamiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Ca_FuenteFinanciamiento">
+          <Key>
+            <PropertyRef Name="Id_FuenteFinanciamiento" />
+            <PropertyRef Name="Descripcion" />
+            <PropertyRef Name="Estatus" />
+            <PropertyRef Name="U_Act" />
+            <PropertyRef Name="F_Act" />
+          </Key>
+          <Property Name="Id_FuenteFinanciamiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estatus" Type="int" Nullable="false" />
+          <Property Name="U_Act" Type="int" Nullable="false" />
+          <Property Name="F_Act" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CA_PARTIDAS">
+          <Key>
+            <PropertyRef Name="RAMO" />
+            <PropertyRef Name="UP" />
+            <PropertyRef Name="UR" />
+          </Key>
+          <Property Name="RAMO" Type="smallint" Nullable="false" />
+          <Property Name="UP" Type="smallint" Nullable="false" />
+          <Property Name="UR" Type="smallint" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" />
+          <Property Name="EJERCIDO" Type="numeric" Precision="16" Scale="2" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CA_PROGRAMAS">
+          <Key>
+            <PropertyRef Name="CLAVE_PROG" />
+          </Key>
+          <Property Name="CLAVE_PROG" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="NOM_PROG" Type="varchar" MaxLength="100" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ALMACEN_CENTRAL_NVO.dbo.CA_PROGRAMAS_SALUD' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CA_PROGRAMAS_SALUD">
+          <Key>
+            <PropertyRef Name="NO_PROG" />
+          </Key>
+          <Property Name="CENTRO" Type="int" />
+          <Property Name="NO_PROG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIP" Type="varchar" MaxLength="100" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CA_PROVEEDORES">
+          <Key>
+            <PropertyRef Name="ESTADO" />
+            <PropertyRef Name="GIRO" />
+            <PropertyRef Name="PROVEEDOR" />
+          </Key>
+          <Property Name="ESTADO" Type="smallint" Nullable="false" />
+          <Property Name="GIRO" Type="smallint" Nullable="false" />
+          <Property Name="PROVEEDOR" Type="smallint" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="CALLE" Type="varchar" MaxLength="50" />
+          <Property Name="COLONIA" Type="varchar" MaxLength="50" />
+          <Property Name="CODIGOP" Type="varchar" MaxLength="10" />
+          <Property Name="LOCALIDAD" Type="varchar" MaxLength="50" />
+          <Property Name="TEL1" Type="varchar" MaxLength="15" />
+          <Property Name="TEL2" Type="varchar" MaxLength="15" />
+          <Property Name="TEL3" Type="varchar" MaxLength="15" />
+          <Property Name="FAX" Type="varchar" MaxLength="15" />
+          <Property Name="SSP" Type="varchar" MaxLength="15" />
+          <Property Name="OBSERVA" Type="varchar" MaxLength="255" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="rfc" Type="varchar" MaxLength="13" />
+        </EntityType>
+        <EntityType Name="CA_TIPOSDOC">
+          <Key>
+            <PropertyRef Name="TIPO" />
+          </Key>
+          <Property Name="TIPO" Type="smallint" Nullable="false" />
+          <Property Name="DESCRIP" Type="varchar" MaxLength="30" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CA_TIPOSENT">
+          <Key>
+            <PropertyRef Name="TIPO" />
+          </Key>
+          <Property Name="TIPO" Type="smallint" Nullable="false" />
+          <Property Name="DESCRIP" Type="varchar" MaxLength="30" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CA_TIPOSLIC">
+          <Key>
+            <PropertyRef Name="TIPO" />
+          </Key>
+          <Property Name="TIPO" Type="smallint" Nullable="false" />
+          <Property Name="DESCRIP" Type="varchar" MaxLength="50" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CA_UNIDADESM">
+          <Key>
+            <PropertyRef Name="Unidad" />
+          </Key>
+          <Property Name="Unidad" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descrip" Type="varchar" MaxLength="20" />
+          <Property Name="Abrevia" Type="varchar" MaxLength="3" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CA_UNIDADESP">
+          <Key>
+            <PropertyRef Name="Unidad" />
+          </Key>
+          <Property Name="Unidad" Type="smallint" Nullable="false" />
+          <Property Name="Descrip" Type="varchar" MaxLength="20" />
+          <Property Name="Abrevia" Type="varchar" MaxLength="3" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="cpm_unidades">
+          <Key>
+            <PropertyRef Name="articulos_pk" />
+            <PropertyRef Name="centro_pk" />
+            <PropertyRef Name="cpm" />
+            <PropertyRef Name="anio" />
+          </Key>
+          <Property Name="articulos_pk" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="centro_pk" Type="int" Nullable="false" />
+          <Property Name="cpm" Type="int" Nullable="false" />
+          <Property Name="anio" Type="int" Nullable="false" />
+          <Property Name="U_Act" Type="smallint" />
+          <Property Name="F_Act" Type="datetime" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="origen" Type="varchar" MaxLength="250" />
+          <Property Name="consolidada" Type="bit" />
+          <Property Name="dimesa" Type="bit" />
+          <Property Name="desierta" Type="bit" />
+          <Property Name="programa" Type="bit" />
+          <Property Name="desc_programa" Type="varchar" MaxLength="350" />
+          <Property Name="otra_fuente" Type="bit" />
+          <Property Name="desc_otra_fuente" Type="varchar" MaxLength="250" />
+          <Property Name="controlado" Type="bit" />
+          <Property Name="max_consolidada" Type="int" />
+          <Property Name="min_consolidada" Type="int" />
+          <Property Name="max_dimesa" Type="int" />
+          <Property Name="min_dimesa" Type="int" />
+        </EntityType>
+        <EntityType Name="ma_articulos">
+          <Key>
+            <PropertyRef Name="PK_ARTICULOS" />
+          </Key>
+          <Property Name="PK_ARTICULOS" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TIPO" Type="smallint" Nullable="false" />
+          <Property Name="GRUPO" Type="smallint" Nullable="false" />
+          <Property Name="CLAVE" Type="smallint" Nullable="false" />
+          <Property Name="PRESENTACION" Type="int" />
+          <Property Name="EXISTENCIA" Type="int" Nullable="false" />
+          <Property Name="STOCK" Type="int" />
+          <Property Name="COSTO_UNIT" Type="money" />
+          <Property Name="CODIGOB" Type="varchar" MaxLength="13" />
+          <Property Name="CPM" Type="int" />
+          <Property Name="UNIDADES" Type="float" />
+          <Property Name="UNI_PRES" Type="smallint" />
+          <Property Name="RAMO" Type="smallint" />
+          <Property Name="UP" Type="smallint" />
+          <Property Name="UR" Type="smallint" />
+          <Property Name="NIVEL_ATENCION" Type="smallint" />
+          <Property Name="OBSERVA" Type="varchar" MaxLength="50" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="DONACION" Type="int" />
+          <Property Name="ACTIVO" Type="int" />
+          <Property Name="UNI_MED" Type="smallint" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="2520" />
+          <Property Name="GPO" Type="int" />
+          <Property Name="DESC_LARGA" Type="varchar" MaxLength="1" />
+          <Property Name="rack" Type="int" />
+          <Property Name="pasillo" Type="int" />
+          <Property Name="nivel" Type="int" />
+          <Property Name="causes" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ALMACEN_CENTRAL_NVO.dbo.ma_articulos_desc_larga_tabla_corta' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ma_articulos_desc_larga_tabla_corta">
+          <Key>
+            <PropertyRef Name="pk_articulos" />
+          </Key>
+          <Property Name="pk_articulos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="desc_larga" Type="varchar" MaxLength="7830" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ALMACEN_CENTRAL_NVO.dbo.vwProveedores' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwProveedores">
+          <Key>
+            <PropertyRef Name="ESTADO" />
+            <PropertyRef Name="GIRO" />
+            <PropertyRef Name="PROVEEDOR" />
+          </Key>
+          <Property Name="id_prov" Type="varchar" MaxLength="92" />
+          <Property Name="ESTADO" Type="smallint" Nullable="false" />
+          <Property Name="GIRO" Type="smallint" Nullable="false" />
+          <Property Name="PROVEEDOR" Type="smallint" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="AlmacenCentralModelStoreContainer">
+          <EntitySet Name="CA_CENTROS" EntityType="Self.CA_CENTROS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CA_PARTIDAS" EntityType="Self.CA_PARTIDAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CA_PROGRAMAS" EntityType="Self.CA_PROGRAMAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CA_PROVEEDORES" EntityType="Self.CA_PROVEEDORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CA_TIPOSDOC" EntityType="Self.CA_TIPOSDOC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CA_TIPOSENT" EntityType="Self.CA_TIPOSENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CA_TIPOSLIC" EntityType="Self.CA_TIPOSLIC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CA_UNIDADESM" EntityType="Self.CA_UNIDADESM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CA_UNIDADESP" EntityType="Self.CA_UNIDADESP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cpm_unidades" EntityType="Self.cpm_unidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ma_articulos" EntityType="Self.ma_articulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ca_FuenteFinanciamiento" EntityType="Self.Ca_FuenteFinanciamiento" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Ca_FuenteFinanciamiento].[Id_FuenteFinanciamiento] AS [Id_FuenteFinanciamiento], 
+    [Ca_FuenteFinanciamiento].[Descripcion] AS [Descripcion], 
+    [Ca_FuenteFinanciamiento].[Estatus] AS [Estatus], 
+    [Ca_FuenteFinanciamiento].[U_Act] AS [U_Act], 
+    [Ca_FuenteFinanciamiento].[F_Act] AS [F_Act]
+    FROM [dbo].[Ca_FuenteFinanciamiento] AS [Ca_FuenteFinanciamiento]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CA_PROGRAMAS_SALUD" EntityType="Self.CA_PROGRAMAS_SALUD" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CA_PROGRAMAS_SALUD].[CENTRO] AS [CENTRO], 
+    [CA_PROGRAMAS_SALUD].[NO_PROG] AS [NO_PROG], 
+    [CA_PROGRAMAS_SALUD].[DESCRIP] AS [DESCRIP], 
+    [CA_PROGRAMAS_SALUD].[U_ACT] AS [U_ACT], 
+    [CA_PROGRAMAS_SALUD].[F_ACT] AS [F_ACT]
+    FROM [dbo].[CA_PROGRAMAS_SALUD] AS [CA_PROGRAMAS_SALUD]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ma_articulos_desc_larga_tabla_corta" EntityType="Self.ma_articulos_desc_larga_tabla_corta" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ma_articulos_desc_larga_tabla_corta].[pk_articulos] AS [pk_articulos], 
+    [ma_articulos_desc_larga_tabla_corta].[desc_larga] AS [desc_larga]
+    FROM [dbo].[ma_articulos_desc_larga_tabla_corta] AS [ma_articulos_desc_larga_tabla_corta]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwProveedores" EntityType="Self.vwProveedores" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwProveedores].[id_prov] AS [id_prov], 
+    [vwProveedores].[ESTADO] AS [ESTADO], 
+    [vwProveedores].[GIRO] AS [GIRO], 
+    [vwProveedores].[PROVEEDOR] AS [PROVEEDOR], 
+    [vwProveedores].[NOMBRE] AS [NOMBRE]
+    FROM [dbo].[vwProveedores] AS [vwProveedores]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AlmacenCentralModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CA_CENTROS">
+          <Key>
+            <PropertyRef Name="CENTRO" />
+          </Key>
+          <Property Name="CENTRO" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIP" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="CLAVE_PROG" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NIVEL_ATENCION" Type="Int16" />
+          <Property Name="Tipo_Unidad" Type="Int32" />
+          <Property Name="DIRECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="entidad_id" Type="Int32" />
+          <Property Name="id_municipio" Type="Int32" />
+          <Property Name="pk_cp" Type="Int32" />
+          <Property Name="tel" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="rfc" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="replica" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ma_articulos">
+          <Key>
+            <PropertyRef Name="PK_ARTICULOS" />
+          </Key>
+          <Property Name="PK_ARTICULOS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TIPO" Type="Int16" Nullable="false" />
+          <Property Name="GRUPO" Type="Int16" Nullable="false" />
+          <Property Name="CLAVE" Type="Int16" Nullable="false" />
+          <Property Name="PRESENTACION" Type="Int32" />
+          <Property Name="EXISTENCIA" Type="Int32" Nullable="false" />
+          <Property Name="STOCK" Type="Int32" />
+          <Property Name="COSTO_UNIT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CODIGOB" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="CPM" Type="Int32" />
+          <Property Name="UNIDADES" Type="Double" />
+          <Property Name="UNI_PRES" Type="Int16" />
+          <Property Name="RAMO" Type="Int16" />
+          <Property Name="UP" Type="Int16" />
+          <Property Name="UR" Type="Int16" />
+          <Property Name="NIVEL_ATENCION" Type="Int16" />
+          <Property Name="OBSERVA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="DONACION" Type="Int32" />
+          <Property Name="ACTIVO" Type="Int32" />
+          <Property Name="UNI_MED" Type="Int16" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="2520" FixedLength="false" Unicode="false" />
+          <Property Name="GPO" Type="Int32" />
+          <Property Name="DESC_LARGA" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="rack" Type="Int32" />
+          <Property Name="pasillo" Type="Int32" />
+          <Property Name="nivel" Type="Int32" />
+          <Property Name="causes" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ma_articulos_desc_larga_tabla_corta">
+          <Key>
+            <PropertyRef Name="pk_articulos" />
+          </Key>
+          <Property Name="pk_articulos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="desc_larga" Type="String" MaxLength="7830" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="AlmacenEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CA_CENTROS" EntityType="Self.CA_CENTROS" />
+          <EntitySet Name="ma_articulos" EntityType="Self.ma_articulos" />
+          <EntitySet Name="ma_articulos_desc_larga_tabla_corta" EntityType="Self.ma_articulos_desc_larga_tabla_corta" />
+          <EntitySet Name="CA_TIPOSENT" EntityType="AlmacenCentralModel.CA_TIPOSENT" />
+          <EntitySet Name="cpm_unidades" EntityType="AlmacenCentralModel.cpm_unidades" />
+          <EntitySet Name="CA_PARTIDAS" EntityType="AlmacenCentralModel.CA_PARTIDAS" />
+          <EntitySet Name="CA_PROGRAMAS" EntityType="AlmacenCentralModel.CA_PROGRAMAS" />
+          <EntitySet Name="CA_PROVEEDORES" EntityType="AlmacenCentralModel.CA_PROVEEDORES" />
+          <EntitySet Name="CA_TIPOSDOC" EntityType="AlmacenCentralModel.CA_TIPOSDOC" />
+          <EntitySet Name="CA_TIPOSLIC" EntityType="AlmacenCentralModel.CA_TIPOSLIC" />
+          <EntitySet Name="Ca_FuenteFinanciamiento" EntityType="AlmacenCentralModel.Ca_FuenteFinanciamiento" />
+          <EntitySet Name="CA_PROGRAMAS_SALUD" EntityType="AlmacenCentralModel.CA_PROGRAMAS_SALUD" />
+          <EntitySet Name="CA_UNIDADESM" EntityType="AlmacenCentralModel.CA_UNIDADESM" />
+          <EntitySet Name="CA_UNIDADESP" EntityType="AlmacenCentralModel.CA_UNIDADESP" />
+          <EntitySet Name="vwProveedores" EntityType="AlmacenCentralModel.vwProveedores" />
+        </EntityContainer>
+        <EntityType Name="CA_TIPOSENT">
+          <Key>
+            <PropertyRef Name="TIPO" />
+          </Key>
+          <Property Name="TIPO" Type="Int16" Nullable="false" />
+          <Property Name="DESCRIP" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="cpm_unidades">
+          <Key>
+            <PropertyRef Name="articulos_pk" />
+            <PropertyRef Name="centro_pk" />
+            <PropertyRef Name="cpm" />
+            <PropertyRef Name="anio" />
+          </Key>
+          <Property Name="articulos_pk" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="centro_pk" Type="Int32" Nullable="false" />
+          <Property Name="cpm" Type="Int32" Nullable="false" />
+          <Property Name="anio" Type="Int32" Nullable="false" />
+          <Property Name="U_Act" Type="Int16" />
+          <Property Name="F_Act" Type="DateTime" Precision="3" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="origen" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="consolidada" Type="Boolean" />
+          <Property Name="dimesa" Type="Boolean" />
+          <Property Name="desierta" Type="Boolean" />
+          <Property Name="programa" Type="Boolean" />
+          <Property Name="desc_programa" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="otra_fuente" Type="Boolean" />
+          <Property Name="desc_otra_fuente" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="controlado" Type="Boolean" />
+          <Property Name="max_consolidada" Type="Int32" />
+          <Property Name="min_consolidada" Type="Int32" />
+          <Property Name="max_dimesa" Type="Int32" />
+          <Property Name="min_dimesa" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CA_PARTIDAS">
+          <Key>
+            <PropertyRef Name="RAMO" />
+            <PropertyRef Name="UP" />
+            <PropertyRef Name="UR" />
+          </Key>
+          <Property Name="RAMO" Type="Int16" Nullable="false" />
+          <Property Name="UP" Type="Int16" Nullable="false" />
+          <Property Name="UR" Type="Int16" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EJERCIDO" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CA_PROGRAMAS">
+          <Key>
+            <PropertyRef Name="CLAVE_PROG" />
+          </Key>
+          <Property Name="CLAVE_PROG" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NOM_PROG" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CA_PROVEEDORES">
+          <Key>
+            <PropertyRef Name="ESTADO" />
+            <PropertyRef Name="GIRO" />
+            <PropertyRef Name="PROVEEDOR" />
+          </Key>
+          <Property Name="ESTADO" Type="Int16" Nullable="false" />
+          <Property Name="GIRO" Type="Int16" Nullable="false" />
+          <Property Name="PROVEEDOR" Type="Int16" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COLONIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CODIGOP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LOCALIDAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TEL1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TEL2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TEL3" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FAX" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SSP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="OBSERVA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="rfc" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CA_TIPOSDOC">
+          <Key>
+            <PropertyRef Name="TIPO" />
+          </Key>
+          <Property Name="TIPO" Type="Int16" Nullable="false" />
+          <Property Name="DESCRIP" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CA_TIPOSLIC">
+          <Key>
+            <PropertyRef Name="TIPO" />
+          </Key>
+          <Property Name="TIPO" Type="Int16" Nullable="false" />
+          <Property Name="DESCRIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Ca_FuenteFinanciamiento">
+          <Key>
+            <PropertyRef Name="Id_FuenteFinanciamiento" />
+            <PropertyRef Name="Descripcion" />
+            <PropertyRef Name="Estatus" />
+            <PropertyRef Name="U_Act" />
+            <PropertyRef Name="F_Act" />
+          </Key>
+          <Property Name="Id_FuenteFinanciamiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
+          <Property Name="U_Act" Type="Int32" Nullable="false" />
+          <Property Name="F_Act" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="CA_PROGRAMAS_SALUD">
+          <Key>
+            <PropertyRef Name="NO_PROG" />
+          </Key>
+          <Property Name="CENTRO" Type="Int32" />
+          <Property Name="NO_PROG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CA_UNIDADESM">
+          <Key>
+            <PropertyRef Name="Unidad" />
+          </Key>
+          <Property Name="Unidad" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descrip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Abrevia" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CA_UNIDADESP">
+          <Key>
+            <PropertyRef Name="Unidad" />
+          </Key>
+          <Property Name="Unidad" Type="Int16" Nullable="false" />
+          <Property Name="Descrip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Abrevia" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="vwProveedores">
+          <Key>
+            <PropertyRef Name="ESTADO" />
+            <PropertyRef Name="GIRO" />
+            <PropertyRef Name="PROVEEDOR" />
+          </Key>
+          <Property Name="id_prov" Type="String" MaxLength="92" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="Int16" Nullable="false" />
+          <Property Name="GIRO" Type="Int16" Nullable="false" />
+          <Property Name="PROVEEDOR" Type="Int16" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AlmacenCentralModelStoreContainer" CdmEntityContainer="AlmacenEntity">
+          <EntitySetMapping Name="CA_CENTROS">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_CENTROS">
+              <MappingFragment StoreEntitySet="CA_CENTROS">
+                <ScalarProperty Name="replica" ColumnName="replica" />
+                <ScalarProperty Name="CENTRO" ColumnName="CENTRO" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="CLAVE_PROG" ColumnName="CLAVE_PROG" />
+                <ScalarProperty Name="NIVEL_ATENCION" ColumnName="NIVEL_ATENCION" />
+                <ScalarProperty Name="Tipo_Unidad" ColumnName="Tipo_Unidad" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="entidad_id" ColumnName="entidad_id" />
+                <ScalarProperty Name="id_municipio" ColumnName="id_municipio" />
+                <ScalarProperty Name="pk_cp" ColumnName="pk_cp" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ma_articulos">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.ma_articulos">
+              <MappingFragment StoreEntitySet="ma_articulos">
+                <ScalarProperty Name="PK_ARTICULOS" ColumnName="PK_ARTICULOS" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="GRUPO" ColumnName="GRUPO" />
+                <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+                <ScalarProperty Name="PRESENTACION" ColumnName="PRESENTACION" />
+                <ScalarProperty Name="EXISTENCIA" ColumnName="EXISTENCIA" />
+                <ScalarProperty Name="STOCK" ColumnName="STOCK" />
+                <ScalarProperty Name="COSTO_UNIT" ColumnName="COSTO_UNIT" />
+                <ScalarProperty Name="CODIGOB" ColumnName="CODIGOB" />
+                <ScalarProperty Name="CPM" ColumnName="CPM" />
+                <ScalarProperty Name="UNIDADES" ColumnName="UNIDADES" />
+                <ScalarProperty Name="UNI_PRES" ColumnName="UNI_PRES" />
+                <ScalarProperty Name="RAMO" ColumnName="RAMO" />
+                <ScalarProperty Name="UP" ColumnName="UP" />
+                <ScalarProperty Name="UR" ColumnName="UR" />
+                <ScalarProperty Name="NIVEL_ATENCION" ColumnName="NIVEL_ATENCION" />
+                <ScalarProperty Name="OBSERVA" ColumnName="OBSERVA" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="DONACION" ColumnName="DONACION" />
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="UNI_MED" ColumnName="UNI_MED" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="GPO" ColumnName="GPO" />
+                <ScalarProperty Name="DESC_LARGA" ColumnName="DESC_LARGA" />
+                <ScalarProperty Name="rack" ColumnName="rack" />
+                <ScalarProperty Name="pasillo" ColumnName="pasillo" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+                <ScalarProperty Name="causes" ColumnName="causes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ma_articulos_desc_larga_tabla_corta">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.ma_articulos_desc_larga_tabla_corta">
+              <MappingFragment StoreEntitySet="ma_articulos_desc_larga_tabla_corta">
+                <ScalarProperty Name="pk_articulos" ColumnName="pk_articulos" />
+                <ScalarProperty Name="desc_larga" ColumnName="desc_larga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_TIPOSENT">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_TIPOSENT">
+              <MappingFragment StoreEntitySet="CA_TIPOSENT">
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cpm_unidades">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.cpm_unidades">
+              <MappingFragment StoreEntitySet="cpm_unidades">
+                <ScalarProperty Name="min_dimesa" ColumnName="min_dimesa" />
+                <ScalarProperty Name="max_dimesa" ColumnName="max_dimesa" />
+                <ScalarProperty Name="min_consolidada" ColumnName="min_consolidada" />
+                <ScalarProperty Name="max_consolidada" ColumnName="max_consolidada" />
+                <ScalarProperty Name="controlado" ColumnName="controlado" />
+                <ScalarProperty Name="desc_otra_fuente" ColumnName="desc_otra_fuente" />
+                <ScalarProperty Name="otra_fuente" ColumnName="otra_fuente" />
+                <ScalarProperty Name="desc_programa" ColumnName="desc_programa" />
+                <ScalarProperty Name="programa" ColumnName="programa" />
+                <ScalarProperty Name="desierta" ColumnName="desierta" />
+                <ScalarProperty Name="dimesa" ColumnName="dimesa" />
+                <ScalarProperty Name="consolidada" ColumnName="consolidada" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="F_Act" ColumnName="F_Act" />
+                <ScalarProperty Name="U_Act" ColumnName="U_Act" />
+                <ScalarProperty Name="anio" ColumnName="anio" />
+                <ScalarProperty Name="cpm" ColumnName="cpm" />
+                <ScalarProperty Name="centro_pk" ColumnName="centro_pk" />
+                <ScalarProperty Name="articulos_pk" ColumnName="articulos_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_PARTIDAS">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_PARTIDAS">
+              <MappingFragment StoreEntitySet="CA_PARTIDAS">
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="EJERCIDO" ColumnName="EJERCIDO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="UR" ColumnName="UR" />
+                <ScalarProperty Name="UP" ColumnName="UP" />
+                <ScalarProperty Name="RAMO" ColumnName="RAMO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_PROGRAMAS">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_PROGRAMAS">
+              <MappingFragment StoreEntitySet="CA_PROGRAMAS">
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="NOM_PROG" ColumnName="NOM_PROG" />
+                <ScalarProperty Name="CLAVE_PROG" ColumnName="CLAVE_PROG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_PROVEEDORES">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_PROVEEDORES">
+              <MappingFragment StoreEntitySet="CA_PROVEEDORES">
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="OBSERVA" ColumnName="OBSERVA" />
+                <ScalarProperty Name="SSP" ColumnName="SSP" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="TEL3" ColumnName="TEL3" />
+                <ScalarProperty Name="TEL2" ColumnName="TEL2" />
+                <ScalarProperty Name="TEL1" ColumnName="TEL1" />
+                <ScalarProperty Name="LOCALIDAD" ColumnName="LOCALIDAD" />
+                <ScalarProperty Name="CODIGOP" ColumnName="CODIGOP" />
+                <ScalarProperty Name="COLONIA" ColumnName="COLONIA" />
+                <ScalarProperty Name="CALLE" ColumnName="CALLE" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PROVEEDOR" ColumnName="PROVEEDOR" />
+                <ScalarProperty Name="GIRO" ColumnName="GIRO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_TIPOSDOC">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_TIPOSDOC">
+              <MappingFragment StoreEntitySet="CA_TIPOSDOC">
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_TIPOSLIC">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_TIPOSLIC">
+              <MappingFragment StoreEntitySet="CA_TIPOSLIC">
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ca_FuenteFinanciamiento">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.Ca_FuenteFinanciamiento">
+              <MappingFragment StoreEntitySet="Ca_FuenteFinanciamiento">
+                <ScalarProperty Name="F_Act" ColumnName="F_Act" />
+                <ScalarProperty Name="U_Act" ColumnName="U_Act" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id_FuenteFinanciamiento" ColumnName="Id_FuenteFinanciamiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_PROGRAMAS_SALUD">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_PROGRAMAS_SALUD">
+              <MappingFragment StoreEntitySet="CA_PROGRAMAS_SALUD">
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="DESCRIP" ColumnName="DESCRIP" />
+                <ScalarProperty Name="NO_PROG" ColumnName="NO_PROG" />
+                <ScalarProperty Name="CENTRO" ColumnName="CENTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_UNIDADESM">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_UNIDADESM">
+              <MappingFragment StoreEntitySet="CA_UNIDADESM">
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="Abrevia" ColumnName="Abrevia" />
+                <ScalarProperty Name="Descrip" ColumnName="Descrip" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CA_UNIDADESP">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.CA_UNIDADESP">
+              <MappingFragment StoreEntitySet="CA_UNIDADESP">
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="Abrevia" ColumnName="Abrevia" />
+                <ScalarProperty Name="Descrip" ColumnName="Descrip" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwProveedores">
+            <EntityTypeMapping TypeName="AlmacenCentralModel.vwProveedores">
+              <MappingFragment StoreEntitySet="vwProveedores">
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PROVEEDOR" ColumnName="PROVEEDOR" />
+                <ScalarProperty Name="GIRO" ColumnName="GIRO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="id_prov" ColumnName="id_prov" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

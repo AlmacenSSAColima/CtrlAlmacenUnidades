@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PedidosUnidad.Models.DeSalidasClassSIAA>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<nav class="archive-links">
+    <ol>
+        @foreach (var item in Model)
+        {
+        <li>
+            @{string cve_insumo = item.desalidas.TIPO.ToString("000") + "." + item.desalidas.GRUPO.ToString("000") + "." + item.desalidas.CLAVE.ToString("0000") + "." + (item.desalidas.presentacion ?? 0).ToString("00");}
+            <div onclick="InsumoDelete('@item.desalidas.pk_articulos','@cve_insumo')" style="float:left; width:25px; text-align:center; padding-top:9px; cursor: pointer;">
+                <i class="fa fa-trash-o" style="font-size:18px; color:#ff0000;"></i>
+            </div>
+            <div style="float:left; width:75%;">
+                <div style="width:100%; height:20px;">
+                    <span style="font-size:12px; float:left; margin-right:2px;">@cve_insumo</span>
+                    <span style="font-size:11px; float:left;">(@item.pres)</span>
+
+                </div>
+                <div onclick="show_descrip('@item.desalidas.pk_articulos');" style="width:100%; height:15px; font-size: 12px; line-height: 11px; color:#818181; margin-top:-2px;">
+                    @{ string insumo;
+                        if (item.insumo.Length > 60)
+                        {
+                            insumo = item.insumo.Substring(0, 60) + "...";
+                        }
+                        else
+                        {
+                            insumo = item.insumo;
+                        }
+                    }
+                    @insumo
+                </div>
+                <div id="dvd_@item.desalidas.pk_articulos" style=" display:none;">
+                    @item.descLarga
+                </div>
+            </div>
+            <div style="float: right; width: 55px; text-align: right; padding-right: 2px; color:#555;">
+                <span style="font-weight:500; font-size:16px; margin-top:-4px;">@item.desalidas.CANTIDAD</span>
+                <span style="font-size:10px; color:#818181; margin-top:-5px;">Cantidad</span>
+            </div>
+            <div style="float: right; width: 55px; text-align: right; padding-right: 2px; color:#555;">
+                <span style="font-weight:500; font-size:16px; margin-top:-4px;">@item.desalidas.CANT_SURT</span>
+                <span style="font-size:10px; color:#818181; margin-top:-5px;">Cantidad</span>
+            </div>
+
+        </li>
+        }
+
+    </ol>
+</nav>

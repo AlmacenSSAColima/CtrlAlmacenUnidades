@@ -1,0 +1,954 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DE_CADUCIDAD">
+          <Key>
+            <PropertyRef Name="pk_articulos" />
+            <PropertyRef Name="LOTE" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="pk_CADUCIDADES" Type="varchar" MaxLength="30" />
+          <Property Name="pk_articulos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TIPO" Type="smallint" />
+          <Property Name="GRUPO" Type="smallint" />
+          <Property Name="CLAV_MED" Type="smallint" />
+          <Property Name="LOTE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CADUCIDAD" Type="datetime" />
+          <Property Name="CANT_ENT" Type="int" />
+          <Property Name="CANT_SAL" Type="int" />
+          <Property Name="CANT_APARTA" Type="int" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="F_INS" Type="datetime" />
+          <Property Name="UNI_PRES" Type="smallint" />
+          <Property Name="no_prog" Type="int" />
+          <Property Name="costo" Type="money" />
+          <Property Name="CENTRO_REQ" Type="int" />
+          <Property Name="rack" Type="int" />
+          <Property Name="pasillo" Type="int" />
+          <Property Name="nivel" Type="int" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="de_entradas">
+          <Key>
+            <PropertyRef Name="FOLIO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="PK_ARTICULOS" />
+            <PropertyRef Name="COSTO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="FOLIO" Type="int" Nullable="false" />
+          <Property Name="ANIO" Type="int" Nullable="false" />
+          <Property Name="PK_ARTICULOS" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TIPO" Type="int" Nullable="false" />
+          <Property Name="GRUPO" Type="int" Nullable="false" />
+          <Property Name="CLAVE" Type="int" Nullable="false" />
+          <Property Name="PRESENTACION" Type="int" />
+          <Property Name="NO_ENTRADA" Type="int" />
+          <Property Name="CANTIDAD" Type="int" />
+          <Property Name="COSTO" Type="money" Nullable="false" />
+          <Property Name="IVA" Type="numeric" Precision="16" Scale="4" />
+          <Property Name="PIVA" Type="numeric" Precision="16" Scale="4" />
+          <Property Name="RAMO" Type="int" />
+          <Property Name="UP" Type="int" />
+          <Property Name="UR" Type="int" />
+          <Property Name="U_ACT" Type="int" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="U_CREO" Type="int" />
+          <Property Name="F_CREO" Type="datetime" />
+          <Property Name="afectado" Type="bit" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DE_EntradasCAD">
+          <Key>
+            <PropertyRef Name="No_Entrada" />
+            <PropertyRef Name="Anio" />
+            <PropertyRef Name="PK_ARTICULOS" />
+            <PropertyRef Name="Lote" />
+            <PropertyRef Name="Caducidad" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="No_Entrada" Type="int" Nullable="false" />
+          <Property Name="Anio" Type="int" Nullable="false" />
+          <Property Name="PK_ARTICULOS" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Tipo" Type="int" />
+          <Property Name="Grupo" Type="int" />
+          <Property Name="Clav_Med" Type="int" />
+          <Property Name="Lote" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Caducidad" Type="datetime" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="U_ACT" Type="int" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="F_INS" Type="datetime" />
+          <Property Name="UNI_PRES" Type="int" />
+          <Property Name="afectado" Type="bit" />
+          <Property Name="DONACION" Type="bit" />
+          <Property Name="no_prog" Type="int" />
+          <Property Name="costo" Type="money" />
+          <Property Name="rack" Type="int" />
+          <Property Name="pasillo" Type="int" />
+          <Property Name="nivel" Type="int" />
+          <Property Name="pk_caducidades" Type="varchar" MaxLength="30" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="de_pedidos">
+          <Key>
+            <PropertyRef Name="PEDIDO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="COSTO" />
+            <PropertyRef Name="pk_articulos" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="PEDIDO" Type="int" Nullable="false" />
+          <Property Name="ANIO" Type="int" Nullable="false" />
+          <Property Name="TIPO" Type="int" Nullable="false" />
+          <Property Name="GRUPO" Type="int" Nullable="false" />
+          <Property Name="CLAVE" Type="int" Nullable="false" />
+          <Property Name="CANTIDAD" Type="int" />
+          <Property Name="CANT_SURT" Type="int" />
+          <Property Name="COSTO" Type="money" Nullable="false" />
+          <Property Name="U_ACT" Type="int" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="U_CREO" Type="int" />
+          <Property Name="F_CREO" Type="datetime" />
+          <Property Name="afectado" Type="bit" />
+          <Property Name="pk_articulos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="presentacion" Type="int" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DE_PedidosCAD">
+          <Key>
+            <PropertyRef Name="Pedido" />
+            <PropertyRef Name="Anio" />
+            <PropertyRef Name="pk_CADUCIDADES" />
+            <PropertyRef Name="pk_articulos" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="Pedido" Type="int" Nullable="false" />
+          <Property Name="Anio" Type="int" Nullable="false" />
+          <Property Name="Tipo" Type="int" />
+          <Property Name="Grupo" Type="int" />
+          <Property Name="Clav_Med" Type="int" />
+          <Property Name="Lote" Type="varchar" MaxLength="20" />
+          <Property Name="Caducidad" Type="datetime" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="U_ACT" Type="int" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="afectado" Type="bit" />
+          <Property Name="UNI_PRES" Type="int" />
+          <Property Name="DONACION" Type="bit" />
+          <Property Name="pk_CADUCIDADES" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="pk_articulos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="rack" Type="int" />
+          <Property Name="pasillo" Type="int" />
+          <Property Name="nivel" Type="int" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ma_entradas">
+          <Key>
+            <PropertyRef Name="FOLIO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="FOLIO" Type="int" Nullable="false" />
+          <Property Name="ANIO" Type="int" Nullable="false" />
+          <Property Name="NO_ENTRADA" Type="int" />
+          <Property Name="TIPO_ENTRADA" Type="int" />
+          <Property Name="FOLIO_PEDIDO" Type="int" />
+          <Property Name="ANIO_PEDIDO" Type="int" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="TIPO_DOCTO" Type="int" />
+          <Property Name="FOLIO_DOCTO" Type="varchar" MaxLength="50" />
+          <Property Name="TIPO_LICITACION" Type="int" />
+          <Property Name="FOLIO_LICITACION" Type="varchar" MaxLength="30" />
+          <Property Name="ANIO_LICITACION" Type="int" />
+          <Property Name="ESTADOP" Type="int" />
+          <Property Name="GIROP" Type="int" />
+          <Property Name="CLAVEP" Type="int" />
+          <Property Name="SUBTOTAL" Type="numeric" Precision="16" Scale="4" />
+          <Property Name="IVA" Type="numeric" Precision="16" Scale="4" />
+          <Property Name="TOTAL" Type="numeric" Precision="16" Scale="4" />
+          <Property Name="OBSERVA" Type="varchar" MaxLength="255" />
+          <Property Name="AFECTADA" Type="bit" Nullable="false" />
+          <Property Name="CERRADO" Type="int" />
+          <Property Name="U_ACT" Type="int" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="ESTATUS" Type="int" />
+          <Property Name="NO_POLIZA_ENT" Type="int" />
+          <Property Name="U_CREO" Type="int" />
+          <Property Name="F_CREO" Type="datetime" />
+          <Property Name="CENTRO_REQ" Type="int" />
+          <Property Name="ANIO_POLIZA_ENT" Type="int" />
+          <Property Name="cancelado" Type="bit" />
+          <Property Name="no_prog" Type="int" />
+          <Property Name="Id_FuenteFinanciamiento" Type="int" />
+          <Property Name="carta_compromiso" Type="int" />
+          <Property Name="F_AFEC" Type="datetime" />
+          <Property Name="Motivo" Type="varchar" MaxLength="250" />
+          <Property Name="U_CANC" Type="int" />
+          <Property Name="F_CANC" Type="datetime" />
+          <Property Name="H_CANC" Type="varchar" MaxLength="13" />
+          <Property Name="FOLIO_DOCTO_2" Type="varchar" MaxLength="50" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+          <Property Name="TIPO_INSUMOS" Type="int" />
+        </EntityType>
+        <EntityType Name="ma_pedidos">
+          <Key>
+            <PropertyRef Name="PEDIDO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="PEDIDO" Type="int" Nullable="false" />
+          <Property Name="ANIO" Type="int" Nullable="false" />
+          <Property Name="TIPO_PEDIDO" Type="int" />
+          <Property Name="FECHA_PEDIDO" Type="datetime" />
+          <Property Name="CENTRO_SOL" Type="int" />
+          <Property Name="SALIDA_GEN" Type="bit" />
+          <Property Name="OBSERVA" Type="varchar" MaxLength="255" />
+          <Property Name="ASIGNA_CAD" Type="bit" />
+          <Property Name="U_ACT" Type="int" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="U_CREO" Type="int" />
+          <Property Name="F_CREO" Type="datetime" />
+          <Property Name="Afectado" Type="bit" />
+          <Property Name="No_Poliza_Sal" Type="int" />
+          <Property Name="Anio_Poliza_Sal" Type="int" />
+          <Property Name="CANCELADO" Type="bit" />
+          <Property Name="MOTIVO" Type="varchar" MaxLength="255" />
+          <Property Name="U_CANC" Type="int" />
+          <Property Name="F_CANC" Type="datetime" />
+          <Property Name="H_CANC" Type="varchar" MaxLength="13" />
+          <Property Name="no_prog" Type="int" />
+          <Property Name="F_AFEC" Type="datetime" />
+          <Property Name="EXTRA" Type="bit" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TA_Parametros">
+          <Key>
+            <PropertyRef Name="INDICE" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="INDICE" Type="int" Nullable="false" />
+          <Property Name="RUTA_EXE" Type="varchar" MaxLength="200" />
+          <Property Name="ANIO" Type="smallint" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="PIVA" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="F_UNIDADESP" Type="int" />
+          <Property Name="F_ENTRADAS" Type="int" />
+          <Property Name="F_PEDIDOS" Type="int" />
+          <Property Name="F_SALIDAS" Type="int" />
+          <Property Name="TITULO1" Type="varchar" MaxLength="100" />
+          <Property Name="TITULO2" Type="varchar" MaxLength="100" />
+          <Property Name="U_ACT" Type="smallint" />
+          <Property Name="F_ACT" Type="datetime" />
+          <Property Name="F_AJUSTES" Type="int" />
+          <Property Name="F_UNIDADESM" Type="int" />
+          <Property Name="centro" Type="int" />
+          <Property Name="F_RECETAS" Type="int" />
+          <Property Name="TIPO_UNIDAD" Type="int" />
+          <Property Name="MEDICO" Type="int" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwDispCad' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwDispCad">
+          <Key>
+            <PropertyRef Name="pk_articulos" />
+            <PropertyRef Name="LOTE" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="pk_articulos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="pk_CADUCIDADES" Type="varchar" MaxLength="30" />
+          <Property Name="LOTE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CADUCIDAD" Type="varchar" MaxLength="10" />
+          <Property Name="disponible" Type="int" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwListadoEntradas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwListadoEntradas">
+          <Key>
+            <PropertyRef Name="FOLIO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="FOLIO" Type="int" Nullable="false" />
+          <Property Name="ANIO" Type="int" Nullable="false" />
+          <Property Name="tipo_entrada" Type="varchar" MaxLength="30" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="tipo_docto" Type="varchar" MaxLength="30" />
+          <Property Name="FOLIO_DOCTO" Type="varchar" MaxLength="50" />
+          <Property Name="proveedor" Type="varchar" MaxLength="100" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+          <Property Name="TIPO_INSUMOS" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwListadoSalidas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwListadoSalidas">
+          <Key>
+            <PropertyRef Name="FOLIO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="FOLIO" Type="int" Nullable="false" />
+          <Property Name="ANIO" Type="int" Nullable="false" />
+          <Property Name="TIPO_VALE" Type="varchar" MaxLength="30" />
+          <Property Name="FECHA" Type="datetime" />
+          <Property Name="CENTRO_SOL" Type="varchar" MaxLength="200" />
+          <Property Name="id_centro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ALMACEN_CENTRAL_NVO_CONCENTRADORAModelStoreContainer">
+          <EntitySet Name="DE_CADUCIDAD" EntityType="Self.DE_CADUCIDAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="de_entradas" EntityType="Self.de_entradas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DE_EntradasCAD" EntityType="Self.DE_EntradasCAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="de_pedidos" EntityType="Self.de_pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DE_PedidosCAD" EntityType="Self.DE_PedidosCAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ma_entradas" EntityType="Self.ma_entradas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ma_pedidos" EntityType="Self.ma_pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TA_Parametros" EntityType="Self.TA_Parametros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwDispCad" EntityType="Self.vwDispCad" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwDispCad].[pk_articulos] AS [pk_articulos], 
+    [vwDispCad].[pk_CADUCIDADES] AS [pk_CADUCIDADES], 
+    [vwDispCad].[LOTE] AS [LOTE], 
+    [vwDispCad].[CADUCIDAD] AS [CADUCIDAD], 
+    [vwDispCad].[disponible] AS [disponible], 
+    [vwDispCad].[id_centro] AS [id_centro]
+    FROM [dbo].[vwDispCad] AS [vwDispCad]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwListadoEntradas" EntityType="Self.vwListadoEntradas" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwListadoEntradas].[FOLIO] AS [FOLIO], 
+    [vwListadoEntradas].[ANIO] AS [ANIO], 
+    [vwListadoEntradas].[tipo_entrada] AS [tipo_entrada], 
+    [vwListadoEntradas].[FECHA] AS [FECHA], 
+    [vwListadoEntradas].[tipo_docto] AS [tipo_docto], 
+    [vwListadoEntradas].[FOLIO_DOCTO] AS [FOLIO_DOCTO], 
+    [vwListadoEntradas].[proveedor] AS [proveedor], 
+    [vwListadoEntradas].[id_centro] AS [id_centro], 
+    [vwListadoEntradas].[TIPO_INSUMOS] AS [TIPO_INSUMOS]
+    FROM [dbo].[vwListadoEntradas] AS [vwListadoEntradas]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwListadoSalidas" EntityType="Self.vwListadoSalidas" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwListadoSalidas].[FOLIO] AS [FOLIO], 
+    [vwListadoSalidas].[ANIO] AS [ANIO], 
+    [vwListadoSalidas].[TIPO_VALE] AS [TIPO_VALE], 
+    [vwListadoSalidas].[FECHA] AS [FECHA], 
+    [vwListadoSalidas].[CENTRO_SOL] AS [CENTRO_SOL], 
+    [vwListadoSalidas].[id_centro] AS [id_centro]
+    FROM [dbo].[vwListadoSalidas] AS [vwListadoSalidas]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBCONCENTRADORA" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DE_CADUCIDAD" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_CADUCIDAD" />
+          <EntitySet Name="de_entradas" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.de_entradas" />
+          <EntitySet Name="DE_EntradasCAD" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_EntradasCAD" />
+          <EntitySet Name="de_pedidos" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.de_pedidos" />
+          <EntitySet Name="DE_PedidosCAD" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_PedidosCAD" />
+          <EntitySet Name="ma_pedidos" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.ma_pedidos" />
+          <EntitySet Name="vwListadoSalidas" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwListadoSalidas" />
+          <EntitySet Name="TA_Parametros" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.TA_Parametros" />
+          <EntitySet Name="ma_entradas" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.ma_entradas" />
+          <EntitySet Name="vwListadoEntradas" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwListadoEntradas" />
+          <EntitySet Name="vwDispCad" EntityType="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwDispCad" />
+        </EntityContainer>
+        <EntityType Name="DE_CADUCIDAD">
+          <Key>
+            <PropertyRef Name="pk_articulos" />
+            <PropertyRef Name="LOTE" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="pk_CADUCIDADES" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="pk_articulos" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO" Type="Int16" />
+          <Property Name="GRUPO" Type="Int16" />
+          <Property Name="CLAV_MED" Type="Int16" />
+          <Property Name="LOTE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CADUCIDAD" Type="DateTime" Precision="3" />
+          <Property Name="CANT_ENT" Type="Int32" />
+          <Property Name="CANT_SAL" Type="Int32" />
+          <Property Name="CANT_APARTA" Type="Int32" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="F_INS" Type="DateTime" Precision="3" />
+          <Property Name="UNI_PRES" Type="Int16" />
+          <Property Name="no_prog" Type="Int32" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CENTRO_REQ" Type="Int32" />
+          <Property Name="rack" Type="Int32" />
+          <Property Name="pasillo" Type="Int32" />
+          <Property Name="nivel" Type="Int32" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="de_entradas">
+          <Key>
+            <PropertyRef Name="FOLIO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="PK_ARTICULOS" />
+            <PropertyRef Name="COSTO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="FOLIO" Type="Int32" Nullable="false" />
+          <Property Name="ANIO" Type="Int32" Nullable="false" />
+          <Property Name="PK_ARTICULOS" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO" Type="Int32" Nullable="false" />
+          <Property Name="GRUPO" Type="Int32" Nullable="false" />
+          <Property Name="CLAVE" Type="Int32" Nullable="false" />
+          <Property Name="PRESENTACION" Type="Int32" />
+          <Property Name="NO_ENTRADA" Type="Int32" />
+          <Property Name="CANTIDAD" Type="Int32" />
+          <Property Name="COSTO" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="IVA" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="PIVA" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="RAMO" Type="Int32" />
+          <Property Name="UP" Type="Int32" />
+          <Property Name="UR" Type="Int32" />
+          <Property Name="U_ACT" Type="Int32" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="U_CREO" Type="Int32" />
+          <Property Name="F_CREO" Type="DateTime" Precision="3" />
+          <Property Name="afectado" Type="Boolean" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DE_EntradasCAD">
+          <Key>
+            <PropertyRef Name="No_Entrada" />
+            <PropertyRef Name="Anio" />
+            <PropertyRef Name="PK_ARTICULOS" />
+            <PropertyRef Name="Lote" />
+            <PropertyRef Name="Caducidad" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="No_Entrada" Type="Int32" Nullable="false" />
+          <Property Name="Anio" Type="Int32" Nullable="false" />
+          <Property Name="PK_ARTICULOS" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="Int32" />
+          <Property Name="Grupo" Type="Int32" />
+          <Property Name="Clav_Med" Type="Int32" />
+          <Property Name="Lote" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Caducidad" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="U_ACT" Type="Int32" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="F_INS" Type="DateTime" Precision="3" />
+          <Property Name="UNI_PRES" Type="Int32" />
+          <Property Name="afectado" Type="Boolean" />
+          <Property Name="DONACION" Type="Boolean" />
+          <Property Name="no_prog" Type="Int32" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="rack" Type="Int32" />
+          <Property Name="pasillo" Type="Int32" />
+          <Property Name="nivel" Type="Int32" />
+          <Property Name="pk_caducidades" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="de_pedidos">
+          <Key>
+            <PropertyRef Name="PEDIDO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="COSTO" />
+            <PropertyRef Name="pk_articulos" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="PEDIDO" Type="Int32" Nullable="false" />
+          <Property Name="ANIO" Type="Int32" Nullable="false" />
+          <Property Name="TIPO" Type="Int32" Nullable="false" />
+          <Property Name="GRUPO" Type="Int32" Nullable="false" />
+          <Property Name="CLAVE" Type="Int32" Nullable="false" />
+          <Property Name="CANTIDAD" Type="Int32" />
+          <Property Name="CANT_SURT" Type="Int32" />
+          <Property Name="COSTO" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="U_ACT" Type="Int32" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="U_CREO" Type="Int32" />
+          <Property Name="F_CREO" Type="DateTime" Precision="3" />
+          <Property Name="afectado" Type="Boolean" />
+          <Property Name="pk_articulos" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="presentacion" Type="Int32" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DE_PedidosCAD">
+          <Key>
+            <PropertyRef Name="Pedido" />
+            <PropertyRef Name="Anio" />
+            <PropertyRef Name="pk_CADUCIDADES" />
+            <PropertyRef Name="pk_articulos" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="Pedido" Type="Int32" Nullable="false" />
+          <Property Name="Anio" Type="Int32" Nullable="false" />
+          <Property Name="Tipo" Type="Int32" />
+          <Property Name="Grupo" Type="Int32" />
+          <Property Name="Clav_Med" Type="Int32" />
+          <Property Name="Lote" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Caducidad" Type="DateTime" Precision="3" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="U_ACT" Type="Int32" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="afectado" Type="Boolean" />
+          <Property Name="UNI_PRES" Type="Int32" />
+          <Property Name="DONACION" Type="Boolean" />
+          <Property Name="pk_CADUCIDADES" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="pk_articulos" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="rack" Type="Int32" />
+          <Property Name="pasillo" Type="Int32" />
+          <Property Name="nivel" Type="Int32" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ma_pedidos">
+          <Key>
+            <PropertyRef Name="PEDIDO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="PEDIDO" Type="Int32" Nullable="false" />
+          <Property Name="ANIO" Type="Int32" Nullable="false" />
+          <Property Name="TIPO_PEDIDO" Type="Int32" />
+          <Property Name="FECHA_PEDIDO" Type="DateTime" Precision="3" />
+          <Property Name="CENTRO_SOL" Type="Int32" />
+          <Property Name="SALIDA_GEN" Type="Boolean" />
+          <Property Name="OBSERVA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ASIGNA_CAD" Type="Boolean" />
+          <Property Name="U_ACT" Type="Int32" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="U_CREO" Type="Int32" />
+          <Property Name="F_CREO" Type="DateTime" Precision="3" />
+          <Property Name="Afectado" Type="Boolean" />
+          <Property Name="No_Poliza_Sal" Type="Int32" />
+          <Property Name="Anio_Poliza_Sal" Type="Int32" />
+          <Property Name="CANCELADO" Type="Boolean" />
+          <Property Name="MOTIVO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="U_CANC" Type="Int32" />
+          <Property Name="F_CANC" Type="DateTime" Precision="3" />
+          <Property Name="H_CANC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="no_prog" Type="Int32" />
+          <Property Name="F_AFEC" Type="DateTime" Precision="3" />
+          <Property Name="EXTRA" Type="Boolean" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwListadoSalidas">
+          <Key>
+            <PropertyRef Name="FOLIO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="FOLIO" Type="Int32" Nullable="false" />
+          <Property Name="ANIO" Type="Int32" Nullable="false" />
+          <Property Name="TIPO_VALE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="CENTRO_SOL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TA_Parametros">
+          <Key>
+            <PropertyRef Name="INDICE" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="INDICE" Type="Int32" Nullable="false" />
+          <Property Name="RUTA_EXE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ANIO" Type="Int16" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="PIVA" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="F_UNIDADESP" Type="Int32" />
+          <Property Name="F_ENTRADAS" Type="Int32" />
+          <Property Name="F_PEDIDOS" Type="Int32" />
+          <Property Name="F_SALIDAS" Type="Int32" />
+          <Property Name="TITULO1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TITULO2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="U_ACT" Type="Int16" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="F_AJUSTES" Type="Int32" />
+          <Property Name="F_UNIDADESM" Type="Int32" />
+          <Property Name="centro" Type="Int32" />
+          <Property Name="F_RECETAS" Type="Int32" />
+          <Property Name="TIPO_UNIDAD" Type="Int32" />
+          <Property Name="MEDICO" Type="Int32" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ma_entradas">
+          <Key>
+            <PropertyRef Name="FOLIO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="FOLIO" Type="Int32" Nullable="false" />
+          <Property Name="ANIO" Type="Int32" Nullable="false" />
+          <Property Name="NO_ENTRADA" Type="Int32" />
+          <Property Name="TIPO_ENTRADA" Type="Int32" />
+          <Property Name="FOLIO_PEDIDO" Type="Int32" />
+          <Property Name="ANIO_PEDIDO" Type="Int32" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="TIPO_DOCTO" Type="Int32" />
+          <Property Name="FOLIO_DOCTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO_LICITACION" Type="Int32" />
+          <Property Name="FOLIO_LICITACION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ANIO_LICITACION" Type="Int32" />
+          <Property Name="ESTADOP" Type="Int32" />
+          <Property Name="GIROP" Type="Int32" />
+          <Property Name="CLAVEP" Type="Int32" />
+          <Property Name="SUBTOTAL" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="IVA" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="TOTAL" Type="Decimal" Precision="16" Scale="4" />
+          <Property Name="OBSERVA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AFECTADA" Type="Boolean" Nullable="false" />
+          <Property Name="CERRADO" Type="Int32" />
+          <Property Name="U_ACT" Type="Int32" />
+          <Property Name="F_ACT" Type="DateTime" Precision="3" />
+          <Property Name="ESTATUS" Type="Int32" />
+          <Property Name="NO_POLIZA_ENT" Type="Int32" />
+          <Property Name="U_CREO" Type="Int32" />
+          <Property Name="F_CREO" Type="DateTime" Precision="3" />
+          <Property Name="CENTRO_REQ" Type="Int32" />
+          <Property Name="ANIO_POLIZA_ENT" Type="Int32" />
+          <Property Name="cancelado" Type="Boolean" />
+          <Property Name="no_prog" Type="Int32" />
+          <Property Name="Id_FuenteFinanciamiento" Type="Int32" />
+          <Property Name="carta_compromiso" Type="Int32" />
+          <Property Name="F_AFEC" Type="DateTime" Precision="3" />
+          <Property Name="Motivo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="U_CANC" Type="Int32" />
+          <Property Name="F_CANC" Type="DateTime" Precision="3" />
+          <Property Name="H_CANC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="FOLIO_DOCTO_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+          <Property Name="TIPO_INSUMOS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vwListadoEntradas">
+          <Key>
+            <PropertyRef Name="FOLIO" />
+            <PropertyRef Name="ANIO" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="FOLIO" Type="Int32" Nullable="false" />
+          <Property Name="ANIO" Type="Int32" Nullable="false" />
+          <Property Name="tipo_entrada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA" Type="DateTime" Precision="3" />
+          <Property Name="tipo_docto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FOLIO_DOCTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="proveedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+          <Property Name="TIPO_INSUMOS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vwDispCad">
+          <Key>
+            <PropertyRef Name="pk_articulos" />
+            <PropertyRef Name="LOTE" />
+            <PropertyRef Name="id_centro" />
+          </Key>
+          <Property Name="pk_articulos" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="pk_CADUCIDADES" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LOTE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CADUCIDAD" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="disponible" Type="Int32" />
+          <Property Name="id_centro" Type="Int32" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ALMACEN_CENTRAL_NVO_CONCENTRADORAModelStoreContainer" CdmEntityContainer="DBCONCENTRADORA">
+          <EntitySetMapping Name="DE_CADUCIDAD">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_CADUCIDAD">
+              <MappingFragment StoreEntitySet="DE_CADUCIDAD">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+                <ScalarProperty Name="pasillo" ColumnName="pasillo" />
+                <ScalarProperty Name="rack" ColumnName="rack" />
+                <ScalarProperty Name="CENTRO_REQ" ColumnName="CENTRO_REQ" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="no_prog" ColumnName="no_prog" />
+                <ScalarProperty Name="UNI_PRES" ColumnName="UNI_PRES" />
+                <ScalarProperty Name="F_INS" ColumnName="F_INS" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="CANT_APARTA" ColumnName="CANT_APARTA" />
+                <ScalarProperty Name="CANT_SAL" ColumnName="CANT_SAL" />
+                <ScalarProperty Name="CANT_ENT" ColumnName="CANT_ENT" />
+                <ScalarProperty Name="CADUCIDAD" ColumnName="CADUCIDAD" />
+                <ScalarProperty Name="LOTE" ColumnName="LOTE" />
+                <ScalarProperty Name="CLAV_MED" ColumnName="CLAV_MED" />
+                <ScalarProperty Name="GRUPO" ColumnName="GRUPO" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="pk_articulos" ColumnName="pk_articulos" />
+                <ScalarProperty Name="pk_CADUCIDADES" ColumnName="pk_CADUCIDADES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="de_entradas">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.de_entradas">
+              <MappingFragment StoreEntitySet="de_entradas">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="afectado" ColumnName="afectado" />
+                <ScalarProperty Name="F_CREO" ColumnName="F_CREO" />
+                <ScalarProperty Name="U_CREO" ColumnName="U_CREO" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="UR" ColumnName="UR" />
+                <ScalarProperty Name="UP" ColumnName="UP" />
+                <ScalarProperty Name="RAMO" ColumnName="RAMO" />
+                <ScalarProperty Name="PIVA" ColumnName="PIVA" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="COSTO" ColumnName="COSTO" />
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+                <ScalarProperty Name="NO_ENTRADA" ColumnName="NO_ENTRADA" />
+                <ScalarProperty Name="PRESENTACION" ColumnName="PRESENTACION" />
+                <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+                <ScalarProperty Name="GRUPO" ColumnName="GRUPO" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="PK_ARTICULOS" ColumnName="PK_ARTICULOS" />
+                <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+                <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DE_EntradasCAD">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_EntradasCAD">
+              <MappingFragment StoreEntitySet="DE_EntradasCAD">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="pk_caducidades" ColumnName="pk_caducidades" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+                <ScalarProperty Name="pasillo" ColumnName="pasillo" />
+                <ScalarProperty Name="rack" ColumnName="rack" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="no_prog" ColumnName="no_prog" />
+                <ScalarProperty Name="DONACION" ColumnName="DONACION" />
+                <ScalarProperty Name="afectado" ColumnName="afectado" />
+                <ScalarProperty Name="UNI_PRES" ColumnName="UNI_PRES" />
+                <ScalarProperty Name="F_INS" ColumnName="F_INS" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Caducidad" ColumnName="Caducidad" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="Clav_Med" ColumnName="Clav_Med" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="PK_ARTICULOS" ColumnName="PK_ARTICULOS" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="No_Entrada" ColumnName="No_Entrada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="de_pedidos">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.de_pedidos">
+              <MappingFragment StoreEntitySet="de_pedidos">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="presentacion" ColumnName="presentacion" />
+                <ScalarProperty Name="pk_articulos" ColumnName="pk_articulos" />
+                <ScalarProperty Name="afectado" ColumnName="afectado" />
+                <ScalarProperty Name="F_CREO" ColumnName="F_CREO" />
+                <ScalarProperty Name="U_CREO" ColumnName="U_CREO" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="COSTO" ColumnName="COSTO" />
+                <ScalarProperty Name="CANT_SURT" ColumnName="CANT_SURT" />
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+                <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+                <ScalarProperty Name="GRUPO" ColumnName="GRUPO" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+                <ScalarProperty Name="PEDIDO" ColumnName="PEDIDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DE_PedidosCAD">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.DE_PedidosCAD">
+              <MappingFragment StoreEntitySet="DE_PedidosCAD">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+                <ScalarProperty Name="pasillo" ColumnName="pasillo" />
+                <ScalarProperty Name="rack" ColumnName="rack" />
+                <ScalarProperty Name="pk_articulos" ColumnName="pk_articulos" />
+                <ScalarProperty Name="pk_CADUCIDADES" ColumnName="pk_CADUCIDADES" />
+                <ScalarProperty Name="DONACION" ColumnName="DONACION" />
+                <ScalarProperty Name="UNI_PRES" ColumnName="UNI_PRES" />
+                <ScalarProperty Name="afectado" ColumnName="afectado" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Caducidad" ColumnName="Caducidad" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="Clav_Med" ColumnName="Clav_Med" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="Pedido" ColumnName="Pedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ma_pedidos">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.ma_pedidos">
+              <MappingFragment StoreEntitySet="ma_pedidos">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="EXTRA" ColumnName="EXTRA" />
+                <ScalarProperty Name="F_AFEC" ColumnName="F_AFEC" />
+                <ScalarProperty Name="no_prog" ColumnName="no_prog" />
+                <ScalarProperty Name="H_CANC" ColumnName="H_CANC" />
+                <ScalarProperty Name="F_CANC" ColumnName="F_CANC" />
+                <ScalarProperty Name="U_CANC" ColumnName="U_CANC" />
+                <ScalarProperty Name="MOTIVO" ColumnName="MOTIVO" />
+                <ScalarProperty Name="CANCELADO" ColumnName="CANCELADO" />
+                <ScalarProperty Name="Anio_Poliza_Sal" ColumnName="Anio_Poliza_Sal" />
+                <ScalarProperty Name="No_Poliza_Sal" ColumnName="No_Poliza_Sal" />
+                <ScalarProperty Name="Afectado" ColumnName="Afectado" />
+                <ScalarProperty Name="F_CREO" ColumnName="F_CREO" />
+                <ScalarProperty Name="U_CREO" ColumnName="U_CREO" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="ASIGNA_CAD" ColumnName="ASIGNA_CAD" />
+                <ScalarProperty Name="OBSERVA" ColumnName="OBSERVA" />
+                <ScalarProperty Name="SALIDA_GEN" ColumnName="SALIDA_GEN" />
+                <ScalarProperty Name="CENTRO_SOL" ColumnName="CENTRO_SOL" />
+                <ScalarProperty Name="FECHA_PEDIDO" ColumnName="FECHA_PEDIDO" />
+                <ScalarProperty Name="TIPO_PEDIDO" ColumnName="TIPO_PEDIDO" />
+                <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+                <ScalarProperty Name="PEDIDO" ColumnName="PEDIDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwListadoSalidas">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwListadoSalidas">
+              <MappingFragment StoreEntitySet="vwListadoSalidas">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="CENTRO_SOL" ColumnName="CENTRO_SOL" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="TIPO_VALE" ColumnName="TIPO_VALE" />
+                <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+                <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TA_Parametros">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.TA_Parametros">
+              <MappingFragment StoreEntitySet="TA_Parametros">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="MEDICO" ColumnName="MEDICO" />
+                <ScalarProperty Name="TIPO_UNIDAD" ColumnName="TIPO_UNIDAD" />
+                <ScalarProperty Name="F_RECETAS" ColumnName="F_RECETAS" />
+                <ScalarProperty Name="centro" ColumnName="centro" />
+                <ScalarProperty Name="F_UNIDADESM" ColumnName="F_UNIDADESM" />
+                <ScalarProperty Name="F_AJUSTES" ColumnName="F_AJUSTES" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="TITULO2" ColumnName="TITULO2" />
+                <ScalarProperty Name="TITULO1" ColumnName="TITULO1" />
+                <ScalarProperty Name="F_SALIDAS" ColumnName="F_SALIDAS" />
+                <ScalarProperty Name="F_PEDIDOS" ColumnName="F_PEDIDOS" />
+                <ScalarProperty Name="F_ENTRADAS" ColumnName="F_ENTRADAS" />
+                <ScalarProperty Name="F_UNIDADESP" ColumnName="F_UNIDADESP" />
+                <ScalarProperty Name="PIVA" ColumnName="PIVA" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+                <ScalarProperty Name="RUTA_EXE" ColumnName="RUTA_EXE" />
+                <ScalarProperty Name="INDICE" ColumnName="INDICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ma_entradas">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.ma_entradas">
+              <MappingFragment StoreEntitySet="ma_entradas">
+                <ScalarProperty Name="TIPO_INSUMOS" ColumnName="TIPO_INSUMOS" />
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="FOLIO_DOCTO_2" ColumnName="FOLIO_DOCTO_2" />
+                <ScalarProperty Name="H_CANC" ColumnName="H_CANC" />
+                <ScalarProperty Name="F_CANC" ColumnName="F_CANC" />
+                <ScalarProperty Name="U_CANC" ColumnName="U_CANC" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="F_AFEC" ColumnName="F_AFEC" />
+                <ScalarProperty Name="carta_compromiso" ColumnName="carta_compromiso" />
+                <ScalarProperty Name="Id_FuenteFinanciamiento" ColumnName="Id_FuenteFinanciamiento" />
+                <ScalarProperty Name="no_prog" ColumnName="no_prog" />
+                <ScalarProperty Name="cancelado" ColumnName="cancelado" />
+                <ScalarProperty Name="ANIO_POLIZA_ENT" ColumnName="ANIO_POLIZA_ENT" />
+                <ScalarProperty Name="CENTRO_REQ" ColumnName="CENTRO_REQ" />
+                <ScalarProperty Name="F_CREO" ColumnName="F_CREO" />
+                <ScalarProperty Name="U_CREO" ColumnName="U_CREO" />
+                <ScalarProperty Name="NO_POLIZA_ENT" ColumnName="NO_POLIZA_ENT" />
+                <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+                <ScalarProperty Name="F_ACT" ColumnName="F_ACT" />
+                <ScalarProperty Name="U_ACT" ColumnName="U_ACT" />
+                <ScalarProperty Name="CERRADO" ColumnName="CERRADO" />
+                <ScalarProperty Name="AFECTADA" ColumnName="AFECTADA" />
+                <ScalarProperty Name="OBSERVA" ColumnName="OBSERVA" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+                <ScalarProperty Name="CLAVEP" ColumnName="CLAVEP" />
+                <ScalarProperty Name="GIROP" ColumnName="GIROP" />
+                <ScalarProperty Name="ESTADOP" ColumnName="ESTADOP" />
+                <ScalarProperty Name="ANIO_LICITACION" ColumnName="ANIO_LICITACION" />
+                <ScalarProperty Name="FOLIO_LICITACION" ColumnName="FOLIO_LICITACION" />
+                <ScalarProperty Name="TIPO_LICITACION" ColumnName="TIPO_LICITACION" />
+                <ScalarProperty Name="FOLIO_DOCTO" ColumnName="FOLIO_DOCTO" />
+                <ScalarProperty Name="TIPO_DOCTO" ColumnName="TIPO_DOCTO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ANIO_PEDIDO" ColumnName="ANIO_PEDIDO" />
+                <ScalarProperty Name="FOLIO_PEDIDO" ColumnName="FOLIO_PEDIDO" />
+                <ScalarProperty Name="TIPO_ENTRADA" ColumnName="TIPO_ENTRADA" />
+                <ScalarProperty Name="NO_ENTRADA" ColumnName="NO_ENTRADA" />
+                <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+                <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwListadoEntradas">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwListadoEntradas">
+              <MappingFragment StoreEntitySet="vwListadoEntradas">
+                <ScalarProperty Name="TIPO_INSUMOS" ColumnName="TIPO_INSUMOS" />
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="proveedor" ColumnName="proveedor" />
+                <ScalarProperty Name="FOLIO_DOCTO" ColumnName="FOLIO_DOCTO" />
+                <ScalarProperty Name="tipo_docto" ColumnName="tipo_docto" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="tipo_entrada" ColumnName="tipo_entrada" />
+                <ScalarProperty Name="ANIO" ColumnName="ANIO" />
+                <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwDispCad">
+            <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.vwDispCad">
+              <MappingFragment StoreEntitySet="vwDispCad">
+                <ScalarProperty Name="id_centro" ColumnName="id_centro" />
+                <ScalarProperty Name="disponible" ColumnName="disponible" />
+                <ScalarProperty Name="CADUCIDAD" ColumnName="CADUCIDAD" />
+                <ScalarProperty Name="LOTE" ColumnName="LOTE" />
+                <ScalarProperty Name="pk_CADUCIDADES" ColumnName="pk_CADUCIDADES" />
+                <ScalarProperty Name="pk_articulos" ColumnName="pk_articulos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

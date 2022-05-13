@@ -1,0 +1,111 @@
+﻿@model PedidosUnidad.Models.EntradasClassSIAA
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-8" style="padding:0px;">
+            <h3 style="margin-top:0">Listado de Entradas</h3>
+        </div>
+        <div class="col-sm-3" style="">
+            @*<button onclick="go_to_view('/Entradas/entrada');" type="button" class="btn btn-success pull-right tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Generar nueva entrada" style="margin-right: 55px;"><i class="fa fa-plus"></i> Hacer Entrada</button>*@
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Nueva Entrada <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a onclick="go_to_view('/Entradas/entrada?tipoInsumo=1');" href="#">Medicamento</a></li>
+                    <li><a onclick="go_to_view('/Entradas/entrada?tipoInsumo=2');" href="#">Material Curacion</a></li>
+                    <li><a onclick="go_to_view('/Entradas/entrada?tipoInsumo=3');" href="#">Material Laboratorio</a></li>
+                    <li><a href="#">Radio Grafico</a></li>
+                    <li><a href="#">Roperia</a></li>
+                    <li><a href="#">Limpieza</a></li>
+                    <li><a href="#">Oficina</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Diversos</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <table id="tbl_reg" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Tipo de entrada</th>
+                        <th>Fecha</th>
+                        <th>Documento</th>
+                        <th>Folio de documento</th>
+                        <th>Proveedor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listadoEntradas)
+                    {
+                        <tr>
+                            <td>@item.FOLIO / @item.ANIO</td>
+                            <td>@item.tipo_entrada</td>
+                            <td>@item.FECHA</td>
+                            <td>@item.tipo_docto</td>
+                            <td>@item.FOLIO_DOCTO</td>
+                            <td>@item.proveedor</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onclick="go_to_view('/Entradas/entrada?folio=@item.FOLIO&anio=@item.ANIO&tipoInsumo=@item.TIPO_INSUMOS');" type="button" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver Entrada"><i class="fa fa-fw fa-folder-open-o"></i></button>
+                                    <button onclick="confirmaAfectar('@item.FOLIO','@item.ANIO','@item.id_centro');" type="button" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Afectar"><i class="fa fa-fw fa-folder-open-o"></i></button>
+                                    <button type="button" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Imprimir Entrada"><i class="fa fa-fw fa-print"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        function confirmaAfectar(Folio, Anio, Id_Centro)
+        {
+            var metodo = "afectarEntrada(" + Folio + "," + Anio + "," + Id_Centro + ");";
+            showConfirmOverride('Esta seguro de afectar la entrada?', metodo);
+        }
+
+        function afectarEntrada(Folio, Anio, Id_Centro) {
+            //CERRAR VENTANA DE CONFIRM
+            closedWind();
+
+            var url = '/Entradas/AfectarEntrada?Folio='+Folio+'&Anio='+Anio+'&Id_Centro='+Id_Centro;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                beforeSend: function () {
+                    show_loading(); 
+                },
+                success: function (data) {
+                    close_loading();
+                    //En caso de exito
+                    if (data.exito) {
+                        //Mostrar mensaje de exito
+                        show_exito(data.msg, '');
+                    }
+                    else {
+                        //En caso de error mostrar mensaje
+                        show_error(data.msg);
+                                
+                    }
+                },
+                error: function (ex) {
+                    close_loading();
+                    show_error('Error al proceso enviar.','');
+                    console.log(ex);
+                }
+            });
+        }
+
+    </script>
+}

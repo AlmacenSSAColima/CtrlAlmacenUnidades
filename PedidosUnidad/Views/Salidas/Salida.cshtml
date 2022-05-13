@@ -1,0 +1,267 @@
+﻿@model PedidosUnidad.Models.MaDeSalidasClassSIAA
+@{
+    ViewBag.Title = "Entrada";
+}
+
+<div class="container-fluid cm-container-white">
+    <div class="row">
+        <div class="col-sm-12 col-md-5 col-lg-5">
+
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_1" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Datos Generales</a></li>
+                <li role="presentation" class=""><a href="#tab_2" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Más Datos</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_1" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <label>Folio:</label>
+                            <div style="width:75px; height:25px; background:#E0E0E0; border-radius:2px; padding:3px;">
+                                @Model.maSalidas.PEDIDO.ToString("000")/@Model.maSalidas.ANIO
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <label style="width:100%; text-align:right;">Fecha Ingreso:</label>
+                            <div style="width:145px; height:25px; background:#E0E0E0; border-radius:2px; padding:3px; float:right;">
+                                @String.Format("{0:dd MMMM yyyy}", Model.maSalidas.FECHA_PEDIDO)
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <label class="control-label" for="">Tipo de Pedido:</label>
+                            @Html.DropDownListFor(model => model.maSalidas.TIPO_PEDIDO, ViewBag.TipoSalida as SelectList, new { @class = "form-control" })
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <label class="control-label" for="">Unidad Solicitante:</label>
+                            @Html.DropDownListFor(model => model.maSalidas.CENTRO_SOL, ViewBag.UnidadSolicito as SelectList, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-sm-12">
+                            <label class="control-label" for="">Observaciones:</label>
+                            @*<textarea type="text" class="form-control" id="folio_docto" placeholder="..."> </textarea>*@
+                            @Html.TextAreaFor(model => model.maSalidas.OBSERVA, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-sm-12 col-md-7 col-lg-7">
+            <div style="width:100%; height:26px; margin-top: 10px;">
+                Detalle insumos (partidas)
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Agregar <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a onclick="formInsumo('1');" href="#">Medicamento</a></li>
+                        <li><a onclick="formInsumo('2');" href="#">Material Curacion</a></li>
+                        <li><a onclick="formInsumo('3');" href="#">Material Laboratorio</a></li>
+                        <li><a href="#">Radio Grafico</a></li>
+                        <li><a href="#">Roperia</a></li>
+                        <li><a href="#">Limpieza</a></li>
+                        <li><a href="#">Oficina</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Diversos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- DETALLE DE INSUMOS (PARTIDAS)-->
+
+            <div id="ctdr_log_referencias" style="width:100%; height:205px; background:#F5F5F5; border-radius: 5px; padding-right:10px;">
+                <nav class="archive-links">
+                    <ol>
+                        @foreach (var item in Model.deSalidas)
+                        {
+                            <li>
+                                @{string cve_insumo = item.desalidas.TIPO.ToString("000") + "." + item.desalidas.GRUPO.ToString("000") + "." + item.desalidas.CLAVE.ToString("0000") + "." + (item.desalidas.presentacion ?? 0).ToString("00");}
+                                <div onclick="InsumoDelete('@item.desalidas.pk_articulos','@cve_insumo')" style="float:left; width:25px; text-align:center; padding-top:9px; cursor: pointer;">
+                                    <i class="fa fa-trash-o" style="font-size:18px; color:#ff0000;"></i>
+                                </div>
+                                <div style="float:left; width:75%;">
+                                    <div style="width:100%; height:20px;">
+
+                                        <span style="font-size:12px; float:left; margin-right:2px;">@cve_insumo</span>
+                                        <span style="font-size:11px; float:left;">(@item.pres)</span>
+
+                                    </div>
+                                    <div onclick="show_descrip('@item.desalidas.pk_articulos');" style="width:100%; height:15px; font-size: 12px; line-height: 11px; color:#818181; margin-top:-2px;">
+                                        @{ string insumo;
+                                            if (item.insumo.Length > 60)
+                                            {
+                                                insumo = item.insumo.Substring(0, 60) + "...";
+                                            }
+                                            else
+                                            {
+                                                insumo = item.insumo;
+                                            }
+
+                                        }
+                                        @insumo
+                                    </div>
+                                    <div id="dvd_@item.desalidas.pk_articulos" style=" display:none;">
+                                        @item.descLarga
+                                    </div>
+                                </div>
+                                <div style="float: right; width: 55px; text-align: right; padding-right: 2px; color:#555;">
+                                    <span style="font-weight:500; font-size:16px; margin-top:-4px;">@item.desalidas.CANTIDAD</span>
+                                    <span style="font-size:10px; color:#818181; margin-top:-5px;">Cantidad</span>
+                                </div>
+                                <div style="float: right; width: 50px; text-align: right; padding-right: 2px; color:#555;">
+                                    <span style="font-size:11px; color:#B0BEC5;">$@String.Format("{0:0.00}", item.desalidas.COSTO)</span>
+                                    @{ decimal importe = Convert.ToDecimal(item.desalidas.COSTO * item.desalidas.CANTIDAD);}
+                                    <span style="font-size:11px; color:#B0BEC5; margin-top:-2px;">$@String.Format("{0:0.00}", importe) </span>
+                                </div>
+
+                            </li>
+                        }
+
+                    </ol>
+                </nav>
+            </div>
+            <div class="row" style="margin-top:5px;">
+                <div class="col-sm-12 col-md-9 col-lg-9">
+                    <div id="descrip_larga" style="width:100%; height:100px; border:1px solid #777; border-radius:5px; color:#818181; font-size:11px; padding:2px; line-height:12px;">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div class="row">
+                        @*<div class="form-group" style="height:33px;">
+                            <label class="col-md-4 control-label" style="margin-top:12px; padding:0px; text-align:right;">Subtotal: </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="subtotal_" placeholder="$@String.Format("{0:0.00}", Model.maSalidas)" style="text-align:right;">
+                            </div>
+                        </div>
+                        <div class="form-group" style="height:33px;">
+                            <label class="col-md-4 control-label" style="margin-top:12px; padding:0px; text-align:right;">IVA: </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="iva_" placeholder="$@String.Format("{0:0.00}", Model.maSalidas)" style="text-align:right;">
+                            </div>
+                        </div>
+                        <div class="form-group" style="height:33px;">
+                            <label class="col-md-4 control-label" style="margin-top:12px; padding:0px; text-align:right;">Importe: </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="Importe" placeholder="$@String.Format("{0:0.00}", Model.maSalidas)" style="text-align:right;">
+                            </div>
+                        </div>*@
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<div id="modal_insumo"></div>
+@section scripts {
+    <script src="~/Content/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('#descrip_larga').slimscroll({
+                height: '99px'
+            });
+
+            $('#ctdr_log_referencias').slimscroll({
+                height: '205px'
+            });
+        });
+
+        function formInsumo(tipo) {
+
+            //URL que mostrara la modal
+            var url = '/Salidas/AddInsumoSalida?tipo_insumo=' + tipo;
+            //Mostrar porcesando
+            show_loading();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    $("#modal_insumo").html(data);
+                    $('#ModalInsumo').modal('show');
+                    close_loading();
+                },
+                error: function (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+
+        ////Mostrar confirmación de eliminar
+        //function InsumoDelete(pk,cve) {
+        //    showConfirmOverride("Esta seguro de eliminar la clave " + cve, "EliminarInsumo('"+pk+"')");
+        //    return false;
+
+        //    //URL que mostrara la modal
+        //    var url = '/Salidas/DeleteInsumoSalida?pk=' + pk;
+        //    //Mostrar porcesando
+        //    show_loading();
+        //    $.ajax({
+        //        type: 'GET',
+        //        url: url,
+        //        success: function (data) {
+        //            $("#modal_insumo").html(data);
+        //            $('#ModalInsumo').modal('show');
+        //            close_loading();
+        //        },
+        //        error: function (ex) {
+        //            console.log(ex);
+        //        }
+        //    });
+        //}
+
+        //Eliminar insumo
+        function EliminarInsumo(pk) {
+
+
+                //procesando
+                show_loading();
+
+                //Peticion Ajax
+                $.ajax({
+                    type: "GET",
+                    url: "/Salidas/EliminarCVE?pk="+pk,
+                    dataType: "json",
+                    success: function (data) {
+                        //Success cerrar procesando
+                        closedWind();
+                        setTimeout(function () { close_loading(); }, 1000);
+
+                        //En caso de exito
+                        if (data.exito) {
+                            //Mostrar mensaje de exito
+                            show_exito(data.msg, '');
+                            //Cargar seccion detalle con la vista de listado
+                            $("#ctdr_log_referencias").load("/Entradas/DetalleEntrada");
+
+                        }
+                        else {
+                            //En caso de error mostrar mensaje
+                            show_error(data.msg);
+                        }
+                    },
+                    error: function () {
+                        //Cerrar Procesando
+                        close_loading();
+                        //Mostrar mensaje de excepcion ajax
+                        show_error('Ocurrio algo al momento de procesar.');
+                    }
+                });
+
+
+        }
+
+        function show_descrip(pk) {
+            var desc = $("#dvd_" + pk).html();
+            $("#descrip_larga").html(desc);
+        }
+    </script>
+}
+
+

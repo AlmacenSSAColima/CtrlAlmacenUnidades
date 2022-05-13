@@ -1,0 +1,59 @@
+﻿@model PedidosUnidad.Models.DBPedido.usuarios
+
+@{
+    ViewBag.Title = "DatosUsuario";
+}
+
+<div class="container-fluid cm-container-white">
+    <div class="row cm-fix-height">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Datos Usuario</div>
+                <div class="panel-body" style="min-height: 214px;">
+                    <form class="form-horizontal">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.id)
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Nombre Completo</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.nombre_usuario, new { @class = "form-control" } )
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Unidad</label>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(model => model.unidad, ViewBag.SelectListUnidades as SelectList, "Seleccione una opción", new { @class = "form-control" })
+                            
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Nombre de Usuario</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.user_name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Contraseña</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.password, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Rol</label>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(model => model.rol, ViewBag.SelectListRoles as SelectList, "Seleccione una opción", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0">
+                            <div class="col-sm-offset-2 col-sm-10 text-right">
+                                <button onclick="go_to_view('/Usuarios/Index')" type="button" class="btn btn-default">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

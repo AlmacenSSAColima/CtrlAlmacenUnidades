@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PedidosUnidad.Models.InsumoClassSIAA>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Indesx_des</title>
+</head>
+<body>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.pk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.clave_txt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.clave_)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.presentacion_txt)
+            </th>
+
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.pk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.clave_txt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.clave_)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.presentacion_txt)
+            </td>          
+           
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
