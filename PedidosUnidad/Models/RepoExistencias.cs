@@ -744,7 +744,7 @@ namespace PedidosUnidad.Models
                     QueryString.Append("left join ca_programas_salud cp on lot.no_prog = cp.no_prog ");
                 }
                     
-
+                //1 medicamento, 2 curacion 
                 switch (tipo)
                 {
                     case 1:
