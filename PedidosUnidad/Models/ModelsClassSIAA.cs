@@ -152,6 +152,7 @@ namespace PedidosUnidad.Models
         public string Programa { get; set; }
         public string caducidad { get; set; }
         public int  En_proceso { get; set; }
+        public string CS_Apartados { get; set; }
         public int Existencia_lote { get; set; }
         public int existencia { get; set; }
 

@@ -60,10 +60,47 @@ namespace PedidosUnidad.Models
             QueryString.Append("left join almacen_central_nvo.dbo.ca_centros cc on mp.centro_sol = cc.centro ");
             QueryString.Append("where dp.clave > 0 and mp.afectado = 1 ");
 
-            if (tipo == 1)
-                QueryString.Append("and dp.Tipo < 60 ");
-            else
-                QueryString.Append("and dp.Tipo in (60, 130, 531, 537) ");
+            //if (tipo == 1)
+            //    QueryString.Append("and dp.Tipo < 60 ");
+            //else
+            //    QueryString.Append("and dp.Tipo in (60, 130, 531, 537) ");
+
+            //1 medicamento, 2 curacion, 3 laboratorio, 4 radiografico 
+            switch (tipo)
+            {
+                case 1:
+                    QueryString.Append("and dp.Tipo in(10,20,30,40,41) ");
+                    break;
+                case 2:
+                    QueryString.Append("and dp.Tipo in(60,130,531,537) ");
+                    break;
+                case 3:
+                    QueryString.Append("and dp.Tipo in(50,80,533,535,553) ");
+                    break;
+                case 4:
+                    QueryString.Append("and dp.Tipo in(70) ");
+                    break;
+                case 5:
+                    QueryString.Append("and dp.Tipo in(120) ");
+                    break;
+                case 6:
+                    QueryString.Append("and dp.Tipo in(100) ");
+                    break;
+                case 7:
+                    QueryString.Append("and dp.Tipo in(107) ");
+                    break;
+                case 8:
+                    QueryString.Append("and dp.Tipo not in(10,20,30,40,41,50,60,80,70,120,100,107,130,531,537,533,535,553) ");
+                    break;
+                default:
+                    QueryString.Append("and dp.Tipo in(10,20,30,40,41) ");
+                    break;
+            }
+
+
+
+
+
 
             QueryString.Append("and mp.fecha_pedido BETWEEN '" + fecha_1 + " 00:00:01' AND '" + fecha_2 + " 23:59:59' ");
             if (centro == 0)
@@ -95,11 +132,39 @@ namespace PedidosUnidad.Models
             QueryString.Append("  from almacen_central_nvo.dbo.ma_pedidos mp");
             QueryString.Append("  left join almacen_central_nvo.dbo.de_pedidos dp on dp.pedido = mp.pedido and dp.anio = mp.anio");
             QueryString.Append("  left join almacen_central_nvo.dbo.ma_articulos ma on ma.pk_articulos = dp.pk_articulos");
-            QueryString.Append("  where dp.clave > 0 and mp.afectado = 1");
-            if (tipo == 1)
-                QueryString.Append(" and dp.Tipo < 60 ");
-            else
-                QueryString.Append(" and dp.Tipo in (60, 130, 531, 537) ");
+            QueryString.Append("  where dp.clave > 0 and mp.afectado = 1 ");
+
+            //1 medicamento, 2 curacion, 3 laboratorio, 4 radiografico 
+            switch (tipo)
+            {
+                case 1:
+                    QueryString.Append("and dp.Tipo in(10,20,30,40,41) ");
+                    break;
+                case 2:
+                    QueryString.Append("and dp.Tipo in(60,130,531,537) ");
+                    break;
+                case 3:
+                    QueryString.Append("and dp.Tipo in(50,80,533,535,553) ");
+                    break;
+                case 4:
+                    QueryString.Append("and dp.Tipo in(70) ");
+                    break;
+                case 5:
+                    QueryString.Append("and dp.Tipo in(120) ");
+                    break;
+                case 6:
+                    QueryString.Append("and dp.Tipo in(100) ");
+                    break;
+                case 7:
+                    QueryString.Append("and dp.Tipo in(107) ");
+                    break;
+                case 8:
+                    QueryString.Append("and dp.Tipo not in(10,20,30,40,41,50,60,80,70,120,100,107,130,531,537,533,535,553) ");
+                    break;
+                default:
+                    QueryString.Append("and dp.Tipo in(10,20,30,40,41) ");
+                    break;
+            }
 
             QueryString.Append(" and mp.fecha_pedido BETWEEN '" + fecha_1 + " 00:00:01' AND '" + fecha_2 + " 23:59:59' ");
 
@@ -129,11 +194,39 @@ namespace PedidosUnidad.Models
             QueryString.Append(" from almacen_central_nvo.dbo.ma_pedidos mp");
             QueryString.Append(" left join almacen_central_nvo.dbo.de_pedidos dp on dp.pedido = mp.pedido and dp.anio = mp.anio");
             QueryString.Append(" left join almacen_central_nvo.dbo.ma_articulos ma on ma.pk_articulos = dp.pk_articulos");
-            QueryString.Append(" where dp.clave > 0 and mp.afectado = 1");
-            if (tipo == 1)
-                QueryString.Append(" and dp.Tipo < 60 ");
-            else
-                QueryString.Append(" and dp.Tipo in (60, 130, 531, 537) ");
+            QueryString.Append(" where dp.clave > 0 and mp.afectado = 1 ");
+
+            //1 medicamento, 2 curacion, 3 laboratorio, 4 radiografico 
+            switch (tipo)
+            {
+                case 1:
+                    QueryString.Append("and dp.Tipo in(10,20,30,40,41) ");
+                    break;
+                case 2:
+                    QueryString.Append("and dp.Tipo in(60,130,531,537) ");
+                    break;
+                case 3:
+                    QueryString.Append("and dp.Tipo in(50,80,533,535,553) ");
+                    break;
+                case 4:
+                    QueryString.Append("and dp.Tipo in(70) ");
+                    break;
+                case 5:
+                    QueryString.Append("and dp.Tipo in(120) ");
+                    break;
+                case 6:
+                    QueryString.Append("and dp.Tipo in(100) ");
+                    break;
+                case 7:
+                    QueryString.Append("and dp.Tipo in(107) ");
+                    break;
+                case 8:
+                    QueryString.Append("and dp.Tipo not in(10,20,30,40,41,50,60,80,70,120,100,107,130,531,537,533,535,553) ");
+                    break;
+                default:
+                    QueryString.Append("and dp.Tipo in(10,20,30,40,41) ");
+                    break;
+            }
 
             QueryString.Append(" and mp.fecha_pedido BETWEEN '" + fecha_1 + " 00:00:01' AND '" + fecha_2 + " 23:59:59' ");
 

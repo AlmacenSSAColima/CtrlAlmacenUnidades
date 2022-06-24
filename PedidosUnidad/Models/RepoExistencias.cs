@@ -724,6 +724,9 @@ namespace PedidosUnidad.Models
                     QueryString.Append("(lot.Cant_Ent - lot.Cant_Sal) Existencia_lote, ");
                     QueryString.Append("lot.cant_aparta En_proceso, ");
                     QueryString.Append("cp.descrip Programa, ");
+
+                    QueryString.Append("isnull( (dbo.f_conc_centros_sol_apartados(ma.PK_ARTICULOS, lot.pk_CADUCIDADES)),'') CS_Apartados, ");
+
                 }
                 QueryString.Append("ltrim(rtrim(REPLICATE('0', (3 - LEN(cast(isnull(ma.tipo, 0) as varchar(3))))) + cast(isnull(ma.tipo, 0) as varchar(3)))) + '-' + ltrim(rtrim(REPLICATE('0', (3 - LEN(cast(isnull(ma.grupo, 0) as varchar(3))))) + cast(isnull(ma.grupo, 0) as varchar(3)))) + '-' + ltrim(rtrim(REPLICATE('0', (4 - LEN(cast(isnull(ma.clave, 0) as varchar(4))))) + cast(isnull(ma.clave, 0) as varchar(4)))) + '-' + ltrim(rtrim(REPLICATE('0', (2 - LEN(cast(isnull(ma.presentacion, 0) as varchar(4))))) + cast(isnull(ma.presentacion, 0) as varchar(4)))) clave_txt, ");
                 QueryString.Append("convert(int, ma.existencia) existencia, ");

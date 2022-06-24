@@ -100,10 +100,45 @@ namespace PedidosUnidad.Controllers
                 unidad = "0";
 
             string tipo_descrip = "";
-            if (tipo == 1)
-                tipo_descrip = "Medicamento";
-            else
-                tipo_descrip = "M_Curacion";
+            //if (tipo == 1)
+            //    tipo_descrip = "Medicamento";
+            //if (tipo == 2)
+            //    tipo_descrip = "M_Curacion";
+            //if (tipo == 3)
+            //    tipo_descrip = "M_Curacion";
+
+            //1 medicamento, 2 curacion, 3 laboratorio, 4 radiografico 
+            switch (tipo)
+            {
+                case 1:
+                    tipo_descrip = "Medicamento";
+                    break;
+                case 2:
+                    tipo_descrip = "M_Curacion";
+                    break;
+                case 3:
+                    tipo_descrip = "Laboratorio";
+                    break;
+                case 4:
+                    tipo_descrip = "Radiografico";
+                    break;
+                case 5:
+                    tipo_descrip = "Reporte";
+                    break;
+                case 6:
+                    tipo_descrip = "Reporte";
+                    break;
+                case 7:
+                    tipo_descrip = "Reporte";
+                    break;
+                case 8:
+                    tipo_descrip = "Reporte";
+                    break;
+                default:
+                    tipo_descrip = "Reporte";
+                    break;
+            }
+
 
             int centro = Convert.ToInt32(unidad);
 
