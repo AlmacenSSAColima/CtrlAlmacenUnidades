@@ -380,15 +380,25 @@ namespace PedidosUnidad.Controllers
                 //SI ES DIFERENTE ES RENGLON PRINCIPAL
                 if (pk_curso != item.pk)
                 {
-                    dt.Rows.Add(no_c, item.clave_txt,item.descripcion,"Existencias en almacén:", item.existencia);
-                    no_c = no_c + 1;
+                    //TOTAL DE EXISTENCIAS EN ALMACEN
+                    dt.Rows.Add(no_c, item.clave_txt,item.descripcion,"Existencias en almacén:", item.existencia);                    
                     rows_cab.Add(no_row);
                     no_row = no_row + 1;
+
+                    //TOTAL DE EXISTENCIAS EN ALMACEN MENOS LAS QUE ESTAN EN PROCESO
+                    int SumaEnProceso = mdl_list.Where(m => m.pk == item.pk).Sum(x => x.En_proceso);
+                    dt.Rows.Add(no_c, item.clave_txt, item.descripcion, "Existencias menos en proceso:", (item.existencia - SumaEnProceso));
+                    //rows_cab.Add(no_row);
+                    no_row = no_row + 1;
+
+                    //CONSECUTIVO
+                    no_c = no_c + 1;
                 }
 
                 string programa_d = ( string.IsNullOrEmpty(item.Programa) ? "" : (", Programa: " + item.Programa));
                 string en_proceso = (item.En_proceso <= 0 ? "" : ", En proceso: "+ item.En_proceso);
-                string datos_lote = "Lote: " + item.lote + ", Cad: "+ item.caducidad + en_proceso + programa_d;
+                string en_unidades = (string.IsNullOrEmpty(item.CS_Apartados) ? "" : " (" + item.CS_Apartados + ")"); 
+                string datos_lote = "Lote: " + item.lote + ", Cad: "+ item.caducidad + en_proceso + en_unidades + programa_d;
             
                 dt.Rows.Add((no_c-1).ToString(), item.clave_txt, item.descripcion, datos_lote, item.Existencia_lote);
 
@@ -430,7 +440,8 @@ namespace PedidosUnidad.Controllers
                 worksheet.Range(mat).Style.Fill.SetBackgroundColor(XLColor.White);
 
                 worksheet.Columns("C").Width = 80;
-               
+                worksheet.Columns("D").Width = 50;
+
                 for (int i = 1; i < no_row; i++)
                 {
                     
