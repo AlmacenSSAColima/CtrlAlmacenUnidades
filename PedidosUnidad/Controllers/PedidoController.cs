@@ -600,5 +600,65 @@ namespace PedidosUnidad.Controllers
                 }
             }
         }
+
+        public ActionResult negativaUnidad(int id, int unidad)
+        {
+            RepoPedidos objP = new RepoPedidos();
+            PedidoModel mdl_ = objP.getPedido(id, unidad);
+            //GET FOLIO DE AMACEN DE PEDIDO
+            //string[] valores_solio = mdl_.folio_almacen.Split('/');
+            int folio = 527;//Convert.ToInt32(valores_solio[0]);
+            int anio = 2022;// Convert.ToInt32(valores_solio[1]);
+
+            //TOMAR REGISTRO DE LA BD ALMACEN
+            PedidoModel mdl_almacen = objP.getValeAlmacen(anio, folio);
+
+
+
+            //Generar QR
+            string txtQRCode = mdl_almacen.folio_almacen;
+            mdl_almacen.QR = this.GetQR(txtQRCode);
+            mdl_almacen.folio = mdl_almacen.folio_almacen;
+            mdl_almacen.descrip_tipo_pedido = "Negativas";
+            mdl_almacen.pedido = "";
+            mdl_almacen.id_pedido = 1;
+            mdl_almacen.id_unidad = unidad;
+
+            //Domicilio de unidad (datos)
+            //mdl_almacen.domicilio_unidad = mdl_.domicilio_unidad;
+            //mdl_almacen.cp_unidad = mdl_.cp_unidad;
+            //mdl_almacen.rfc_unidad = mdl_.rfc_unidad;
+            //mdl_almacen.tel_unidad = mdl_.tel_unidad;
+            //mdl_almacen.estado_unidad = mdl_.estado_unidad;
+            //mdl_almacen.municipio_unidad = mdl_.municipio_unidad;
+
+            Session["result_vale"] = mdl_almacen;
+            return View("DetallePedidoAlmacen", mdl_almacen);
+        }
+
+        public ActionResult negativaUnidadReporte(int id, int unidad)
+        {
+            RepoPedidos objP = new RepoPedidos();
+            //PedidoModel mdl_ = objP.getPedido(id, unidad);
+            //GET FOLIO DE AMACEN DE PEDIDO
+            //string[] valores_solio = mdl_.folio_almacen.Split('/');
+            int folio = 527;//Convert.ToInt32(valores_solio[0]);
+            int anio = 2022;// Convert.ToInt32(valores_solio[1]);
+
+            //TOMAR REGISTRO DE LA BD ALMACEN
+            PedidoModel mdl_almacen = objP.getNegativaAlmacen(anio, folio);
+
+
+
+            //Generar QR
+            string txtQRCode = mdl_almacen.folio_almacen;
+            mdl_almacen.QR = this.GetQR(txtQRCode);
+            mdl_almacen.folio = mdl_almacen.folio_almacen;
+            mdl_almacen.descrip_tipo_pedido = "Negativa";
+            mdl_almacen.pedido = "1";
+
+            Session["result_vale"] = mdl_almacen;
+            return View("NegativaPedido",mdl_almacen);
+        }
     }
 }
