@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ExistenciaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NegativasController.cs" />
     <Compile Include="Controllers\PDFUtilsController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -2400,6 +2401,7 @@
     <Content Include="Views\Pedido\ReporteVale.cshtml" />
     <Content Include="Views\Pedido\NegativaPedido.cshtml" />
     <Content Include="Views\Pedido\ReporteNegativa.cshtml" />
+    <Content Include="Views\Negativas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,6 +24,34 @@ namespace PedidosUnidad.Models
         public string msg { get; set; }
     }
 
+    public class PedidosUnidadModelAlmCentral
+    {
+        public PedidosUnidadModelAlmCentral()
+        {
+            pedidos = new List<PedidoModelAlmCentral>();
+        }
+
+        public List<PedidoModelAlmCentral> pedidos { get; set; }
+
+        public bool show_msg { get; set; }
+        public bool exito { get; set; }
+        public string msg { get; set; }
+    }
+
+    public class PedidoModelAlmCentral
+    {
+        public PedidoModelAlmCentral()
+        {
+
+        }
+        public string pedido { get; set; }
+        public string fecha { get; set; }
+        public string obs { get; set; }
+        public int pedido_ori { get; set; }
+        public int anio_ori { get; set; }
+
+    }
+
     public class PedidoModel
     {
         public PedidoModel()

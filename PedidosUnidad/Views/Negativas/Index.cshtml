@@ -1,0 +1,179 @@
+﻿@model PedidosUnidad.Models.PedidosUnidadModelAlmCentral
+
+@{
+    ViewBag.Title = "Negativas";
+}
+
+<style>
+    .btn-action-tbl {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #808080;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 16px;
+        background: #fff;
+        cursor: pointer;
+        float: left;
+        margin-right: 4px;
+    }
+
+        .btn-action-tbl:hover {
+            opacity: 0.7;
+        }
+
+    .status-trab {
+        width: 70px;
+        height: 16px;
+        float: right;
+        border: 1px solid #1A237E;
+        font-size: 11px;
+        text-align: center;
+        background: #BBDEFB;
+        color: #1A237E;
+        border-radius: 3px;
+        margin-left: 5px;
+    }
+
+    .status-env {
+        width: 70px;
+        height: 16px;
+        float: right;
+        border: 1px solid #1B5E20;
+        font-size: 11px;
+        text-align: center;
+        background: #DCEDC8;
+        color: #1B5E20;
+        border-radius: 3px;
+        margin-left: 5px;
+    }
+
+    .status-proc {
+        width: 70px;
+        height: 16px;
+        float: right;
+        border: 1px solid #E65100;
+        font-size: 11px;
+        text-align: center;
+        background: #FFCCBC;
+        color: #E65100;
+        border-radius: 3px;
+        margin-left: 5px;
+    }
+
+    .status-lis {
+        width: 70px;
+        height: 16px;
+        float: right;
+        border: 1px solid #34A853;
+        font-size: 11px;
+        text-align: center;
+        background: #34A853;
+        color: #fff;
+        border-radius: 3px;
+        margin-left: 5px;
+    }
+</style>
+
+<link href="~/Content/Table/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<div class="container-fluid cm-container-white">
+    <div class="tit-head">
+        <div class="col-sm-8" style="padding:0px;">
+            <h3 style="margin-top:0">Listado de Pedidos</h3>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group row">
+            <table id="tbl_reg" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th style="width:5%;">Pedido</th>
+                        <th style="width:8%;">Fecha</th>
+                        <th style="width:38%">Datos</th>
+                        <th style="width:6%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.pedidos)
+                    {
+                        <tr>
+                            <td>@item.pedido</td>
+                            <td>@item.pedido</td>
+                            <td> @item.fecha</td>
+                            <td>@item.obs</td>
+                            <td>
+                                <div onclick="verNegativaPedido(@item.pedido_ori,@item.anio_ori);" class="btn-action-tbl tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver negativa">
+                                    <i class="fa fa-fw fa-file-text-o"></i>
+                                </div>
+                                @*<div class="btn-group" role="group" aria-label="Basic example">
+                <div onclick="reportePedido(@item.id_pedido, @item.id_unidad);" class="btn-action-tbl tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reporte">
+                    <i class="fa fa-fw fa-print"></i>
+                </div>
+                <div onclick="verDetallePedido(@item.id_pedido, @item.id_unidad, @item.estatus);" class="btn-action-tbl tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver detalle">
+                    <i class="fa fa-fw fa-file-text-o"></i>
+                </div>
+        </div>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <!-- DataTables -->
+    <script src="~/Content/Table/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Table/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            console.log('@Model.show_msg');
+            if ('@Model.show_msg' != 'False') {
+
+                if ('@Model.exito' != 'False') {
+                    //show_exito('@Model.msg','');
+                    alert('@Model.msg');
+                }
+                else {
+                    //show_error('@Model.msg');
+                    alert('@Model.msg');
+                }
+            }
+            $('#tbl_reg').DataTable(
+                {
+                    "columnDefs": [
+                        { "visible": false, "targets": 0 }
+                      ]
+
+                }
+            );
+
+        });
+
+
+        //function reportePedido(id, unidad) {
+        //        show_loading();
+        //         $.ajax({
+        //                type: "GET",
+        //                cache: false,
+        //                url: '/Pedido/GetReportePedido?id='+id+' &unidad='+unidad,
+        //                dataType: "json",
+        //                success: function (data) {
+        //                    close_loading();
+        //                    var response = data;
+        //                    window.open('/Pedido/Download?fileGuid=' + response.FileGuid + '&filename=' + response.FileName, '_blank');
+        //                }
+        //            });
+        //}
+
+        function verNegativaPedido(id, anio)
+        {
+            window.location.href = '/Pedido/negativaUnidad?id=' + id + '&anio=' + anio;
+        }
+
+    </script>
+}

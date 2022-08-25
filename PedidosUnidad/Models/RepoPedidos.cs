@@ -18,6 +18,47 @@ namespace PedidosUnidad.Models
             dbPedido = new PedidoEntity();
         }
 
+        public PedidosUnidadModelAlmCentral getPedidosUnidadAlmCentral(int unidad)
+        {
+            //unidad = 90000;
+            AlmacenEntity dbA = new AlmacenEntity();
+            PedidosUnidadModelAlmCentral mdl = new PedidosUnidadModelAlmCentral();
+
+            StringBuilder QueryString = new StringBuilder();
+            QueryString.Append("SELECT (CAST(pedido AS VARCHAR)+'/'+CAST(anio AS VARCHAR(4))) pedido ");
+            QueryString.Append(", CONVERT(VARCHAR(10),FECHA_PEDIDO,103) fecha ");
+            QueryString.Append(", ISNULL(OBSERVA,'') obs ");
+            QueryString.Append(", pedido pedido_ori ");
+            QueryString.Append(", CAST(anio AS int) anio_ori  ");
+            QueryString.Append("FROM ma_pedidos ");
+            QueryString.Append("WHERE CENTRO_SOL = " + unidad);
+            QueryString.Append(" AND TIPO_PEDIDO != 9 ");
+            QueryString.Append(" AND ANIO = 2022 ");
+            QueryString.Append(" AND AFECTADO = 1 ");
+            QueryString.Append(" ORDER BY anio DESC, fecha_pedido desc, pedido desc ");
+
+
+            try
+            {
+                List<PedidoModelAlmCentral> lista = dbA.Database.SqlQuery<PedidoModelAlmCentral>(QueryString.ToString()).ToList();
+
+                mdl.pedidos = lista;
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return mdl;
+        }
+
+
+
+
+
+
+
         //GET PEDIDOS CPM
         public CPMpedidosModel getPedidos(int id_unidad, int tipo_p)
         {

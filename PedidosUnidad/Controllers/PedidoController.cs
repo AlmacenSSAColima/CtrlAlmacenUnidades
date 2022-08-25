@@ -601,17 +601,18 @@ namespace PedidosUnidad.Controllers
             }
         }
 
-        public ActionResult negativaUnidad(int id, int unidad)
+        public ActionResult negativaUnidad(int id, int anio)
         {
+            CurrentUser user = SessionPersister.CurrentUser;
             RepoPedidos objP = new RepoPedidos();
-            PedidoModel mdl_ = objP.getPedido(id, unidad);
-            //GET FOLIO DE AMACEN DE PEDIDO
-            //string[] valores_solio = mdl_.folio_almacen.Split('/');
-            int folio = 527;//Convert.ToInt32(valores_solio[0]);
-            int anio = 2022;// Convert.ToInt32(valores_solio[1]);
+            //PedidoModel mdl_ = objP.getPedido(id, unidad);
+            ////GET FOLIO DE AMACEN DE PEDIDO
+            ////string[] valores_folio = id.Split('/');
+            ////int folio = Convert.ToInt32(valores_folio[0]);
+            ////int anio = Convert.ToInt32(valores_folio[1]);
 
             //TOMAR REGISTRO DE LA BD ALMACEN
-            PedidoModel mdl_almacen = objP.getValeAlmacen(anio, folio);
+            PedidoModel mdl_almacen = objP.getValeAlmacen(anio, id);
 
 
 
@@ -619,10 +620,10 @@ namespace PedidosUnidad.Controllers
             string txtQRCode = mdl_almacen.folio_almacen;
             mdl_almacen.QR = this.GetQR(txtQRCode);
             mdl_almacen.folio = mdl_almacen.folio_almacen;
-            mdl_almacen.descrip_tipo_pedido = "Negativas";
+            mdl_almacen.descrip_tipo_pedido = "NEGATIVAS";
             mdl_almacen.pedido = "";
             mdl_almacen.id_pedido = 1;
-            mdl_almacen.id_unidad = unidad;
+            mdl_almacen.id_unidad = user.id_unidad;
 
             //Domicilio de unidad (datos)
             //mdl_almacen.domicilio_unidad = mdl_.domicilio_unidad;
