@@ -2402,6 +2402,9 @@
     <Content Include="Views\Pedido\NegativaPedido.cshtml" />
     <Content Include="Views\Pedido\ReporteNegativa.cshtml" />
     <Content Include="Views\Negativas\Index.cshtml" />
+    <Content Include="Views\Negativas\DetallePedidoAlmacen.cshtml" />
+    <Content Include="Views\Negativas\NegativaPedido.cshtml" />
+    <Content Include="Views\Negativas\ReporteNegativa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
