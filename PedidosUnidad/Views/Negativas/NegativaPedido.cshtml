@@ -12,7 +12,7 @@
         </div>
         <div class="col-sm-8" style="padding:0px; padding-right:40px; text-align:right;">
             <button type="button" onclick="valeGo(@Model.id_pedido, @Model.id_unidad);" class="btn btn-primary tooltip-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Negativa" style="height: 46px; font-size: 25px; padding: 5px;">
-                <i class="fa fa-fw  fa-chevron-left "></i> Regresa a Vale @*fa-frown-o*@
+                <i class="fa fa-fw  fa-chevron-left "></i> Regresar @*fa-frown-o*@
             </button>
             <button type="button" onclick="negativaPrint();" class="btn btn-turquoise tooltip-test" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Imprimir" style="height: 46px; font-size: 25px; padding: 5px;">
                 <i class="fa fa-fw fa-print"></i> Imprimir Negativa
@@ -298,7 +298,8 @@
     function valeGo(id, unidad) {
         let _folio_almacen = document.querySelector("#folio_almacen").innerHTML;
         let _resultado = _folio_almacen.split("/");
-        window.location.href = '/Negativas/negativaUnidad?id=' + _resultado[0] + '&anio=' + _resultado[1];
+        window.location.href = '/Negativas/Index';
+        //window.location.href = '/Negativas/negativaUnidad?id=' + _resultado[0] + '&anio=' + _resultado[1];
        //window.location.href='/Pedido/NegativaPedido?id='+id+'&unidad='+unidad;
     }
 </script>
