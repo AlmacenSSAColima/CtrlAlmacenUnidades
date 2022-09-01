@@ -136,7 +136,7 @@
                             @item.clave
                         </div>
                     </div>
-                    <div class="col-sm-7">
+                    <div class="col-sm-6">
                         <label style="color:#777; padding-left: 1px;">Descripción insumo:</label>
                         <label style="color:#777; float:right; margin-top: 5px;">(Costo Prom $@item.costo_insumo)</label>
                         <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -15px; font-size: 14px; padding-left: 1px; line-height: 13px; padding-bottom: 2px; text-align: justify;">
@@ -144,17 +144,24 @@
                         </div>
 
                     </div>
-                    <div class="col-sm-2 text-right">
-                        <div style="float:left; width:50%; padding-right: 10px; border-right: 1px dashed #777;">
+                    <div class="col-sm-3 text-right">
+                        <div style="float:left; width:33%; padding-right: 10px; border-right: 1px dashed #777;">
                             <label style="color:#777; padding-left: 1px;">Cant Sol:</label>
                             <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -10px; font-size: 22px; padding-left: 1px; line-height: 13px; font-weight: bold;">
                                 @item.solicita
                             </div>
                         </div>
-                        <div style="float:left; width:49%;">
+                        <div style="float:left; width:33%; padding-right: 10px; border-right: 1px dashed #777;">
                             <label style="color:#777; padding-left: 1px;">Cant Surt:</label>
                             <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -10px; font-size: 22px; padding-left: 1px; line-height: 13px; font-weight: bold;">
                                 @item.surtida
+                            </div>
+                        </div>
+                        <div style="float:left; width:32%;">
+                            <label style="color:#777; padding-left: 1px;">Cant No Surt:</label>
+                            <div style="width:100%; height:auto; color:#444; padding-top: 15px; margin-top: -10px; font-size: 22px; padding-left: 1px; line-height: 13px; font-weight: bold;">
+                                @{int _noSurtido = item.solicita - item.surtida;}
+                                @_noSurtido
                             </div>
                         </div>
                     </div>
@@ -280,7 +287,7 @@
                         <div style="">
                             <img src="@cssPath_/img/almacen/FirmanteAlmacenMCL.png" style="width:220px; height:220px;  page-break-inside: avoid;"/>
                         </div>
-                        <div style="color: #444; font-weight: bold; font-size: 17px; margin-top: 0px; width:100%; border-bottom:solid 1px #444; margin-top:-24px;">
+                        <div style="color: #444; font-weight: bold; font-size: 17px; margin-top: 0px; width: 100%; border-bottom: solid 1px #444; margin-top: -24px;">
                             ING. MIGUEL IGNACIO CHAVOYA LOZA
                         </div>
                         <div style="color: #777; margin-top: 0px;">NOMBRE Y FIRMA</div>
