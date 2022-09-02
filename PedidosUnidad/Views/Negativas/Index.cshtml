@@ -101,7 +101,7 @@
                         <tr>
                             <td>@item.pedido</td>
                             <td>@item.pedido</td>
-                            <td> @item.fecha</td>
+                            <td> @item.fecha.ToString("yyyy/MM/dd")</td>
                             <td>@item.obs</td>
                             <td>
                                 <div onclick="verNegativaPedido(@item.pedido_ori,@item.anio_ori);" class="btn-action-tbl tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver negativa">
@@ -145,6 +145,7 @@
             }
             $('#tbl_reg').DataTable(
                 {
+                    "order": [[2, "desc"]],
                     "columnDefs": [
                         { "visible": false, "targets": 0 }
                       ]

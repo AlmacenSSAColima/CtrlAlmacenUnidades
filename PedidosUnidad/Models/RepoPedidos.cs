@@ -25,19 +25,24 @@ namespace PedidosUnidad.Models
             PedidosUnidadModelAlmCentral mdl = new PedidosUnidadModelAlmCentral();
 
             StringBuilder QueryString = new StringBuilder();
+            QueryString.Append("select pedido, fecha, obs, pedido_ori, anio_ori ");
+            QueryString.Append("from( ");
             QueryString.Append("SELECT distinct (CAST(ma_pedidos.pedido AS VARCHAR)+'/'+CAST(ma_pedidos.anio AS VARCHAR(4))) pedido ");
-            QueryString.Append(", CONVERT(VARCHAR(10),FECHA_PEDIDO,103) fecha ");
+            //QueryString.Append(", CONVERT(VARCHAR(10),FECHA_PEDIDO,103) fecha ");
+            QueryString.Append(", cast(CONVERT(VARCHAR(10),FECHA_PEDIDO,103) as date) fecha ");
             QueryString.Append(", ISNULL(OBSERVA,'') obs ");
             QueryString.Append(", ma_pedidos.pedido pedido_ori ");
             QueryString.Append(", CAST(ma_pedidos.anio AS int) anio_ori  ");
+            //QueryString.Append(", fecha_pedido  ");
             QueryString.Append(" FROM ma_pedidos ");
             QueryString.Append(" INNER JOIN de_pedidos on  ma_pedidos.pedido=de_pedidos.pedido and ma_pedidos.anio=de_pedidos.anio");
             QueryString.Append(" WHERE CENTRO_SOL = " + unidad);
             QueryString.Append(" AND TIPO_PEDIDO != 9 ");
-            QueryString.Append(" AND ma_pedidos.ANIO = 2022 ");
+            QueryString.Append(" AND ma_pedidos.ANIO >= 2022 ");
             QueryString.Append(" AND ma_pedidos.AFECTADO = 1 ");
             QueryString.Append(" AND (Cantidad-Cant_Surt)>0 ");
-            //QueryString.Append(" ORDER BY anio DESC, fecha_pedido desc, pedido desc ");
+            QueryString.Append(" ) c ");
+            QueryString.Append(" ORDER BY fecha desc ");
 
 
             try
