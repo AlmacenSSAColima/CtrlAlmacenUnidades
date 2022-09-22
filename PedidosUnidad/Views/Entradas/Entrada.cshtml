@@ -211,7 +211,7 @@
     <div class="row" style="margin-top:20px;">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <button type="button" class="btn btn-success pull-right" onclick="saveFormEntrada();"> <i class="fa fa-check"></i> Guardar Entrada</button>
-            <button type="button" class="btn btn-danger pull-right" style="margin-right:5px;"> <i class="fa fa-close"></i> Cancelar</button>
+            <button type="button" class="btn btn-danger pull-right" style="margin-right:5px;" onclick="cancelarFormEntrada();"> <i class="fa fa-close"></i> Cancelar</button>
         </div>
     </div>
 
@@ -236,6 +236,10 @@
                 height: '205px'
             });
         });
+
+        function cancelarFormEntrada() {
+            window.location.href = '/Entradas/Index';
+        }
 
         function saveFormEntrada() {
 

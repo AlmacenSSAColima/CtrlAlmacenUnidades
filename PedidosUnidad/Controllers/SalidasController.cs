@@ -133,6 +133,29 @@ namespace PedidosUnidad.Controllers
             return Json(rmodel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult ReserveLotes(string pk, string pk_cad, int cantR)
+        {
+            string Proceso = "A";
+            int Usr = SessionPersister.CurrentUser.id_user;
+            RepoSalidas repo = new RepoSalidas();
+            ReturnModelClass rmodel = repo.apartaLote(Proceso, pk, pk_cad, cantR, SessionPersister.CurrentUser.id_unidad, SessionPersister.CurrentUser.id_user);
+
+            return Json(rmodel, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult FreeLotes(string pk, string pk_cad, int cantR)
+        {
+            string Proceso = "E";
+            int Usr = SessionPersister.CurrentUser.id_user;
+            RepoSalidas repo = new RepoSalidas();
+            ReturnModelClass rmodel = repo.apartaLote(Proceso, pk, pk_cad, cantR, SessionPersister.CurrentUser.id_unidad, SessionPersister.CurrentUser.id_user);
+
+            return Json(rmodel, JsonRequestBehavior.AllowGet);
+        }
+
+
 
     }
 }

@@ -1,4 +1,4 @@
-﻿/// <reference path="upLoadDocument.js" />
+﻿// <reference path="upLoadDocument.js" />
 var multiuploadFinished = false;
 var cantidad_archivos = 0;
 var referencia_seleccionada = "";

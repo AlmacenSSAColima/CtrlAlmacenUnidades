@@ -574,6 +574,35 @@ namespace PedidosUnidad.Models
 
         }
 
+        public ReturnModelClass apartaLote(string Proceso, string pk, string pk_cad, int cantR, int Id_Centro, int Usr)
+        {
+            ReturnModelClass mdl = new ReturnModelClass();
+            try
+            {
+                string query = "exec dbo.Asigna_Elimina_Caducidades_Manual '" + Proceso + "','" + pk + "','" + pk_cad + "',"+cantR+"," + Id_Centro + "," + Usr;
+                List<int> row_ = dbConcentradora.Database.SqlQuery<int>(query.ToString()).ToList();
+                int exito = row_.First();
+
+                if (exito == 1)
+                {
+                    mdl.exito = true;
+                    mdl.msg = "Caducidad apartada correctamente.";
+                }
+                else
+                {
+                    mdl.exito = false;
+                    mdl.msg = "Insuficiente cantidad disponible de la caducidad.";
+                }
+
+            }
+            catch (Exception e)
+            {
+                mdl.exito = false;
+                mdl.msg = "Ocurrio un error. Favor de intentarlo de nuevo, de otra forma reportar al departamento de sistemas.";
+            }
+            return mdl;
+        }
+
 
 
         #endregion

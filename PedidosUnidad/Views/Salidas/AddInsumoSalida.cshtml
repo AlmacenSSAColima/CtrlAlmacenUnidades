@@ -183,11 +183,11 @@
                                 </div>
                                 <div class="col-md-7">
                                     <!-- DETALLE DE LOTES-->
-                                    <div style="width:100%; height:115px; border: 1px solid #ccc; border-radius:5px;">
+                                        <div id="detalle_lotes" style="width:100%; height:115px; border: 1px solid #ccc; border-radius:5px;">
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         }
                     </div>
                     <!-- CLAVES AGREGADAS -->
@@ -238,7 +238,7 @@
 
 <script type="text/javascript">
 
-    var arrayLotes = [];
+    var jsonArrayLotes = [];
 
     $(document).ready(function () {
         $('#dvd_claves_select').slimscroll({
@@ -279,7 +279,7 @@
         });
 
 
-        });
+    });
 
     function selectInsumoAdd(id) {
 
@@ -342,14 +342,70 @@
         });
     }
 
+    function TotalLotesEsDiferenteVale(total) {
+        var cat_to = 0;
+        $.each(jsonArrayLotes, function (i, obj) {
+            cat_to = cat_to + parseFloat(obj.cant);
+        });
+
+        if (parseFloat(total) == cat_to) {
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    function addInsumoPreview(pk, cve, cantidad) {
+        var html_code = '';
+
+
+        html_code += '<div id="cve_add_insumo_' + pk + '" class="cve-addada">';
+        html_code += '     <div class="cve-dlting-btn" onclick="InsumoDelete(\'' + pk + '\',\'' + cve + '\')">';
+        html_code += '          <i class="fa fa-trash-o"></i>';
+        html_code += '     </div>';
+        html_code += '     <div class="prw_insumo" onclick="EditarInsumo(\'' + pk + '\',\'' + cve + '\')">';
+        html_code += cve;
+        html_code += '     </div>';
+        html_code += '     <div style="float:right; text-align:right;">';
+        html_code += cantidad;
+        html_code += '     </div>';
+        html_code += '</div>';
+        $("#cve_agregadas").append(html_code);
+
+    }
+
     function addInsumo() {
-        //AddInsumoEntrada
+
 
         //Valida reglas de formulario
         if ($("#frm_datos_articulo")[0].checkValidity()) {
 
+            //Validar form de clave
+            var pk_ = $("#ins_pk").val();
+            var cantidad_ = $("#ins_surtida_cap").val();
+            //var costo_ = $("#ins_costo_cap").val();
+
+            $("#ins_cantidad_cap").removeClass('inp-invalid');
+            $("#ins_costo_cap").removeClass('inp-invalid');
+
             //Validar que seleccione una clave
-            //Validar que cantidad y costo engan un valor numerico
+            if (pk_ == undefined || pk_ == "" || pk_.length == 0) {
+                show_info("Debes seleccionar una clave");
+                return false;
+            }
+            //Validar tenga al menos un lote
+            if (jsonArrayLotes.length == 0) {
+                show_info("Es necesario seleccionar al menos un lote");
+                return false;
+            }
+            //Validar que el total de los lotes agregados sea el mismo total general de articulo
+            if (TotalLotesEsDiferenteVale(cantidad_)) {
+                show_info("El total en lotes no coincide con el total general");
+                return false;
+            }
+
             //Validar que cantidad y costo sea mayor a cero
 
             //Serializar datos de formulario para un POST Ajax
@@ -370,7 +426,43 @@
                         //Mostrar mensaje de exito
                         show_exito(data.msg, '');
                         //Cargar seccion detalle con la vista de listado
-                        $("#ctdr_log_referencias").load( "/Salidas/DetalleSalida" );
+                        $("#ctdr_log_referencias").load("/Salidas/DetalleSalida");
+
+                        //SI EDITO O YA EXISTIA REMOVER EL OBJETO PARA PONER CON LOS NUEVOS DATOS
+                        if (data.var_1 == '1') {
+                            $("#cve_add_insumo_" + $("#ins_pk").val()).remove();
+                        }
+
+                        //AGREGAR INSUMO A PREVIEW LIST
+                        addInsumoPreview($("#ins_pk").val(), $("#cveSeleccionado").html(), $("#ins_surtida_cap").val());
+
+                        //INICIALIZAR VALORES DE FORMA
+                        jsonArrayLotes = [];
+                        $("#detalle_lotes").html("");
+                        $("#cveSeleccionado").html("");
+                        $("#presSeleccionado").html("");
+                        $("#descripLSeleccionado").html("");
+
+                        $("#ins_editando_insumo").val("0");
+                        $("#ins_pk").val("");
+                        $("#ins_tipo").val("");
+                        $("#ins_grupo").val("");
+                        $("#ins_clave").val("");
+                        $("#ins_presentacion").val("");
+                        $("#ins_des").val("");
+                        $("#ins_des_la").val("");
+                        $("#ins_cantidad_cap").val("");
+                        $("#ins_costo_cap").val("");
+
+                        $("#ins_solicitado_cap").val("");
+                        $("#ins_surtida_cap").val("");
+
+                        $("#Lotes").empty();
+                        $("#Lotes").append('<option value="">Selecciona Lote</option>');
+
+                        $("#lote_cap").val("");
+                        $("#caducidad_cap").val("");
+                        $("#cantidad_cap").val("");
 
                     }
                     else {
@@ -395,18 +487,153 @@
     }
 
     function addCaducidad() {
-        var arrayLote = {};
 
-        arrayLote["cad_pk"] = $("#lote_cap").val();
-        arrayLote["lote"] = $("#lote_cap").val();
-        arrayLote["cad"] = $("#caducidad_cap").val();
-        arrayLote["cant"] = $("#cantidad_cap").val();
+        //Validar Form de lote
+        var lote_ = $('#lote_cap').val();
+        var caducidad_ = $('#caducidad_cap').val();
+        var cantidad_ = $('#cantidad_cap').val();
 
-        console.log(arrayLote);
+        //validar tenga datos capturados
+        if (lote_ == undefined || lote_ == "" || lote_.length == 0) {
+            show_info("Debe capturar un número de Lote");
+            return false; //Terminar sentencia
+        }
 
-        arrayLotes.push(arrayLote);
+        if (caducidad_ == undefined || caducidad_ == "" || caducidad_.length == 0) {
+            show_info("Debe capturar una fecha de caducidad");
+            return false; //Terminar sentencia
+        }
 
-        console.log(arrayLotes);
+        if (cantidad_ == undefined || cantidad_ == "" || cantidad_.length == 0 || cantidad_ == "0") {
+            show_info("Debe capturar una cantidad");
+            return false; //Terminar sentencia
+        }
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/Salidas/ReserveLotes?pk=" + $("#ins_pk").val() + "&pk_cad=" + $("#cad_pk").val() + '&cantR='+$("#cantidad_cap").val(),
+            beforeSend: function () {
+                show_loading();
+            },
+            success: function (data) {
+                //En caso de exito
+                if (data.exito) {
+                    //Mostrar mensaje de exito
+                    //Esperar 8 milisegundos
+                    setTimeout(function () {
+
+                        var item = {};
+
+                        item["pk"] = $("#ins_pk").val();
+                        item["cad_pk"] = $("#cad_pk").val();
+                        item["lote"] = $("#lote_cap").val();
+                        item["cad"] = $("#caducidad_cap").val();
+                        item["cant"] = $("#cantidad_cap").val();
+
+                        jsonArrayLotes.push(item);
+
+                        //HTML para ingresar elemento a la lista
+                        var html_code = '';
+
+                        html_code += '    <div id=f_' + $("#cad_pk").val() + ' class="cve-addada" style="font-size:11px;">';
+                        html_code += '        <div onclick="DeleteLote(\'' + $("#cad_pk").val() + '\');"  class="cve-dlting-btn" style="padding-top: 1px;">';
+                        html_code += '            <i class="fa fa-trash-o"></i>';
+                        html_code += '        </div>';
+                        html_code += '        <div style="  float:left;margin-right: 5px;">' + $("#lote_cap").val() + '</div>';
+                        html_code += '        <div style=" float:left;">' + $("#caducidad_cap").val() + '</div>';
+                        html_code += '        <div style="float:right; text-align:right;">' + $("#cantidad_cap").val() + '</div>';
+                        html_code += '    </div>';
+
+                        //Mostrar descripcion en div
+                        $("#detalle_lotes").append(html_code);
+
+                        //Limpiar cajas de texto
+                        $('#cad_pk').val('');
+                        $('#lote_cap').val('');
+                        $('#caducidad_cap').val('');
+                        $('#cantidad_cap').val('');
+
+                        //Cerrar procesando
+                        close_loading();
+
+                    }, 800);
+
+                    $("#Lotes").empty();
+                    $("#Lotes").append('<option value="">Selecciona Lote</option>');
+
+                    getLotes($("#ins_pk").val());
+                }
+                else {
+                    close_loading();
+                    //En caso de error mostrar mensaje
+                    show_error(data.msg);
+
+                }
+            },
+            error: function (ex) {
+                close_loading();
+                show_error('Error al apartar caducidades.', '');
+                console.log(ex);
+            }
+        });
+
+
+        
     };
+
+    //Funcion para eliminar fecha de entrega
+    function DeleteLote(id_) { 
+        var pk_art = $("#ins_pk").val();
+        var pk_cad = id_;
+
+        //Get index de array
+        indexIn_ = jsonArrayLotes.findIndex(x => x.cad_pk == id_);
+
+        var cant = jsonArrayLotes[indexIn_].cant;
+        
+
+        //ajax
+        $.ajax({
+            type: 'GET',
+            url: "/Salidas/FreeLotes?pk=" + pk_art + "&pk_cad=" + pk_cad + '&cantR=' + cant,
+            beforeSend: function () {
+                show_loading();
+            },
+            success: function (data) {
+                //En caso de exito
+                if (data.exito) {
+
+                    //Cerrar procesando
+                    close_loading();
+
+                    $("#Lotes").empty();
+                    $("#Lotes").append('<option value="">Selecciona Lote</option>');
+
+                    getLotes($("#ins_pk").val());
+
+                    //eliminar de array y objeto htnl
+                    $("#f_" + id_).remove();
+                    jsonArrayLotes.splice(indexIn_, 1);
+
+                }
+                else {
+                    close_loading();
+                    //En caso de error mostrar mensaje
+                    show_error(data.msg);
+
+                }
+            },
+            error: function (ex) {
+                close_loading();
+                show_error('Error al liberar caducidades.', '');
+                console.log(ex);
+            }
+        });
+
+
+
+    }
+
 
 </script>
