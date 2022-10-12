@@ -1,0 +1,198 @@
+﻿@model PedidosUnidad.Models.AddInsumoForm
+@{
+    ViewBag.Title = "Consultar";
+}
+
+<style>
+
+    .exis_ {
+        width: auto;
+        height: 15px;
+        margin: 0px 2px 0px 2px;
+        text-align: center;
+        border-radius: 2px;
+        font-size: 10px;
+        float: right;
+        padding-left: 2px;
+        padding-right: 2px;
+        font-weight: 600;
+    }
+
+    .ex_positiva {
+        border: 1px solid #2E7D32;
+        background: #C8E6C9;
+        color: #2E7D32;
+    }
+
+    .ex_negativa {
+        border: 1px solid #D50000;
+        background: #FFCDD2;
+        color: #D50000;
+    }
+</style>
+
+<div id="loader_movil_">
+    <div class="ctn-loading">
+        <span class="spanin-l"> Procesando</span>
+        <span class="spanin-li l-1"></span>
+        <span class="spanin-li l-2"></span>
+        <span class="spanin-li l-3"></span>
+        <span class="spanin-li l-4"></span>
+        <span class="spanin-li l-5"></span>
+        <span class="spanin-li l-6"></span>
+    </div>
+</div>
+
+<div class="container-fluid ">
+    <div class="row">
+        <div class="rfix">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding:0;">
+                <div class="input-group" style="background:#eee; height:35px; width:100%; margin-top: -5px; padding-top:4px; text-align:center;">
+                    BUSCAR POR LOTE
+                </div>
+                @using (Html.BeginForm("Consulta", "Programas", FormMethod.Post, new { id = "frm_datos_", name = "frm_datos_" }))
+                {
+                    <div class="input-group">
+                        <input id="buscar_item" name="buscar_item" type="text" class="form-control" placeholder="NUMERO LOTE" style="height:35px;">
+                        <span class="input-group-btn">
+                            <button onclick="buscarInformacion();" style="z-index:2; height:35px; " class="btn btn-primary md-search-white" type="button">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        </span>
+                        @*<span class="input-group-btn">
+                            <button title="Reporte Existencias" onclick="reporteExistencias();" style="z-index:2; height:35px; " class="btn btn-primary md-grid-on-white" type="button">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        </span>*@
+                    </div>
+                }
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+        <div id="ctn_items" class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-left: 1px; margin-top:10px;">
+            @{string cls_existencia = "ex_negativa"; }
+            @foreach (var item in Model.clavesCat)
+            {
+                cls_existencia = "ex_negativa";
+                if (item.existencia > 0)
+                { cls_existencia = "ex_positiva"; }
+
+                <div class="itms" onclick="verLotesCad(@item.pk);" style="width: 100%; height:auto; border: 1px solid #ddd; padding: 2px; border-radius: 5px; background: #fff;  box-shadow:0 2px 4px rgba(0,0,0,0.05); margin-top:5px; cursor:pointer;">
+                    <div style="width:100%; clear:both;">
+                        <div style="float:left; height:20px;">@item.clave_txt</div>
+
+                        <div class="exis_ @cls_existencia" style="">
+                            EXIS: @item.existencia
+                        </div>
+                    </div>
+                    <div style="width:100%; color: #90A4AE; font-family: verdana; font-size: 11px; text-align:justify; line-height: 11px; clear:both; ">
+                        @item.descripcion
+                        (@item.presentacion_txt)
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+    </div>
+</div>
+
+<div id="modal_lotes_det"></div>
+
+
+
+@section scripts {
+    <script>$(window).on('load', function () {
+            setTimeout(function () {
+                //close_loading();
+                $("#loader_movil_").css({ visibility: "hidden", opacity: "0" })
+            }, 1200);
+        });
+
+        $("#buscar_item").keyup(function (e) {
+            _this = this;
+            $("#ctn_items .itms").each(function (i, e) {
+                if ($(this).text().toLowerCase().indexOf(_this.value.toLowerCase()) === -1)
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
+        });
+
+        function verLotesCad(pk)
+        {
+            //URL que mostrara la modal
+            var url = '/Existencia/GetLotesByPkInsumo?pk='+pk;
+            //Mostrar porcesando
+            show_loading();
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    $("#modal_lotes_det").html(data);
+                    $('#ModalLotes').modal('show');
+                    close_loading();
+                },
+                error: function (ex) {
+                    console.log(ex);
+                }
+            });
+        }
+
+        function reporteExistencias(tipo) {
+
+                //--
+                show_loading();
+
+                //Url
+                var URL = '/Existencia/Reporte?tipo_insumo='+tipo;
+                $.ajax({
+                    type: "GET",
+                    cache: false,
+                    url: URL,// '/Report/Reporte',
+                    //data: formData,//_form.serialize(),
+                    dataType: "json",
+                    success: function (data) {
+                        close_loading();
+                        //alert(data);
+                        var response = data;
+                        window.open('/Existencia/Download?fileGuid=' + response.FileGuid + '&filename=' + response.FileName, '_blank');
+                    }
+                });
+
+        }
+
+
+        function buscarInformacion() {
+            //Enviar form por ajax
+            var form = $("#frm_datos_");
+            $.ajax({
+                async: true,
+                cache: false,
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                dataType: 'HTML',
+                beforeSend: function () {
+                    //show_load_full();
+                },
+                success: function (data) {
+                    //close_load_full();
+                    $("#ctn_items").html(data);
+
+                },
+                error: function (jqXHR, exception) {
+                    show_error('Ha ocurrido un error en el envio');
+                },
+                complete: function () {
+                }
+            });
+
+
+        }
+
+
+    </script>
+}
+
+
+

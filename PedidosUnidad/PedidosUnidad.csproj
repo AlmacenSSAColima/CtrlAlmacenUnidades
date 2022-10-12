@@ -196,6 +196,7 @@
     <Compile Include="Controllers\NegativasController.cs" />
     <Compile Include="Controllers\PDFUtilsController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SalidasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -373,6 +374,7 @@
     <Compile Include="Models\RepoEntradas.cs" />
     <Compile Include="Models\RepoExistencias.cs" />
     <Compile Include="Models\RepoPedidos.cs" />
+    <Compile Include="Models\RepoProgramasInfo.cs" />
     <Compile Include="Models\RepoReportes.cs" />
     <Compile Include="Models\RepoSalidas.cs" />
     <Compile Include="Models\RepoUsuarioPermisos.cs" />
@@ -2406,6 +2408,8 @@
     <Content Include="Views\Negativas\DetallePedidoAlmacen.cshtml" />
     <Content Include="Views\Negativas\NegativaPedido.cshtml" />
     <Content Include="Views\Negativas\ReporteNegativa.cshtml" />
+    <Content Include="Views\Programas\Consulta.cshtml" />
+    <Content Include="Views\Programas\ItemsConsulta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
