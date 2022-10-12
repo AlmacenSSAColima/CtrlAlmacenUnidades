@@ -1,4 +1,5 @@
 ﻿using PedidosUnidad.Models;
+using PedidosUnidad.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace PedidosUnidad.Controllers
             return View();
         }
 
+        [XAuthorizeAtribute]
         [HttpGet]
         public ActionResult Consulta()
         {
@@ -22,13 +24,14 @@ namespace PedidosUnidad.Controllers
             return View(mdl);
         }
 
+        [XAuthorizeAtribute]
         [HttpPost]
         public ActionResult Consulta(FormCollection frm)
         {
-            RepoProgramasInfo repo = new RepoProgramasInfo();
+             RepoProgramasInfo repo = new RepoProgramasInfo();
             string Lote = frm["buscar_item"].ToString();
-            repo.getInfoByLote(Lote);
-            return View("ItemsConsulta");
+            List<infoProgramaClass>  mdl = repo.getInfoByLote(Lote);
+            return View("ItemsConsulta", mdl);
         }
 
 

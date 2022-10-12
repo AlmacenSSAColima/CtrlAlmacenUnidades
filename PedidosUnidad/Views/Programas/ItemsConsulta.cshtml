@@ -1,19 +1,64 @@
-﻿
+﻿@model IEnumerable<PedidosUnidad.Models.infoProgramaClass>
+
 @{
     Layout = null;
 }
 
-<!DOCTYPE html>
+    <style>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ItemsConsulta</title>
-</head>
-<body>
-    <div> 
+        .exis_ {
+            width: auto;
+            height: 20px;
+            margin: 0px 2px 0px 2px;
+            text-align: center;
+            border-radius: 2px;
+            font-size: 12px;
+            float: right;
+            padding-left: 2px;
+            padding-right: 2px;
+            font-weight: 600;
+        }
 
-        Detalle items.... 
-    </div>
-</body>
-</html>
+        .movi_ {
+                border: 1px solid #0D47A1;
+    background: #B2EBF2;
+    color: #0D47A1;
+        }
+
+    </style>
+
+        @foreach (var item in Model)
+        {
+            <div class="itms" style="width: 100%; height:auto; min-height:80px; border: 1px solid #ddd; padding: 8px; border-radius: 5px; background: #fff;  box-shadow:0 2px 4px rgba(0,0,0,0.05); margin-top:5px; cursor:pointer;">
+                <div style="width:100%; clear:both;">
+                    <div style="float:left; height:20px;     font-weight: 600; color: #0D47A1;">LOTE: @item.Lote</div>
+
+                    <div class="exis_ movi_" style="">
+                        @item.Tipo_Mov
+                    </div>
+                </div>
+                <div style="width:100%; color: #90A4AE; font-family: verdana; font-size: 11px; text-align:justify; line-height: 11px; clear:both; ">
+                    <div style="width:50%; float:left;">
+                        <div> <label>No Movimiento: </label> @item.Num_Mov </div>
+                        <div> <label>Año: </label> @item.Anio </div>
+                        <div> <label>Fecha: </label> @item.Fecha_Mov </div>
+                        @*<div> <label>Unidad: </label> @item.Unidad </div>*@
+                    </div>
+                    <div style="width:49%; float:left;">
+                        @{ 
+                            string tipo_ = Convert.ToInt32(item.Tipo).ToString("000");
+                            string grupo_ = Convert.ToInt32(item.Grupo).ToString("000");
+                            string clave_ = Convert.ToInt32(item.Clave).ToString("0000");
+                            string presentacion_ = Convert.ToInt32(item.Presentacion).ToString("00");
+                        }
+                        <div> <label>Clave: </label> @tipo_-@grupo_-@clave_-@presentacion_</div>
+                        <div> <label>Cantidad: </label> @item.Cantidad </div>
+                        <div> <label>Caducidad: </label> @item.Caducidad </div>
+                        @*<div> <label>Costo: </label> @item.Costo </div>*@
+                    </div>
+                </div>
+            </div>
+
+        }
+
+  

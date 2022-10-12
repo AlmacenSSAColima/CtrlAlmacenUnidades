@@ -70,27 +70,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
         <div id="ctn_items" class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-left: 1px; margin-top:10px;">
-            @{string cls_existencia = "ex_negativa"; }
-            @foreach (var item in Model.clavesCat)
-            {
-                cls_existencia = "ex_negativa";
-                if (item.existencia > 0)
-                { cls_existencia = "ex_positiva"; }
 
-                <div class="itms" onclick="verLotesCad(@item.pk);" style="width: 100%; height:auto; border: 1px solid #ddd; padding: 2px; border-radius: 5px; background: #fff;  box-shadow:0 2px 4px rgba(0,0,0,0.05); margin-top:5px; cursor:pointer;">
-                    <div style="width:100%; clear:both;">
-                        <div style="float:left; height:20px;">@item.clave_txt</div>
-
-                        <div class="exis_ @cls_existencia" style="">
-                            EXIS: @item.existencia
-                        </div>
-                    </div>
-                    <div style="width:100%; color: #90A4AE; font-family: verdana; font-size: 11px; text-align:justify; line-height: 11px; clear:both; ">
-                        @item.descripcion
-                        (@item.presentacion_txt)
-                    </div>
-                </div>
-            }
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
     </div>
@@ -108,60 +88,6 @@
             }, 1200);
         });
 
-        $("#buscar_item").keyup(function (e) {
-            _this = this;
-            $("#ctn_items .itms").each(function (i, e) {
-                if ($(this).text().toLowerCase().indexOf(_this.value.toLowerCase()) === -1)
-                    $(this).hide();
-                else
-                    $(this).show();
-            });
-        });
-
-        function verLotesCad(pk)
-        {
-            //URL que mostrara la modal
-            var url = '/Existencia/GetLotesByPkInsumo?pk='+pk;
-            //Mostrar porcesando
-            show_loading();
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (data) {
-                    $("#modal_lotes_det").html(data);
-                    $('#ModalLotes').modal('show');
-                    close_loading();
-                },
-                error: function (ex) {
-                    console.log(ex);
-                }
-            });
-        }
-
-        function reporteExistencias(tipo) {
-
-                //--
-                show_loading();
-
-                //Url
-                var URL = '/Existencia/Reporte?tipo_insumo='+tipo;
-                $.ajax({
-                    type: "GET",
-                    cache: false,
-                    url: URL,// '/Report/Reporte',
-                    //data: formData,//_form.serialize(),
-                    dataType: "json",
-                    success: function (data) {
-                        close_loading();
-                        //alert(data);
-                        var response = data;
-                        window.open('/Existencia/Download?fileGuid=' + response.FileGuid + '&filename=' + response.FileName, '_blank');
-                    }
-                });
-
-        }
-
-
         function buscarInformacion() {
             //Enviar form por ajax
             var form = $("#frm_datos_");
@@ -173,11 +99,13 @@
                 data: form.serialize(),
                 dataType: 'HTML',
                 beforeSend: function () {
-                    //show_load_full();
+                    //Mostrar Procesando
+                    show_loading();
                 },
                 success: function (data) {
-                    //close_load_full();
                     $("#ctn_items").html(data);
+                    //Success cerrar procesando
+                        close_loading();
 
                 },
                 error: function (jqXHR, exception) {

@@ -9,8 +9,9 @@ namespace PedidosUnidad.Models
 {
     public class RepoProgramasInfo
     {
-        public void getInfoByLote(string lote)
+        public List<infoProgramaClass> getInfoByLote(string lote)
         {
+            List<infoProgramaClass> lista = new List<infoProgramaClass>();
             AlmacenEntity dbA = new AlmacenEntity();
             StringBuilder QueryString = new StringBuilder();
 
@@ -29,7 +30,7 @@ namespace PedidosUnidad.Models
 
 
             try {
-                List<infoProgramaClass> lista = new List<infoProgramaClass>();
+                
                 lista = dbA.Database.SqlQuery<infoProgramaClass>(QueryString.ToString()).ToList();
 
             }
@@ -37,6 +38,8 @@ namespace PedidosUnidad.Models
             { 
             
             }
+
+            return lista;
         }
 
         
@@ -46,11 +49,11 @@ namespace PedidosUnidad.Models
     { 
         public string Tipo_Mov { get; set; }
         public string Unidad { get; set; }
-        public int Num { get; set; }//No_Entrada
-        public int Anio { get; set; }
-        public int Tipo { get; set; }
-        public int Grupo { get; set; }
-        public int Clave { get; set; }
+        public int Num_Mov { get; set; }//No_Entrada
+        public Int16 Anio { get; set; }
+        public Int16 Tipo { get; set; }
+        public Int16 Grupo { get; set; }
+        public Int16 Clave { get; set; }
         public int Presentacion { get; set; }
         public int Cantidad { get; set; }
         public string Fecha_Mov { get; set; }
