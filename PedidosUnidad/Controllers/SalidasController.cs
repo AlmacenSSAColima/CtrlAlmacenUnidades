@@ -24,7 +24,8 @@ namespace PedidosUnidad.Controllers
         }
 
         [XAuthorizeAtribute]
-        public ActionResult Salida(int? folio, int? anio)
+        [HttpGet]
+        public ActionResult Salida(int? folio, int? anio, int ? tipoInsumo)
         {
             RepoSalidas repoSalidas = new RepoSalidas();
             //CLASE MAESTRA
@@ -38,15 +39,19 @@ namespace PedidosUnidad.Controllers
 
             mdlMaDeSalidas.maSalidas.TIPO_PEDIDO = 1; //TIPO DE SALIDA 1 = NORMAL
 
+            mdlMaDeSalidas.tipo_insumo = tipoInsumo ?? 0;
+            mdlMaDeSalidas.maSalidas.TIPO_INSUMOS = tipoInsumo ?? 0;
+
 
             ViewBag.TipoSalida = repoSalidas.getTipoSalida();
             ViewBag.UnidadSolicito = repoSalidas.getUnidadSolicito();
 
 
             //CARGAR MODELO CON ENTRADA SELECCIONADA (EDITANDO) DE LO CONTRARIO MANTENER LA CLASE INICIALIZADA PARA NUEVO REGISTRO
-            if (folio != null)
+            if (folio != null && folio != 0)
             {
                 mdlMaDeSalidas = repoSalidas.getSalida(folio ?? 0, anio ?? 0, SessionPersister.CurrentUser);
+                mdlMaDeSalidas.tipo_insumo = mdlMaDeSalidas.maSalidas.TIPO_INSUMOS ?? 0;
                 detSalida = mdlMaDeSalidas.deSalidas;
             }
 
@@ -57,7 +62,24 @@ namespace PedidosUnidad.Controllers
         }
 
 
+        [HttpPost]
+        public JsonResult Salida(FormCollection frm, MaDeSalidasClassSIAA mdl)
+        {
+            RepoSalidas repoSalidas = new RepoSalidas();
+            mdl.deSalidas = Session["detalle_insumos"] as List<DeSalidasClassSIAA>;
 
+            ReturnModelClass mdl_retorno = new ReturnModelClass();
+            if (mdl.maSalidas.PEDIDO == 0)
+                mdl_retorno = repoSalidas.saveSalida(ref mdl, SessionPersister.CurrentUser);
+            else
+                mdl_retorno = repoSalidas.editSalida(ref mdl, SessionPersister.CurrentUser);
+
+
+            mdl.exito = mdl_retorno.exito;
+            mdl.msg = mdl_retorno.msg;
+
+            return Json(mdl, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
         public ActionResult DetalleSalida()
@@ -72,7 +94,13 @@ namespace PedidosUnidad.Controllers
         public ActionResult AddInsumoSalida(int tipo_insumo)
         {
             RepoSalidas repo = new RepoSalidas();
-            List<InsumoClassSIAA> mdl = repo.getLstInsumos(tipo_insumo);
+            List<InsumoClassSIAA> mdl_list = repo.getLstInsumos(tipo_insumo);
+            AddInsumoSalidaForm mdl = new AddInsumoSalidaForm();
+            mdl.clavesCat = mdl_list;
+            mdl.cantidad_claves = mdl_list.Count();
+            mdl.tipo_insumo = repo.getTipoInsumo(tipo_insumo);
+            mdl.clavesAgregadas = Session["detalle_insumos"] as List<DeSalidasClassSIAA>;
+
             return View(mdl);
         }
 
@@ -123,6 +151,17 @@ namespace PedidosUnidad.Controllers
             ReturnModelClass rmodel = repo.deleteInsumo(ref detalle_, rowElimiar);
 
             return Json(rmodel, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EditarCVE(string pk)
+        {
+            List<DeSalidasClassSIAA> detalle_ = Session["detalle_insumos"] as List<DeSalidasClassSIAA>;
+            DeSalidasClassSIAA rowEDitar = detalle_.SingleOrDefault(a => a.desalidas.pk_articulos == pk);
+
+            //RepoEntradas repo = new RepoEntradas();
+            //ReturnModelClass rmodel = repo.deleteInsumo(ref detalle_, rowElimiar);
+
+            return Json(rowEDitar, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetLotes(string pk)

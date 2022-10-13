@@ -226,6 +226,7 @@
           <Property Name="F_AFEC" Type="datetime" />
           <Property Name="EXTRA" Type="bit" />
           <Property Name="id_centro" Type="int" Nullable="false" />
+          <Property Name="TIPO_INSUMOS" Type="int" />
         </EntityType>
         <EntityType Name="TA_Parametros">
           <Key>
@@ -253,8 +254,8 @@
           <Property Name="MEDICO" Type="int" />
           <Property Name="id_centro" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwDispCad' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ALMACEN_CONCENTRADORA.dbo.vwDispCad' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwDispCad">
           <Key>
             <PropertyRef Name="pk_articulos" />
@@ -268,8 +269,8 @@ warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwDispCad' does not have
           <Property Name="disponible" Type="int" />
           <Property Name="id_centro" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwListadoEntradas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ALMACEN_CONCENTRADORA.dbo.vwListadoEntradas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwListadoEntradas">
           <Key>
             <PropertyRef Name="FOLIO" />
@@ -286,8 +287,8 @@ warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwListadoEntradas' does 
           <Property Name="id_centro" Type="int" Nullable="false" />
           <Property Name="TIPO_INSUMOS" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwListadoSalidas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ALMACEN_CONCENTRADORA.dbo.vwListadoSalidas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwListadoSalidas">
           <Key>
             <PropertyRef Name="FOLIO" />
@@ -534,6 +535,7 @@ warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwListadoSalidas' does n
           <Property Name="F_AFEC" Type="DateTime" Precision="3" />
           <Property Name="EXTRA" Type="Boolean" />
           <Property Name="id_centro" Type="Int32" Nullable="false" />
+          <Property Name="TIPO_INSUMOS" Type="Int32" />
         </EntityType>
         <EntityType Name="vwListadoSalidas">
           <Key>
@@ -789,6 +791,7 @@ warning 6002: The table/view 'ALMACEN_CONCENTRADORA.dbo.vwListadoSalidas' does n
           <EntitySetMapping Name="ma_pedidos">
             <EntityTypeMapping TypeName="ALMACEN_CENTRAL_NVO_CONCENTRADORAModel.ma_pedidos">
               <MappingFragment StoreEntitySet="ma_pedidos">
+                <ScalarProperty Name="TIPO_INSUMOS" ColumnName="TIPO_INSUMOS" />
                 <ScalarProperty Name="id_centro" ColumnName="id_centro" />
                 <ScalarProperty Name="EXTRA" ColumnName="EXTRA" />
                 <ScalarProperty Name="F_AFEC" ColumnName="F_AFEC" />

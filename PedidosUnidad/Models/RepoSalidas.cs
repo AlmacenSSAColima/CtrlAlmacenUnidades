@@ -43,169 +43,220 @@ namespace PedidosUnidad.Models
                 return mdlSalidas;
             }
 
-        //public MaDeEntradasClassSIAA saveEntrada(MaDeEntradasClassSIAA pMaDeEntradasClassSIAA, CurrentUser user)
-        //{
-        //    try
-        //    {
+        public ReturnModelClass saveSalida(ref MaDeSalidasClassSIAA pMaDeSalidasClassSIAA, CurrentUser user)
+        {
+            ReturnModelClass mdl = new ReturnModelClass();
+            //creamos nuestro contexto
+            using (var db_c = new DBCONCENTRADORA())
+            {
+                //creamos el ámbito de la transacción
+                using (var dbContextTransaction = db_c.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        //DATOS DE CABECERO
+                        pMaDeSalidasClassSIAA.maSalidas.PEDIDO = getNewId(user);
+                        pMaDeSalidasClassSIAA.maSalidas.ANIO = Convert.ToInt16(DateTime.Now.Year);
+                        pMaDeSalidasClassSIAA.maSalidas.id_centro = user.id_unidad;
+                        pMaDeSalidasClassSIAA.maSalidas.FECHA_PEDIDO = DateTime.Now;
+
+                        pMaDeSalidasClassSIAA.maSalidas.Afectado = false;
+                        pMaDeSalidasClassSIAA.maSalidas.U_ACT = Convert.ToInt16(user.id_user);
+                        pMaDeSalidasClassSIAA.maSalidas.F_ACT = DateTime.Now;
+                        pMaDeSalidasClassSIAA.maSalidas.U_CREO = Convert.ToInt16(user.id_user);
+                        pMaDeSalidasClassSIAA.maSalidas.F_CREO = DateTime.Now;
+                        pMaDeSalidasClassSIAA.maSalidas.CANCELADO = false;
+
+                        ma_pedidos mdlMaDeSalidasClassSIAA = new ma_pedidos();
+                        mdlMaDeSalidasClassSIAA = pMaDeSalidasClassSIAA.maSalidas;
+
+                        mdlMaDeSalidasClassSIAA.TIPO_INSUMOS = pMaDeSalidasClassSIAA.maSalidas.TIPO_INSUMOS;
+
+                        //GUARDAR CABECERO AGREGADO
+                        db_c.ma_pedidos.Add(mdlMaDeSalidasClassSIAA);
+                        db_c.SaveChanges();
+
+                        //DATOS DETALLE ENTRADA (PARTIDAS)
+                        foreach (var item in pMaDeSalidasClassSIAA.deSalidas)
+                        {
+
+                            item.desalidas.PEDIDO = mdlMaDeSalidasClassSIAA.PEDIDO;
+                            item.desalidas.ANIO = Convert.ToInt16(DateTime.Now.Year);
+                            item.desalidas.U_ACT = Convert.ToInt16(user.id_user);
+                            item.desalidas.F_ACT = DateTime.Now;
+                            item.desalidas.U_CREO = Convert.ToInt16(user.id_user);
+                            item.desalidas.F_CREO = DateTime.Now;
+                            item.desalidas.afectado = false;
+
+                            de_pedidos det = new de_pedidos();
+                            det = item.desalidas;
+                            //GUARDADO DE DETALLE
+                            db_c.de_pedidos.Add(det);
+                            db_c.SaveChanges();
 
 
+                            foreach (var cad in item.desalidasCad)
+                            {
+                                //DATOS DE CADUCIDADES
+                                cad.Pedido = mdlMaDeSalidasClassSIAA.PEDIDO;
+                                cad.Anio = Convert.ToInt16(DateTime.Now.Year);
+                                cad.U_ACT = Convert.ToInt16(user.id_user);
+                                cad.F_ACT = DateTime.Now;
+                                cad.afectado = false;
 
-        //        pMaDeEntradasClassSIAA.maEntradas.FOLIO = getNewId(user);
-        //        pMaDeEntradasClassSIAA.maEntradas.ANIO = Convert.ToInt16(DateTime.Now.Year);
-        //        pMaDeEntradasClassSIAA.maEntradas.NO_ENTRADA = null;
+                                cad.id_centro = item.desalidas.id_centro;
+                                cad.Tipo = item.desalidas.TIPO;
+                                cad.Grupo = item.desalidas.GRUPO;
+                                cad.Clav_Med = item.desalidas.CLAVE;
+                                cad.pk_CADUCIDADES = null;
 
-        //        string[] claveproveedor = pMaDeEntradasClassSIAA.cvproveedor.Split('|');
-
-        //        pMaDeEntradasClassSIAA.maEntradas.ESTADOP = Convert.ToInt16(claveproveedor[0].ToString());
-        //        pMaDeEntradasClassSIAA.maEntradas.GIROP = Convert.ToInt16(claveproveedor[1].ToString());
-        //        pMaDeEntradasClassSIAA.maEntradas.CLAVEP = Convert.ToInt16(claveproveedor[2].ToString());
-
-        //        pMaDeEntradasClassSIAA.maEntradas.AFECTADA = false;
-        //        pMaDeEntradasClassSIAA.maEntradas.CERRADO = 0;
-        //        pMaDeEntradasClassSIAA.maEntradas.U_ACT = Convert.ToInt16(user.id_user);
-        //        pMaDeEntradasClassSIAA.maEntradas.F_ACT = DateTime.Now;
-        //        pMaDeEntradasClassSIAA.maEntradas.U_CREO = Convert.ToInt16(user.id_user);
-        //        pMaDeEntradasClassSIAA.maEntradas.F_CREO = DateTime.Now;
-        //        pMaDeEntradasClassSIAA.maEntradas.cancelado = false;
-
-        //        ma_entradas mdlMaDeEntradasClassSIAA = new ma_entradas();
-        //        mdlMaDeEntradasClassSIAA = pMaDeEntradasClassSIAA.maEntradas;
-
-        //        dbConcentradora.ma_entradas.Add(mdlMaDeEntradasClassSIAA);
-        //        dbConcentradora.SaveChanges();
-
-        //        foreach (var item in pMaDeEntradasClassSIAA.deEntradas)
-        //        {
-        //            try
-        //            {
+                                DE_PedidosCAD mdlcad = new DE_PedidosCAD();
+                                mdlcad = cad;
+                                //GUARDADO DE CADUCIDADES
+                                db_c.DE_PedidosCAD.Add(mdlcad);
+                                db_c.SaveChanges();
+                            }
+                        }
 
 
+                        mdl.exito = true;
+                        mdl.msg = "Pedido generado correctamente";
+                        mdl.var_1 = pMaDeSalidasClassSIAA.maSalidas.PEDIDO.ToString("000");
 
-        //                item.deentradas.FOLIO = mdlMaDeEntradasClassSIAA.FOLIO;
-        //                item.deentradas.ANIO = Convert.ToInt16(DateTime.Now.Year);
-        //                item.deentradas.U_ACT = Convert.ToInt16(user.id_user);
-        //                item.deentradas.F_ACT = DateTime.Now;
-        //                item.deentradas.U_CREO = Convert.ToInt16(user.id_user);
-        //                item.deentradas.F_CREO = DateTime.Now;
-        //                item.deentradas.afectado = false;
+                        //Hacemos commit de todos los datos
+                        dbContextTransaction.Commit();
 
-        //                de_entradas det = new de_entradas();
-        //                det = item.deentradas;
-        //                dbConcentradora.de_entradas.Add(det);
-        //                dbConcentradora.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        //AQUI TENDRIA QUE IR EL ROOL BACK POR ESO SE QUITARON LOS OTROS TRY
+                        mdl.exito = false;
+                        mdl.msg = "Ocurrio un error: " + e.Message;
+                        mdl.var_1 = "000";
 
+                        //hacemos rollback si hay excepción
+                        dbContextTransaction.Rollback();
 
-        //                foreach (var cad in item.deEntradasCad)
-        //                {
-        //                    try
-        //                    {
+                    }
 
+                }
 
-        //                        cad.No_Entrada = mdlMaDeEntradasClassSIAA.FOLIO;
-        //                        cad.Anio = Convert.ToInt16(DateTime.Now.Year);
-        //                        cad.U_ACT = Convert.ToInt16(user.id_user);
-        //                        cad.F_ACT = DateTime.Now;
-        //                        cad.afectado = false;
+            }
 
-        //                        DE_EntradasCAD mdlcad = new DE_EntradasCAD();
-        //                        mdlcad = cad;
-        //                        dbConcentradora.DE_EntradasCAD.Add(mdlcad);
-        //                        dbConcentradora.SaveChanges();
-        //                    }
-        //                    catch
-        //                    {
-
-        //                    }
-
-        //                }
+            return mdl;
+        }
 
 
+        public ReturnModelClass editSalida(ref MaDeSalidasClassSIAA pMaDeSalidasClassSIAA, CurrentUser user)
+        {
+            ReturnModelClass mdl_return = new ReturnModelClass();
 
-        //            }
-        //            catch
-        //            {
+            //creamos nuestro contexto
+            using (var db_c = new DBCONCENTRADORA())
+            {
+                int folio = pMaDeSalidasClassSIAA.maSalidas.PEDIDO;
+                int anio = pMaDeSalidasClassSIAA.maSalidas.ANIO;
+                int centro = pMaDeSalidasClassSIAA.maSalidas.id_centro;
+                //creamos el ámbito de la transacción
+                using (var dbContextTransaction = db_c.Database.BeginTransaction())
+                {
 
-        //            }
+                    try
+                    {
 
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-
-        //    return pMaDeEntradasClassSIAA;
-        //}
-
-
-        //public MaDeEntradasClassSIAA editEntrada(MaDeEntradasClassSIAA mdl, CurrentUser user)
-        //{
-        //    try
-        //    {
-
-        //        //GET CABECERO
-        //        ma_entradas entrada = dbConcentradora.ma_entradas.SingleOrDefault(a => a.FOLIO == mdl.maEntradas.FOLIO && a.id_centro == mdl.maEntradas.id_centro);
+                        //GET CABECERO
+                        ma_pedidos salida = db_c.ma_pedidos.SingleOrDefault(a => a.PEDIDO == folio && a.ANIO == anio && a.id_centro == centro);
 
 
-        //        string[] claveproveedor = mdl.cvproveedor.Split('|');
+                        salida.U_ACT = Convert.ToInt16(user.id_user);
+                        salida.F_ACT = DateTime.Now;
 
-        //        entrada.ESTADOP = Convert.ToInt16(claveproveedor[0].ToString());
-        //        entrada.GIROP = Convert.ToInt16(claveproveedor[1].ToString());
-        //        entrada.CLAVEP = Convert.ToInt16(claveproveedor[2].ToString());
+                        salida.TIPO_PEDIDO = pMaDeSalidasClassSIAA.maSalidas.TIPO_PEDIDO;
+                        salida.OBSERVA = pMaDeSalidasClassSIAA.maSalidas.OBSERVA;
+                        salida.CENTRO_SOL = pMaDeSalidasClassSIAA.maSalidas.CENTRO_SOL;
+                        salida.no_prog = pMaDeSalidasClassSIAA.maSalidas.no_prog;
+                        db_c.SaveChanges();
 
-        //        entrada.U_ACT = Convert.ToInt16(user.id_user);
-        //        entrada.F_ACT = DateTime.Now;
+                        //CLEAN DETALLE CAD
+                        List<DE_PedidosCAD> detalle_salida_cad = (from r in db_c.DE_PedidosCAD where r.Pedido == folio && r.id_centro == centro && r.Anio == anio select r).ToList();
+                        db_c.DE_PedidosCAD.RemoveRange(detalle_salida_cad);
+                        db_c.SaveChanges();
 
-        //        dbConcentradora.SaveChanges();
+                        //CLEAN DETALLE
+                        List<de_pedidos> detalle_salida = (from r in db_c.de_pedidos where r.PEDIDO == folio && r.id_centro == centro && r.ANIO == anio select r).ToList();
+                        db_c.de_pedidos.RemoveRange(detalle_salida);
+                        db_c.SaveChanges();
 
-        //        //CLEAN DETALLE
-        //        bool Rexito = this.initDetalleEntrada(mdl.maEntradas.FOLIO, mdl.maEntradas.id_centro, mdl.maEntradas.ANIO);
-        //        if (Rexito)
-        //        {
-        //            int id_ = 1;
-        //            foreach (var item in mdl.deEntradas)
-        //            {
-        //                try
-        //                {
-        //                    de_entradas det = new de_entradas();
-        //                    det.FOLIO = entrada.FOLIO;
-        //                    det.ANIO = entrada.ANIO;
-        //                    det.PK_ARTICULOS = item.deentradas.PK_ARTICULOS;
-        //                    det.TIPO = item.deentradas.TIPO;
-        //                    det.GRUPO = item.deentradas.GRUPO;
-        //                    det.CLAVE = item.deentradas.CLAVE;
-        //                    det.PRESENTACION = item.deentradas.PRESENTACION;
-        //                    det.CANTIDAD = item.deentradas.CANTIDAD;
-        //                    det.COSTO = item.deentradas.COSTO;
-        //                    det.IVA = item.deentradas.IVA;
-        //                    det.PIVA = item.deentradas.PIVA;
-        //                    det.RAMO = item.deentradas.RAMO;
-        //                    det.UP = item.deentradas.UR;
-        //                    det.U_ACT = Convert.ToInt16(user.id_user);
-        //                    det.F_ACT = DateTime.Now;
-        //                    det.U_CREO = item.deentradas.U_CREO;
-        //                    det.F_CREO = item.deentradas.F_CREO;
-        //                    det.afectado = false;
-        //                    det.id_centro = entrada.id_centro;
-        //                    dbConcentradora.de_entradas.Add(det);
-        //                    dbConcentradora.SaveChanges();
-        //                    id_++;
-        //                }
-        //                catch (Exception e)
-        //                {
 
-        //                }
-        //            }
-        //        }
+                        int id_ = 1;
+                        foreach (var item in pMaDeSalidasClassSIAA.deSalidas)
+                        {
+                            de_pedidos det = new de_pedidos();
+                            det.PEDIDO = salida.PEDIDO;
+                            det.ANIO = salida.ANIO;
+                            det.pk_articulos = item.desalidas.pk_articulos;
+                            det.TIPO = item.desalidas.TIPO;
+                            det.GRUPO = item.desalidas.GRUPO;
+                            det.CLAVE = item.desalidas.CLAVE;
+                            det.presentacion = item.desalidas.presentacion;
+                            det.CANTIDAD = item.desalidas.CANTIDAD;
+                            det.COSTO = item.desalidas.COSTO;
+                            det.U_ACT = Convert.ToInt16(user.id_user);
+                            det.F_ACT = DateTime.Now;
+                            det.U_CREO = item.desalidas.U_CREO;
+                            det.F_CREO = item.desalidas.F_CREO;
+                            det.afectado = false;
+                            det.id_centro = salida.id_centro;
 
-        //    }
-        //    catch (Exception e)
-        //    {
+                            db_c.de_pedidos.Add(det);
+                            db_c.SaveChanges();
+                            id_++;
 
-        //    }
+                            foreach (var cad in item.desalidasCad)
+                            {
+                                //DATOS DE CADUCIDADES
+                                cad.Pedido = salida.PEDIDO;
+                                cad.Anio = Convert.ToInt16(salida.ANIO);
+                                cad.U_ACT = Convert.ToInt16(user.id_user);
+                                cad.F_ACT = DateTime.Now;
+                                cad.afectado = false;
 
-        //    return mdl;
-        //}
+                                cad.id_centro = item.desalidas.id_centro;
+                                cad.Tipo = item.desalidas.TIPO;
+                                cad.Grupo = item.desalidas.GRUPO;
+                                cad.Clav_Med = item.desalidas.CLAVE;
+                                cad.pk_CADUCIDADES = null;
+
+                                DE_PedidosCAD mdlcad = new DE_PedidosCAD();
+                                mdlcad = cad;
+                                //GUARDADO DE CADUCIDADES
+                                db_c.DE_PedidosCAD.Add(mdlcad);
+                                db_c.SaveChanges();
+                            }
+                        }
+
+                        mdl_return.exito = true;
+                        mdl_return.msg = "Pedido editado correctamente";
+                        mdl_return.var_1 = salida.PEDIDO.ToString("000");
+                        //Hacemos commit de todos los datos
+                        dbContextTransaction.Commit();
+
+
+                    }
+                    catch (Exception e)
+                    {
+                        //AQUI TENDRIA QUE IR EL ROOL BACK POR ESO SE QUITARON LOS OTROS TRY
+                        mdl_return.exito = false;
+                        mdl_return.msg = "Ocurrio un error: " + e.Message;
+                        mdl_return.var_1 = "000";
+                        //hacemos rollback si hay excepción
+                        dbContextTransaction.Rollback();
+                    }
+                }
+            }
+
+            return mdl_return;
+        }
 
         public ReturnModelClass addInsumo(ref List<DeSalidasClassSIAA> mdl, DeSalidasClassSIAA insumo)
         {
@@ -279,52 +330,52 @@ namespace PedidosUnidad.Models
             return rmodel;
         }
 
-        //public DeEntradasClassSIAA addCaducidad(DeEntradasClassSIAA insumo, DE_EntradasCAD caducidad)
-        //{
-        //    try
-        //    {
-        //        List<DE_EntradasCAD> existe = (from r in insumo.deEntradasCad where r.PK_ARTICULOS == caducidad.PK_ARTICULOS && r.pk_caducidades == caducidad.pk_caducidades select r).ToList();
+        public DeSalidasClassSIAA addCaducidad(DeSalidasClassSIAA insumo, DE_PedidosCAD caducidad)
+        {
+            try
+            {
+                List<DE_PedidosCAD> existe = (from r in insumo.desalidasCad where r.pk_articulos == caducidad.pk_articulos && r.pk_CADUCIDADES == caducidad.pk_CADUCIDADES select r).ToList();
 
-        //        if (existe.Count > 0)
-        //        {
-        //            DE_EntradasCAD rowExiste = insumo.deEntradasCad.SingleOrDefault(a => a.PK_ARTICULOS == existe[0].PK_ARTICULOS && a.pk_caducidades == existe[0].pk_caducidades);
-        //            caducidad.Cantidad = rowExiste.Cantidad + caducidad.Cantidad;
-        //            insumo.deEntradasCad.Remove(rowExiste);
-        //            insumo.deEntradasCad.Add(caducidad);
-        //        }
-        //        else
-        //        {
-        //            insumo.deEntradasCad.Add(caducidad);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
+                if (existe.Count > 0)
+                {
+                    DE_PedidosCAD rowExiste = insumo.desalidasCad.SingleOrDefault(a => a.pk_articulos == existe[0].pk_articulos && a.pk_CADUCIDADES == existe[0].pk_CADUCIDADES);
+                    caducidad.Cantidad = rowExiste.Cantidad + caducidad.Cantidad;
+                    insumo.desalidasCad.Remove(rowExiste);
+                    insumo.desalidasCad.Add(caducidad);
+                }
+                else
+                {
+                    insumo.desalidasCad.Add(caducidad);
+                }
+            }
+            catch (Exception e)
+            {
 
-        //    }
+            }
 
-        //    return insumo;
-        //}
+            return insumo;
+        }
 
-        //public DeEntradasClassSIAA deleteCaducidad(DeEntradasClassSIAA insumo, DE_EntradasCAD caducidad)
-        //{
-        //    try
-        //    {
-        //        List<DE_EntradasCAD> existe = (from r in insumo.deEntradasCad where r.PK_ARTICULOS == caducidad.PK_ARTICULOS && r.pk_caducidades == caducidad.pk_caducidades select r).ToList();
+        public DeSalidasClassSIAA deleteCaducidad(DeSalidasClassSIAA insumo, DE_PedidosCAD caducidad)
+        {
+            try
+            {
+                List<DE_PedidosCAD> existe = (from r in insumo.desalidasCad where r.pk_articulos == caducidad.pk_articulos && r.pk_CADUCIDADES == caducidad.pk_CADUCIDADES select r).ToList();
 
-        //        if (existe.Count > 0)
-        //        {
-        //            DE_EntradasCAD rowExiste = insumo.deEntradasCad.SingleOrDefault(a => a.PK_ARTICULOS == existe[0].PK_ARTICULOS && a.pk_caducidades == existe[0].pk_caducidades);
-        //            caducidad.Cantidad = rowExiste.Cantidad + caducidad.Cantidad;
-        //            insumo.deEntradasCad.Remove(rowExiste);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
+                if (existe.Count > 0)
+                {
+                    DE_PedidosCAD rowExiste = insumo.desalidasCad.SingleOrDefault(a => a.pk_articulos == existe[0].pk_articulos && a.pk_CADUCIDADES == existe[0].pk_CADUCIDADES);
+                    caducidad.Cantidad = rowExiste.Cantidad + caducidad.Cantidad;
+                    insumo.desalidasCad.Remove(rowExiste);
+                }
+            }
+            catch (Exception e)
+            {
 
-        //    }
+            }
 
-        //    return insumo;
-        //}
+            return insumo;
+        }
 
         public MaDeSalidasClassSIAA getSalida(int folio, int anio, CurrentUser user)
         {
@@ -403,19 +454,27 @@ namespace PedidosUnidad.Models
 
         public int getNewId(CurrentUser user)
         {
+
             int id = 0;
             try
             {
-                TA_Parametros parametro;
-                parametro = (from r in dbConcentradora.TA_Parametros where r.id_centro == user.id_unidad select r).First();
-                id = parametro.F_PEDIDOS ?? 0;
-                id = id + 1;
+
+                string query = "exec dbo.Genera_Folio 'P'," + user.id_user + "," + user.id_unidad;
+                List<int> row_ = dbConcentradora.Database.SqlQuery<int>(query.ToString()).ToList();
+                id = row_.First();
+
+
+                //TA_Parametros parametro;
+                //parametro = (from r in dbConcentradora.TA_Parametros where r.id_centro == user.id_unidad select r).First();
+                //id = parametro.F_PEDIDOS ?? 0;
+                //id = id + 1;
             }
-            catch
+            catch (Exception e)
             {
                 id = -1;
             }
             return id;
+
         }
 
         //LIMPIAR DETALLE DE PEDIDO 
@@ -604,7 +663,41 @@ namespace PedidosUnidad.Models
         }
 
 
-
+        public string getTipoInsumo(int tipo)
+        {
+            string tipo_insumo = "";
+            switch (tipo)
+            {
+                case 1:
+                    tipo_insumo = "Medicamento";  //QueryString.Append("where ma.tipo in(10,20,30,40,41) and ma.activo=1 ");
+                    break;
+                case 2:
+                    tipo_insumo = "Material Curación"; //QueryString.Append("where ma.tipo in(60,130,531,537) and ma.activo=1 ");
+                    break;
+                case 3:
+                    tipo_insumo = "Material Laboratorio"; //QueryString.Append("where ma.tipo in(50,80,533,535,553) and ma.activo=1 ");
+                    break;
+                case 4:
+                    tipo_insumo = "Radio Grafico"; //QueryString.Append("where ma.tipo in(70) and ma.activo=1 ");
+                    break;
+                case 5:
+                    tipo_insumo = "Roperia"; //QueryString.Append("where ma.tipo in(120) and ma.activo=1 ");
+                    break;
+                case 6:
+                    tipo_insumo = "Limpieza"; //QueryString.Append("where ma.tipo in(100) and ma.activo=1 ");
+                    break;
+                case 7:
+                    tipo_insumo = "Oficina"; //QueryString.Append("where ma.tipo in(107) and ma.activo=1 ");
+                    break;
+                case 8:
+                    tipo_insumo = "Diversos"; //QueryString.Append("where ma.tipo not in(10,20,30,40,41,50,60,80,70,120,100,107,130,531,537,533,535,553) and ma.activo=1 ");
+                    break;
+                default:
+                    tipo_insumo = "NA"; //QueryString.Append("where ma.tipo in(10,20,30,40,41) and ma.activo=1 ");
+                    break;
+            }
+            return tipo_insumo;
+        }
         #endregion
 
 

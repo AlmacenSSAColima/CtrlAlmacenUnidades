@@ -61,6 +61,7 @@ namespace PedidosUnidad.Models
 
         public ma_pedidos maSalidas { get; set; }
         public List<DeSalidasClassSIAA> deSalidas { get; set; }
+        public int tipo_insumo { get; set; }
         public bool exito { get; set; }
         public string msg { get; set; }
     }
@@ -122,6 +123,28 @@ namespace PedidosUnidad.Models
         public int tipo_int { get; set; }
     }
 
+    public class AddInsumoSalidaForm
+    {
+        public AddInsumoSalidaForm()
+        {
+            clavesAgregadas = new List<DeSalidasClassSIAA>();
+            clavesCat = new List<InsumoClassSIAA>();
+        }
+        public List<DeSalidasClassSIAA> clavesAgregadas { get; set; }
+        public List<InsumoClassSIAA> clavesCat { get; set; }
+
+        public string total_sin_iva { get; set; }
+        public string iva_ { get; set; }
+        public string total_con_iva { get; set; }
+
+        public decimal d_total_sin_iva { get; set; }
+        public decimal d_iva_ { get; set; }
+        public decimal d_total_con_iva { get; set; }
+
+        public int cantidad_claves { get; set; }
+        public string tipo_insumo { get; set; }
+        public int tipo_int { get; set; }
+    }
     public class InsumoClassSIAA
     {
         public InsumoClassSIAA()

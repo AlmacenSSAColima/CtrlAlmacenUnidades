@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PedidosUnidad.Models.InsumoClassSIAA>
+﻿@model PedidosUnidad.Models.AddInsumoSalidaForm
 @{
     Layout = null;
 }
@@ -19,7 +19,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" id="DatosInsumo">
             <div class="modal-header">
-                <div class="btn-clsin">Agregar nuevo articulo</div>
+                <div class="btn-clsin">Agregar nuevo articulo(@Model.cantidad_claves Claves de @Model.tipo_insumo)</div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                         <i class="fa fa-circle b-cv"></i>
@@ -41,7 +41,7 @@
                         <div id="dvd_claves_select" style="width:100%; height:345px; background:#F5F5F5; border-radius: 5px; border-bottom:1px solid #ccc;">
                             <nav class="archive-links">
                                 <ol id="lista_insumos_">
-                                    @foreach (var item in Model)
+                                    @foreach (var item in Model.clavesCat)
                                     {
                                         <li onclick="selectInsumoAdd('@item.pk');" class="linsumo">
                                             <div style="float:left; width:90%;">
@@ -85,6 +85,8 @@
                         @using (Html.BeginForm("AddInsumoSalida", "Salidas", FormMethod.Post, new { id = "frm_datos_articulo", name = "frm_datos_articulo" }))
                         {
                             @Html.AntiForgeryToken()
+                            <input name="id_p" id="id_p" type="hidden" />
+                            <input name="anio_p" id="anio_p" type="hidden" />
                             <input name="ins_pk" id="ins_pk" type="hidden" />
                             <input name="ins_tipo" id="ins_tipo" type="hidden" />
                             <input name="ins_grupo" id="ins_grupo" type="hidden" />
@@ -136,58 +138,61 @@
                                     <input name="ins_surtida_cap" id="ins_surtida_cap" type="text" class="form-control" required="required" />
                                 </div>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <select id="Lotes" class="form-control">
-                                        $("#Lotes").append('
-                                        <option value="">Selecciona Lote</option>');
-                                    </select>
-                                </div>
-                            </div>
+                            <br />
 
-                            <div class="row" style="margin-top:25px;">
-                                <div class="col-sm-12 col-md-12 col-lg-12">
-                                    <div style="background:#eee; height:30px; width:100%; border-radius:5px; padding:5px; text-align:center; color:#3F51B5; font-weight:600;">
-                                        Asignación de lotes
+                            <div id="div_lotes" style="display: none">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <select id="Lotes" class="form-control">
+                                            $("#Lotes").append('
+                                            <option value="">Selecciona Lote</option>');
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="margin-top:5px;">
-                                <div class="col-md-5">
-                                    <input name="cad_pk" id="cad_pk" type="hidden" />
 
-                                    <div class="row" style="margin:0px;">
-                                        <div class="col-md-4 padding-0">
-                                            <label style="margin-top:10px;">Lote:</label>
+                                <div class="row" style="margin-top:25px;">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <div style="background:#eee; height:30px; width:100%; border-radius:5px; padding:5px; text-align:center; color:#3F51B5; font-weight:600;">
+                                            Asignación de lotes
                                         </div>
-                                        <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
-                                            <input id="lote_cap" type="text" class="form-control" />
-                                        </div>
-                                        <div class="col-md-4 padding-0">
-                                            <label style="margin-top:10px;">Caducidad:</label>
-                                        </div>
-                                        <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
-                                            <input id="caducidad_cap" type="text" class="form-control" />
-                                        </div>
-                                        <div class="col-md-4 padding-0">
-                                            <label style="margin-top:10px;">Cantidad:</label>
-                                        </div>
-                                        <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
-                                            <input id="cantidad_cap" type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin:0px;">
-                                        <button onclick="addCaducidad();" type="button" class="btn btn-primary btn-sm" style="float:right;">Agregar Caducidad</button>
                                     </div>
                                 </div>
-                                <div class="col-md-7">
-                                    <!-- DETALLE DE LOTES-->
+                                <div class="row" style="margin-top:5px;">
+                                    <div class="col-md-5">
+                                        <input name="cad_pk" id="cad_pk" type="hidden" />
+
+                                        <div class="row" style="margin:0px;">
+                                            <div class="col-md-4 padding-0">
+                                                <label style="margin-top:10px;">Lote:</label>
+                                            </div>
+                                            <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
+                                                <input id="lote_cap" type="text" class="form-control" />
+                                            </div>
+                                            <div class="col-md-4 padding-0">
+                                                <label style="margin-top:10px;">Caducidad:</label>
+                                            </div>
+                                            <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
+                                                <input id="caducidad_cap" type="text" class="form-control" />
+                                            </div>
+                                            <div class="col-md-4 padding-0">
+                                                <label style="margin-top:10px;">Cantidad:</label>
+                                            </div>
+                                            <div class="col-md-8" style="padding-right: 0px; padding-left: 15px; margin-bottom:3px;">
+                                                <input id="cantidad_cap" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin:0px;">
+                                            <button onclick="addCaducidad();" type="button" class="btn btn-primary btn-sm" style="float:right;">Agregar Caducidad</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        DETALLE DE LOTES
                                         <div id="detalle_lotes" style="width:100%; height:115px; border: 1px solid #ccc; border-radius:5px;">
 
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         }
                     </div>
                     <!-- CLAVES AGREGADAS -->
@@ -198,21 +203,21 @@
                                     Claves Agregadas
                                 </div>
                                 <div id="cve_agregadas" style="background:#eee; width:100%; height:340px; border-radius:5px; color:#818181; font-size:11px; padding:2px 3px; line-height:12px;">
-                                    @*@foreach (var item in Model.clavesAgregadas)
+                                    @foreach (var item in Model.clavesAgregadas)
                                     {
-                                        <div id="cve_add_insumo_@item.deentradas.PK_ARTICULOS" class="cve-addada">
-                                            @{string cve_insumo_ = item.deentradas.TIPO.ToString("000") + "." + item.deentradas.GRUPO.ToString("000") + "." + item.deentradas.CLAVE.ToString("0000") + "." + (item.deentradas.PRESENTACION ?? 0).ToString("00");}
-                                            <div class="cve-dlting-btn" onclick="InsumoDelete('@item.deentradas.PK_ARTICULOS','@cve_insumo_')">
+                                        <div id="cve_add_insumo_@item.desalidas.pk_articulos" class="cve-addada">
+                                            @{string cve_insumo_ = item.desalidas.TIPO.ToString("000") + "." + item.desalidas.GRUPO.ToString("000") + "." + item.desalidas.CLAVE.ToString("0000") + "." + (item.desalidas.presentacion ?? 0).ToString("00");}
+                                            <div class="cve-dlting-btn" onclick="InsumoDelete('@item.desalidas.pk_articulos','@cve_insumo_')">
                                                 <i class="fa fa-trash-o"></i>
                                             </div>
-                                            <div class="prw_insumo" onclick="EditarInsumo('@item.deentradas.PK_ARTICULOS', '@cve_insumo_');">
+                                            <div class="prw_insumo" onclick="EditarInsumo('@item.desalidas.pk_articulos', '@cve_insumo_');">
                                                 @cve_insumo_
                                             </div>
                                             <div style="float:right; text-align:right;">
-                                                @item.deentradas.CANTIDAD
+                                                @item.desalidas.CANT_SURT
                                             </div>
                                         </div>
-                                    }*@
+                                    }
 
                                 </div>
                             </div>
@@ -241,6 +246,12 @@
     var jsonArrayLotes = [];
 
     $(document).ready(function () {
+        var id_p_ = $('#maSalidas_PEDIDO').val();
+        var anio_p_ = $('#maSalidas_ANIO').val();
+
+        $('#id_p').val(id_p_);
+        $('#anio_p').val(anio_p_);
+
         $('#dvd_claves_select').slimscroll({
             height: '345px'
         });
@@ -288,14 +299,14 @@
         $("#s_" + id).css('display', 'block');
 
         //OBTENER VALORES PARA PASAR A FORMA DE CAPTURA
-        var cveS = $("#cveS_"+id).html();
-        var presS = $("#presS_"+id).html();
+        var cveS = $("#cveS_" + id).html();
+        var presS = $("#presS_" + id).html();
         var descLaS = $("#descLaS_" + id).html();
 
-        var pk_ = $("#item_ins_pk_"+id).val();
-        var tipo_ = $("#item_ins_tipo_"+id).val();
-        var cgrupo_veS = $("#item_ins_grupo_"+id).val();
-        var clave_ = $("#item_ins_clave_"+id).val();
+        var pk_ = $("#item_ins_pk_" + id).val();
+        var tipo_ = $("#item_ins_tipo_" + id).val();
+        var cgrupo_veS = $("#item_ins_grupo_" + id).val();
+        var clave_ = $("#item_ins_clave_" + id).val();
         var presentacion_ = $("#item_ins_presentacion_" + id).val();
         var descripcion = $("#item_des_" + id).val();
 
@@ -512,7 +523,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "/Salidas/ReserveLotes?pk=" + $("#ins_pk").val() + "&pk_cad=" + $("#cad_pk").val() + '&cantR='+$("#cantidad_cap").val(),
+            url: "/Salidas/ReserveLotes?pk=" + $("#ins_pk").val() + "&pk_cad=" + $("#cad_pk").val() + '&cantR=' + $("#cantidad_cap").val(),
             beforeSend: function () {
                 show_loading();
             },
@@ -579,11 +590,11 @@
         });
 
 
-        
+
     };
 
     //Funcion para eliminar fecha de entrega
-    function DeleteLote(id_) { 
+    function DeleteLote(id_) {
         var pk_art = $("#ins_pk").val();
         var pk_cad = id_;
 
@@ -591,7 +602,7 @@
         indexIn_ = jsonArrayLotes.findIndex(x => x.cad_pk == id_);
 
         var cant = jsonArrayLotes[indexIn_].cant;
-        
+
 
         //ajax
         $.ajax({
